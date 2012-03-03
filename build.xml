@@ -1,0 +1,144 @@
+<project name="OmegaZone" default="dist" basedir=".">
+    <description>
+        Build file for Omega Zone
+    </description>
+
+  <!-- Determine the operating system we are compiling on -->
+  <condition property="os.family" value="unix">
+    <os family="unix"/>
+  </condition>
+  <condition property="os.family" value="win32">
+    <os family="windows"/>
+  </condition>
+  <condition property="os.family" value="mac">
+    <os family="mac"/>
+  </condition>
+
+  <!-- Library files -->
+  <path id="libraries.runtime">
+    <fileset dir="lib/runtime">
+      <include name="slick.jar"/>
+      <include name="ljwgl.jar"/>
+    </fileset>
+  </path>
+  <path id="libraries.test">
+    <fileset dir="lib/testing">
+        <include name="junit-4.10.jar"/>
+    </fileset>
+  </path>
+
+  <!-- Custom tasks -->
+  <taskdef name="lint4j" classname="com.jutils.lint4j.ant.Lint4jAntTask">
+    <classpath>
+      <pathelement location="lib/testing/lint4j.jar"/>
+    </classpath>
+  </taskdef>
+
+  <target name="init">
+    <!-- Create the time stamp -->
+    <tstamp/>
+    <!-- Create the build directory structure used by compile -->
+    <mkdir dir="build"/>
+  </target>
+
+  <target name="compile" depends="init" description="compile the source " >
+    <!-- Compile the java code from src into build -->
+    <javac srcdir="src" destdir="build" includeantruntime="false">
+      <classpath>
+        <path refid="libraries.runtime"/>
+        <path refid="libraries.test"/>
+      </classpath>
+    </javac>
+  </target>
+
+  <target name="metrics" depends="compile" description="generating code metrics">
+    <lint4j packages="org.skullforge.*" level="5">
+      <sourcepath>
+        <pathelement location="src"/>
+      </sourcepath>
+      <classpath>
+        <path refid="libraries.runtime"/>
+        <path refid="libraries.test"/>
+      </classpath>
+      <formatters>
+        <formatter type="text"/>
+        <formatter type="xml" toFile="build/lint4j_report.xml"/>
+      </formatters>
+    </lint4j>
+
+    <jdepend outputfile="build/jdepend_report.xml" fork="yes" format="xml">
+      <classpath>
+        <pathelement location="build"/>
+        <path refid="libraries.test"/>
+        <path refid="libraries.runtime"/>
+        <pathelement location="lib/testing/jdepend-2.9.1.jar"/>
+      </classpath>
+      <classespath>
+        <pathelement location="build"/>
+      </classespath>
+    </jdepend>
+  </target>
+
+  <target name="test" depends="compile" description="Run test suite">
+    <junit printsummary="yes">
+      <classpath>
+        <pathelement location="build"/>
+        <path refid="libraries.runtime"/>
+      </classpath>
+
+      <batchtest fork="yes" todir="build">
+        <fileset dir="src">
+          <include name="**/*Test*.java"/>
+        </fileset>
+        <formatter type="plain"/>
+      </batchtest>
+    </junit>
+  </target>
+
+  <target name="dist" depends="test,metrics,compile" description="generate the distribution" >
+    <!-- Create the manifest file -->
+    <mkdir dir="build/"/>
+    <manifest file="build/MANIFEST.MF">
+      <attribute name="Built-By" value="${user.name}"/>
+      <attribute name="Main-Class" value="org.skullforge.omegazone.OmegaZone"/>
+    </manifest>
+    
+    <!-- Clean out directory to create jar file from -->
+    <delete dir="build/jar"/>
+    <mkdir dir="build/jar"/>
+    <!-- Copy classes -->
+    <copy todir="build/jar">
+      <fileset dir="build/" includes="**/*.class" excludes="**/*Test*.class"/>
+    </copy>
+    <unjar src="lib/runtime/slick.jar" dest="build/jar">
+      <patternset>
+        <include name="org/**"/>
+      </patternset>
+    </unjar>
+    <unjar src="lib/runtime/lwjgl.jar" dest="build/jar">
+      <patternset>
+        <include name="org/**"/>
+      </patternset>
+    </unjar>
+
+    <!-- Create the deployment directory -->
+    <mkdir dir="deploy"/>
+    <!-- Extract native slick files -->
+    <unjar src="lib/runtime/natives-${os.family}.jar" dest="deploy"/>
+    <!-- Put everything in $build/jar into the MyProject-${DSTAMP}.jar file -->
+    <jar jarfile="deploy/OmegaZone-${DSTAMP}.jar" basedir="build/jar" manifest="build/MANIFEST.MF"/>
+  </target>
+
+  <target name="run" depends="dist" description="run the game">
+    <java jar="deploy/OmegaZone-${DSTAMP}.jar" fork="true">
+      <jvmarg value="-Djava.library.path=deploy"/>
+    </java>
+  </target>
+
+  <target name="clean"
+        description="clean up" >
+    <!-- Delete the build and dist directory trees -->
+    <delete dir="build"/>
+    <delete dir="dist"/>
+  </target>
+</project>
