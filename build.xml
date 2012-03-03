@@ -123,10 +123,10 @@
 
     <!-- Create the deployment directory -->
     <mkdir dir="deploy"/>
+    <!-- Put everything in $build/jar into the deployment jar file -->
+    <jar jarfile="deploy/OmegaZone-${DSTAMP}.jar" basedir="build/jar" manifest="build/MANIFEST.MF"/>
     <!-- Extract native slick files -->
     <unjar src="lib/runtime/natives-${os.family}.jar" dest="deploy"/>
-    <!-- Put everything in $build/jar into the MyProject-${DSTAMP}.jar file -->
-    <jar jarfile="deploy/OmegaZone-${DSTAMP}.jar" basedir="build/jar" manifest="build/MANIFEST.MF"/>
   </target>
 
   <target name="run" depends="dist" description="run the game">
