@@ -24,6 +24,9 @@
   <path id="libraries.test">
     <fileset dir="lib/testing">
         <include name="junit-4.10.jar"/>
+        <include name="jmock-2.5.1.jar"/>
+        <include name="hamcrest-core-1.1.jar"/>
+        <include name="hamcrest-library-1.1.jar"/>
     </fileset>
   </path>
 
@@ -83,6 +86,7 @@
     <junit printsummary="yes">
       <classpath>
         <pathelement location="build"/>
+        <path refid="libraries.test"/>
         <path refid="libraries.runtime"/>
       </classpath>
 

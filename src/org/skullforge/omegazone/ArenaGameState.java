@@ -6,31 +6,33 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
+import org.skullforge.omegazone.arena.Arena;
+
 public class ArenaGameState extends BasicGameState {
 
-	@Override
-	public void init(GameContainer container, StateBasedGame game)
-			throws SlickException {
-		// TODO Auto-generated method stub
+  private Arena arena;
 
-	}
+  @Override
+  public void init(GameContainer container, StateBasedGame game)
+      throws SlickException {
+    arena = new Arena();
+  }
 
-	@Override
-	public void render(GameContainer container, StateBasedGame game, Graphics g)
-			throws SlickException {
-		// TODO Auto-generated method stub
+  @Override
+  public void render(GameContainer container, StateBasedGame game, Graphics g)
+      throws SlickException {
+    arena.render(g);
+  }
 
-	}
+  @Override
+  public void update(GameContainer container, StateBasedGame game, int delta)
+      throws SlickException {
+    arena.update(delta);
+  }
 
-	@Override
-	public void update(GameContainer container, StateBasedGame game, int delta)
-			throws SlickException {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public int getID() {
-		return State.ARENA.getID();
-	}
+  @Override
+  public int getID() {
+    return State.ARENA.getID();
+  }
 
 }
