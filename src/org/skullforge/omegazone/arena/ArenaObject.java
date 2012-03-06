@@ -4,4 +4,5 @@ import org.newdawn.slick.Graphics;
 
 public interface ArenaObject {
   void render(Graphics g);
+  void update(int delta);
 }

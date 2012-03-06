@@ -1,4 +1,4 @@
-<project name="OmegaZone" default="dist" basedir=".">
+<project name="OmegaZone" default="dist" basedir="." xmlns:jacoco="antlib:org.jacoco.ant">
     <description>
         Build file for Omega Zone
     </description>
@@ -13,6 +13,11 @@
   <condition property="os.family" value="mac">
     <os family="mac"/>
   </condition>
+
+  <property name="path.classes" location="build/classes"/>
+  <property name="path.debug-classes" location="build/debug-classes"/>
+  <property name="path.coverage-classes" location="build/instrumented-classes"/>
+
 
   <!-- Library files -->
   <path id="libraries.runtime">
@@ -31,6 +36,9 @@
   </path>
 
   <!-- Custom tasks -->
+  <taskdef uri="antlib:org.jacoco.ant" resource="org/jacoco/ant/antlib.xml">
+      <classpath path="lib/testing/jacocoant.jar"/>
+  </taskdef>
   <taskdef name="lint4j" classname="com.jutils.lint4j.ant.Lint4jAntTask">
     <classpath>
       <pathelement location="lib/testing/lint4j.jar"/>
@@ -41,12 +49,19 @@
     <!-- Create the time stamp -->
     <tstamp/>
     <!-- Create the build directory structure used by compile -->
-    <mkdir dir="build"/>
+    <mkdir dir="${path.classes}"/>
+    <mkdir dir="${path.debug-classes}"/>
   </target>
 
-  <target name="compile" depends="init" description="compile the source " >
+  <target name="compile" depends="init" description="compile the source">
     <!-- Compile the java code from src into build -->
-    <javac srcdir="src" destdir="build" includeantruntime="false">
+    <javac srcdir="src" destdir="${path.classes}" includeantruntime="false" debug="off">
+      <classpath>
+        <path refid="libraries.runtime"/>
+        <path refid="libraries.test"/>
+      </classpath>
+    </javac>
+    <javac srcdir="src" destdir="${path.debug-classes}" includeantruntime="false" debug="on">
       <classpath>
         <path refid="libraries.runtime"/>
         <path refid="libraries.test"/>
@@ -71,7 +86,7 @@
 
     <jdepend outputfile="build/jdepend_report.xml" fork="yes" format="xml">
       <classpath>
-        <pathelement location="build"/>
+        <pathelement location="${path.classes}"/>
         <path refid="libraries.test"/>
         <path refid="libraries.runtime"/>
         <pathelement location="lib/testing/jdepend-2.9.1.jar"/>
@@ -83,20 +98,38 @@
   </target>
 
   <target name="test" depends="compile" description="Run test suite">
-    <junit printsummary="yes">
-      <classpath>
-        <pathelement location="build"/>
-        <path refid="libraries.test"/>
-        <path refid="libraries.runtime"/>
-      </classpath>
+    <delete file="build/jacoco.exec"/>
+    <jacoco:coverage destfile="build/jacoco.exec" append="true">
+      <junit fork="true" printsummary="yes">
+        <classpath>
+          <pathelement location="${path.debug-classes}"/>
+          <path refid="libraries.test"/>
+          <path refid="libraries.runtime"/>
+        </classpath>
 
-      <batchtest fork="yes" todir="build">
-        <fileset dir="src">
-          <include name="**/*Test*.java"/>
-        </fileset>
-        <formatter type="plain"/>
-      </batchtest>
-    </junit>
+        <batchtest fork="yes" todir="build">
+          <fileset dir="src">
+             <include name="**/*Test*.java"/>
+          </fileset>
+          <formatter type="plain"/>
+        </batchtest>
+      </junit>
+    </jacoco:coverage>
+  
+    <jacoco:report>
+        <executiondata>
+            <file file="build/jacoco.exec"/>
+        </executiondata>
+        <structure name="OmegaZone">
+            <classfiles>
+                <fileset dir="${path.debug-classes}"/>
+            </classfiles>
+            <sourcefiles encoding="UTF-8">
+                <fileset dir="src"/>
+            </sourcefiles>
+        </structure>
+        <html destdir="build/coverage"/>
+    </jacoco:report>
   </target>
 
   <target name="dist" depends="test,metrics,compile" description="generate the distribution" >
@@ -112,7 +145,7 @@
     <mkdir dir="build/jar"/>
     <!-- Copy classes -->
     <copy todir="build/jar">
-      <fileset dir="build/" includes="**/*.class" excludes="**/*Test*.class"/>
+      <fileset dir="${path.classes}" includes="**/*.class" excludes="**/*Test*.class"/>
     </copy>
     <unjar src="lib/runtime/slick.jar" dest="build/jar">
       <patternset>
@@ -139,8 +172,7 @@
     </java>
   </target>
 
-  <target name="clean"
-        description="clean up" >
+  <target name="clean" description="clean up" >
     <!-- Delete the build and dist directory trees -->
     <delete dir="build"/>
     <delete dir="dist"/>

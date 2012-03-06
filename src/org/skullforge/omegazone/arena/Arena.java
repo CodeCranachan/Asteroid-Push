@@ -16,7 +16,9 @@ public class Arena {
   }
 
   public void update(int delta) {
-
+    for(ArenaObject object : objectList) {
+      object.update(delta);
+    }
   }
   
   public void addObject(ArenaObject object) {
