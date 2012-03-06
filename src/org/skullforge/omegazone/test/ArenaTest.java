@@ -13,18 +13,15 @@ public class ArenaTest {
     Arena testArena = new Arena();
     final ArenaObject object = context.mock(ArenaObject.class);
 
-    testArena.addObject(object);
-
-    /*
     context.checking(new Expectations() {
       {
         oneOf (object).render(null);
       }
     });
-
+    
+    testArena.addObject(object);
     testArena.render(null);
 
     context.assertIsSatisfied();
-    */
   }
 }
