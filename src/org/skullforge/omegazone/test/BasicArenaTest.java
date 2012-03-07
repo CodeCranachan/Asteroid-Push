@@ -11,7 +11,7 @@ public class BasicArenaTest {
   ArenaObject objectMock2;
 
   @Before
-  public void setUp() {
+  public void setUp() throws Exception {
     context = new Mockery();
     testArena = new BasicArena();
     objectMock1 = context.mock(ArenaObject.class, "object1");
@@ -19,7 +19,12 @@ public class BasicArenaTest {
   }
   
   @Test
-  public void testDelegatingRenderOperation() {
+  public void testInit() throws Exception {
+    testArena.init();
+  }
+  
+  @Test
+  public void testDelegatingRenderOperation() throws Exception {
     context.checking(new Expectations() {
       {
         oneOf (objectMock1).render(null);
@@ -35,7 +40,7 @@ public class BasicArenaTest {
   }
   
   @Test
-  public void testDelegatingUpdateOperation() {
+  public void testDelegatingUpdateOperation() throws Exception {
     final int expectedDelta = 25;
     
     context.checking(new Expectations() {{

@@ -13,25 +13,33 @@ public class ArenaGameStateTest {
   private Mockery context;
 
   @Before
-  public void setUp() {
+  public void setUp() throws Exception {
     context = new Mockery();
     arenaMock = context.mock(Arena.class);
     arenaState = new ArenaGameState(arenaMock);
   }
 
   @Test
-  public void testGetID() {
+  public void testGetID() throws Exception {
     int expectedID = 1;
     assertEquals(expectedID, arenaState.getID());
   }
 
   @Test
-  public void testInit() throws SlickException {
+  public void testInit() throws Exception {
+    context.checking(new Expectations() {
+      {
+        oneOf(arenaMock).init();
+      }
+    });
+    
     arenaState.init(null, null);
+    
+    context.assertIsSatisfied();
   }
 
   @Test
-  public void testDelegateRendering() throws SlickException {
+  public void testDelegateRendering() throws Exception {
     context.checking(new Expectations() {
       {
         oneOf(arenaMock).render(null);
@@ -44,7 +52,7 @@ public class ArenaGameStateTest {
   }
 
   @Test
-  public void testDelegateUpdate() throws SlickException {
+  public void testDelegateUpdate() throws Exception {
     final int expectedDelta = 45;
     context.checking(new Expectations() {
       {

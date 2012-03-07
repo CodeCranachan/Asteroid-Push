@@ -32,6 +32,9 @@
         <include name="jmock-2.5.1.jar"/>
         <include name="hamcrest-core-1.1.jar"/>
         <include name="hamcrest-library-1.1.jar"/>
+        <include name="jmock-legacy-2.5.1.jar"/>
+        <include name="cglib-nodep-2.1_3.jar"/>
+        <include name="objenesis-1.0.jar"/>
     </fileset>
   </path>
 
@@ -137,7 +140,7 @@
     <mkdir dir="build/"/>
     <manifest file="build/MANIFEST.MF">
       <attribute name="Built-By" value="${user.name}"/>
-      <attribute name="Main-Class" value="org.skullforge.omegazone.OmegaZone"/>
+      <attribute name="Main-Class" value="org.skullforge.omegazone.OmegaZoneMain"/>
     </manifest>
     
     <!-- Clean out directory to create jar file from -->

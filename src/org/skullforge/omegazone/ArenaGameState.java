@@ -17,6 +17,7 @@ public class ArenaGameState extends BasicGameState {
   @Override
   public void init(GameContainer container, StateBasedGame game)
       throws SlickException {
+    gameArena.init();
   }
 
   @Override
