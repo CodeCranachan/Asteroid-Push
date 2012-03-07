@@ -115,7 +115,7 @@
         </batchtest>
       </junit>
     </jacoco:coverage>
-  
+
     <jacoco:report>
         <executiondata>
             <file file="build/jacoco.exec"/>

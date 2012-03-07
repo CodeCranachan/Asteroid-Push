@@ -10,29 +10,32 @@ import org.skullforge.omegazone.arena.Arena;
 
 public class ArenaGameState extends BasicGameState {
 
-  private Arena arena;
-
+  public ArenaGameState(Arena arena) {
+    gameArena = arena;
+  }
+  
   @Override
   public void init(GameContainer container, StateBasedGame game)
       throws SlickException {
-    arena = new Arena();
   }
 
   @Override
   public void render(GameContainer container, StateBasedGame game, Graphics g)
       throws SlickException {
-    arena.render(g);
+    gameArena.render(g);
   }
 
   @Override
   public void update(GameContainer container, StateBasedGame game, int delta)
       throws SlickException {
-    arena.update(delta);
+    gameArena.update(delta);
   }
 
   @Override
   public int getID() {
-    return State.ARENA.getID();
+    return StateInfo.ARENA.getID();
   }
+  
+  private Arena gameArena;
 
 }
