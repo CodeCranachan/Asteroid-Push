@@ -7,17 +7,17 @@ import org.junit.*;
 public class BasicArenaTest {
   Mockery context;
   BasicArena testArena;
-  ArenaObjectFactory factoryMock;
-  ArenaObject objectMock1;
-  ArenaObject objectMock2;
+  EntityFactory factoryMock;
+  Entity objectMock1;
+  Entity objectMock2;
 
   @Before
   public void setUp() throws Exception {
     context = new Mockery();
-    factoryMock = context.mock(ArenaObjectFactory.class, "factory");
+    factoryMock = context.mock(EntityFactory.class, "factory");
     testArena = new BasicArena(factoryMock);
-    objectMock1 = context.mock(ArenaObject.class, "object1");
-    objectMock2 = context.mock(ArenaObject.class, "object2");
+    objectMock1 = context.mock(Entity.class, "object1");
+    objectMock2 = context.mock(Entity.class, "object2");
   }
   
   @Test

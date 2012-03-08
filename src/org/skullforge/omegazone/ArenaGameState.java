@@ -37,6 +37,10 @@ public class ArenaGameState extends BasicGameState {
     return StateInfo.ARENA.getID();
   }
   
+  public Arena getArena() {
+    return gameArena;
+  }
+  
   private Arena gameArena;
 
 }

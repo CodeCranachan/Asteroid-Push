@@ -4,7 +4,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-public class Vessel implements ArenaObject {
+public class Vessel implements Entity {
 
   public Vessel(Image image) throws SlickException {
     vesselImage = image;

@@ -7,5 +7,5 @@ public interface Arena {
   public void init() throws SlickException;
   public void render(Graphics g) throws SlickException;
   public void update(int delta);
-  public void addObject(ArenaObject object);
+  public void addObject(Entity object);
 }

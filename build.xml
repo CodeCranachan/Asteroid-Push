@@ -22,8 +22,8 @@
   <!-- Library files -->
   <path id="libraries.runtime">
     <fileset dir="lib/runtime">
+      <include name="lwjgl.jar"/>
       <include name="slick.jar"/>
-      <include name="ljwgl.jar"/>
     </fileset>
   </path>
   <path id="libraries.test">
@@ -95,7 +95,7 @@
         <pathelement location="lib/testing/jdepend-2.9.1.jar"/>
       </classpath>
       <classespath>
-        <pathelement location="build"/>
+        <pathelement location="build/classes"/>
       </classespath>
     </jdepend>
   </target>
@@ -103,7 +103,7 @@
   <target name="test" depends="compile" description="Run test suite">
     <delete file="build/jacoco.exec"/>
     <jacoco:coverage destfile="build/jacoco.exec" append="true">
-      <junit fork="true" printsummary="yes">
+      <junit fork="true" printsummary="yes" haltonfailure="yes">
         <classpath>
           <pathelement location="${path.debug-classes}"/>
           <path refid="libraries.test"/>

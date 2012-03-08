@@ -7,8 +7,8 @@ import java.util.LinkedList;
 
 public class BasicArena implements Arena {
 
-  public BasicArena(ArenaObjectFactory factory) {
-    objectList = new LinkedList<ArenaObject>();
+  public BasicArena(EntityFactory factory) {
+    objectList = new LinkedList<Entity>();
     objectFactory = factory;
   }
 
@@ -17,21 +17,25 @@ public class BasicArena implements Arena {
   }
 
   public void render(Graphics g) throws SlickException {
-    for (ArenaObject object : objectList) {
+    for (Entity object : objectList) {
       object.render(g);
     }
   }
 
   public void update(int delta) {
-    for (ArenaObject object : objectList) {
+    for (Entity object : objectList) {
       object.update(delta);
     }
   }
 
-  public void addObject(ArenaObject object) {
+  public void addObject(Entity object) {
     objectList.add(object);
   }
+  
+  public EntityFactory getFactory() {
+    return objectFactory;
+  }
 
-  private LinkedList<ArenaObject> objectList;
-  private ArenaObjectFactory objectFactory;
+  private LinkedList<Entity> objectList;
+  private EntityFactory objectFactory;
 }
