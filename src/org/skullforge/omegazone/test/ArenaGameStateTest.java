@@ -1,6 +1,5 @@
 package org.skullforge.omegazone.test;
 
-import org.newdawn.slick.SlickException;
 import org.skullforge.omegazone.*;
 import org.skullforge.omegazone.arena.*;
 import org.junit.*;

@@ -2,7 +2,6 @@ package org.skullforge.omegazone.test;
 
 import static org.junit.Assert.*;
 import org.junit.*;
-import org.newdawn.slick.SlickException;
 import org.skullforge.omegazone.OmegaZone;
 
 public class OmegaZoneTest {

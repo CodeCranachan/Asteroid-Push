@@ -2,6 +2,8 @@ package org.skullforge.omegazone;
 
 import org.skullforge.omegazone.ArenaGameState;
 import org.skullforge.omegazone.arena.BasicArena;
+import org.skullforge.omegazone.arena.Arena;
+import org.skullforge.omegazone.arena.BasicArenaObjectFactory;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
@@ -15,6 +17,7 @@ public class OmegaZone extends StateBasedGame {
 
   @Override
   public void initStatesList(GameContainer container) throws SlickException {
-    addState(new ArenaGameState(new BasicArena()));
+    Arena arena = new BasicArena(new BasicArenaObjectFactory());
+    addState(new ArenaGameState(arena));
   }
 }

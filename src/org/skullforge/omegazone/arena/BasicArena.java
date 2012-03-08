@@ -7,11 +7,13 @@ import java.util.LinkedList;
 
 public class BasicArena implements Arena {
 
-  public BasicArena() {
+  public BasicArena(ArenaObjectFactory factory) {
     objectList = new LinkedList<ArenaObject>();
+    objectFactory = factory;
   }
 
   public void init() throws SlickException {
+    addObject(objectFactory.createVessel());
   }
 
   public void render(Graphics g) throws SlickException {
@@ -31,5 +33,5 @@ public class BasicArena implements Arena {
   }
 
   private LinkedList<ArenaObject> objectList;
-
+  private ArenaObjectFactory objectFactory;
 }

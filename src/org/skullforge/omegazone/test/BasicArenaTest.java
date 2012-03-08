@@ -7,20 +7,30 @@ import org.junit.*;
 public class BasicArenaTest {
   Mockery context;
   BasicArena testArena;
+  ArenaObjectFactory factoryMock;
   ArenaObject objectMock1;
   ArenaObject objectMock2;
 
   @Before
   public void setUp() throws Exception {
     context = new Mockery();
-    testArena = new BasicArena();
+    factoryMock = context.mock(ArenaObjectFactory.class, "factory");
+    testArena = new BasicArena(factoryMock);
     objectMock1 = context.mock(ArenaObject.class, "object1");
     objectMock2 = context.mock(ArenaObject.class, "object2");
   }
   
   @Test
   public void testInit() throws Exception {
+    context.checking(new Expectations() {
+      {
+        oneOf (factoryMock).createVessel(); will(returnValue(objectMock1));
+      }
+    });
+
     testArena.init();
+    
+    context.assertIsSatisfied();
   }
   
   @Test
