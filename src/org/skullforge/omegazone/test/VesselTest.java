@@ -29,6 +29,7 @@ public class VesselTest {
   public void testRendering() throws Exception {
     context.checking(new Expectations() {
       {
+        oneOf (imageMock).setRotation(with(any(float.class)));
         oneOf (graphicsMock).drawImage( with(same(imageMock)), with(any(float.class)), with(any(float.class)) );
       }
     });

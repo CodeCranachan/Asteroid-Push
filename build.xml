@@ -24,6 +24,7 @@
     <fileset dir="lib/runtime">
       <include name="lwjgl.jar"/>
       <include name="slick.jar"/>
+      <include name="jbox2d-library-2.1.2.2.jar"/>
     </fileset>
   </path>
   <path id="libraries.test">
@@ -156,6 +157,11 @@
       </patternset>
     </unjar>
     <unjar src="lib/runtime/lwjgl.jar" dest="build/jar">
+      <patternset>
+        <include name="org/**"/>
+      </patternset>
+    </unjar>
+    <unjar src="lib/runtime/jbox2d-library-2.1.2.2.jar" dest="build/jar">
       <patternset>
         <include name="org/**"/>
       </patternset>

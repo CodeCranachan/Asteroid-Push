@@ -15,5 +15,6 @@
 	<classpathentry kind="lib" path="lib/testing/cglib-nodep-2.1_3.jar"/>
 	<classpathentry kind="lib" path="lib/testing/jmock-legacy-2.5.1.jar"/>
 	<classpathentry kind="lib" path="lib/testing/objenesis-1.0.jar"/>
+	<classpathentry kind="lib" path="lib/runtime/jbox2d-library-2.1.2.2.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
