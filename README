@@ -10,7 +10,7 @@ Configure your environment variables so JAVA_HOME points to your JDK and ANT_HOM
 Then execute ant run in the directory you found this file. This compiles, tests, packs and then starts the game
 
 
-I apologize for the current lack of proper licence files and credit giving to the developers of the libraries I am using. I will remedy the situation once the project gets really going.
+I apologize for the current lack of proper credit giving to the developers of the libraries I am using. I will remedy the situation once the project gets really going.
 
 Cheers
     Christian Meyer
