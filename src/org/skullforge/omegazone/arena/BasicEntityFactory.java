@@ -7,7 +7,7 @@ public class BasicEntityFactory implements EntityFactory {
 
   @Override
   public Entity createVessel() throws SlickException {
-    return new Vessel(new Image("res/Defiant.png"));
+    return new Vessel(new Image("res/asteroid.png"));
   }
 
 }
