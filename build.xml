@@ -14,6 +14,7 @@
     <os family="mac"/>
   </condition>
 
+  <property name="path.downloads" location="build/downloads"/>
   <property name="path.classes" location="build/classes"/>
   <property name="path.debug-classes" location="build/debug-classes"/>
   <property name="path.coverage-classes" location="build/instrumented-classes"/>
@@ -53,8 +54,19 @@
     <!-- Create the time stamp -->
     <tstamp/>
     <!-- Create the build directory structure used by compile -->
+    <mkdir dir="${path.downloads}"/>
     <mkdir dir="${path.classes}"/>
     <mkdir dir="${path.debug-classes}"/>
+    <!-- Download dependencies -->
+    <get dest="${path.downloads}" verbose="on" skipexisting="true">
+      <url url="http://sourceforge.net/projects/java-game-lib/files/Official Releases/LWJGL 2.8.3/lwjgl-2.8.3.zip"/>
+      <url url="http://slick.cokeandcode.com/downloads/slick.zip"/>
+      <url url="http://www.jmock.org/dist/jmock-2.5.1-jars.zip"/>
+      <url url="http://cloud.github.com/downloads/KentBeck/junit/junit-4.10.jar"/>
+      <url url="http://jbox2d.googlecode.com/files/jbox2d-2.1.2.2.zip"/>
+      <url url="http://sourceforge.net/projects/eclemma/files/07_JaCoCo/trunk/jacoco-0.5.8.201205221855.zip"/>
+	  <url url="http://downloads.sourceforge.net/project/one-jar/one-jar/one-jar-0.97/one-jar-ant-task-0.97.jar"/>
+    </get>
   </target>
 
   <target name="compile" depends="init" description="compile the source">
