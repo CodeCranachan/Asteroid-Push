@@ -1,18 +1,94 @@
-<project name="OmegaZone" default="dist" basedir="." xmlns:jacoco="antlib:org.jacoco.ant">
-    <description>
-        Build file for Omega Zone
-    </description>
+<project name="Asteroid Push" default="dist" basedir="." xmlns:jacoco="antlib:org.jacoco.ant">
+   <description>
+      Compiles the code, tests the functionality and builds the distribution package of Asteroid Push
+   </description>
 
-  <!-- Determine the operating system we are compiling on -->
-  <condition property="os.family" value="unix">
-    <os family="unix"/>
-  </condition>
-  <condition property="os.family" value="win32">
-    <os family="windows"/>
-  </condition>
-  <condition property="os.family" value="mac">
-    <os family="mac"/>
-  </condition>
+   <!-- Declaration of libs -->
+   <property name="lib.lwjgl.url" value="http://sourceforge.net/projects/java-game-lib/files/Official Releases/LWJGL 2.8.3/lwjgl-2.8.3.zip"/>
+   <property name="lib.lwjgl.archive" value="lwjgl-2.8.3.zip"/>
+   <property name="lib.slick.url" value="http://slick.cokeandcode.com/downloads/slick.zip"/>
+   <property name="lib.slick.archive" value="slick.zip"/>
+   <property name="lib.jbox2d.url" value="http://jbox2d.googlecode.com/files/jbox2d-2.1.2.2.zip"/>
+   <property name="lib.jbox2d.archive" value="jbox2d-2.1.2.2.zip"/>
+   <property name="lib.junit.url" value="http://cloud.github.com/downloads/KentBeck/junit/junit-4.10.jar"/>
+   <property name="lib.junit.archive" value="junit-4.10.jar"/>
+   <property name="lib.jmock.url" value="http://www.jmock.org/dist/jmock-2.5.1-jars.zip"/>
+   <property name="lib.jmock.archive" value="jmock-2.5.1-jars.zip"/>
+   <property name="lib.onejar-ant.url" value="http://downloads.sourceforge.net/project/one-jar/one-jar/one-jar-0.97/one-jar-ant-task-0.97.jar"/>
+   <property name="lib.onejar-ant.archive" value="one-jar-ant-task-0.97.jar"/>
+   <property name="lib.jacoco.url" value="http://sourceforge.net/projects/eclemma/files/07_JaCoCo/trunk/jacoco-0.5.8.201205221855.zip"/>
+   <property name="lib.jacoco.archive" value="jacoco-0.5.8.201205221855.zip"/>
+
+   <!-- Daclaration of paths required -->
+   <property name="library.root" location="build/library"/>
+   <property name="library.downloads" location="${library.root}/download"/>
+   <property name="library.jars" location="${library.root}/jar"/>
+   <property name="library.natives" location="${library.root}/native"/>
+
+   <!-- This target fetches all the dependencies required for the build process -->
+   <target name="library">
+      <!-- Download library packages -->
+      <mkdir dir="${library.downloads}"/>
+      <get dest="${library.downloads}" verbose="on" skipexisting="true">
+         <url url="${lib.lwjgl.url}"/>
+         <url url="${lib.slick.url}"/>
+         <url url="${lib.jbox2d.url}"/>
+         <url url="${lib.junit.url}"/>
+         <url url="${lib.jmock.url}"/>
+         <url url="${lib.jacoco.url}"/>
+         <url url="${lib.onejar-ant.url}"/>
+      </get>
+      
+      <!-- Prepare packages for usage -->
+      <mkdir dir="${library.jars}"/>
+      <mkdir dir="${library.natives}"/>
+      <!-- Slick -->
+      <unzip src="${library.downloads}/${lib.slick.archive}" dest="${library.jars}">
+         <patternset>
+            <include name="lib/slick.jar"/>
+         </patternset>
+         <mapper type="flatten"/>
+      </unzip>
+      <!-- Lwjgl -->
+      <unzip src="${library.downloads}/${lib.lwjgl.archive}" dest="${library.jars}">
+         <patternset>
+            <include name="**/jar/lwjgl.jar"/>
+            <include name="**/jar/jinput.jar"/>
+         </patternset>
+         <mapper type="flatten"/>
+      </unzip>
+      <unzip src="${library.downloads}/${lib.lwjgl.archive}" dest="${library.natives}">
+         <patternset>
+            <include name="**/native/**"/>
+         </patternset>
+         <mapper type="regexp" from="^*./native/(.*)$$" to="\1"/>
+      </unzip>
+      <!-- JBox2d -->
+      <unzip src="${library.downloads}/${lib.jbox2d.archive}" dest="${library.jars}">
+         <patternset>
+            <include name="**/jbox2d-library-?.?.?.?.jar"/>
+         </patternset>
+         <mapper type="flatten"/>
+      </unzip>
+      <!-- JUnit -->
+      <copy file="${library.downloads}/${lib.junit.archive}" todir="${library.jars}"/>
+      <!-- JMock -->
+      <unzip src="${library.downloads}/${lib.jmock.archive}" dest="${library.jars}">
+         <patternset>
+            <include name="**/*.jar"/>
+         </patternset>
+         <mapper type="flatten"/>
+      </unzip>
+      <!-- OneJar -->
+      <copy file="${library.downloads}/${lib.onejar-ant.archive}" todir="${library.jars}"/>
+      <!-- Jacoco -->
+      <unzip src="${library.downloads}/${lib.jacoco.archive}" dest="${library.jars}">
+         <patternset>
+            <include name="**/*.jar"/>
+         </patternset>
+         <mapper type="flatten"/>
+      </unzip>
+   </target>
 
   <property name="path.downloads" location="build/downloads"/>
   <property name="path.classes" location="build/classes"/>
