@@ -3,7 +3,9 @@
       Compiles the code, tests the functionality and builds the distribution package of Asteroid Push
    </description>
 
-   <!-- Declaration of libs -->
+   <!-- LIBRARY
+        Fetches libraries and other dependencies required by the final distribution and the build process itself
+     -->
    <property name="lib.lwjgl.url" value="http://sourceforge.net/projects/java-game-lib/files/Official Releases/LWJGL 2.8.3/lwjgl-2.8.3.zip"/>
    <property name="lib.lwjgl.archive" value="lwjgl-2.8.3.zip"/>
    <property name="lib.slick.url" value="http://slick.cokeandcode.com/downloads/slick.zip"/>
@@ -19,13 +21,11 @@
    <property name="lib.jacoco.url" value="http://sourceforge.net/projects/eclemma/files/07_JaCoCo/trunk/jacoco-0.5.8.201205221855.zip"/>
    <property name="lib.jacoco.archive" value="jacoco-0.5.8.201205221855.zip"/>
 
-   <!-- Daclaration of paths required -->
    <property name="library.root" location="build/library"/>
    <property name="library.downloads" location="${library.root}/download"/>
    <property name="library.jars" location="${library.root}/jar"/>
    <property name="library.natives" location="${library.root}/native"/>
 
-   <!-- This target fetches all the dependencies required for the build process -->
    <target name="library">
       <!-- Download library packages -->
       <mkdir dir="${library.downloads}"/>
@@ -39,7 +39,6 @@
          <url url="${lib.onejar-ant.url}"/>
       </get>
       
-      <!-- Prepare packages for usage -->
       <mkdir dir="${library.jars}"/>
       <mkdir dir="${library.natives}"/>
       <!-- Slick -->
@@ -90,6 +89,97 @@
       </unzip>
    </target>
 
+   <!-- RELEASE 
+        Compiles the source code for distribution 
+     -->
+   <property name="source.root" location="src"/>
+   <property name="release.root" location="build/release"/>
+   <property name="release.classes" location="${release.root}/classes"/>
+   <path id="release.include">
+      <fileset dir="${library.jars}">
+         <include name="lwjgl.jar"/>
+         <include name="slick.jar"/>
+         <include name="jbox2d-library-2.1.2.2.jar"/>
+      </fileset>
+   </path>
+   
+   <target name="release" depends="library">
+      <mkdir dir="${release.classes}"/>
+      <javac srcdir="${source.root}" destdir="${release.classes}" includeantruntime="no" debug="off">
+         <exclude name="**/*Test.java"/>
+         <classpath>
+            <path refid="release.include"/>
+         </classpath>
+      </javac>
+   </target>
+   
+   <!-- TESTING
+        Compiles the source code for testing and runs all tests
+     -->
+   <property name="testing.root" location="build/testing"/>
+   <property name="testing.classes" location="${testing.root}/classes"/>
+   <property name="testing.coverage" location="${testing.root}/coverage"/>
+   <property name="testing.results" location="${testing.root}/results"/>
+   <path id="testing.include">
+      <fileset dir="${library.jars}">
+        <include name="junit-4.10.jar"/>
+        <include name="jmock-2.5.1.jar"/>
+        <include name="hamcrest-core-1.1.jar"/>
+        <include name="hamcrest-library-1.1.jar"/>
+        <include name="jmock-legacy-2.5.1.jar"/>
+        <include name="cglib-nodep-2.1_3.jar"/>
+        <include name="objenesis-1.0.jar"/>
+      </fileset>
+   </path>
+
+   <taskdef uri="antlib:org.jacoco.ant" resource="org/jacoco/ant/antlib.xml">
+      <classpath path="${library.jars}/jacocoant.jar"/>
+   </taskdef>
+
+   <target name="testing" depends="library">
+      <mkdir dir="${testing.classes}"/>
+      <javac srcdir="${source.root}" destdir="${testing.classes}" includeantruntime="false" debug="on">
+         <classpath>
+            <path refid="release.include"/>
+            <path refid="testing.include"/>
+         </classpath>
+      </javac>
+      <mkdir dir="${testing.results}"/>
+      <mkdir dir="${testing.coverage}"/>
+      <delete file="${testing.coverage}/jacoco.exec"/>
+      <jacoco:coverage destfile="${testing.coverage}/jacoco.exec" append="true">
+         <junit fork="true" printsummary="yes" haltonfailure="yes">
+            <classpath>
+               <pathelement location="${testing.classes}"/>
+               <path refid="release.include"/>
+               <path refid="testing.include"/>
+            </classpath>
+            <batchtest fork="yes" todir="${testing.results}">
+               <fileset dir="${source.root}">
+                  <include name="**/*Test*.java"/>
+               </fileset>
+               <formatter type="plain"/>
+            </batchtest>
+         </junit>
+      </jacoco:coverage>
+
+      <jacoco:report>
+         <executiondata>
+            <file file="${testing.coverage}/jacoco.exec"/>
+         </executiondata>
+         <structure name="Asteroid-Push">
+            <classfiles>
+               <fileset dir="${testing.classes}"/>
+            </classfiles>
+            <sourcefiles encoding="UTF-8">
+               <fileset dir="${source.root}"/>
+            </sourcefiles>
+         </structure>
+         <html destdir="${testing.coverage}"/>
+      </jacoco:report>
+   </target>
+
+
   <property name="path.downloads" location="build/downloads"/>
   <property name="path.classes" location="build/classes"/>
   <property name="path.debug-classes" location="build/debug-classes"/>
@@ -117,9 +207,6 @@
   </path>
 
   <!-- Custom tasks -->
-  <taskdef uri="antlib:org.jacoco.ant" resource="org/jacoco/ant/antlib.xml">
-      <classpath path="lib/testing/jacocoant.jar"/>
-  </taskdef>
   <taskdef name="lint4j" classname="com.jutils.lint4j.ant.Lint4jAntTask">
     <classpath>
       <pathelement location="lib/testing/lint4j.jar"/>
