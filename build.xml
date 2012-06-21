@@ -220,15 +220,16 @@
    <property name="deployment.root" value="build/deployment"/>
    <target name="deployment" depends="release">
       <mkdir dir="${deployment.root}"/>
-      <manifest file="${deployment.root}/MANIFEST.MF">
-         <attribute name="Built-By" value="${user.name}"/>
-         <attribute name="One-Jar-Main-Class" value="org.skullforge.omegazone.OmegaZoneMain"/>
-         <attribute name="Main-Class" value="com.simontuffs.onejar.Boot"/>
-      </manifest>
       <taskdef name="one-jar" classname="com.simontuffs.onejar.ant.OneJarTask" classpath="${library.jars}/${lib.onejar-ant.archive}"/>
-      <one-jar destfile="${deployment.root}/asteroid-push.jar" manifest="${deployment.root}/MANIFEST.MF">
+      <one-jar destfile="${deployment.root}/asteroid-push.jar">
+         <manifest>
+            <attribute name="Built-By" value="${user.name}"/>
+            <attribute name="One-Jar-Main-Class" value="org.skullforge.omegazone.OmegaZoneMain"/>
+            <attribute name="Main-Class" value="com.simontuffs.onejar.Boot"/>
+         </manifest>
          <main>
             <fileset dir="${release.root}/classes"/>
+            <fileset dir="res"/>
          </main>
          <lib>
             <fileset dir="${library.jars}">
@@ -247,8 +248,7 @@
 
    <!-- PLAY -->
    <target name="play" depends="deployment">
-      <java dir="${deployment.root}" jar="${deployment.root}/asteroid-push.jar" fork="true">
-      </java>
+      <java dir="${deployment.root}" jar="${deployment.root}/asteroid-push.jar" fork="true"/>
    </target>
    
    <!-- CLEAN -->
