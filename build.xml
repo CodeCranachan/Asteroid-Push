@@ -84,6 +84,7 @@
          <mapper type="flatten"/>
       </unzip>
       <!-- OneJar -->
+      <copy file="${library.downloads}/${lib.onejar-ant.archive}" todir="${library.jars}"/>
       <unjar src="${library.downloads}/${lib.onejar-ant.archive}" dest="${library.onejar}"/>
       <!-- Jacoco -->
       <unzip src="${library.downloads}/${lib.jacoco.archive}" dest="${library.jars}">
@@ -124,11 +125,6 @@
             <path refid="release.include"/>
          </classpath>
       </javac>
-      
-      <manifest file="${release.root}/MANIFEST.MF">
-         <attribute name="Built-By" value="${user.name}"/>
-         <attribute name="Main-Class" value="org.skullforge.omegazone.OmegaZoneMain"/>
-      </manifest>
    </target>
 
 
@@ -193,8 +189,8 @@
             <pathelement location="${source.root}"/>
          </sourcepath>
          <classpath>
-            <path refid="libraries.runtime"/>
-            <path refid="libraries.test"/>
+            <path refid="release.include"/>
+            <path refid="testing.include"/>
          </classpath>
          <formatters>
             <formatter type="text"/>
@@ -221,18 +217,39 @@
    <!-- DEPLOYMENT
         Creates the deployment jar
    -->
-   <property name="one-jar.dist.dir" value="${library.onejar}"/>
-   <target name="deployment" depends="release,testing">
-      <import file="${one-jar.dist.dir}/one-jar-ant-task.xml" optional="false" /> 
+   <property name="deployment.root" value="build/deployment"/>
+   <target name="deployment" depends="release">
+      <mkdir dir="${deployment.root}"/>
+      <manifest file="${deployment.root}/MANIFEST.MF">
+         <attribute name="Built-By" value="${user.name}"/>
+         <attribute name="One-Jar-Main-Class" value="org.skullforge.omegazone.OmegaZoneMain"/>
+         <attribute name="Main-Class" value="com.simontuffs.onejar.Boot"/>
+      </manifest>
+      <taskdef name="one-jar" classname="com.simontuffs.onejar.ant.OneJarTask" classpath="${library.jars}/${lib.onejar-ant.archive}"/>
+      <one-jar destfile="${deployment.root}/asteroid-push.jar" manifest="${deployment.root}/MANIFEST.MF">
+         <main>
+            <fileset dir="${release.root}/classes"/>
+         </main>
+         <lib>
+            <fileset dir="${library.jars}">
+               <include name="lwjgl.jar"/>
+               <include name="slick.jar"/>
+               <include name="jbox2d-library-2.1.2.2.jar"/>
+            </fileset>
+         </lib>
+         <binlib>
+            <fileset dir="${library.natives}/windows">
+               <include name="**.*"/>
+            </fileset>
+         </binlib>
+      </one-jar>
    </target>
 
-   <!--
+   <!-- PLAY -->
    <target name="play" depends="deployment">
-      <java jar="deploy/OmegaZone-${DSTAMP}.jar" fork="true">
-         <jvmarg value="-Djava.library.path=deploy"/>
+      <java dir="${deployment.root}" jar="${deployment.root}/asteroid-push.jar" fork="true">
       </java>
    </target>
-   -->
    
    <!-- CLEAN -->
    <target name="clean">
