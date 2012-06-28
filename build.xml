@@ -27,7 +27,6 @@
    <property name="library.downloads" location="${library.root}/download"/>
    <property name="library.jars" location="${library.root}/jar"/>
    <property name="library.natives" location="${library.root}/native"/>
-   <property name="library.onejar" location="${library.root}/onejar"/>
 
    <target name="library">
       <!-- Download library packages -->
@@ -45,7 +44,6 @@
       
       <mkdir dir="${library.jars}"/>
       <mkdir dir="${library.natives}"/>
-      <mkdir dir="${library.onejar}"/>
       <!-- Slick -->
       <unzip src="${library.downloads}/${lib.slick.archive}" dest="${library.jars}">
          <patternset>
@@ -85,7 +83,6 @@
       </unzip>
       <!-- OneJar -->
       <copy file="${library.downloads}/${lib.onejar-ant.archive}" todir="${library.jars}"/>
-      <unjar src="${library.downloads}/${lib.onejar-ant.archive}" dest="${library.onejar}"/>
       <!-- Jacoco -->
       <unzip src="${library.downloads}/${lib.jacoco.archive}" dest="${library.jars}">
          <patternset>
@@ -148,7 +145,6 @@
    </path>
 
    <target name="testing" depends="library">
-   
       <taskdef uri="antlib:org.jacoco.ant" resource="org/jacoco/ant/antlib.xml">
          <classpath path="${library.jars}/jacocoant.jar"/>
       </taskdef>
