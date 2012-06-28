@@ -5,7 +5,7 @@ import org.jmock.*;
 import org.jmock.lib.legacy.ClassImposteriser;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
-import org.skullforge.omegazone.arena.Vessel;
+import org.skullforge.omegazone.arena.entities.Vessel;
 
 public class VesselTest {
   Mockery context;

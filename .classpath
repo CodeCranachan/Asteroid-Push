@@ -2,19 +2,33 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="lib/runtime/lwjgl.jar">
+	<classpathentry kind="lib" path="build/library/jar/jbox2d-library-2.1.2.2.jar"/>
+	<classpathentry kind="lib" path="build/library/jar/jinput.jar"/>
+	<classpathentry kind="lib" path="build/library/jar/jmock-2.5.1.jar"/>
+	<classpathentry kind="lib" path="build/library/jar/junit-4.10.jar"/>
+	<classpathentry kind="lib" path="build/library/jar/lwjgl.jar">
 		<attributes>
-			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="omegazone/deploy"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="omegazone/build/library/native/windows"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="lib/runtime/slick.jar"/>
-	<classpathentry kind="lib" path="lib/testing/hamcrest-core-1.1.jar"/>
-	<classpathentry kind="lib" path="lib/testing/hamcrest-library-1.1.jar"/>
-	<classpathentry kind="lib" path="lib/testing/jmock-2.5.1.jar"/>
-	<classpathentry kind="lib" path="lib/testing/junit-4.10.jar"/>
-	<classpathentry kind="lib" path="lib/testing/cglib-nodep-2.1_3.jar"/>
-	<classpathentry kind="lib" path="lib/testing/jmock-legacy-2.5.1.jar"/>
-	<classpathentry kind="lib" path="lib/testing/objenesis-1.0.jar"/>
-	<classpathentry kind="lib" path="lib/runtime/jbox2d-library-2.1.2.2.jar"/>
-	<classpathentry kind="output" path="build/classes"/>
+	<classpathentry kind="lib" path="build/library/jar/slick.jar"/>
+	<classpathentry kind="lib" path="build/library/jar/jmock-junit4-2.5.1.jar"/>
+	<classpathentry kind="lib" path="build/library/jar/jmock-legacy-2.5.1.jar"/>
+	<classpathentry kind="lib" path="build/library/jar/hamcrest-core-1.1.jar"/>
+	<classpathentry kind="lib" path="build/library/jar/hamcrest-library-1.1.jar"/>
+	<classpathentry kind="lib" path="build/library/jar/bsh-core-2.0b4.jar"/>
+	<classpathentry kind="lib" path="build/library/jar/cglib-2.1_3-src.jar"/>
+	<classpathentry kind="lib" path="build/library/jar/cglib-nodep-2.1_3.jar"/>
+	<classpathentry kind="lib" path="build/library/jar/jacocoagent.jar"/>
+	<classpathentry kind="lib" path="build/library/jar/jacocoant.jar"/>
+	<classpathentry kind="lib" path="build/library/jar/jmock-junit3-2.5.1.jar"/>
+	<classpathentry kind="lib" path="build/library/jar/jmock-script-2.5.1.jar"/>
+	<classpathentry kind="lib" path="build/library/jar/lint4j.jar"/>
+	<classpathentry kind="lib" path="build/library/jar/objenesis-1.0.jar"/>
+	<classpathentry kind="lib" path="build/library/jar/one-jar-ant-task-0.97.jar"/>
+	<classpathentry kind="lib" path="build/library/jar/org.jacoco.agent-0.5.8.201205221855.jar"/>
+	<classpathentry kind="lib" path="build/library/jar/org.jacoco.ant-0.5.8.201205221855.jar"/>
+	<classpathentry kind="lib" path="build/library/jar/org.jacoco.core-0.5.8.201205221855.jar"/>
+	<classpathentry kind="lib" path="build/library/jar/org.jacoco.report-0.5.8.201205221855.jar"/>
+	<classpathentry kind="output" path="build/eclipse/classes"/>
 </classpath>

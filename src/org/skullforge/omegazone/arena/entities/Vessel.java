@@ -1,8 +1,9 @@
-package org.skullforge.omegazone.arena;
+package org.skullforge.omegazone.arena.entities;
 
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.skullforge.omegazone.arena.Entity;
 
 public class Vessel implements Entity {
 
