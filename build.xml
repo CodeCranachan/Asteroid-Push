@@ -220,7 +220,7 @@
       <one-jar destfile="${deployment.root}/asteroid-push.jar">
          <manifest>
             <attribute name="Built-By" value="${user.name}"/>
-            <attribute name="One-Jar-Main-Class" value="org.skullforge.omegazone.OmegaZoneMain"/>
+            <attribute name="One-Jar-Main-Class" value="org.skullforge.asteroidpush.AsteroidPushMain"/>
             <attribute name="Main-Class" value="com.simontuffs.onejar.Boot"/>
          </manifest>
          <main>

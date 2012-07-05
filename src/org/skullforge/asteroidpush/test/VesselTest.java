@@ -1,11 +1,11 @@
-package org.skullforge.omegazone.test;
+package org.skullforge.asteroidpush.test;
 
 import org.junit.*;
 import org.jmock.*;
 import org.jmock.lib.legacy.ClassImposteriser;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
-import org.skullforge.omegazone.arena.entities.Vessel;
+import org.skullforge.asteroidpush.arena.entities.Vessel;
 
 public class VesselTest {
   Mockery context;

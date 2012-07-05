@@ -1,4 +1,4 @@
-package org.skullforge.omegazone;
+package org.skullforge.asteroidpush;
 
 public enum StateInfo {
   ARENA(1);

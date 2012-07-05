@@ -1,4 +1,4 @@
-package org.skullforge.omegazone.test;
+package org.skullforge.asteroidpush.test;
 
 import static org.junit.Assert.*;
 
@@ -6,26 +6,26 @@ import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.junit.*;
 import org.newdawn.slick.state.GameState;
-import org.skullforge.omegazone.OmegaZone;
-import org.skullforge.omegazone.StateFactory;
+import org.skullforge.asteroidpush.AsteroidPush;
+import org.skullforge.asteroidpush.StateFactory;
 
-public class OmegaZoneTest {
+public class AsteroidPushTest {
   Mockery context;
   StateFactory factoryMock;
   GameState arenaStateMock;
-  OmegaZone testApp;
+  AsteroidPush testApp;
   
   @Before
   public void setUp() throws Exception {
     context = new Mockery();
     arenaStateMock = context.mock(GameState.class);
     factoryMock = context.mock(StateFactory.class);
-    testApp = new OmegaZone(factoryMock);
+    testApp = new AsteroidPush(factoryMock);
   }
 
   @Test
   public void testAppName() throws Exception {
-    assertEquals("OmegaZone", testApp.getTitle());
+    assertEquals("Asteroid Push", testApp.getTitle());
   }
   
   @Test

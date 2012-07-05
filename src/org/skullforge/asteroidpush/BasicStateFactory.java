@@ -1,10 +1,10 @@
-package org.skullforge.omegazone;
+package org.skullforge.asteroidpush;
 
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.GameState;
-import org.skullforge.omegazone.arena.Arena;
-import org.skullforge.omegazone.arena.BasicArena;
-import org.skullforge.omegazone.arena.BasicEntityFactory;
+import org.skullforge.asteroidpush.arena.Arena;
+import org.skullforge.asteroidpush.arena.BasicArena;
+import org.skullforge.asteroidpush.arena.BasicEntityFactory;
 
 public class BasicStateFactory implements StateFactory {
 

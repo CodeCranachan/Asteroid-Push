@@ -1,6 +1,6 @@
-package org.skullforge.omegazone.test;
+package org.skullforge.asteroidpush.test;
 
-import org.skullforge.omegazone.arena.*;
+import org.skullforge.asteroidpush.arena.*;
 import org.jmock.*;
 import org.junit.*;
 

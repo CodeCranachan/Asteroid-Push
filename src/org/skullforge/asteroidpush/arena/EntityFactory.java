@@ -1,4 +1,4 @@
-package org.skullforge.omegazone.arena;
+package org.skullforge.asteroidpush.arena;
 
 import org.newdawn.slick.SlickException;
 

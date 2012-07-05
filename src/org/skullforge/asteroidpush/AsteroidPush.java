@@ -1,13 +1,13 @@
-package org.skullforge.omegazone;
+package org.skullforge.asteroidpush;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
-public class OmegaZone extends StateBasedGame {
+public class AsteroidPush extends StateBasedGame {
 
-  public OmegaZone(StateFactory factory) {
-    super("OmegaZone");
+  public AsteroidPush(StateFactory factory) {
+    super("Asteroid Push");
     stateFactory = factory;
   }
 

@@ -1,4 +1,4 @@
-package org.skullforge.omegazone;
+package org.skullforge.asteroidpush;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -6,7 +6,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-import org.skullforge.omegazone.arena.Arena;
+import org.skullforge.asteroidpush.arena.Arena;
 
 public class ArenaGameState extends BasicGameState {
 

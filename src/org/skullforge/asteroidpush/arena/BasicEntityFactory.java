@@ -1,8 +1,8 @@
-package org.skullforge.omegazone.arena;
+package org.skullforge.asteroidpush.arena;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
-import org.skullforge.omegazone.arena.entities.Vessel;
+import org.skullforge.asteroidpush.arena.entities.Vessel;
 
 public class BasicEntityFactory implements EntityFactory {
 

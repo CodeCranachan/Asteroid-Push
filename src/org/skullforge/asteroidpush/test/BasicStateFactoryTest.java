@@ -1,17 +1,17 @@
-package org.skullforge.omegazone.test;
+package org.skullforge.asteroidpush.test;
 
 import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.newdawn.slick.state.GameState;
-import org.skullforge.omegazone.ArenaGameState;
-import org.skullforge.omegazone.BasicStateFactory;
-import org.skullforge.omegazone.StateFactory;
-import org.skullforge.omegazone.arena.Arena;
-import org.skullforge.omegazone.arena.BasicArena;
-import org.skullforge.omegazone.arena.BasicEntityFactory;
-import org.skullforge.omegazone.arena.EntityFactory;
+import org.skullforge.asteroidpush.ArenaGameState;
+import org.skullforge.asteroidpush.BasicStateFactory;
+import org.skullforge.asteroidpush.StateFactory;
+import org.skullforge.asteroidpush.arena.Arena;
+import org.skullforge.asteroidpush.arena.BasicArena;
+import org.skullforge.asteroidpush.arena.BasicEntityFactory;
+import org.skullforge.asteroidpush.arena.EntityFactory;
 
 public class BasicStateFactoryTest {
   StateFactory testFactory;
