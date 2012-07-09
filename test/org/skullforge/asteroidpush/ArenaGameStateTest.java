@@ -1,6 +1,5 @@
-package org.skullforge.asteroidpush.test;
+package org.skullforge.asteroidpush;
 
-import org.skullforge.asteroidpush.*;
 import org.skullforge.asteroidpush.arena.*;
 import org.junit.*;
 import org.jmock.*;

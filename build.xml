@@ -128,6 +128,7 @@
    <!-- TESTING
         Compiles the source code for testing and runs all tests
      -->
+   <property name="test.root" location="test"/>
    <property name="testing.root" location="build/testing"/>
    <property name="testing.classes" location="${testing.root}/classes"/>
    <property name="testing.coverage" location="${testing.root}/coverage"/>
@@ -155,7 +156,9 @@
       </taskdef>
 
       <mkdir dir="${testing.classes}"/>
-      <javac srcdir="${source.root}" destdir="${testing.classes}" includeantruntime="false" debug="on">
+      <javac  destdir="${testing.classes}" includeantruntime="false" debug="on">
+         <src path="${source.root}"/>
+         <src path="${test.root}"/>
          <classpath>
             <path refid="release.include"/>
             <path refid="testing.include"/>
@@ -173,6 +176,9 @@
             </classpath>
             <batchtest fork="yes" todir="${testing.results}">
                <fileset dir="${source.root}">
+                  <include name="**/*Test*.java"/>
+               </fileset>
+               <fileset dir="${test.root}">
                   <include name="**/*Test*.java"/>
                </fileset>
                <formatter type="plain"/>

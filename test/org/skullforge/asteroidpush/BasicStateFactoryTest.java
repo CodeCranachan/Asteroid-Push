@@ -1,4 +1,4 @@
-package org.skullforge.asteroidpush.test;
+package org.skullforge.asteroidpush;
 
 import static org.junit.Assert.*;
 

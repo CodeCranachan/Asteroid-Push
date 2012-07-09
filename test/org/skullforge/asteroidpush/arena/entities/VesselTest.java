@@ -1,4 +1,4 @@
-package org.skullforge.asteroidpush.test;
+package org.skullforge.asteroidpush.arena.entities;
 
 import org.junit.*;
 import org.jmock.*;
