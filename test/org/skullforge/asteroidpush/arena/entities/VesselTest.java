@@ -3,15 +3,16 @@ package org.skullforge.asteroidpush.arena.entities;
 import org.junit.*;
 import org.jmock.*;
 import org.jmock.lib.legacy.ClassImposteriser;
-import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.geom.Vector2f;
+import org.skullforge.asteroidpush.arena.Viewport;
 import org.skullforge.asteroidpush.arena.entities.Vessel;
 
 public class VesselTest {
   Mockery context;
   Vessel testVessel;
   Image imageMock;
-  Graphics graphicsMock;
+  Viewport viewportMock;
 
   @Before
   public void setUp() throws Exception {
@@ -21,21 +22,23 @@ public class VesselTest {
       }
     };
     imageMock = context.mock(Image.class);
-    graphicsMock = context.mock(Graphics.class);
+    viewportMock = context.mock(Viewport.class);
     testVessel = new Vessel(imageMock);
   }
 
   @Test
   public void testRendering() throws Exception {
+    final Vector2f expectedOrigin = new Vector2f(2.0f, 2.0f);
+    final float expectedRotation = 0.0f;
+    final Vector2f expectedSize = new Vector2f(2.0f, 2.0f);
+    
     context.checking(new Expectations() {
       {
-        oneOf (imageMock).setRotation(with(any(float.class)));
-        oneOf (graphicsMock).drawImage( with(same(imageMock)), with(any(float.class)), with(any(float.class)) );
+        oneOf (viewportMock).showImage(imageMock, expectedOrigin, expectedRotation, expectedSize);
       }
     });
 
-    testVessel.render(graphicsMock);
-
+    testVessel.render(viewportMock);
     context.assertIsSatisfied();
   }
 
