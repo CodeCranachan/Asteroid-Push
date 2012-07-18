@@ -52,7 +52,8 @@ public class StaticViewportTest {
       }
     });
 
-    Viewport view = new StaticViewport(graphicsMock);
+    Viewport view = new StaticViewport();
+    view.setGraphics(graphicsMock);
     view.showImage(imageMock, origin, rotation, size);
 
     context.assertIsSatisfied();

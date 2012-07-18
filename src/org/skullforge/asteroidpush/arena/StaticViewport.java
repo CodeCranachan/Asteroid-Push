@@ -5,14 +5,9 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Vector2f;
 
 public class StaticViewport implements Viewport {
-  Graphics graphicsPort;
-
-  public StaticViewport(Graphics g) {
-    graphicsPort = g;
-    graphicsPort.scale(25.0f, 25.0f);
+  public StaticViewport() {
   }
 
-  @Override
   public void showImage(Image img,
                         Vector2f origin,
                         float rotation,
@@ -29,4 +24,11 @@ public class StaticViewport implements Viewport {
                            img.getWidth(),
                            img.getHeight());
   }
+
+  public void setGraphics(Graphics g) {
+    graphicsPort = g;
+    g.scale(25.0f, 25.0f);
+  }
+  
+  private Graphics graphicsPort;
 }

@@ -40,7 +40,7 @@ public class ArenaGameStateTest {
   public void testDelegateRendering() throws Exception {
     context.checking(new Expectations() {
       {
-        oneOf(arenaMock).render(null);
+        oneOf(arenaMock).render(null, null);
       }
     });
 

@@ -23,7 +23,7 @@ public class ArenaGameState extends BasicGameState {
   @Override
   public void render(GameContainer container, StateBasedGame game, Graphics g)
       throws SlickException {
-    gameArena.render(g);
+    gameArena.render(container, g);
   }
 
   @Override
