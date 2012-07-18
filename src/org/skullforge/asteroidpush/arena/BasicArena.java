@@ -17,7 +17,7 @@ public class BasicArena implements Arena {
   }
 
   public void render(Graphics g) throws SlickException {
-    Viewport view = new BasicViewport(g);
+    Viewport view = new StaticViewport(g);
     for (Entity object : objectList) {
       object.render(view);
     }
