@@ -22,7 +22,8 @@
    <property name="lib.jacoco.archive" value="jacoco-0.5.8.201205221855.zip"/>
    <property name="lib.lint4j.url" value="http://www.jutils.com/download/lint4j/lint4j-0.9.1.zip"/>
    <property name="lib.lint4j.archive" value="lint4j-0.9.1.zip"/>
-
+   <property name="lib.slf4j.url" value="http://www.slf4j.org/dist/slf4j-1.6.6.zip"/>
+   <property name="lib.slf4j.archive" value="slf4j-1.6.6.zip"/>
    <property name="library.root" location="build/library"/>
    <property name="library.downloads" location="${library.root}/download"/>
    <property name="library.jars" location="${library.root}/jar"/>
@@ -40,6 +41,7 @@
          <url url="${lib.jacoco.url}"/>
          <url url="${lib.onejar-ant.url}"/>
          <url url="${lib.lint4j.url}"/>
+         <url url="${lib.slf4j.url}"/>
       </get>
       
       <mkdir dir="${library.jars}"/>
@@ -97,6 +99,14 @@
          </patternset>
          <mapper type="flatten"/>
       </unzip>
+      <!-- SLF4J -->
+      <unzip src="${library.downloads}/${lib.slf4j.archive}" dest="${library.jars}">
+         <patternset>
+            <include name="**/slf4j-api-1.6.6.jar"/>
+            <include name="**/slf4j-jdk14-1.6.6.jar"/>
+         </patternset>
+         <mapper type="flatten"/>
+      </unzip>
       
    </target>
 
@@ -110,7 +120,9 @@
       <fileset dir="${library.jars}">
          <include name="lwjgl.jar"/>
          <include name="slick.jar"/>
-         <include name="jbox2d-library-2.1.2.2.jar"/>
+         <include name="jbox2d-library-?.?.?.?.jar"/>
+         <include name="slf4j-api-1.6.6.jar"/>
+         <include name="slf4j-jdk14-1.6.6.jar"/>
       </fileset>
    </path>
    
@@ -238,6 +250,8 @@
                <include name="lwjgl.jar"/>
                <include name="slick.jar"/>
                <include name="jbox2d-library-2.1.2.2.jar"/>
+               <include name="slf4j-api-1.6.6.jar"/>
+               <include name="slf4j-jdk14-1.6.6.jar"/>
             </fileset>
          </lib>
          <binlib>
