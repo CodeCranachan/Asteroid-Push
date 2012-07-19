@@ -1,24 +1,24 @@
 package org.skullforge.asteroidpush.arena;
 
+import org.jbox2d.common.Vec2;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.geom.Vector2f;
 
 public class StaticViewport implements Viewport {
   public StaticViewport() {
   }
 
   public void showImage(Image img,
-                        Vector2f origin,
+                        Vec2 origin,
                         float rotation,
-                        Vector2f size) {
-    img.setCenterOfRotation(size.getX()/2.0f, size.getY()/2.0f);
+                        Vec2 size) {
+    img.setCenterOfRotation(size.x/2.0f, size.y/2.0f);
     img.setRotation(rotation);
     graphicsPort.drawImage(img,
-                           origin.getX(),
-                           origin.getY(),
-                           origin.getX() + size.getX(),
-                           origin.getY() + size.getY(),
+                           origin.x,
+                           origin.y,
+                           origin.x + size.y,
+                           origin.y + size.y,
                            0.0f,
                            0.0f,
                            img.getWidth(),

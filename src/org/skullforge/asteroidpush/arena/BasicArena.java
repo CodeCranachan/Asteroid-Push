@@ -1,9 +1,10 @@
 package org.skullforge.asteroidpush.arena;
 
+import org.jbox2d.common.Vec2;
+import org.jbox2d.dynamics.World;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.geom.Vector2f;
 
 import java.util.LinkedList;
 
@@ -13,10 +14,14 @@ public class BasicArena implements Arena {
     objectList = new LinkedList<Entity>();
     objectFactory = factory;
     currentView = null;
+    
+    Vec2 gravity = new Vec2(0, -10.0f);
+    boolean doSleep = true;
+    physicalWorld = new World(gravity, doSleep);
   }
 
   public void init() throws SlickException {
-    addObject(objectFactory.createVessel());
+    addObject(objectFactory.createVessel(), new Vec2(3.0f, 3.0f));
     setViewport(new StaticViewport());
   }
 
@@ -39,8 +44,9 @@ public class BasicArena implements Arena {
     currentView = view;
   }
 
-  public void addObject(Entity object) {
+  public void addObject(Entity object, Vec2 position) {
     objectList.add(object);
+    object.spawn(physicalWorld, position);
   }
   
   public EntityFactory getFactory() {
@@ -61,4 +67,5 @@ public class BasicArena implements Arena {
   private LinkedList<Entity> objectList;
   private EntityFactory objectFactory;
   private Viewport currentView;
+  private World physicalWorld;
 }

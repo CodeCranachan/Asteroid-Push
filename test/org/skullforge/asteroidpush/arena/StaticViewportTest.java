@@ -1,5 +1,6 @@
 package org.skullforge.asteroidpush.arena;
 
+import org.jbox2d.common.Vec2;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
@@ -7,7 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.geom.Vector2f;
 
 public class StaticViewportTest {
   Mockery context;
@@ -27,9 +27,9 @@ public class StaticViewportTest {
 
   @Test
   public void testMappingRectangleToDisplay() {
-    final Vector2f origin = new Vector2f(0.0f, 0.0f);
+    final Vec2 origin = new Vec2(0.0f, 0.0f);
     final float rotation = 0.0f;
-    final Vector2f size = new Vector2f(1.0f, 1.0f);
+    final Vec2 size = new Vec2(1.0f, 1.0f);
 
     context.checking(new Expectations() {
       {
