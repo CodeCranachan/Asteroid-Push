@@ -8,7 +8,6 @@ import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
 import org.jbox2d.dynamics.World;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.SlickException;
 import org.skullforge.asteroidpush.arena.Entity;
 import org.skullforge.asteroidpush.arena.Viewport;
@@ -58,7 +57,7 @@ public class Vessel implements Entity {
       return def;
    }
 
-   final Vec2 size = new Vec2(2.0f, 2.0f);
+   final Vec2 size = new Vec2(4.0f, 4.0f);
    private Image vesselImage;
    private Body body;
 }

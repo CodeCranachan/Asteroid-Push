@@ -10,62 +10,78 @@ import java.util.LinkedList;
 
 public class BasicArena implements Arena {
 
-  public BasicArena(EntityFactory factory) {
-    objectList = new LinkedList<Entity>();
-    objectFactory = factory;
-    currentView = null;
-    
-    Vec2 gravity = new Vec2(0, -10.0f);
-    boolean doSleep = true;
-    physicalWorld = new World(gravity, doSleep);
-  }
+   public BasicArena(EntityFactory factory) {
+      objectList = new LinkedList<Entity>();
+      objectFactory = factory;
+      currentView = null;
+      timeAccumulator = 0;
 
-  public void init() throws SlickException {
-    addObject(objectFactory.createVessel(), new Vec2(3.0f, 3.0f));
-    setViewport(new StaticViewport());
-  }
+      Vec2 gravity = new Vec2(0, 10.0f);
+      boolean doSleep = true;
+      physicalWorld = new World(gravity, doSleep);
+   }
 
-  public void render(GameContainer container, Graphics g) throws SlickException {
-    if (currentView == null) {
-      renderEmptyView(g);
-    }
-    else {
-      renderArenaToView(container, g);
-    }
-  }
+   public void init() throws SlickException {
+      addObject(objectFactory.createVessel(), new Vec2(3.0f, 3.0f));
+      setViewport(new StaticViewport());
+   }
 
-  public void update(int delta) {
-    for (Entity object : objectList) {
-      object.update(delta);
-    }
-  }
-  
-  public void setViewport(Viewport view) {
-    currentView = view;
-  }
+   public void render(GameContainer container, Graphics g)
+         throws SlickException {
+      if (currentView == null) {
+         renderEmptyView(g);
+      } else {
+         renderArenaToView(container, g);
+      }
+   }
 
-  public void addObject(Entity object, Vec2 position) {
-    objectList.add(object);
-    object.spawn(physicalWorld, position);
-  }
-  
-  public EntityFactory getFactory() {
-    return objectFactory;
-  }
-  
-  private void renderEmptyView(Graphics g) {
-    g.drawString("NO VISUAL SIGNAL CONNECTED", 25.0f, 25.0f);
-  }
+   public void update(int delta) {
+      advanceSimulation(delta / 1000.0f);
+      
+      for (Entity object : objectList) {
+         object.update(delta);
+      }
+   }
 
-  private void renderArenaToView(GameContainer container, Graphics g) {
-    currentView.setGraphics(g);
-    for (Entity object : objectList) {
-      object.render(currentView);
-    }
-  }
-  
-  private LinkedList<Entity> objectList;
-  private EntityFactory objectFactory;
-  private Viewport currentView;
-  private World physicalWorld;
+   public void setViewport(Viewport view) {
+      currentView = view;
+   }
+
+   public void addObject(Entity object, Vec2 position) {
+      objectList.add(object);
+      object.spawn(physicalWorld, position);
+   }
+
+   public EntityFactory getFactory() {
+      return objectFactory;
+   }
+
+   private void renderEmptyView(Graphics g) {
+      g.drawString("NO VISUAL SIGNAL CONNECTED", 25.0f, 25.0f);
+   }
+
+   private void renderArenaToView(GameContainer container, Graphics g) {
+      currentView.setGraphics(g);
+      for (Entity object : objectList) {
+         object.render(currentView);
+      }
+   }
+   
+   private void advanceSimulation(float delta) {
+      final float timeStep = 1.0f/60.0f;
+      final int velocityIterations = 8;
+      final int positionIterations = 3;
+      
+      timeAccumulator += delta;
+      while (timeAccumulator > timeStep) {
+         timeAccumulator -= timeStep;
+         physicalWorld.step(timeStep, velocityIterations, positionIterations);
+      }
+   }
+
+   private LinkedList<Entity> objectList;
+   private EntityFactory objectFactory;
+   private Viewport currentView;
+   private World physicalWorld;
+   private float timeAccumulator;
 }
