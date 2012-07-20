@@ -37,12 +37,16 @@ public class BasicArenaTest {
    @Test
    public void testInit() throws Exception {
       final Vec2 pos = new Vec2(3.0f, 3.0f);
+      final Vec2 sceneryPos = new Vec2(0.0f, 0.0f);
       
       context.checking(new Expectations() {
          {
             oneOf(factoryMock).createVessel();
             will(returnValue(objectMock1));
+            oneOf(factoryMock).createScenery();
+            will(returnValue(objectMock2));
             oneOf(objectMock1).spawn(with(any(World.class)), with(equal(pos)));
+            oneOf(objectMock2).spawn(with(any(World.class)), with(equal(sceneryPos)));
          }
       });
 

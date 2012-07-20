@@ -4,4 +4,5 @@ import org.newdawn.slick.SlickException;
 
 public interface EntityFactory {
   Entity createVessel() throws SlickException;
+  Entity createScenery() throws SlickException;
 }

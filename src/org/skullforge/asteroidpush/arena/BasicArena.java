@@ -23,6 +23,7 @@ public class BasicArena implements Arena {
 
    public void init() throws SlickException {
       addObject(objectFactory.createVessel(), new Vec2(3.0f, 3.0f));
+      addObject(objectFactory.createScenery(), new Vec2(0.0f, 0.0f));
       setViewport(new StaticViewport());
    }
 

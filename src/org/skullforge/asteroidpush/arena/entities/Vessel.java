@@ -7,6 +7,7 @@ import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
 import org.jbox2d.dynamics.World;
+import org.jbox2d.common.MathUtils;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.skullforge.asteroidpush.arena.Entity;
@@ -44,6 +45,7 @@ public class Vessel implements Entity {
       BodyDef def = new BodyDef();
       def.type = BodyType.DYNAMIC;
       def.position.set(position);
+      def.angle = MathUtils.PI * -0.7f;
       return def;
    }
 
