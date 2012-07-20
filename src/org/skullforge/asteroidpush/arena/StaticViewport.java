@@ -27,7 +27,8 @@ public class StaticViewport implements Viewport {
 
    public void setGraphics(Graphics g) {
       graphicsPort = g;
-      g.scale(25.0f, 25.0f);
+      g.scale(10.0f, 10.0f);
+      g.setBackground(bgColor);
    }
 
    public void drawPolygon(Polygon poly) {
@@ -37,5 +38,6 @@ public class StaticViewport implements Viewport {
       graphicsPort.draw(poly);
    }
 
+   private final Color bgColor = new Color(0.0f, 0.01f, 0.05f);
    private Graphics graphicsPort;
 }

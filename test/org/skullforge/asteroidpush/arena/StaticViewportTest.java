@@ -7,6 +7,7 @@ import org.jmock.Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Before;
 import org.junit.Test;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 
@@ -41,7 +42,8 @@ public class StaticViewportTest {
         will(returnValue(50));
         oneOf (imageMock).setCenterOfRotation(size.x/2.0f, size.x/2.0f);
         oneOf (imageMock).setRotation(expectedRotation);
-        oneOf (graphicsMock).scale(25.0f, 25.0f);
+        oneOf (graphicsMock).scale(10.0f, 10.0f);
+        oneOf (graphicsMock).setBackground(with(any(Color.class)));
         oneOf (graphicsMock).drawImage(imageMock,
                                     -0.5f,
                                     -0.5f,
