@@ -39,6 +39,15 @@ public class Scenery implements Entity {
       // Does not do anything
    }
 
+   @Override
+   public Vec2 getPosition() {
+      if (body != null) {
+         return body.getPosition();
+      } else {
+         return new Vec2(0.0f, 0.0f);
+      }
+   }
+
    private BodyDef GetBodyDef(Vec2 position) {
       BodyDef def = new BodyDef();
       def.position.set(position);

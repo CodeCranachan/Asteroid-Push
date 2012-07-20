@@ -5,6 +5,7 @@ import org.jbox2d.dynamics.World;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
+import org.skullforge.asteroidpush.arena.viewports.TrackingViewport;
 
 import java.util.LinkedList;
 
@@ -22,9 +23,10 @@ public class BasicArena implements Arena {
    }
 
    public void init() throws SlickException {
-      addObject(objectFactory.createVessel(), new Vec2(3.0f, 3.0f));
+      Entity vessel = objectFactory.createVessel();
+      addObject(vessel, new Vec2(3.0f, 3.0f));
       addObject(objectFactory.createScenery(), new Vec2(0.0f, 0.0f));
-      setViewport(new StaticViewport());
+      setViewport(new TrackingViewport(vessel));
    }
 
    public void render(GameContainer container, Graphics g)
@@ -62,7 +64,7 @@ public class BasicArena implements Arena {
    }
 
    private void renderArenaToView(GameContainer container, Graphics g) {
-      currentView.setGraphics(g);
+      currentView.setGraphics(container, g);
       for (Entity object : objectList) {
          object.render(currentView);
       }

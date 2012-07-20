@@ -1,11 +1,13 @@
-package org.skullforge.asteroidpush.arena;
+package org.skullforge.asteroidpush.arena.viewports;
 
 import org.jbox2d.common.MathUtils;
 import org.jbox2d.common.Vec2;
 import org.newdawn.slick.Color;
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Polygon;
+import org.skullforge.asteroidpush.arena.Viewport;
 
 public class StaticViewport implements Viewport {
    public StaticViewport() {
@@ -25,7 +27,7 @@ public class StaticViewport implements Viewport {
                              img.getHeight());
    }
 
-   public void setGraphics(Graphics g) {
+   public void setGraphics(GameContainer container, Graphics g) {
       graphicsPort = g;
       g.scale(10.0f, 10.0f);
       g.setBackground(bgColor);

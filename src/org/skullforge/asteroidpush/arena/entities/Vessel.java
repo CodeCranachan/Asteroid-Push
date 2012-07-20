@@ -23,10 +23,7 @@ public class Vessel implements Entity {
    @Override
    public void render(Viewport view) {
       if (body != null) {
-         view.showImage(vesselImage,
-                        body.getPosition(),
-                        body.getAngle(),
-                        size);
+         view.showImage(vesselImage, body.getPosition(), body.getAngle(), size);
       }
    }
 
@@ -41,6 +38,15 @@ public class Vessel implements Entity {
       body.createFixture(GetFixureDef());
    }
 
+   @Override
+   public Vec2 getPosition() {
+      if (body != null) {
+         return body.getPosition();
+      } else {
+         return new Vec2(0.0f, 0.0f);
+      }
+   }
+
    private BodyDef GetBodyDef(Vec2 position) {
       BodyDef def = new BodyDef();
       def.type = BodyType.DYNAMIC;
@@ -51,7 +57,7 @@ public class Vessel implements Entity {
 
    private FixtureDef GetFixureDef() {
       PolygonShape shape = new PolygonShape();
-      shape.setAsBox(size.x/2.0f, size.y/2.0f);
+      shape.setAsBox(size.x / 2.0f, size.y / 2.0f);
       FixtureDef def = new FixtureDef();
       def.density = 1000.0f;
       def.shape = shape;

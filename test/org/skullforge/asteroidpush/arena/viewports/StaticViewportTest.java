@@ -1,4 +1,4 @@
-package org.skullforge.asteroidpush.arena;
+package org.skullforge.asteroidpush.arena.viewports;
 
 import org.jbox2d.common.MathUtils;
 import org.jbox2d.common.Vec2;
@@ -10,6 +10,8 @@ import org.junit.Test;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
+import org.skullforge.asteroidpush.arena.Viewport;
+import org.skullforge.asteroidpush.arena.viewports.StaticViewport;
 
 public class StaticViewportTest {
   Mockery context;

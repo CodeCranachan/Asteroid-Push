@@ -8,4 +8,5 @@ public interface Entity {
   void spawn(World world, Vec2 position);
   void render(Viewport view);
   void update(int delta);
+  Vec2 getPosition();
 }
