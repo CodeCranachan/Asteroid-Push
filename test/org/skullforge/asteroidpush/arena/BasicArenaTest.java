@@ -62,7 +62,7 @@ public class BasicArenaTest {
       final int expectedDelta = 25;
       context.checking(new Expectations() {
          {
-            oneOf(viewportMock).setGraphics(graphicsMock);
+            oneOf(viewportMock).setGraphics(containerMock, graphicsMock);
             oneOf(objectMock1).spawn(with(any(World.class)), with(equal(pos1)));
             oneOf(objectMock2).spawn(with(any(World.class)), with(equal(pos2)));
             oneOf(objectMock1).render(viewportMock);
