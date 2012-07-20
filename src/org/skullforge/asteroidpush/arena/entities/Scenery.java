@@ -62,13 +62,24 @@ public class Scenery implements Entity {
    private Vector<Polygon> CreateGeometry() {
       Vector<Polygon> geo = new Vector<Polygon>();
 
-      Polygon poly = new Polygon();
-      poly.addPoint(-25.f, 10.0f);
-      poly.addPoint(25.f, 10.0f);
-      poly.addPoint(25.f, 11.0f);
-      poly.addPoint(-25.f, 11.0f);
-      poly.setClosed(true);
+      Polygon poly;
 
+      poly = new Polygon();
+      poly.addPoint(-25.0f, 10.0f);
+      poly.addPoint(25.0f, 10.0f);
+      poly.addPoint(25.0f, 11.0f);
+      poly.addPoint(-25.0f, 11.0f);
+      poly.setClosed(true);
+      geo.add(poly);
+
+      poly = new Polygon();
+      poly.addPoint(4.5f, 6.0f);
+      poly.addPoint(5.0f, 5.0f);
+      poly.addPoint(6.5f, 6.0f);
+      poly.addPoint(6.0f, 7.0f);
+      poly.addPoint(5.0f, 8.0f);
+      poly.addPoint(4.5f, 7.0f);
+      poly.setClosed(true);
       geo.add(poly);
 
       return geo;

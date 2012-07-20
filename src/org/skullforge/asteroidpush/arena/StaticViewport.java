@@ -31,6 +31,8 @@ public class StaticViewport implements Viewport {
    }
 
    public void drawPolygon(Polygon poly) {
+      graphicsPort.setColor(Color.darkGray);
+      graphicsPort.fill(poly);
       graphicsPort.setColor(Color.gray);
       graphicsPort.draw(poly);
    }
