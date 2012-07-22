@@ -1,6 +1,7 @@
 package org.skullforge.asteroidpush.arena.entities;
 
 import org.jbox2d.collision.shapes.PolygonShape;
+import org.jbox2d.common.Mat22;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyDef;
@@ -11,6 +12,7 @@ import org.jbox2d.common.MathUtils;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.skullforge.asteroidpush.arena.Entity;
+import org.skullforge.asteroidpush.arena.SignalTracker;
 import org.skullforge.asteroidpush.arena.Viewport;
 
 public class Vessel implements Entity {
@@ -28,8 +30,20 @@ public class Vessel implements Entity {
    }
 
    @Override
-   public void update(int delta) {
+   public void update(int delta, SignalTracker signals) {
       // Do nothing
+      Vec2 thrust = new Vec2(500000.0f, 0.0f);
+      thrust = Mat22.createRotationalTransform(body.getAngle()).mul(thrust);
+      
+      if (signals.getForwardThrust() > 0.0f) {
+         body.applyForce(thrust, body.getPosition());
+      }
+      if (signals.getAnticlockwiseThrust() > 0.0f) {
+         body.applyTorque(-500000.0f);
+      }
+      if (signals.getClockwiseThrust() > 0.0f) {
+         body.applyTorque(500000.0f);
+      }
    }
 
    @Override
@@ -52,6 +66,7 @@ public class Vessel implements Entity {
       def.type = BodyType.DYNAMIC;
       def.position.set(position);
       def.angle = MathUtils.PI * -0.7f;
+      def.angularDamping = 0.5f;
       return def;
    }
 

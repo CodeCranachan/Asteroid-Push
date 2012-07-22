@@ -7,6 +7,6 @@ import org.skullforge.asteroidpush.arena.Viewport;
 public interface Entity {
   void spawn(World world, Vec2 position);
   void render(Viewport view);
-  void update(int delta);
+  void update(int delta, SignalTracker signals);
   Vec2 getPosition();
 }

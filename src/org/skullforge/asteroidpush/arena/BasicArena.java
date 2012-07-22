@@ -5,6 +5,7 @@ import org.jbox2d.dynamics.World;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
+import org.skullforge.asteroidpush.arena.signal.KeySignalTracker;
 import org.skullforge.asteroidpush.arena.viewports.TrackingViewport;
 
 import java.util.LinkedList;
@@ -16,6 +17,7 @@ public class BasicArena implements Arena {
       objectFactory = factory;
       currentView = null;
       timeAccumulator = 0;
+      signalTracker = new KeySignalTracker();
 
       Vec2 gravity = new Vec2(0, 10.0f);
       boolean doSleep = true;
@@ -39,11 +41,19 @@ public class BasicArena implements Arena {
    }
 
    public void update(int delta) {
-      advanceSimulation(delta / 1000.0f);
-      
+      signalTracker.takeSnapshot();
       for (Entity object : objectList) {
-         object.update(delta);
+         object.update(delta, signalTracker);
       }
+      advanceSimulation(delta / 1000.0f);
+   }
+
+   public void keyPressed(int key) {
+      signalTracker.keyPressed(key);
+   }
+
+   public void keyReleased(int key) {
+      signalTracker.keyReleased(key);
    }
 
    public void setViewport(Viewport view) {
@@ -69,12 +79,12 @@ public class BasicArena implements Arena {
          object.render(currentView);
       }
    }
-   
+
    private void advanceSimulation(float delta) {
-      final float timeStep = 1.0f/60.0f;
+      final float timeStep = 1.0f / 60.0f;
       final int velocityIterations = 8;
       final int positionIterations = 3;
-      
+
       timeAccumulator += delta;
       while (timeAccumulator > timeStep) {
          timeAccumulator -= timeStep;
@@ -87,4 +97,5 @@ public class BasicArena implements Arena {
    private Viewport currentView;
    private World physicalWorld;
    private float timeAccumulator;
+   private KeySignalTracker signalTracker;
 }

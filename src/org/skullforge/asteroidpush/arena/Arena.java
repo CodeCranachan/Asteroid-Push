@@ -11,4 +11,6 @@ public interface Arena {
   public void render(GameContainer container, Graphics g) throws SlickException;
   public void update(int delta);
   public void addObject(Entity object, Vec2 position);
+  public void keyPressed(int key);
+  public void keyReleased(int key);
 }

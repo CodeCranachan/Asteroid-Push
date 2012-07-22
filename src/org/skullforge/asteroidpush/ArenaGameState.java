@@ -10,37 +10,47 @@ import org.skullforge.asteroidpush.arena.Arena;
 
 public class ArenaGameState extends BasicGameState {
 
-  public ArenaGameState(Arena arena) {
-    gameArena = arena;
-  }
-  
-  @Override
-  public void init(GameContainer container, StateBasedGame game)
-      throws SlickException {
-    gameArena.init();
-  }
+   public ArenaGameState(Arena arena) {
+      gameArena = arena;
+   }
 
-  @Override
-  public void render(GameContainer container, StateBasedGame game, Graphics g)
-      throws SlickException {
-    gameArena.render(container, g);
-  }
+   @Override
+   public void init(GameContainer container, StateBasedGame game)
+         throws SlickException {
+      gameArena.init();
+   }
 
-  @Override
-  public void update(GameContainer container, StateBasedGame game, int delta)
-      throws SlickException {
-    gameArena.update(delta);
-  }
+   @Override
+   public void render(GameContainer container, StateBasedGame game, Graphics g)
+         throws SlickException {
+      gameArena.render(container, g);
+   }
 
-  @Override
-  public int getID() {
-    return StateInfo.ARENA.getID();
-  }
-  
-  public Arena getArena() {
-    return gameArena;
-  }
-  
-  private Arena gameArena;
+   @Override
+   public void update(GameContainer container, StateBasedGame game, int delta)
+         throws SlickException {
+      gameArena.update(delta);
+   }
+
+   @Override
+   public int getID() {
+      return StateInfo.ARENA.getID();
+   }
+
+   @Override
+   public void keyPressed(int key, char c) {
+      gameArena.keyPressed(key);
+   }
+
+   @Override
+   public void keyReleased(int key, char c) {
+      gameArena.keyReleased(key);
+   }
+
+   public Arena getArena() {
+      return gameArena;
+   }
+
+   private Arena gameArena;
 
 }

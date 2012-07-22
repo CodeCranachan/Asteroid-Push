@@ -10,6 +10,7 @@ import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.World;
 import org.newdawn.slick.geom.Polygon;
 import org.skullforge.asteroidpush.arena.Entity;
+import org.skullforge.asteroidpush.arena.SignalTracker;
 import org.skullforge.asteroidpush.arena.Viewport;
 
 public class Scenery implements Entity {
@@ -35,7 +36,7 @@ public class Scenery implements Entity {
    }
 
    @Override
-   public void update(int delta) {
+   public void update(int delta, SignalTracker signals) {
       // Does not do anything
    }
 
@@ -74,10 +75,34 @@ public class Scenery implements Entity {
       Polygon poly;
 
       poly = new Polygon();
-      poly.addPoint(-25.0f, 10.0f);
-      poly.addPoint(25.0f, 10.0f);
-      poly.addPoint(25.0f, 11.0f);
-      poly.addPoint(-25.0f, 11.0f);
+      poly.addPoint(-100.0f, 10.0f);
+      poly.addPoint(100.0f, 10.0f);
+      poly.addPoint(100.0f, 15.0f);
+      poly.addPoint(-100.0f, 15.0f);
+      poly.setClosed(true);
+      geo.add(poly);
+
+      poly = new Polygon();
+      poly.addPoint(-110.0f, 15.0f);
+      poly.addPoint(-110.0f, -100.0f);
+      poly.addPoint(-100.0f, -100.0f);
+      poly.addPoint(-100.0f, 15.0f);
+      poly.setClosed(true);
+      geo.add(poly);
+
+      poly = new Polygon();
+      poly.addPoint(100.0f, 15.0f);
+      poly.addPoint(100.0f, -100.0f);
+      poly.addPoint(110.0f, -100.0f);
+      poly.addPoint(110.0f, 15.0f);
+      poly.setClosed(true);
+      geo.add(poly);
+
+      poly = new Polygon();
+      poly.addPoint(-100.0f, -110.0f);
+      poly.addPoint(100.0f, -110.0f);
+      poly.addPoint(100.0f, -100.0f);
+      poly.addPoint(-100.0f, -100.0f);
       poly.setClosed(true);
       geo.add(poly);
 
