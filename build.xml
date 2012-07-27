@@ -18,8 +18,8 @@
    <property name="lib.jmock.archive" value="jmock-2.5.1-jars.zip"/>
    <property name="lib.onejar-ant.url" value="http://downloads.sourceforge.net/project/one-jar/one-jar/one-jar-0.97/one-jar-ant-task-0.97.jar"/>
    <property name="lib.onejar-ant.archive" value="one-jar-ant-task-0.97.jar"/>
-   <property name="lib.jacoco.url" value="http://sourceforge.net/projects/eclemma/files/07_JaCoCo/trunk/jacoco-0.5.8.201205221855.zip"/>
-   <property name="lib.jacoco.archive" value="jacoco-0.5.8.201205221855.zip"/>
+   <property name="lib.jacoco.url" value="http://sourceforge.net/projects/eclemma/files/07_JaCoCo/0.5.8/jacoco-0.5.8.201207111220.zip"/>
+   <property name="lib.jacoco.archive" value="jacoco-0.5.8.201207111220.zip"/>
    <property name="lib.lint4j.url" value="http://www.jutils.com/download/lint4j/lint4j-0.9.1.zip"/>
    <property name="lib.lint4j.archive" value="lint4j-0.9.1.zip"/>
    <property name="lib.slf4j.url" value="http://www.slf4j.org/dist/slf4j-1.6.6.zip"/>
