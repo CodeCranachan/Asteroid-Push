@@ -42,9 +42,6 @@ public class BasicArena implements Arena {
 
    public void update(int delta) {
       signalTracker.takeSnapshot();
-      for (Entity object : objectList) {
-         object.update(delta, signalTracker);
-      }
       advanceSimulation(delta / 1000.0f);
    }
 
@@ -88,6 +85,9 @@ public class BasicArena implements Arena {
       timeAccumulator += delta;
       while (timeAccumulator > timeStep) {
          timeAccumulator -= timeStep;
+         for (Entity object : objectList) {
+            object.update(0, signalTracker);
+         }
          physicalWorld.step(timeStep, velocityIterations, positionIterations);
       }
    }
