@@ -1,7 +1,6 @@
 package org.skullforge.asteroidpush.arena.entities;
 
 import org.junit.*;
-import org.jbox2d.dynamics.World;
 import org.jmock.*;
 import org.jmock.lib.legacy.ClassImposteriser;
 import org.newdawn.slick.Image;
