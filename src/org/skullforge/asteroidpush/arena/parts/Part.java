@@ -1,5 +1,6 @@
 package org.skullforge.asteroidpush.arena.parts;
 
+import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.World;
 
 /**
@@ -15,12 +16,19 @@ public interface Part {
     * 
     * @param world a jbox2d World object to create the bodies in.
     */
-   void Spawn(World world);
+   void spawn(World world);
    
    /**
     * Remove all simulated bodies and fixtures from the world given.
     * 
     * @param world a jbox2d World object to remove the bodies from.
     */
-   void Despawn(World world);
+   void despawn(World world);
+   
+   /**
+    * Get all jbox2d Body objects attached to this part.
+    * 
+    * @return a vector of Body objects, is empty if the Part has not been spawned yet.
+    */
+   Body[] getBodies();
 }
