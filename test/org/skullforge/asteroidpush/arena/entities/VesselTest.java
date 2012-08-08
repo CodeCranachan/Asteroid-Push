@@ -1,15 +1,18 @@
 package org.skullforge.asteroidpush.arena.entities;
 
 import org.junit.*;
+import org.jbox2d.dynamics.World;
 import org.jmock.*;
 import org.jmock.lib.legacy.ClassImposteriser;
 import org.newdawn.slick.Image;
+import org.skullforge.asteroidpush.arena.SignalTracker;
 import org.skullforge.asteroidpush.arena.entities.Vessel;
 
 public class VesselTest {
    private Mockery context;
    private Vessel testVessel;
    private Image imageMock;
+   private SignalTracker trackerMock;
 
    @Before
    public void setUp() throws Exception {
@@ -20,6 +23,7 @@ public class VesselTest {
       };
       imageMock = context.mock(Image.class);
       testVessel = new Vessel(imageMock);
+      trackerMock = context.mock(SignalTracker.class);
    }
 
    @Test
@@ -36,7 +40,7 @@ public class VesselTest {
 
    @Test
    public void testUpdating() throws Exception {
-      testVessel.update(0);
+      testVessel.update(0, trackerMock);
    }
 
 }

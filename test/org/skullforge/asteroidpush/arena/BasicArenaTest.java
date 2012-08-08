@@ -17,6 +17,7 @@ public class BasicArenaTest {
    EntityFactory factoryMock;
    Entity objectMock1;
    Entity objectMock2;
+   SignalTracker trackerMock;
 
    @Before
    public void setUp() throws Exception {
@@ -59,7 +60,6 @@ public class BasicArenaTest {
    public void testAddingObjects() throws Exception {
       final Vec2 pos1 = new Vec2(2.0f, 2.0f);
       final Vec2 pos2 = new Vec2(3.0f, 3.0f);
-      final int expectedDelta = 25;
       context.checking(new Expectations() {
          {
             oneOf(viewportMock).setGraphics(containerMock, graphicsMock);
@@ -67,14 +67,11 @@ public class BasicArenaTest {
             oneOf(objectMock2).spawn(with(any(World.class)), with(equal(pos2)));
             oneOf(objectMock1).render(viewportMock);
             oneOf(objectMock2).render(viewportMock);
-            oneOf(objectMock1).update(expectedDelta);
-            oneOf(objectMock2).update(expectedDelta);
          }
       });
       testArena.addObject(objectMock1, pos1);
       testArena.addObject(objectMock2, pos2);
       testArena.setViewport(viewportMock);
-      testArena.update(expectedDelta);
       testArena.render(containerMock, graphicsMock);
       context.assertIsSatisfied();
    }

@@ -31,7 +31,10 @@ public class Vessel implements Entity {
 
    @Override
    public void update(int delta, SignalTracker signals) {
-      // Do nothing
+      if (body == null) {
+         return;
+      }
+      
       Vec2 thrust = new Vec2(500000.0f, 0.0f);
       thrust = Mat22.createRotationalTransform(body.getAngle()).mul(thrust);
       

@@ -186,7 +186,7 @@
                <path refid="release.include"/>
                <path refid="testing.include"/>
             </classpath>
-            <batchtest fork="yes" todir="${testing.results}">
+            <batchtest fork="false" todir="${testing.results}">
                <fileset dir="${source.root}">
                   <include name="**/*Test*.java"/>
                </fileset>
