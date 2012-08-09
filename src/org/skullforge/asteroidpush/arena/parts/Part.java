@@ -8,7 +8,7 @@ import org.jbox2d.dynamics.World;
 /**
  * Interface for individual parts of simulated objects.
  * 
- * @author christianmeyer
+ * @author Konfuzzyus
  * 
  */
 public interface Part {
