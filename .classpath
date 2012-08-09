@@ -29,9 +29,9 @@
 	<classpathentry kind="lib" path="build/library/jar/jbox2d-library-2.1.2.2.jar"/>
 	<classpathentry kind="lib" path="build/library/jar/slf4j-api-1.6.6.jar"/>
 	<classpathentry kind="lib" path="build/library/jar/slf4j-jdk14-1.6.6.jar"/>
-	<classpathentry kind="lib" path="build/library/jar/org.jacoco.agent-0.5.8.201207111220.jar"/>
-	<classpathentry kind="lib" path="build/library/jar/org.jacoco.ant-0.5.8.201207111220.jar"/>
-	<classpathentry kind="lib" path="build/library/jar/org.jacoco.core-0.5.8.201207111220.jar"/>
-	<classpathentry kind="lib" path="build/library/jar/org.jacoco.report-0.5.8.201207111220.jar"/>
+	<classpathentry kind="lib" path="build/library/jar/org.jacoco.agent-0.5.8.201205221855.jar"/>
+	<classpathentry kind="lib" path="build/library/jar/org.jacoco.ant-0.5.8.201205221855.jar"/>
+	<classpathentry kind="lib" path="build/library/jar/org.jacoco.core-0.5.8.201205221855.jar"/>
+	<classpathentry kind="lib" path="build/library/jar/org.jacoco.report-0.5.8.201205221855.jar"/>
 	<classpathentry kind="output" path="build/eclipse/classes"/>
 </classpath>
