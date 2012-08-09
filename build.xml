@@ -129,6 +129,7 @@
    <target name="release" depends="library">
       <mkdir dir="${release.classes}"/>
       <javac srcdir="${source.root}" destdir="${release.classes}" includeantruntime="no" debug="off">
+         <compilerarg value="-Xlint:all"/>
          <exclude name="**/*Test.java"/>
          <classpath>
             <path refid="release.include"/>
@@ -169,6 +170,7 @@
 
       <mkdir dir="${testing.classes}"/>
       <javac  destdir="${testing.classes}" includeantruntime="false" debug="on">
+         <compilerarg value="-Xlint:all"/>
          <src path="${source.root}"/>
          <src path="${test.root}"/>
          <classpath>
