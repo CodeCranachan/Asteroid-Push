@@ -5,6 +5,8 @@ import org.jbox2d.dynamics.World;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.UnicodeFont;
+import org.newdawn.slick.font.effects.ColorEffect;
 import org.skullforge.asteroidpush.arena.signal.KeySignalTracker;
 import org.skullforge.asteroidpush.arena.viewports.TrackingViewport;
 
@@ -29,6 +31,11 @@ public class BasicArena implements Arena {
       addObject(vessel, new Vec2(3.0f, 3.0f));
       addObject(objectFactory.createScenery(), new Vec2(0.0f, 0.0f));
       setViewport(new TrackingViewport(vessel));
+
+      labelFont = new UnicodeFont("Alfphabet-IV.ttf", 14, false, false);
+      labelFont.addAsciiGlyphs();
+      labelFont.getEffects().add(new ColorEffect(java.awt.Color.BLUE));
+      labelFont.loadGlyphs();
    }
 
    public void render(GameContainer container, Graphics g)
@@ -69,12 +76,21 @@ public class BasicArena implements Arena {
    private void renderEmptyView(Graphics g) {
       g.drawString("NO VISUAL SIGNAL CONNECTED", 25.0f, 25.0f);
    }
+   
+   private void drawPlayerName(GameContainer container, Graphics g) {
+      g.scale(0.08f, 0.08f);
+      String playerLabel = "PlayerName";
+      float labelWidth = labelFont.getWidth(playerLabel);
+      labelFont.drawString(container.getWidth() - labelWidth - 15.0f, 15.0f, playerLabel);
+      g.resetTransform();
+   }
 
    private void renderArenaToView(GameContainer container, Graphics g) {
       currentView.setGraphics(container, g);
       for (Entity object : objectList) {
          object.render(currentView);
       }
+      drawPlayerName(container, g);
    }
 
    private void advanceSimulation(float delta) {
@@ -98,4 +114,5 @@ public class BasicArena implements Arena {
    private World physicalWorld;
    private float timeAccumulator;
    private KeySignalTracker signalTracker;
+   private UnicodeFont labelFont;
 }
