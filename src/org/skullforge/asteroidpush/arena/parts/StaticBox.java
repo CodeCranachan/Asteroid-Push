@@ -1,5 +1,7 @@
 package org.skullforge.asteroidpush.arena.parts;
 
+import java.util.ArrayList;
+
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyDef;
@@ -35,13 +37,12 @@ public class StaticBox implements Part {
    }
    
    @Override
-   public Body[] getBodies() {
-      if (null != body) {
-         Body bodies[] = new Body[1];
-         bodies[0] = body;
-         return bodies;
+   public ArrayList<Body> getBodies() {
+      ArrayList<Body> bodies = new ArrayList<Body>();
+      if (body != null) {
+         bodies.add(body);
       }
-      return new Body[0];
+      return bodies;
    }
    
    private Body body;

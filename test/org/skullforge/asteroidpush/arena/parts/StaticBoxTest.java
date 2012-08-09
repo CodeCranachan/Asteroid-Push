@@ -2,6 +2,8 @@ package org.skullforge.asteroidpush.arena.parts;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.World;
@@ -23,17 +25,16 @@ public class StaticBoxTest {
    @Test
    public void testStaticBox() {
       int expectedNumberOfBodies = 0;
-      Body bodies[];
-      bodies = testBox.getBodies();
-      assertEquals(expectedNumberOfBodies, bodies.length);
+      ArrayList<Body> bodies = testBox.getBodies();
+      assertEquals(expectedNumberOfBodies, bodies.size());
    }
    
    @Test
    public void testSpawn() {
       int expectedNumberOfBodies = 1;
       testBox.spawn(testWorld);
-      Body bodies[] = testBox.getBodies();
-      assertEquals(expectedNumberOfBodies, bodies.length);
+      ArrayList<Body> bodies = testBox.getBodies();
+      assertEquals(expectedNumberOfBodies, bodies.size());
    }
 
    @Test
@@ -42,7 +43,7 @@ public class StaticBoxTest {
       
       int expectedNumberOfBodies = 0;
       testBox.despawn(testWorld);
-      Body bodies[] = testBox.getBodies();
-      assertEquals(expectedNumberOfBodies, bodies.length);
+      ArrayList<Body> bodies = testBox.getBodies();
+      assertEquals(expectedNumberOfBodies, bodies.size());
    }
 }

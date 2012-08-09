@@ -1,5 +1,7 @@
 package org.skullforge.asteroidpush.arena.parts;
 
+import java.util.ArrayList;
+
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.World;
 
@@ -30,5 +32,5 @@ public interface Part {
     * 
     * @return a vector of Body objects, is empty if the Part has not been spawned yet.
     */
-   Body[] getBodies();
+   ArrayList<Body> getBodies();
 }
