@@ -19,19 +19,30 @@ public class StaticBoxTest {
       Vec2 outerDiagnonal = new Vec2(110.0f, 60.0f);
       testBox = new StaticBox(innerDiagonal, outerDiagnonal);
    }
+
+   @Test
+   public void testStaticBox() {
+      int expectedNumberOfBodies = 0;
+      Body bodies[];
+      bodies = testBox.getBodies();
+      assertEquals(expectedNumberOfBodies, bodies.length);
+   }
    
    @Test
-   public void testSpawning() {
-      int expectedNumberOfBodiesDespawned = 0;
-      int expectedNumberOfBodiesSpawned = 1;
-      
-      Body bodies[];
-
-      bodies = testBox.getBodies();
-      assertEquals(expectedNumberOfBodiesDespawned, bodies.length);
-      
+   public void testSpawn() {
+      int expectedNumberOfBodies = 1;
       testBox.spawn(testWorld);
-      bodies = testBox.getBodies();
-      assertEquals(expectedNumberOfBodiesSpawned, bodies.length);
+      Body bodies[] = testBox.getBodies();
+      assertEquals(expectedNumberOfBodies, bodies.length);
+   }
+
+   @Test
+   public void testDespawn() {
+      testBox.spawn(testWorld);
+      
+      int expectedNumberOfBodies = 0;
+      testBox.despawn(testWorld);
+      Body bodies[] = testBox.getBodies();
+      assertEquals(expectedNumberOfBodies, bodies.length);
    }
 }

@@ -30,8 +30,8 @@ public class StaticBox implements Part {
 
    @Override
    public void despawn(World world) {
-      // TODO Auto-generated method stub
-
+      world.destroyBody(body);
+      body = null;
    }
    
    @Override
