@@ -1,4 +1,4 @@
-package org.skullforge.asteroidpush.arena.parts;
+package org.skullforge.asteroidpush.parts;
 
 import static org.junit.Assert.*;
 
@@ -13,6 +13,7 @@ import org.jbox2d.dynamics.Fixture;
 import org.jbox2d.dynamics.World;
 import org.junit.Before;
 import org.junit.Test;
+import org.skullforge.asteroidpush.parts.StaticBox;
 
 public class StaticBoxTest {
    StaticBox testBox;

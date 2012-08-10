@@ -1,4 +1,4 @@
-package org.skullforge.asteroidpush.arena.parts;
+package org.skullforge.asteroidpush.parts;
 
 import java.util.ArrayList;
 
