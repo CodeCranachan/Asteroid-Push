@@ -32,10 +32,12 @@ public class BasicArena implements Arena {
       addObject(objectFactory.createScenery(), new Vec2(0.0f, 0.0f));
       setViewport(new TrackingViewport(vessel));
 
+      /*
       labelFont = new UnicodeFont("Alfphabet-IV.ttf", 14, false, false);
       labelFont.addAsciiGlyphs();
       labelFont.getEffects().add(new ColorEffect(java.awt.Color.BLUE));
       labelFont.loadGlyphs();
+      */
    }
 
    public void render(GameContainer container, Graphics g)
@@ -78,11 +80,13 @@ public class BasicArena implements Arena {
    }
    
    private void drawPlayerName(GameContainer container, Graphics g) {
+      /*
       g.scale(0.08f, 0.08f);
       String playerLabel = "PlayerName";
       float labelWidth = labelFont.getWidth(playerLabel);
       labelFont.drawString(container.getWidth() - labelWidth - 15.0f, 15.0f, playerLabel);
       g.resetTransform();
+      */
    }
 
    private void renderArenaToView(GameContainer container, Graphics g) {
