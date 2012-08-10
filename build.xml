@@ -197,7 +197,7 @@
          <xml destfile="${testing.coverage}/coverage.xml"/>
       </jacoco:report>
       
-      <!-- If we wait with failing until this point, all unit test will be run 
+      <!-- If we wait with failing until this point, all unit tests will be run 
            and we will get a coverage report. -->
       <fail message="Unit tests failed.">
          <condition>
