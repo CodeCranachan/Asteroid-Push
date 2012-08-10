@@ -20,8 +20,6 @@
    <property name="lib.onejar-ant.archive" value="one-jar-ant-task-0.97.jar"/>
    <property name="lib.jacoco.url" value="http://sourceforge.net/projects/eclemma/files/07_JaCoCo/0.5.8/jacoco-0.5.8.201207111220.zip"/>
    <property name="lib.jacoco.archive" value="jacoco-0.5.8.201207111220.zip"/>
-   <property name="lib.lint4j.url" value="http://www.jutils.com/download/lint4j/lint4j-0.9.1.zip"/>
-   <property name="lib.lint4j.archive" value="lint4j-0.9.1.zip"/>
    <property name="lib.slf4j.url" value="http://www.slf4j.org/dist/slf4j-1.6.6.zip"/>
    <property name="lib.slf4j.archive" value="slf4j-1.6.6.zip"/>
    <property name="library.root" location="build/library"/>
@@ -40,7 +38,6 @@
          <url url="${lib.jmock.url}"/>
          <url url="${lib.jacoco.url}"/>
          <url url="${lib.onejar-ant.url}"/>
-         <url url="${lib.lint4j.url}"/>
          <url url="${lib.slf4j.url}"/>
       </get>
       
@@ -87,13 +84,6 @@
       <copy file="${library.downloads}/${lib.onejar-ant.archive}" todir="${library.jars}"/>
       <!-- Jacoco -->
       <unzip src="${library.downloads}/${lib.jacoco.archive}" dest="${library.jars}">
-         <patternset>
-            <include name="**/*.jar"/>
-         </patternset>
-         <mapper type="flatten"/>
-      </unzip>
-      <!-- Lint4j -->
-      <unzip src="${library.downloads}/${lib.lint4j.archive}" dest="${library.jars}">
          <patternset>
             <include name="**/*.jar"/>
          </patternset>
@@ -162,14 +152,9 @@
       <taskdef uri="antlib:org.jacoco.ant" resource="org/jacoco/ant/antlib.xml">
          <classpath path="${library.jars}/jacocoant.jar"/>
       </taskdef>
-      <taskdef name="lint4j" classname="com.jutils.lint4j.ant.Lint4jAntTask">
-         <classpath>
-            <pathelement location="${library.jars}/lint4j.jar"/>
-         </classpath>
-      </taskdef>
 
       <mkdir dir="${testing.classes}"/>
-      <javac  destdir="${testing.classes}" includeantruntime="false" debug="on">
+      <javac destdir="${testing.classes}" includeantruntime="false" debug="on">
          <compilerarg value="-Xlint:all"/>
          <src path="${source.root}"/>
          <src path="${test.root}"/>
@@ -188,31 +173,11 @@
                <path refid="release.include"/>
                <path refid="testing.include"/>
             </classpath>
-            <batchtest fork="false" todir="${testing.results}">
-               <fileset dir="${source.root}">
-                  <include name="**/*Test*.java"/>
-               </fileset>
-               <fileset dir="${test.root}">
-                  <include name="**/*Test*.java"/>
-               </fileset>
-               <formatter type="plain"/>
-            </batchtest>
+            <test name="org.skullforge.asteroidpush.AllTests" todir="${testing.results}">
+               <formatter type="xml"/>
+            </test>
          </junit>
       </jacoco:coverage>
-
-      <lint4j packages="org.skullforge.*" level="5">
-         <sourcepath>
-            <pathelement location="${source.root}"/>
-         </sourcepath>
-         <classpath>
-            <path refid="release.include"/>
-            <path refid="testing.include"/>
-         </classpath>
-         <formatters>
-            <formatter type="text"/>
-            <formatter type="xml" toFile="${testing.results}/lint4j_report.xml"/>
-         </formatters>
-      </lint4j>
 
       <jacoco:report>
          <executiondata>
@@ -220,13 +185,16 @@
          </executiondata>
          <structure name="Asteroid-Push">
             <classfiles>
-               <fileset dir="${testing.classes}"/>
+               <fileset dir="${testing.classes}">
+                  <exclude name="**/*Test*.class"/>
+               </fileset>
             </classfiles>
             <sourcefiles encoding="UTF-8">
                <fileset dir="${source.root}"/>
             </sourcefiles>
          </structure>
          <html destdir="${testing.coverage}"/>
+         <xml destfile="${testing.coverage}/coverage.xml"/>
       </jacoco:report>
    </target>
 
