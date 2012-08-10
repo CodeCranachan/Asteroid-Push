@@ -1,5 +1,6 @@
 package org.skullforge.asteroidpush.doodads;
 
+import org.jbox2d.dynamics.World;
 import org.skullforge.asteroidpush.parts.Part;
 
 /**
@@ -17,6 +18,13 @@ public class Doodad {
     *           the part that will be added to the Doodad.
     */
    void addPart(Part part) {
+      
+   }
+   
+   /**
+    * Spawns all Parts into the World.
+    */
+   void spawn(World world) {
       
    }
 }

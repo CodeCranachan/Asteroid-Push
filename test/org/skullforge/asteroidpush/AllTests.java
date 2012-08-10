@@ -6,8 +6,9 @@ import org.junit.runners.Suite.SuiteClasses;
 
 import org.skullforge.asteroidpush.arena.BasicArenaTest;
 import org.skullforge.asteroidpush.arena.entities.VesselTest;
-import org.skullforge.asteroidpush.arena.parts.StaticBoxTest;
+import org.skullforge.asteroidpush.parts.StaticBoxTest;
 import org.skullforge.asteroidpush.arena.viewports.StaticViewportTest;
+import org.skullforge.asteroidpush.doodads.DoodadTest;
 
 @RunWith(Suite.class)
 @SuiteClasses({ VesselTest.class,
@@ -15,8 +16,9 @@ import org.skullforge.asteroidpush.arena.viewports.StaticViewportTest;
    AsteroidPushTest.class,
    BasicStateFactoryTest.class,
    BasicArenaTest.class,
+   StaticViewportTest.class,
    StaticBoxTest.class,
-   StaticViewportTest.class
+   DoodadTest.class
    })
 public class AllTests {
 
