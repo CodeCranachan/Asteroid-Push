@@ -2,6 +2,7 @@ package org.skullforge.asteroidpush.doodads;
 
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.World;
+import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,9 +26,21 @@ public class DoodadTest {
    }
 
    @Test
-   public void testAddPartAndSpawn() {
+   public void testSpawnAndDespawn() {
+      context.checking(new Expectations() {
+         {
+            oneOf(boxMock).spawn(testWorld);
+            oneOf(blockMock).spawn(testWorld);
+            oneOf(boxMock).despawn(testWorld);
+            oneOf(blockMock).despawn(testWorld);
+         }
+      });
+
       testDoodad.addPart(boxMock);
       testDoodad.addPart(blockMock);
       testDoodad.spawn(testWorld);
+      testDoodad.despawn(testWorld);
+
+      context.assertIsSatisfied();
    }
 }

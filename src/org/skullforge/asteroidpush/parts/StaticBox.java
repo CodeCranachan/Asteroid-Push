@@ -96,6 +96,22 @@ public class StaticBox implements Part {
       return bodies;
    }
 
+   @Override
+   public boolean equals(Object other) {
+      if (this == other) {
+         return true;
+      }
+
+      if (!(other instanceof StaticBox)) {
+         return false;
+      }
+
+      StaticBox otherBox = (StaticBox) other;
+
+      return (innerDiagonal.equals(otherBox.innerDiagonal) && outerDiagonal
+            .equals(otherBox.outerDiagonal));
+   }
+
    private Body body;
    private Vec2 innerDiagonal;
    private Vec2 outerDiagonal;

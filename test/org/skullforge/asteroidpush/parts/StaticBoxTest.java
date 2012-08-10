@@ -1,9 +1,9 @@
 package org.skullforge.asteroidpush.parts;
 
 import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.*;
 
 import java.util.ArrayList;
-
 import org.jbox2d.collision.shapes.Shape;
 import org.jbox2d.common.Transform;
 import org.jbox2d.common.Vec2;
@@ -114,5 +114,23 @@ public class StaticBoxTest {
       testBox.despawn(testWorld);
       ArrayList<Body> bodies = testBox.getBodies();
       assertEquals(0, bodies.size());
+   }
+
+   @Test
+   public void testEquals() {
+      Vec2 v1 = new Vec2(1.0f, 0.5f);
+      Vec2 v2 = new Vec2(2.4f, 3.1f);
+      Vec2 v3 = new Vec2(3.3f, 8.8f);
+      StaticBox boxA = new StaticBox(v1, v2);
+      StaticBox boxB = new StaticBox(v2, v1);
+      StaticBox boxC = new StaticBox(v3, v1);
+      StaticBox boxD = new StaticBox(v2, v3);
+
+      assertThat(boxA, is(equalTo(boxB)));
+      assertThat(boxA, not(equalTo(boxC)));
+      assertThat(boxB, not(equalTo(boxD)));
+      assertThat(boxC, not(equalTo(boxD)));
+      assertThat(boxA, is(equalTo(boxA)));
+      assertThat(v1, not(equalTo((Object) boxA)));
    }
 }
