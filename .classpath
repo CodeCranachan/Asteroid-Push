@@ -19,8 +19,6 @@
 	<classpathentry kind="lib" path="build/library/jar/bsh-core-2.0b4.jar"/>
 	<classpathentry kind="lib" path="build/library/jar/cglib-2.1_3-src.jar"/>
 	<classpathentry kind="lib" path="build/library/jar/cglib-nodep-2.1_3.jar"/>
-	<classpathentry kind="lib" path="build/library/jar/jacocoagent.jar"/>
-	<classpathentry kind="lib" path="build/library/jar/jacocoant.jar"/>
 	<classpathentry kind="lib" path="build/library/jar/jmock-junit3-2.5.1.jar"/>
 	<classpathentry kind="lib" path="build/library/jar/jmock-script-2.5.1.jar"/>
 	<classpathentry kind="lib" path="build/library/jar/objenesis-1.0.jar"/>
