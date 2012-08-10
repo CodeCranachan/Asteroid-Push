@@ -167,7 +167,7 @@
       <mkdir dir="${testing.coverage}"/>
       <delete file="${testing.coverage}/jacoco.exec"/>
       <jacoco:coverage destfile="${testing.coverage}/jacoco.exec" append="true">
-         <junit fork="true" printsummary="yes" haltonfailure="yes">
+         <junit fork="true" printsummary="yes" haltonfailure="no" failureproperty="testing.failed">
             <classpath>
                <pathelement location="${testing.classes}"/>
                <path refid="release.include"/>
@@ -196,6 +196,14 @@
          <html destdir="${testing.coverage}"/>
          <xml destfile="${testing.coverage}/coverage.xml"/>
       </jacoco:report>
+      
+      <!-- If we wait with failing until this point, all unit test will be run 
+           and we will get a coverage report. -->
+      <fail message="Unit tests failed.">
+         <condition>
+            <isset property="testing.failed"/>
+         </condition>
+      </fail>
    </target>
 
    <!-- DEPLOYMENT
