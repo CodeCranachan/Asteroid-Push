@@ -186,7 +186,12 @@
          <structure name="Asteroid-Push">
             <classfiles>
                <fileset dir="${testing.classes}">
+                  <!-- Do not include tests in coverage -->
                   <exclude name="**/*Test*.class"/>
+                  <!-- Do not include anonymous inner classes in coverage -->
+                  <exclude name="**/*$*.class"/>
+                  <!-- Do not include main class in coverage -->
+                  <exclude name="**/AsteroidPushMain.class"/>
                </fileset>
             </classfiles>
             <sourcefiles encoding="UTF-8">
