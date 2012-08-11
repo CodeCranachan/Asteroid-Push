@@ -6,61 +6,61 @@ import org.jmock.*;
 import static org.junit.Assert.*;
 
 public class ArenaGameStateTest {
-  private Arena arenaMock;
-  private ArenaGameState arenaState;
-  private Mockery context;
+   private Arena arenaMock;
+   private ArenaGameState arenaState;
+   private Mockery context;
 
-  @Before
-  public void setUp() throws Exception {
-    context = new Mockery();
-    arenaMock = context.mock(Arena.class);
-    arenaState = new ArenaGameState(arenaMock);
-  }
+   @Before
+   public void setUp() throws Exception {
+      context = new Mockery();
+      arenaMock = context.mock(Arena.class);
+      arenaState = new ArenaGameState(arenaMock);
+   }
 
-  @Test
-  public void testGetID() throws Exception {
-    int expectedID = 1;
-    assertEquals(expectedID, arenaState.getID());
-  }
+   @Test
+   public void testGetID() throws Exception {
+      int expectedID = 1;
+      assertEquals(expectedID, arenaState.getID());
+   }
 
-  @Test
-  public void testInit() throws Exception {
-    context.checking(new Expectations() {
-      {
-        oneOf(arenaMock).init();
-      }
-    });
-    
-    arenaState.init(null, null);
-    
-    context.assertIsSatisfied();
-  }
+   @Test
+   public void testInit() throws Exception {
+      context.checking(new Expectations() {
+         {
+            oneOf(arenaMock).init();
+         }
+      });
 
-  @Test
-  public void testDelegateRendering() throws Exception {
-    context.checking(new Expectations() {
-      {
-        oneOf(arenaMock).render(null, null);
-      }
-    });
+      arenaState.init(null, null);
 
-    arenaState.render(null, null, null);
+      context.assertIsSatisfied();
+   }
 
-    context.assertIsSatisfied();
-  }
+   @Test
+   public void testDelegateRendering() throws Exception {
+      context.checking(new Expectations() {
+         {
+            oneOf(arenaMock).render(null, null);
+         }
+      });
 
-  @Test
-  public void testDelegateUpdate() throws Exception {
-    final int expectedDelta = 45;
-    context.checking(new Expectations() {
-      {
-        oneOf(arenaMock).update(expectedDelta);
-      }
-    });
+      arenaState.render(null, null, null);
 
-    arenaState.update(null, null, expectedDelta);
+      context.assertIsSatisfied();
+   }
 
-    context.assertIsSatisfied();
-  }
+   @Test
+   public void testDelegateUpdate() throws Exception {
+      final int expectedDelta = 45;
+      context.checking(new Expectations() {
+         {
+            oneOf(arenaMock).update(expectedDelta);
+         }
+      });
+
+      arenaState.update(null, null, expectedDelta);
+
+      context.assertIsSatisfied();
+   }
 
 }

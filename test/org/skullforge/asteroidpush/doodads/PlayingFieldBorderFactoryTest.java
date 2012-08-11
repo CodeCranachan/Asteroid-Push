@@ -4,24 +4,19 @@ import static org.junit.Assert.*;
 
 import org.jbox2d.common.Vec2;
 import org.jmock.Expectations;
-import org.jmock.Mockery;
-import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Before;
 import org.junit.Test;
+import org.skullforge.asteroidpush.ClassMockery;
 import org.skullforge.asteroidpush.parts.StaticBox;
 
 public class PlayingFieldBorderFactoryTest {
-   Mockery context;
+   ClassMockery context;
    Doodad doodadMock;
    PlayingFieldBorderFactory testFactory;
 
    @Before
    public void setUp() throws Exception {
-      context = new Mockery() {
-         {
-            setImposteriser(ClassImposteriser.INSTANCE);
-         }
-      };
+      context = new ClassMockery();
       doodadMock = context.mock(Doodad.class);
       testFactory = new PlayingFieldBorderFactory();
    }

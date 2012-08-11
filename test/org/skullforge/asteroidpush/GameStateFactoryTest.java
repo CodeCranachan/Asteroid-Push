@@ -19,6 +19,7 @@ public class GameStateFactoryTest {
    public void setUp() throws Exception {
       testFactory = new GameStateFactory();
    }
+
    @Test
    public void testInvalidStateCreation() throws Exception {
       GameState testState;
@@ -27,7 +28,7 @@ public class GameStateFactoryTest {
       testState = testFactory.createGameState(StateInfo.INVALID);
       assertNull(testState);
    }
-   
+
    @Test
    public void testArenaStateCreation() throws Exception {
       GameState testState = testFactory.createGameState(StateInfo.ARENA);
@@ -43,7 +44,7 @@ public class GameStateFactoryTest {
       assertNotNull(testEntityFactory);
       assertEquals(testEntityFactory.getClass(), BasicEntityFactory.class);
    }
-   
+
    @Test
    public void testMatchStateCreation() throws Exception {
       GameState testState = testFactory.createGameState(StateInfo.MATCH);

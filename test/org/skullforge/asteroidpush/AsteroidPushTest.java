@@ -3,26 +3,20 @@ package org.skullforge.asteroidpush;
 import static org.junit.Assert.*;
 
 import org.jmock.Expectations;
-import org.jmock.Mockery;
-import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.*;
 import org.newdawn.slick.state.GameState;
 import org.skullforge.asteroidpush.AsteroidPush;
 import org.skullforge.asteroidpush.GameStateFactory;
 
 public class AsteroidPushTest {
-   Mockery context;
+   ClassMockery context;
    GameStateFactory factoryMock;
    GameState arenaStateMock;
    AsteroidPush testApp;
 
    @Before
    public void setUp() throws Exception {
-      context = new Mockery() {
-         {
-            setImposteriser(ClassImposteriser.INSTANCE);
-         }
-      };
+      context = new ClassMockery();
       arenaStateMock = context.mock(GameState.class);
       factoryMock = context.mock(GameStateFactory.class);
       testApp = new AsteroidPush(factoryMock);

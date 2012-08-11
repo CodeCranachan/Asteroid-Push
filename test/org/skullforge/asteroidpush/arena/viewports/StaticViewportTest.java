@@ -3,30 +3,25 @@ package org.skullforge.asteroidpush.arena.viewports;
 import org.jbox2d.common.MathUtils;
 import org.jbox2d.common.Vec2;
 import org.jmock.Expectations;
-import org.jmock.Mockery;
-import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Before;
 import org.junit.Test;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
+import org.skullforge.asteroidpush.ClassMockery;
 import org.skullforge.asteroidpush.arena.Viewport;
 import org.skullforge.asteroidpush.arena.viewports.StaticViewport;
 
 public class StaticViewportTest {
-   Mockery context;
+   ClassMockery context;
    Graphics graphicsMock;
    GameContainer containerMock;
    Image imageMock;
 
    @Before
    public void setUp() throws Exception {
-      context = new Mockery() {
-         {
-            setImposteriser(ClassImposteriser.INSTANCE);
-         }
-      };
+      context = new ClassMockery();
       graphicsMock = context.mock(Graphics.class);
       imageMock = context.mock(Image.class);
       containerMock = context.mock(GameContainer.class);

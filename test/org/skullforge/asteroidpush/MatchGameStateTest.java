@@ -8,11 +8,15 @@ import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 
 public class MatchGameStateTest {
+   ClassMockery context;
+   Simulator simulatorMock;
    MatchGameState testState;
 
    @Before
    public void setUp() throws Exception {
-      testState = new MatchGameState();
+      context = new ClassMockery();
+      simulatorMock = context.mock(Simulator.class);
+      testState = new MatchGameState(simulatorMock);
    }
 
    @Test

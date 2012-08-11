@@ -8,6 +8,10 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class MatchGameState extends BasicGameState {
 
+   public MatchGameState(Simulator sim) {
+      matchSimulator = sim;
+   }
+   
    @Override
    public void init(GameContainer container, StateBasedGame game)
          throws SlickException {
@@ -31,5 +35,6 @@ public class MatchGameState extends BasicGameState {
    public int getID() {
       return StateInfo.MATCH.getID();
    }
-
+   
+   private Simulator matchSimulator;
 }

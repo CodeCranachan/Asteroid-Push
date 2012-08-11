@@ -13,9 +13,10 @@ import org.skullforge.asteroidpush.doodads.PlayingFieldBorderFactoryTest;
 
 @RunWith(Suite.class)
 @SuiteClasses({ VesselTest.class, ArenaGameStateTest.class,
-      AsteroidPushTest.class, GameStateFactoryTest.class,
-      BasicArenaTest.class, StaticViewportTest.class, StaticBoxTest.class,
-      DoodadTest.class, PlayingFieldBorderFactoryTest.class, MatchGameStateTest.class })
+      AsteroidPushTest.class, GameStateFactoryTest.class, BasicArenaTest.class,
+      StaticViewportTest.class, StaticBoxTest.class, DoodadTest.class,
+      PlayingFieldBorderFactoryTest.class, MatchGameStateTest.class,
+      SimulatorTest.class })
 public class AllTests {
 
 }

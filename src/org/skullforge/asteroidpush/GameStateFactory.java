@@ -4,8 +4,21 @@ import org.newdawn.slick.state.GameState;
 import org.skullforge.asteroidpush.arena.BasicArena;
 import org.skullforge.asteroidpush.arena.BasicEntityFactory;
 
+/**
+ * Abstracts game state creation for the game container.
+ * 
+ * @author Konfuzzyus
+ * 
+ */
 public class GameStateFactory {
 
+   /**
+    * Creates a game state for the given state id.
+    * 
+    * @param stateId
+    *           id of the game state
+    * @return a freshly assembled game state to be usde for that state id.
+    */
    public GameState createGameState(StateInfo stateId) {
       GameState state;
 
@@ -34,6 +47,6 @@ public class GameStateFactory {
    }
 
    private MatchGameState createMatchGameState() {
-      return new MatchGameState();
+      return new MatchGameState(new Simulator());
    }
 }
