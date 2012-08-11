@@ -6,7 +6,7 @@ import org.newdawn.slick.SlickException;
 public class AsteroidPushMain {
 
   public static void main(String[] args) throws SlickException{
-    AppGameContainer app = new AppGameContainer(new AsteroidPush(new BasicStateFactory()));
+    AppGameContainer app = new AppGameContainer(new AsteroidPush(new GameStateFactory()));
     app.start();
   }
  

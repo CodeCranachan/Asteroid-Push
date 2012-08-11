@@ -6,15 +6,15 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class AsteroidPush extends StateBasedGame {
 
-  public AsteroidPush(StateFactory factory) {
+  public AsteroidPush(GameStateFactory factory) {
     super("Asteroid Push");
     stateFactory = factory;
   }
 
   @Override
   public void initStatesList(GameContainer container) throws SlickException {
-    addState(stateFactory.createArenaState());
+    addState(stateFactory.createGameState(StateInfo.ARENA));
   }
   
-  private StateFactory stateFactory;
+  private GameStateFactory stateFactory;
 }
