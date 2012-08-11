@@ -116,7 +116,7 @@
       </fileset>
    </path>
    
-   <target name="release" depends="library">
+   <target name="release" depends="library,testing">
       <mkdir dir="${release.classes}"/>
       <javac srcdir="${source.root}" destdir="${release.classes}" includeantruntime="no" debug="off">
          <compilerarg value="-Xlint:all"/>
