@@ -2,6 +2,8 @@ package org.skullforge.asteroidpush;
 
 import java.util.ArrayList;
 
+import org.jbox2d.common.Vec2;
+import org.jbox2d.dynamics.World;
 import org.skullforge.asteroidpush.doodads.Doodad;
 
 /**
@@ -16,6 +18,7 @@ public class Simulator {
    public Simulator() {
       doodadList = new ArrayList<Doodad>();
       currentFrameNumber = 0;
+      world = new World(new Vec2(), true);
    }
 
    /**
@@ -39,16 +42,28 @@ public class Simulator {
     */
    public void stepToFrame(int targetFrameNumber) {
       while (currentFrameNumber < targetFrameNumber) {
-         stepSimulation();
+         computeNextFrame();
       }
    }
 
-   /**
-    * Advances the simulation by a single frame.
-    */
-   private void stepSimulation() {
+   private void computeNextFrame() {
       ++currentFrameNumber;
-      for (Doodad doodad : doodadList) {
+      updateDoodads();
+      stepWorld();
+   }
+
+   private void stepWorld() {
+      final float timeStep = 1.0f / 60.0f;
+      final int velocityIterations = 8;
+      final int positionIterations = 3;
+      world.step(timeStep, velocityIterations, positionIterations);
+   }
+
+   private void updateDoodads() {
+      // Copy the doodadList so there is no weird behavior if a Doodad is added
+      // during Doodad::update().
+      ArrayList<Doodad> listCopy = new ArrayList<Doodad>(doodadList);
+      for (Doodad doodad : listCopy) {
          doodad.update(currentFrameNumber);
       }
    }
@@ -65,4 +80,5 @@ public class Simulator {
 
    private ArrayList<Doodad> doodadList;
    private int currentFrameNumber;
+   private World world;
 }

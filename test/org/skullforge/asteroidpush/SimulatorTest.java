@@ -1,5 +1,6 @@
 package org.skullforge.asteroidpush;
 
+import org.jbox2d.dynamics.World;
 import org.jmock.Expectations;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,9 +10,9 @@ import static org.junit.Assert.*;
 
 public class SimulatorTest {
    ClassMockery context;
-   Doodad banana;
    Doodad abacusMock;
    Doodad bananaMock;
+   World worldMock;
    Simulator testSimulator;
 
    @Before
