@@ -23,7 +23,9 @@ public class PlayingFieldBorderFactoryTest {
 
    @Test
    public void testCreateDoodad() {
-      assertNotNull(testFactory.createDoodad());
+      Doodad testDoodad = testFactory.createDoodad();
+      assertNotNull(testDoodad);
+      assertEquals("PlayingFieldBorder", testDoodad.getName());
    }
 
    @Test

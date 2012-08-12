@@ -17,7 +17,7 @@ public class PlayingFieldBorderFactory implements DoodadFactory {
 
    @Override
    public Doodad createDoodad() {
-      return initDoodad(new Doodad());
+      return initDoodad(new Doodad(doodadName));
    }
 
    public void setParameters(float fieldWidth, float fieldHeight) {
@@ -36,4 +36,5 @@ public class PlayingFieldBorderFactory implements DoodadFactory {
    private float fieldWidth;
    private float fieldHeight;
    final private float borderThickness = 10.0f;
+   final private String doodadName = "PlayingFieldBorder";
 }

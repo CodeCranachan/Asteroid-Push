@@ -34,8 +34,10 @@ public class StaticBox implements Part {
 
    @Override
    public void spawn(World world) {
-      body = world.createBody(getBodyDef());
-      AddFixturesToBody();
+      if (body == null) {
+         body = world.createBody(getBodyDef());
+         AddFixturesToBody();
+      }
    }
 
    private BodyDef getBodyDef() {
@@ -83,8 +85,10 @@ public class StaticBox implements Part {
 
    @Override
    public void despawn(World world) {
-      world.destroyBody(body);
-      body = null;
+      if (body != null) {
+         world.destroyBody(body);
+         body = null;
+      }
    }
 
    @Override

@@ -2,11 +2,13 @@ package org.skullforge.asteroidpush.doodads;
 
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.World;
-import org.jmock.Expectations;
-import org.jmock.Mockery;
+import org.skullforge.asteroidpush.parts.Part;
+
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
-import org.skullforge.asteroidpush.parts.Part;
+import org.jmock.Expectations;
+import org.jmock.Mockery;
 
 public class DoodadTest {
    Mockery context;
@@ -22,7 +24,12 @@ public class DoodadTest {
       blockMock = context.mock(Part.class, "Block");
       Vec2 testGravity = new Vec2();
       testWorld = new World(testGravity, true);
-      testDoodad = new Doodad();
+      testDoodad = new Doodad("TestDoodad");
+   }
+
+   @Test
+   public void testGetName() {
+      assertEquals("TestDoodad", testDoodad.getName());
    }
 
    @Test
@@ -38,9 +45,19 @@ public class DoodadTest {
 
       testDoodad.addPart(boxMock);
       testDoodad.addPart(blockMock);
+      assertFalse(testDoodad.isSpawned());
       testDoodad.spawn(testWorld);
+      assertTrue(testDoodad.isSpawned());
       testDoodad.despawn(testWorld);
+      assertFalse(testDoodad.isSpawned());
 
+      context.assertIsSatisfied();
+   }
+
+   @Test
+   public void testUpdate() {
+      testDoodad.addPart(boxMock);
+      testDoodad.update(1);
       context.assertIsSatisfied();
    }
 }

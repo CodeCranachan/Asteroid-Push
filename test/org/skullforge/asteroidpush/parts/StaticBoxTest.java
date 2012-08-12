@@ -53,6 +53,14 @@ public class StaticBoxTest {
       for (Vec2 point : getPointsExpectedToMiss()) {
          assertFalse(point.toString(), checkCollision(body, point));
       }
+
+      // check that nothing is done when a spawned part is spawned is spawned
+      // again
+      testBox.spawn(testWorld);
+      ArrayList<Body> newBodies = testBox.getBodies();
+      assertEquals(1, newBodies.size());
+      Body newBody = newBodies.get(0);
+      assertSame(body, newBody);
    }
 
    private ArrayList<Vec2> getPointsExpectedToCollide() {
@@ -114,6 +122,10 @@ public class StaticBoxTest {
       testBox.despawn(testWorld);
       ArrayList<Body> bodies = testBox.getBodies();
       assertEquals(0, bodies.size());
+
+      // Check that there will be no crash when a despawned part is despawned
+      // again
+      testBox.despawn(testWorld);
    }
 
    @Test

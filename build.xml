@@ -175,6 +175,7 @@
             </classpath>
             <test name="org.skullforge.asteroidpush.AllTests" todir="${testing.results}">
                <formatter type="xml"/>
+               <formatter type="plain" usefile="false"/>
             </test>
          </junit>
       </jacoco:coverage>
