@@ -5,21 +5,24 @@ import org.jbox2d.dynamics.World;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.UnicodeFont;
-import org.newdawn.slick.font.effects.ColorEffect;
 import org.skullforge.asteroidpush.arena.signal.KeySignalTracker;
 import org.skullforge.asteroidpush.arena.viewports.TrackingViewport;
+import org.skullforge.asteroidpush.ui.UiFactory;
+import org.skullforge.asteroidpush.ui.Widget;
 
 import java.util.LinkedList;
 
 public class BasicArena implements Arena {
 
-   public BasicArena(EntityFactory factory) {
+   public BasicArena(EntityFactory factory, UiFactory uiFactory) {
       objectList = new LinkedList<Entity>();
       objectFactory = factory;
       currentView = null;
       timeAccumulator = 0;
       signalTracker = new KeySignalTracker();
+
+      widgetList = new LinkedList<Widget>();
+      widgetFactory = uiFactory;
 
       Vec2 gravity = new Vec2(0, 10.0f);
       boolean doSleep = true;
@@ -32,12 +35,7 @@ public class BasicArena implements Arena {
       addObject(objectFactory.createScenery(), new Vec2(0.0f, 0.0f));
       setViewport(new TrackingViewport(vessel));
 
-      /*
-      labelFont = new UnicodeFont("Alfphabet-IV.ttf", 14, false, false);
-      labelFont.addAsciiGlyphs();
-      labelFont.getEffects().add(new ColorEffect(java.awt.Color.BLUE));
-      labelFont.loadGlyphs();
-      */
+      widgetFactory.createUi(widgetList);
    }
 
    public void render(GameContainer container, Graphics g)
@@ -79,22 +77,14 @@ public class BasicArena implements Arena {
       g.drawString("NO VISUAL SIGNAL CONNECTED", 25.0f, 25.0f);
    }
    
-   private void drawPlayerName(GameContainer container, Graphics g) {
-      /*
-      g.scale(0.08f, 0.08f);
-      String playerLabel = "PlayerName";
-      float labelWidth = labelFont.getWidth(playerLabel);
-      labelFont.drawString(container.getWidth() - labelWidth - 15.0f, 15.0f, playerLabel);
-      g.resetTransform();
-      */
-   }
-
    private void renderArenaToView(GameContainer container, Graphics g) {
       currentView.setGraphics(container, g);
       for (Entity object : objectList) {
          object.render(currentView);
       }
-      drawPlayerName(container, g);
+      for (Widget w : widgetList) {
+         w.render(g);
+      }
    }
 
    private void advanceSimulation(float delta) {
@@ -113,10 +103,11 @@ public class BasicArena implements Arena {
    }
 
    private LinkedList<Entity> objectList;
+   private LinkedList<Widget> widgetList;
    private EntityFactory objectFactory;
    private Viewport currentView;
    private World physicalWorld;
    private float timeAccumulator;
    private KeySignalTracker signalTracker;
-   private UnicodeFont labelFont;
+   private UiFactory widgetFactory;
 }
