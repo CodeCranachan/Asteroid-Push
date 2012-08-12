@@ -38,7 +38,7 @@ public class Doodad {
          part.spawn(world);
       }
    }
-   
+
    /**
     * Remove all Parts from the simulation.
     */
@@ -46,6 +46,17 @@ public class Doodad {
       for (Part part : parts) {
          part.despawn(world);
       }
+   }
+
+   /**
+    * Updates the Doodads inner state. This notifies all Logic objects in this
+    * Doodad to do their thing.
+    * 
+    * @param frameNumber
+    *           the number of the simulation frame. Can be used to compute
+    *           delays and other time based logic.
+    */
+   public void update(int frameNumber) {
    }
 
    private ArrayList<Part> parts;

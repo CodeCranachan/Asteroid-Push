@@ -43,4 +43,11 @@ public class DoodadTest {
 
       context.assertIsSatisfied();
    }
+
+   @Test
+   public void testUpdate() {
+      testDoodad.addPart(boxMock);
+      testDoodad.update(1);
+      context.assertIsSatisfied();
+   }
 }
