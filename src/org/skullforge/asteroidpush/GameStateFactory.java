@@ -3,6 +3,7 @@ package org.skullforge.asteroidpush;
 import org.newdawn.slick.state.GameState;
 import org.skullforge.asteroidpush.arena.BasicArena;
 import org.skullforge.asteroidpush.arena.BasicEntityFactory;
+import org.skullforge.asteroidpush.ui.IngameUiFactory;
 
 /**
  * Abstracts game state creation for the game container.
@@ -42,7 +43,7 @@ public class GameStateFactory {
    }
 
    private ArenaGameState createArenaGameState() {
-      BasicArena arena = new BasicArena(new BasicEntityFactory());
+      BasicArena arena = new BasicArena(new BasicEntityFactory(), new IngameUiFactory());
       return (new ArenaGameState(arena));
    }
 

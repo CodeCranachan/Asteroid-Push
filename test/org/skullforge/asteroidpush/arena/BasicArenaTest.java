@@ -1,5 +1,7 @@
 package org.skullforge.asteroidpush.arena;
 
+import java.util.LinkedList;
+
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.World;
 import org.jmock.*;
@@ -7,6 +9,8 @@ import org.junit.*;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.skullforge.asteroidpush.ClassMockery;
+import org.skullforge.asteroidpush.ui.UiFactory;
+import org.skullforge.asteroidpush.ui.Widget;
 
 public class BasicArenaTest {
    ClassMockery context;
@@ -14,6 +18,7 @@ public class BasicArenaTest {
    GameContainer containerMock;
    Graphics graphicsMock;
    Viewport viewportMock;
+   UiFactory uiFactoryMock;
    EntityFactory factoryMock;
    Entity objectMock1;
    Entity objectMock2;
@@ -23,7 +28,8 @@ public class BasicArenaTest {
    public void setUp() throws Exception {
       context = new ClassMockery();
       factoryMock = context.mock(EntityFactory.class, "factory");
-      testArena = new BasicArena(factoryMock);
+      uiFactoryMock = context.mock(UiFactory.class, "uiFactory");
+      testArena = new BasicArena(factoryMock, uiFactoryMock);
       containerMock = context.mock(GameContainer.class, "container");
       graphicsMock = context.mock(Graphics.class, "graphics");
       viewportMock = context.mock(Viewport.class, "viewport");
@@ -35,9 +41,11 @@ public class BasicArenaTest {
    public void testInit() throws Exception {
       final Vec2 pos = new Vec2(3.0f, 3.0f);
       final Vec2 sceneryPos = new Vec2(0.0f, 0.0f);
+      final LinkedList<Widget> widgetContainer = new LinkedList<Widget>();
 
       context.checking(new Expectations() {
          {
+            oneOf(uiFactoryMock).createUi(widgetContainer);
             oneOf(factoryMock).createVessel();
             will(returnValue(objectMock1));
             oneOf(factoryMock).createScenery();
