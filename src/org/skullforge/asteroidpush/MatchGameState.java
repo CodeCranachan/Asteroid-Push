@@ -15,7 +15,7 @@ public class MatchGameState extends BasicGameState {
    @Override
    public void init(GameContainer container, StateBasedGame game)
          throws SlickException {
-      // Initialize model with scenario
+      matchSimulator.initialize(new Scenario());
    }
 
    @Override

@@ -1,5 +1,7 @@
 package org.skullforge.asteroidpush;
 
+import java.util.ArrayList;
+
 import org.jbox2d.dynamics.World;
 import org.jmock.Expectations;
 import org.jmock.Sequence;
@@ -14,7 +16,7 @@ public class SimulatorTest {
    ClassMockery context;
    Doodad abacusMock;
    Doodad bananaMock;
-   World worldMock;
+   Scenario scenarioMock;
    Simulator testSimulator;
 
    @Before
@@ -22,7 +24,28 @@ public class SimulatorTest {
       context = new ClassMockery();
       abacusMock = context.mock(Doodad.class, "Abacus");
       bananaMock = context.mock(Doodad.class, "Banana");
+      scenarioMock = context.mock(Scenario.class);
       testSimulator = new Simulator();
+   }
+
+   @Test
+   public void testInitialize() {
+      ArrayList<Doodad> doodads = new ArrayList<Doodad>();
+      doodads.add(abacusMock);
+      doodads.add(bananaMock);
+      final ArrayList<Doodad> finalDoodads = new ArrayList<Doodad>(doodads);
+      context.checking(new Expectations() {
+         {
+            oneOf(scenarioMock).buildDoodads();
+            will(returnValue(finalDoodads));
+            oneOf(abacusMock).spawn(with(aNonNull(World.class)));
+            oneOf(bananaMock).spawn(with(aNonNull(World.class)));
+         }
+      });
+
+      testSimulator.initialize(scenarioMock);
+      
+      context.assertIsSatisfied();
    }
 
    @Test
@@ -56,11 +79,16 @@ public class SimulatorTest {
          {
             allowing(abacusMock).isSpawned();
             will(returnValue(true));
-            oneOf(abacusMock).update(1); inSequence(update);
-            oneOf(abacusMock).update(2); inSequence(update);
-            oneOf(abacusMock).update(3); inSequence(update);
-            oneOf(abacusMock).update(4); inSequence(update);
-            oneOf(abacusMock).update(5); inSequence(update);
+            oneOf(abacusMock).update(1);
+            inSequence(update);
+            oneOf(abacusMock).update(2);
+            inSequence(update);
+            oneOf(abacusMock).update(3);
+            inSequence(update);
+            oneOf(abacusMock).update(4);
+            inSequence(update);
+            oneOf(abacusMock).update(5);
+            inSequence(update);
          }
       });
 

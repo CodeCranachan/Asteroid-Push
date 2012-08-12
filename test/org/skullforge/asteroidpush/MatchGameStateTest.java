@@ -1,5 +1,6 @@
 package org.skullforge.asteroidpush;
 
+import org.jmock.Expectations;
 import org.junit.Before;
 import org.junit.Test;
 import org.newdawn.slick.SlickException;
@@ -21,6 +22,11 @@ public class MatchGameStateTest {
 
    @Test
    public void testInit() throws SlickException {
+      context.checking(new Expectations() {
+         {
+            oneOf(simulatorMock).initialize(with(aNonNull(Scenario.class)));
+         }
+      });
       testState.init(null, null);
    }
 

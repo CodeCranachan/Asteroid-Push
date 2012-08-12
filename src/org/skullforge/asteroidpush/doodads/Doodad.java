@@ -15,9 +15,10 @@ public class Doodad {
    /**
     * Create a new empty Doodad.
     */
-   public Doodad() {
+   public Doodad(String name) {
       parts = new ArrayList<Part>();
       partsSpawned = false;
+      doodadName = new String(name);
    }
 
    /**
@@ -66,6 +67,11 @@ public class Doodad {
       return this.partsSpawned;
    }
 
+   public String getName() {
+      return doodadName;
+   }
+
    private ArrayList<Part> parts;
    private boolean partsSpawned;
+   private String doodadName;
 }

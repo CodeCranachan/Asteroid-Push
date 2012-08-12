@@ -24,7 +24,12 @@ public class DoodadTest {
       blockMock = context.mock(Part.class, "Block");
       Vec2 testGravity = new Vec2();
       testWorld = new World(testGravity, true);
-      testDoodad = new Doodad();
+      testDoodad = new Doodad("TestDoodad");
+   }
+
+   @Test
+   public void testGetName() {
+      assertEquals("TestDoodad", testDoodad.getName());
    }
 
    @Test

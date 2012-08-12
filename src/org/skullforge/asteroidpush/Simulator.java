@@ -22,6 +22,19 @@ public class Simulator {
    }
 
    /**
+    * Initialize the Simulator with the data contained in a scenario.
+    * 
+    * @param scenario
+    *           the scenario to be replicated within the Simulator.
+    */
+   public void initialize(Scenario scenario) {
+      for (Doodad doodad : scenario.buildDoodads()) {
+         addDoodad(doodad);
+         doodad.spawn(world);
+      }
+   }
+
+   /**
     * Adds a Doodad to the simulation. Doodads can not be removed from the
     * outside. To get rid of the Doodad it must be scheduled for destruction by
     * the Doodad itself. The simulation will take care of the rest.
@@ -70,7 +83,7 @@ public class Simulator {
          }
       }
    }
-   
+
    private void spawnUnspawnedDoodads() {
       for (Doodad doodad : doodadList) {
          if (!doodad.isSpawned()) {
