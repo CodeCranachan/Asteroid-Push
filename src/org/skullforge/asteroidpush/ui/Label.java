@@ -1,5 +1,6 @@
 package org.skullforge.asteroidpush.ui;
 
+import org.newdawn.slick.Font;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.UnicodeFont;
 import org.newdawn.slick.geom.Rectangle;
@@ -16,7 +17,10 @@ public class Label implements Widget {
    @Override
    public void render(Graphics g) {
       g.scale(0.08f, 0.08f);
-      font.drawString(x, y, text);
+      Font currentFont = g.getFont();
+      g.setFont(font);
+      g.drawString(text, x, y);
+      g.setFont(currentFont);
       g.resetTransform();
    }
 
