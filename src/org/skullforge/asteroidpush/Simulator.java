@@ -48,7 +48,8 @@ public class Simulator {
 
    private void computeNextFrame() {
       ++currentFrameNumber;
-      updateDoodads();
+      updateSpawnedDoodads();
+      spawnUnspawnedDoodads();
       stepWorld();
    }
 
@@ -59,12 +60,22 @@ public class Simulator {
       world.step(timeStep, velocityIterations, positionIterations);
    }
 
-   private void updateDoodads() {
+   private void updateSpawnedDoodads() {
       // Copy the doodadList so there is no weird behavior if a Doodad is added
       // during Doodad::update().
       ArrayList<Doodad> listCopy = new ArrayList<Doodad>(doodadList);
       for (Doodad doodad : listCopy) {
-         doodad.update(currentFrameNumber);
+         if (doodad.isSpawned()) {
+            doodad.update(currentFrameNumber);
+         }
+      }
+   }
+   
+   private void spawnUnspawnedDoodads() {
+      for (Doodad doodad : doodadList) {
+         if (!doodad.isSpawned()) {
+            doodad.spawn(world);
+         }
       }
    }
 
