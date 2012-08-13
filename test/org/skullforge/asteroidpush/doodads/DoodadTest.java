@@ -2,7 +2,9 @@ package org.skullforge.asteroidpush.doodads;
 
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.World;
+import org.skullforge.asteroidpush.appearances.Appearance;
 import org.skullforge.asteroidpush.parts.Part;
+import org.skullforge.asteroidpush.ui.Renderer;
 
 import static org.junit.Assert.*;
 import org.junit.Before;
@@ -14,6 +16,8 @@ public class DoodadTest {
    Mockery context;
    Part boxMock;
    Part blockMock;
+   Appearance appearanceMock;
+   Renderer rendererMock;
    World testWorld;
    Doodad testDoodad;
 
@@ -22,6 +26,8 @@ public class DoodadTest {
       context = new Mockery();
       boxMock = context.mock(Part.class, "Box");
       blockMock = context.mock(Part.class, "Block");
+      appearanceMock = context.mock(Appearance.class);
+      rendererMock = context.mock(Renderer.class);
       Vec2 testGravity = new Vec2();
       testWorld = new World(testGravity, true);
       testDoodad = new Doodad("TestDoodad");
@@ -58,6 +64,20 @@ public class DoodadTest {
    public void testUpdate() {
       testDoodad.addPart(boxMock);
       testDoodad.update(1);
+      context.assertIsSatisfied();
+   }
+
+   @Test
+   public void testAddAppearance() {
+      context.checking(new Expectations() {
+         {
+            oneOf(rendererMock).draw(appearanceMock);
+         }
+      });
+
+      testDoodad.addAppearance(appearanceMock);
+      testDoodad.render(rendererMock);
+
       context.assertIsSatisfied();
    }
 }

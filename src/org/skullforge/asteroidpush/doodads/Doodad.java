@@ -3,7 +3,9 @@ package org.skullforge.asteroidpush.doodads;
 import java.util.ArrayList;
 
 import org.jbox2d.dynamics.World;
+import org.skullforge.asteroidpush.appearances.Appearance;
 import org.skullforge.asteroidpush.parts.Part;
+import org.skullforge.asteroidpush.ui.Renderer;
 
 /**
  * Groups Parts, Logic and Appearances together.
@@ -16,9 +18,10 @@ public class Doodad {
     * Create a new empty Doodad.
     */
    public Doodad(String name) {
+      doodadName = new String(name);
       parts = new ArrayList<Part>();
       partsSpawned = false;
-      doodadName = new String(name);
+      appearances = new ArrayList<Appearance>();
    }
 
    /**
@@ -54,6 +57,29 @@ public class Doodad {
    }
 
    /**
+    * Adds an Appearance to this Doodad. The appearance should be based on Parts
+    * and Logic that has previously been added to the Doodad.
+    * 
+    * @param appearance
+    *           the appearance that will be added to the Doodad.
+    */
+   public void addAppearance(Appearance appearance) {
+      appearances.add(appearance);
+   }
+
+   /**
+    * Passes all Appearances contained in this Doodad to the renderer given.
+    * 
+    * @param renderer
+    *           the renderer to use to visualize this Doodad.
+    */
+   public void render(Renderer renderer) {
+      for(Appearance a : appearances) {
+         renderer.draw(a);
+      }
+   }
+
+   /**
     * Updates the Doodad's inner state.
     * 
     * @param frameNumber
@@ -71,7 +97,8 @@ public class Doodad {
       return doodadName;
    }
 
+   private String doodadName;
    private ArrayList<Part> parts;
    private boolean partsSpawned;
-   private String doodadName;
+   private ArrayList<Appearance> appearances;
 }
