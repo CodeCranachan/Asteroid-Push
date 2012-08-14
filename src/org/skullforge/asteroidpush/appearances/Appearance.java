@@ -2,7 +2,7 @@ package org.skullforge.asteroidpush.appearances;
 
 import java.util.ArrayList;
 
-import org.newdawn.slick.geom.Polygon;
+import org.newdawn.slick.geom.Shape;
 
 public interface Appearance {
    /**
@@ -12,5 +12,5 @@ public interface Appearance {
     * 
     * @return an array of graphic polygons defining the appearance.
     */
-   ArrayList<Polygon> getSilhouette();
+   ArrayList<Shape> getSilhouette();
 }

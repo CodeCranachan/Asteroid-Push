@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.World;
 import org.skullforge.asteroidpush.doodads.Doodad;
+import org.skullforge.asteroidpush.ui.Renderer;
 
 /**
  * Encapsulates the jbox2d World and all the nifty stuff required to compute the
@@ -56,6 +57,20 @@ public class Simulator {
    public void stepToFrame(int targetFrameNumber) {
       while (currentFrameNumber < targetFrameNumber) {
          computeNextFrame();
+      }
+   }
+
+   /**
+    * Displays the contents of the Simulator using the given renderer.
+    * 
+    * @param renderer
+    *           a renderer to use to display the current simulation state.
+    */
+   public void render(Renderer renderer) {
+      for (Doodad doodad : doodadList) {
+         if (doodad.isSpawned()) {
+            doodad.render(renderer);
+         }
       }
    }
 

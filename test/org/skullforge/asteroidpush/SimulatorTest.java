@@ -9,6 +9,7 @@ import org.jmock.States;
 import org.junit.Before;
 import org.junit.Test;
 import org.skullforge.asteroidpush.doodads.Doodad;
+import org.skullforge.asteroidpush.ui.Renderer;
 
 import static org.junit.Assert.*;
 
@@ -17,6 +18,7 @@ public class SimulatorTest {
    Doodad abacusMock;
    Doodad bananaMock;
    Scenario scenarioMock;
+   Renderer rendererMock;
    Simulator testSimulator;
 
    @Before
@@ -25,6 +27,7 @@ public class SimulatorTest {
       abacusMock = context.mock(Doodad.class, "Abacus");
       bananaMock = context.mock(Doodad.class, "Banana");
       scenarioMock = context.mock(Scenario.class);
+      rendererMock = context.mock(Renderer.class);
       testSimulator = new Simulator();
    }
 
@@ -127,6 +130,25 @@ public class SimulatorTest {
 
       testSimulator.addDoodad(abacusMock);
       testSimulator.stepToFrame(3);
+      context.assertIsSatisfied();
+   }
+   
+   @Test
+   public void testRender() {
+      context.checking(new Expectations() {
+         {
+            allowing(abacusMock).isSpawned();
+            will(returnValue(false));
+            allowing(bananaMock).isSpawned();
+            will(returnValue(true));
+            oneOf(bananaMock).render(rendererMock);
+         }
+      });
+      
+      testSimulator.addDoodad(abacusMock);
+      testSimulator.addDoodad(bananaMock);
+      testSimulator.render(rendererMock);
+      
       context.assertIsSatisfied();
    }
 }
