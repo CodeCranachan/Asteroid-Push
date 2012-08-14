@@ -7,6 +7,7 @@ import org.jmock.Expectations;
 import org.junit.Before;
 import org.junit.Test;
 import org.skullforge.asteroidpush.ClassMockery;
+import org.skullforge.asteroidpush.appearances.SimpleAppearance;
 import org.skullforge.asteroidpush.parts.StaticBox;
 
 public class PlayingFieldBorderFactoryTest {
@@ -41,6 +42,7 @@ public class PlayingFieldBorderFactoryTest {
       context.checking(new Expectations() {
          {
             oneOf(doodadMock).addPart(with(equal(expectedBox)));
+            oneOf(doodadMock).addAppearance(with(any(SimpleAppearance.class)));
          }
       });
 
