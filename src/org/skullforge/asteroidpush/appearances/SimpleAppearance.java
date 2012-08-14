@@ -11,6 +11,7 @@ import org.jbox2d.dynamics.Fixture;
 import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.Shape;
+import org.newdawn.slick.geom.Transform;
 import org.skullforge.asteroidpush.parts.Part;
 
 public class SimpleAppearance implements Appearance {
@@ -26,14 +27,22 @@ public class SimpleAppearance implements Appearance {
 
       for (Body b : bodies) {
          Fixture f = b.getFixtureList();
+         Transform t = convertToSlickTransform(b.getTransform());
          while (f != null) {
             Shape shape = convertToSlickShape(f.getShape());
+            shape = shape.transform(t);
             silhouette.add(shape);
             f = f.getNext();
          }
       }
 
       return silhouette;
+   }
+
+   private org.newdawn.slick.geom.Transform convertToSlickTransform(org.jbox2d.common.Transform transform) {
+      Transform converted = new Transform(transform.R.col1.x, transform.R.col2.x, transform.position.x, 
+                                          transform.R.col1.y, transform.R.col2.y, transform.position.y);
+      return converted;
    }
 
    public org.newdawn.slick.geom.Shape convertToSlickShape(org.jbox2d.collision.shapes.Shape shape) {
@@ -48,27 +57,39 @@ public class SimpleAppearance implements Appearance {
 
       switch (type) {
       case POLYGON:
-         PolygonShape poly = (PolygonShape) shape;
-         Vec2[] vertices = poly.getVertices();
-         float[] points = new float[vertices.length * 2];
-         for (int i = 0; i < points.length; ++i) {
-            if (i % 2 == 0) {
-               points[i] = vertices[i / 2].x;
-            } else {
-               points[i] = vertices[i / 2].y;
-            }
-         }
-         converted = new Polygon(points);
+         converted = convertToPolygon(shape);
          break;
       case CIRCLE:
-         CircleShape circle = (CircleShape) shape;
-         converted = new Circle(circle.m_p.x, circle.m_p.y, circle.m_radius);
+         converted = convertToCircle(shape);
          break;
       default:
          converted = new Circle(0.0f, 0.0f, 7.5f);
          break;
       }
 
+      return converted;
+   }
+
+   private org.newdawn.slick.geom.Shape convertToCircle(org.jbox2d.collision.shapes.Shape shape) {
+      org.newdawn.slick.geom.Shape converted;
+      CircleShape circle = (CircleShape) shape;
+      converted = new Circle(circle.m_p.x, circle.m_p.y, circle.m_radius);
+      return converted;
+   }
+
+   private org.newdawn.slick.geom.Shape convertToPolygon(org.jbox2d.collision.shapes.Shape shape) {
+      org.newdawn.slick.geom.Shape converted;
+      PolygonShape poly = (PolygonShape) shape;
+      Vec2[] vertices = poly.getVertices();
+      float[] points = new float[vertices.length * 2];
+      for (int i = 0; i < points.length; ++i) {
+         if (i % 2 == 0) {
+            points[i] = vertices[i / 2].x;
+         } else {
+            points[i] = vertices[i / 2].y;
+         }
+      }
+      converted = new Polygon(points);
       return converted;
    }
 

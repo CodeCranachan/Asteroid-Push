@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 import org.jbox2d.collision.shapes.CircleShape;
 import org.jbox2d.collision.shapes.PolygonShape;
-import org.jbox2d.collision.shapes.ShapeType;
 import org.jbox2d.common.MathUtils;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
@@ -39,7 +38,8 @@ public class SimpleAppearanceTest {
       Vec2 gravity = new Vec2();
       testWorld = new World(gravity, true);
       BodyDef bodyDef = new BodyDef();
-      bodyDef.position = new Vec2(10.0f, 10.0f);
+      bodyDef.position = new Vec2(5.0f, 10.0f);
+      bodyDef.angle = MathUtils.QUARTER_PI;
       testBody = testWorld.createBody(bodyDef);
    }
 
@@ -63,8 +63,10 @@ public class SimpleAppearanceTest {
       assertEquals(1, silhouette.size());
       Shape mappedShape = silhouette.get(0);
 
-      float[][] expectedPoints = { { -5.00f, -5.00f }, { 5.00f, -5.00f },
-            { 5.00f, 5.00f }, { -5.00f, 5.00f } };
+      final float diagonal = MathUtils.sqrt(50.0f);
+      float[][] expectedPoints = { { 5.00f, 10.00f - diagonal },
+            { 5.00f + diagonal, 10.00f }, { 5.00f, 10.00f + diagonal },
+            { 5.00f - diagonal, 10.00f } };
 
       assertEquals(expectedPoints.length, mappedShape.getPointCount() / 2);
       for (int i = 0; i < mappedShape.getPointCount() / 2; ++i) {
@@ -99,18 +101,18 @@ public class SimpleAppearanceTest {
       assertEquals(1, silhouette.size());
       Shape mappedShape = silhouette.get(0);
 
-      final float expectedRadius = 4.999f;
+      final float expectedRadius = 4.99f;
       for (float alpha = 0.0f; alpha < 2 * MathUtils.PI; alpha += MathUtils.PI / 16.0f) {
          StringBuffer message = new StringBuffer();
          message.append("Angle ").append(alpha);
          assertTrue(message.toString(),
-                    mappedShape.contains(MathUtils.sin(alpha) * expectedRadius,
-                                         MathUtils.cos(alpha) * expectedRadius));
+                    mappedShape.contains(MathUtils.sin(alpha) * expectedRadius
+                          + 5.0f, MathUtils.cos(alpha) * expectedRadius + 10.0f));
       }
 
       context.assertIsSatisfied();
    }
-   
+
    @Test
    public void testGetUnknownSilhouette() {
       Shape mappedShape = testAppearance.convertToSlickShape(null);
