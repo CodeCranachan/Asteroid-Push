@@ -154,6 +154,6 @@ public class SimulatorTest {
    
    @Test
    public void testGetTimeStep() {
-      assertEquals(0.0165, testSimulator.getTimeStep(), 0.001);
+      assertEquals(0.0165, testSimulator.getTimeStep(), 0.0001);
    }
 }

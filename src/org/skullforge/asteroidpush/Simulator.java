@@ -118,7 +118,7 @@ public class Simulator {
 
    public float getTimeStep() {
       // A bit more than 60 frames per second
-      return 0.016f;
+      return 0.0165f;
    }
    
    private ArrayList<Doodad> doodadList;
