@@ -83,7 +83,7 @@ public class BasicArena implements Arena {
          object.render(currentView);
       }
       for (Widget w : widgetList) {
-         w.render(g);
+         w.render(g, null);
       }
    }
 

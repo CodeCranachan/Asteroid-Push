@@ -5,6 +5,7 @@ import org.jmock.Sequence;
 import org.junit.Before;
 import org.junit.Test;
 import org.newdawn.slick.SlickException;
+import org.skullforge.asteroidpush.ui.layouts.Layout;
 
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
@@ -12,12 +13,14 @@ import static org.hamcrest.CoreMatchers.*;
 public class MatchGameStateTest {
    ClassMockery context;
    Simulator simulatorMock;
+   Layout layoutMock;
    MatchGameState testState;
 
    @Before
    public void setUp() throws Exception {
       context = new ClassMockery();
       simulatorMock = context.mock(Simulator.class);
+      layoutMock = context.mock(Layout.class);
    }
 
    @Test
@@ -29,7 +32,7 @@ public class MatchGameStateTest {
             oneOf(simulatorMock).initialize(with(aNonNull(Scenario.class)));
          }
       });
-      testState = new MatchGameState(simulatorMock);
+      testState = new MatchGameState(simulatorMock, layoutMock);
       testState.init(null, null);
 
       context.assertIsSatisfied();
@@ -41,9 +44,10 @@ public class MatchGameStateTest {
          {
             allowing(simulatorMock).getTimeStep();
             will(returnValue(0.016f));
+            oneOf(layoutMock).render(null, null);
          }
       });
-      testState = new MatchGameState(simulatorMock);
+      testState = new MatchGameState(simulatorMock, layoutMock);
       testState.render(null, null, null);
 
       context.assertIsSatisfied();
@@ -68,7 +72,7 @@ public class MatchGameStateTest {
             inSequence(steps);
          }
       });
-      testState = new MatchGameState(simulatorMock);
+      testState = new MatchGameState(simulatorMock, layoutMock);
       testState.update(null, null, 20);
       testState.update(null, null, 5);
       testState.update(null, null, 5);
@@ -86,7 +90,7 @@ public class MatchGameStateTest {
             will(returnValue(0.016f));
          }
       });
-      testState = new MatchGameState(simulatorMock);
+      testState = new MatchGameState(simulatorMock, layoutMock);
       assertThat(testState.getID(), is(equalTo(2)));
 
       context.assertIsSatisfied();

@@ -15,7 +15,7 @@ public class Label implements Widget {
    }
 
    @Override
-   public void render(Graphics g) {
+   public void render(Graphics g, Rectangle frame) {
       g.scale(0.08f, 0.08f);
       Font currentFont = g.getFont();
       g.setFont(font);

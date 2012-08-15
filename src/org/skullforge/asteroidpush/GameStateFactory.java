@@ -4,6 +4,7 @@ import org.newdawn.slick.state.GameState;
 import org.skullforge.asteroidpush.arena.BasicArena;
 import org.skullforge.asteroidpush.arena.BasicEntityFactory;
 import org.skullforge.asteroidpush.ui.IngameUiFactory;
+import org.skullforge.asteroidpush.ui.layouts.SimpleLayout;
 
 /**
  * Abstracts game state creation for the game container.
@@ -48,6 +49,6 @@ public class GameStateFactory {
    }
 
    private MatchGameState createMatchGameState() {
-      return new MatchGameState(new Simulator());
+      return new MatchGameState(new Simulator(), new SimpleLayout());
    }
 }

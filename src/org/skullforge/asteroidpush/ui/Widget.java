@@ -4,6 +4,6 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
 
 public interface Widget {
-   void render(Graphics g);
+   void render(Graphics g, Rectangle frame);
    Rectangle getBoundingBox();
 }

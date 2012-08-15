@@ -10,6 +10,7 @@ import org.skullforge.asteroidpush.arena.entities.SceneryTest;
 import org.skullforge.asteroidpush.arena.entities.VesselTest;
 import org.skullforge.asteroidpush.parts.StaticBoxTest;
 import org.skullforge.asteroidpush.ui.LabelTest;
+import org.skullforge.asteroidpush.ui.layouts.SimpleLayoutTest;
 import org.skullforge.asteroidpush.arena.viewports.StaticViewportTest;
 import org.skullforge.asteroidpush.doodads.DoodadTest;
 import org.skullforge.asteroidpush.doodads.PlayingFieldBorderFactoryTest;
@@ -20,7 +21,8 @@ import org.skullforge.asteroidpush.doodads.PlayingFieldBorderFactoryTest;
       BasicArenaTest.class, StaticViewportTest.class, StaticBoxTest.class,
       DoodadTest.class, PlayingFieldBorderFactoryTest.class,
       MatchGameStateTest.class, SimulatorTest.class, ScenarioTest.class,
-      LabelTest.class, SimpleAppearanceTest.class, TimekeeperTest.class })
+      LabelTest.class, SimpleAppearanceTest.class, TimekeeperTest.class,
+      SimpleLayoutTest.class })
 public class AllTests {
 
 }

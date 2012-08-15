@@ -52,7 +52,7 @@ public class LabelTest {
          }
       });
 
-      testLabel.render(graphicsMock);
+      testLabel.render(graphicsMock, null);
 
       context.assertIsSatisfied();
    }

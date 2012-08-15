@@ -31,10 +31,10 @@ public class AsteroidPushTest {
    public void testStates() throws Exception {
       context.checking(new Expectations() {
          {
-            oneOf(factoryMock).createGameState(StateInfo.ARENA);
+            oneOf(factoryMock).createGameState(StateInfo.MATCH);
             will(returnValue(arenaStateMock));
             oneOf(arenaStateMock).getID();
-            will(returnValue(1));
+            will(returnValue(2));
          }
       });
 
