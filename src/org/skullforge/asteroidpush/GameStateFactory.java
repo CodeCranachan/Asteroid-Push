@@ -1,9 +1,9 @@
 package org.skullforge.asteroidpush;
 
 import org.newdawn.slick.state.GameState;
-import org.skullforge.asteroidpush.arena.BasicArena;
-import org.skullforge.asteroidpush.arena.BasicEntityFactory;
 import org.skullforge.asteroidpush.ui.IngameUiFactory;
+import org.skullforge.asteroidpush.ui.UiFactory;
+import org.skullforge.asteroidpush.ui.layouts.Layout;
 import org.skullforge.asteroidpush.ui.layouts.SimpleLayout;
 
 /**
@@ -19,9 +19,10 @@ public class GameStateFactory {
     * 
     * @param stateId
     *           id of the game state
-    * @return a freshly assembled game state to be usde for that state id.
+    * @return a freshly assembled game state to be used for that state id.
     */
-   public GameState createGameState(StateInfo stateId) {
+   public GameState createGameState(StateInfo stateId,
+                                    ResourceLoader resourceLoader) {
       GameState state;
 
       if (null == stateId) {
@@ -29,11 +30,8 @@ public class GameStateFactory {
       }
 
       switch (stateId) {
-      case ARENA:
-         state = createArenaGameState();
-         break;
       case MATCH:
-         state = createMatchGameState();
+         state = createMatchGameState(resourceLoader);
          break;
       case INVALID:
       default:
@@ -43,12 +41,10 @@ public class GameStateFactory {
       return state;
    }
 
-   private ArenaGameState createArenaGameState() {
-      BasicArena arena = new BasicArena(new BasicEntityFactory(), new IngameUiFactory());
-      return (new ArenaGameState(arena));
-   }
-
-   private MatchGameState createMatchGameState() {
-      return new MatchGameState(new Simulator(), new SimpleLayout());
+   private MatchGameState createMatchGameState(ResourceLoader resourceLoader) {
+      Layout ui = new SimpleLayout();
+      UiFactory uifactory = new IngameUiFactory(resourceLoader);
+      uifactory.createUi(ui);
+      return new MatchGameState(new Simulator(), ui);
    }
 }

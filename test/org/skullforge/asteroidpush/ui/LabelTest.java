@@ -1,13 +1,11 @@
 package org.skullforge.asteroidpush.ui;
 
-import static org.junit.Assert.*;
-
-import java.awt.Font;
-
 import org.jmock.Expectations;
 import org.jmock.Mockery;
+import org.jmock.Sequence;
 import org.junit.Before;
 import org.junit.Test;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.UnicodeFont;
 import org.newdawn.slick.geom.Rectangle;
@@ -17,42 +15,49 @@ public class LabelTest {
    Mockery context;
    Label testLabel;
    String testLabelText = "TestLabel";
-   UnicodeFont testLabelFont = new UnicodeFont(new Font("SansSerif", Font.PLAIN, 12));
+   UnicodeFont oldFontMock;
+   UnicodeFont labelFontMock;
    Graphics graphicsMock;
-   float labelX = 23.0f;
-   float labelY = 48.0f;
 
    @Before
    public void setUp() throws Exception {
-      testLabel = new Label(labelX, labelY, testLabelText, testLabelFont);
       context = new ClassMockery();
+      oldFontMock = context.mock(UnicodeFont.class, "oldFont");
+      labelFontMock = context.mock(UnicodeFont.class, "labelFont");
       graphicsMock = context.mock(Graphics.class);
-   }
-
-   @Test
-   public void testBoundingBox() {
-      Rectangle boundingBox = testLabel.getBoundingBox();
-      assertEquals(labelX, boundingBox.getX(), 0.0);
-      assertEquals(labelY, boundingBox.getY(), 0.0);
+      testLabel = new Label(testLabelText, labelFontMock);
    }
 
    @Test
    public void testRender() {
-      final UnicodeFont somePreviousFont = new UnicodeFont(new Font("Serif", Font.BOLD, 10));
-
+      final Rectangle frame = new Rectangle(20.0f, 30.0f, 40.0f, 50.0f);
+      final Sequence callOrder = context.sequence("callOrder");
+      final float textWidth = 75.0f;
+      final float textHeight = 15.0f;
       context.checking(new Expectations() {
          {
-            oneOf(graphicsMock).scale(with(any(Float.class)), with(any(Float.class)));
+            allowing(labelFontMock).getHeight(testLabelText);
+            will(returnValue((int)textHeight));
+            allowing(labelFontMock).getWidth(testLabelText);
+            will(returnValue((int)textWidth));
+
             oneOf(graphicsMock).getFont();
-            will(returnValue(somePreviousFont));
-            oneOf(graphicsMock).setFont(testLabelFont);
-            oneOf(graphicsMock).drawString(testLabelText, labelX, labelY);
-            oneOf(graphicsMock).setFont(somePreviousFont);
-            oneOf(graphicsMock).resetTransform();
+            will(returnValue(oldFontMock));
+            inSequence(callOrder);
+            oneOf(graphicsMock).setFont(labelFontMock);
+            inSequence(callOrder);
+            oneOf(graphicsMock).setColor(Color.green);
+            inSequence(callOrder);
+            oneOf(graphicsMock).drawString(testLabelText,
+                                           frame.getCenterX() - textWidth/2.0f,
+                                           frame.getCenterY() - textHeight/2.0f);
+            inSequence(callOrder);
+            oneOf(graphicsMock).setFont(oldFontMock);
+            inSequence(callOrder);
          }
       });
 
-      testLabel.render(graphicsMock, null);
+      testLabel.render(graphicsMock, frame);
 
       context.assertIsSatisfied();
    }

@@ -5,9 +5,12 @@ import org.newdawn.slick.SlickException;
 
 public class AsteroidPushMain {
 
-  public static void main(String[] args) throws SlickException{
-    AppGameContainer app = new AppGameContainer(new AsteroidPush(new GameStateFactory()));
+   public static void main(String[] args) throws SlickException{
+     
+    GameStateFactory stateFactory = new GameStateFactory();
+    ResourceLoader resourceLoader = new ResourceLoader();
+    AsteroidPush game = new AsteroidPush(stateFactory, resourceLoader);
+    AppGameContainer app = new AppGameContainer(game);
     app.start();
   }
- 
 }

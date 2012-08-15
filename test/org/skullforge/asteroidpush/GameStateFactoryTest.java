@@ -2,53 +2,51 @@ package org.skullforge.asteroidpush;
 
 import static org.junit.Assert.*;
 
+import org.jmock.Expectations;
+import org.jmock.Mockery;
 import org.junit.Before;
 import org.junit.Test;
+import org.newdawn.slick.Font;
 import org.newdawn.slick.state.GameState;
-import org.skullforge.asteroidpush.ArenaGameState;
 import org.skullforge.asteroidpush.GameStateFactory;
-import org.skullforge.asteroidpush.arena.Arena;
-import org.skullforge.asteroidpush.arena.BasicArena;
-import org.skullforge.asteroidpush.arena.BasicEntityFactory;
-import org.skullforge.asteroidpush.arena.EntityFactory;
 
 public class GameStateFactoryTest {
+   Mockery context;
+   ResourceLoader loaderMock;
+   Font fontMock;
    GameStateFactory testFactory;
 
    @Before
    public void setUp() throws Exception {
+      context = new ClassMockery();
+      loaderMock = context.mock(ResourceLoader.class);
+      fontMock = context.mock(Font.class);
       testFactory = new GameStateFactory();
    }
 
    @Test
    public void testInvalidStateCreation() throws Exception {
       GameState testState;
-      testState = testFactory.createGameState(null);
+      testState = testFactory.createGameState(null, loaderMock);
       assertNull(testState);
-      testState = testFactory.createGameState(StateInfo.INVALID);
+      testState = testFactory.createGameState(StateInfo.INVALID, loaderMock);
       assertNull(testState);
-   }
-
-   @Test
-   public void testArenaStateCreation() throws Exception {
-      GameState testState = testFactory.createGameState(StateInfo.ARENA);
-
-      assertEquals(testState.getClass(), ArenaGameState.class);
-      ArenaGameState testArenaState = (ArenaGameState) testState;
-
-      Arena testArena = testArenaState.getArena();
-      assertNotNull(testArena);
-      assertEquals(testArena.getClass(), BasicArena.class);
-      BasicArena testBasicArena = (BasicArena) testArena;
-      EntityFactory testEntityFactory = testBasicArena.getFactory();
-      assertNotNull(testEntityFactory);
-      assertEquals(testEntityFactory.getClass(), BasicEntityFactory.class);
    }
 
    @Test
    public void testMatchStateCreation() throws Exception {
-      GameState testState = testFactory.createGameState(StateInfo.MATCH);
+      context.checking(new Expectations() {
+         {
+            allowing(loaderMock).loadFont(with(any(String.class)), with(any(int.class)));
+            will(returnValue(fontMock));
+         }
+      });
+
+      GameState testState = testFactory.createGameState(StateInfo.MATCH,
+                                                        loaderMock);
       assertEquals(testState.getClass(), MatchGameState.class);
+      
+      context.assertIsSatisfied();
    }
 
 }

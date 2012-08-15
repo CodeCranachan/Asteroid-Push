@@ -91,7 +91,7 @@ public class MatchGameStateTest {
          }
       });
       testState = new MatchGameState(simulatorMock, layoutMock);
-      assertThat(testState.getID(), is(equalTo(2)));
+      assertThat(testState.getID(), is(equalTo(1)));
 
       context.assertIsSatisfied();
    }

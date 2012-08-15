@@ -1,7 +1,7 @@
 package org.skullforge.asteroidpush;
 
 public enum StateInfo {
-   INVALID(0), ARENA(1), MATCH(2);
+   INVALID(0), MATCH(1);
 
    private int stateID;
 

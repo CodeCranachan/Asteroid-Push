@@ -2,6 +2,7 @@ package org.skullforge.asteroidpush.ui.layouts;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.skullforge.asteroidpush.ui.Widget;
 
 public interface Layout {
    /**
@@ -13,4 +14,15 @@ public interface Layout {
     *           the graphics adapter to use.
     */
    public void render(GameContainer container, Graphics graphics);
+
+   /**
+    * Puts the widget into the named layout element.
+    * 
+    * @param elementName
+    *           name of the layout element to put the widget into.
+    * @param widget
+    *           the widget to be inserted into the layout.
+    */
+   public void setWidget(String elementName, Widget widget);
+
 }

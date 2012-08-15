@@ -11,6 +11,7 @@ import org.skullforge.asteroidpush.GameStateFactory;
 public class AsteroidPushTest {
    ClassMockery context;
    GameStateFactory factoryMock;
+   ResourceLoader loaderMock;
    GameState arenaStateMock;
    AsteroidPush testApp;
 
@@ -19,7 +20,8 @@ public class AsteroidPushTest {
       context = new ClassMockery();
       arenaStateMock = context.mock(GameState.class);
       factoryMock = context.mock(GameStateFactory.class);
-      testApp = new AsteroidPush(factoryMock);
+      loaderMock = context.mock(ResourceLoader.class);
+      testApp = new AsteroidPush(factoryMock, loaderMock);
    }
 
    @Test
@@ -31,7 +33,8 @@ public class AsteroidPushTest {
    public void testStates() throws Exception {
       context.checking(new Expectations() {
          {
-            oneOf(factoryMock).createGameState(StateInfo.MATCH);
+            oneOf(loaderMock).setGameContainer(null);
+            oneOf(factoryMock).createGameState(StateInfo.MATCH, loaderMock);
             will(returnValue(arenaStateMock));
             oneOf(arenaStateMock).getID();
             will(returnValue(2));

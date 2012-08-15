@@ -1,7 +1,7 @@
 package org.skullforge.asteroidpush.ui;
 
-import java.util.Collection;
+import org.skullforge.asteroidpush.ui.layouts.Layout;
 
 public interface UiFactory {
-   void createUi(Collection<Widget> widgetContainer);
+   void createUi(Layout layout);
 }
