@@ -8,7 +8,7 @@ public class TimekeeperTest {
 
    @Test
    public void testFrameCalculation() {
-      Timekeeper keeper = new Timekeeper(150);
+      Timekeeper keeper = new Timekeeper(0.15f);
       
       assertEquals(0, keeper.getGameTime());
       keeper.addRealTime(50);

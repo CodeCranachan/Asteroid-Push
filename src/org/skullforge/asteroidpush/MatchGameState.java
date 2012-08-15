@@ -10,7 +10,7 @@ public class MatchGameState extends BasicGameState {
 
    public MatchGameState(Simulator sim) {
       matchSimulator = sim;
-      timekeeper = new Timekeeper(Math.round(sim.getTimeStep() * 1000.0f));
+      timekeeper = new Timekeeper(sim.getTimeStep());
    }
 
    @Override

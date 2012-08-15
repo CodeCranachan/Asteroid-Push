@@ -1,19 +1,19 @@
 package org.skullforge.asteroidpush;
 
 public class Timekeeper {
-   public Timekeeper(int timeRatio) {
+   public Timekeeper(float frameTime) {
       timeAccumulator = 0;
-      this.timeRatio = timeRatio;
+      this.frameTime = frameTime;
    }
 
    public void addRealTime(int milliseconds) {
-      timeAccumulator += milliseconds;
+      timeAccumulator += (float) milliseconds / 1000.0f;
    }
-   
+
    public int getGameTime() {
-      return timeAccumulator / timeRatio;
+      return (int) Math.floor(timeAccumulator / frameTime);
    }
-   
-   int timeAccumulator;
-   int timeRatio;
+
+   float timeAccumulator;
+   float frameTime;
 }
