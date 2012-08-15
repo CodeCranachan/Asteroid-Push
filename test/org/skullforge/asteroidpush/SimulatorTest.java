@@ -151,4 +151,9 @@ public class SimulatorTest {
       
       context.assertIsSatisfied();
    }
+   
+   @Test
+   public void testGetTimeStep() {
+      assertEquals(0.0165, testSimulator.getTimeStep(), 0.001);
+   }
 }

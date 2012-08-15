@@ -82,10 +82,9 @@ public class Simulator {
    }
 
    private void stepWorld() {
-      final float timeStep = 1.0f / 60.0f;
       final int velocityIterations = 8;
       final int positionIterations = 3;
-      world.step(timeStep, velocityIterations, positionIterations);
+      world.step(getTimeStep(), velocityIterations, positionIterations);
    }
 
    private void updateSpawnedDoodads() {
@@ -117,6 +116,11 @@ public class Simulator {
       return currentFrameNumber;
    }
 
+   public float getTimeStep() {
+      // A bit more than 60 frames per second
+      return 0.0165f;
+   }
+   
    private ArrayList<Doodad> doodadList;
    private int currentFrameNumber;
    private World world;

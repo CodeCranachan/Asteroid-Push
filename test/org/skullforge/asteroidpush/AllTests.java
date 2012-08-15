@@ -20,7 +20,7 @@ import org.skullforge.asteroidpush.doodads.PlayingFieldBorderFactoryTest;
       BasicArenaTest.class, StaticViewportTest.class, StaticBoxTest.class,
       DoodadTest.class, PlayingFieldBorderFactoryTest.class,
       MatchGameStateTest.class, SimulatorTest.class, ScenarioTest.class,
-      LabelTest.class, SimpleAppearanceTest.class })
+      LabelTest.class, SimpleAppearanceTest.class, TimekeeperTest.class })
 public class AllTests {
 
 }

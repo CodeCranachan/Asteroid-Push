@@ -10,8 +10,9 @@ public class MatchGameState extends BasicGameState {
 
    public MatchGameState(Simulator sim) {
       matchSimulator = sim;
+      timekeeper = new Timekeeper(Math.round(sim.getTimeStep() * 1000.0f));
    }
-   
+
    @Override
    public void init(GameContainer container, StateBasedGame game)
          throws SlickException {
@@ -28,13 +29,15 @@ public class MatchGameState extends BasicGameState {
    @Override
    public void update(GameContainer container, StateBasedGame game, int delta)
          throws SlickException {
-      // Delegate to model abstraction
+      timekeeper.addRealTime(delta);
+      matchSimulator.stepToFrame(timekeeper.getGameTime());
    }
 
    @Override
    public int getID() {
       return StateInfo.MATCH.getID();
    }
-   
+
    private Simulator matchSimulator;
+   private Timekeeper timekeeper;
 }
