@@ -52,9 +52,9 @@ public class Debris implements Part {
 
    private FixtureDef getFixtureDef() {
       FixtureDef def = new FixtureDef();
-      def.density = 0.0f;
-      def.friction = 0.0f;
-      def.restitution = 0.0f;
+      def.density = 2800.0f;
+      def.friction = 0.2f;
+      def.restitution = 0.2f;
       def.shape = getShape();
       return def;
    }
