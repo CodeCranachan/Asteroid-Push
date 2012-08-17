@@ -20,7 +20,10 @@ public class ScenarioTest {
    public void testBuildDoodads() {
       ArrayList<Doodad> doodads = testScenario.buildDoodads();
       assertNotNull(doodads);
-      assertEquals(1, doodads.size());
+      assertEquals(5, doodads.size());
       assertEquals("PlayingFieldBorder", doodads.get(0).getName());
+      for (int i = 1; i < 4; ++i) {
+         assertEquals("Asteroid", doodads.get(i).getName());
+      }
    }
 }

@@ -30,7 +30,7 @@ public class StaticBoxTest {
    }
 
    @Test
-   public void testStaticBox() {
+   public void testConstruction() {
       ArrayList<Body> bodies = testBox.getBodies();
       assertEquals(0, bodies.size());
    }

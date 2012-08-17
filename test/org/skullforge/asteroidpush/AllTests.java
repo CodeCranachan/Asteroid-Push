@@ -5,6 +5,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 import org.skullforge.asteroidpush.appearances.SimpleAppearanceTest;
+import org.skullforge.asteroidpush.parts.DebrisTest;
 import org.skullforge.asteroidpush.parts.StaticBoxTest;
 import org.skullforge.asteroidpush.ui.LabelTest;
 import org.skullforge.asteroidpush.ui.layouts.SimpleLayoutTest;
@@ -17,7 +18,7 @@ import org.skullforge.asteroidpush.doodads.PlayingFieldBorderFactoryTest;
       PlayingFieldBorderFactoryTest.class, MatchGameStateTest.class,
       SimulatorTest.class, ScenarioTest.class, LabelTest.class,
       SimpleAppearanceTest.class, TimekeeperTest.class, SimpleLayoutTest.class,
-      ResourceLoaderTest.class })
+      ResourceLoaderTest.class, DebrisTest.class})
 public class AllTests {
 
 }
