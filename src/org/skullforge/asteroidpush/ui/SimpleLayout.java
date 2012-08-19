@@ -1,15 +1,13 @@
-package org.skullforge.asteroidpush.ui.layouts;
+package org.skullforge.asteroidpush.ui;
 
 import java.util.Collection;
 import java.util.HashMap;
 
 import org.newdawn.slick.Color;
-import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
-import org.skullforge.asteroidpush.ui.Widget;
 
-public class SimpleLayout implements Layout {
+public class SimpleLayout implements Widget {
 
    public SimpleLayout() {
       elements = new HashMap<String, SimpleLayout.LayoutElement>(2);
@@ -23,30 +21,39 @@ public class SimpleLayout implements Layout {
    }
 
    @Override
-   public void render(GameContainer container, Graphics graphics) {
+   public void render(Graphics graphics, Rectangle frame) {
       Collection<LayoutElement> elementCollection = elements.values();
       for (LayoutElement element : elementCollection) {
          Widget widget = element.getWidget();
-         Rectangle frame = element.getPosition();
-         if (frame == null) {
-            frame = new Rectangle(0.0f, 0.0f, container.getWidth(),
-                  container.getHeight());
+         Rectangle target = element.getPosition();
+         if (target == null) {
+            target = new Rectangle(0.0f, 0.0f, frame.getWidth(),
+                  frame.getHeight());
          }
          if (widget == null) {
-            drawMissingWidget(graphics, frame);
+            drawMissingWidget(graphics, target);
          } else {
-            widget.render(graphics, frame);
+            widget.render(graphics, target);
          }
       }
    }
 
    private void drawMissingWidget(Graphics graphics, Rectangle frame) {
       graphics.setColor(Color.black);
-      graphics.fillRoundRect(frame.getX(), frame.getY(), frame.getWidth() - 1.0f, frame.getHeight() - 1.0f, 15);
+      graphics.fillRoundRect(frame.getX(),
+                             frame.getY(),
+                             frame.getWidth() - 1.0f,
+                             frame.getHeight() - 1.0f,
+                             15);
       graphics.setColor(Color.gray);
-      graphics.drawRoundRect(frame.getX(), frame.getY(), frame.getWidth() - 1.0f, frame.getHeight() - 1.0f, 15);
+      graphics.drawRoundRect(frame.getX(),
+                             frame.getY(),
+                             frame.getWidth() - 1.0f,
+                             frame.getHeight() - 1.0f,
+                             15);
       graphics.setColor(Color.red);
-      graphics.drawString("Widget Missing", frame.getX() + 10.0f, frame.getY() + frame.getHeight() - 25.0f);
+      graphics.drawString("Widget Missing", frame.getX() + 10.0f, frame.getY()
+            + frame.getHeight() - 25.0f);
    }
 
    public void setWidget(String elementName, Widget widget) {

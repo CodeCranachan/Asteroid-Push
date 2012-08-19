@@ -40,8 +40,9 @@ public class SimpleAppearance implements Appearance {
    }
 
    private org.newdawn.slick.geom.Transform convertToSlickTransform(org.jbox2d.common.Transform transform) {
-      Transform converted = new Transform(transform.R.col1.x, transform.R.col2.x, transform.position.x, 
-                                          transform.R.col1.y, transform.R.col2.y, transform.position.y);
+      Transform converted = new Transform(transform.R.col1.x,
+            transform.R.col2.x, transform.position.x, transform.R.col1.y,
+            transform.R.col2.y, transform.position.y);
       return converted;
    }
 
@@ -78,18 +79,14 @@ public class SimpleAppearance implements Appearance {
    }
 
    private org.newdawn.slick.geom.Shape convertToPolygon(org.jbox2d.collision.shapes.Shape shape) {
-      org.newdawn.slick.geom.Shape converted;
       PolygonShape poly = (PolygonShape) shape;
       Vec2[] vertices = poly.getVertices();
-      float[] points = new float[vertices.length * 2];
-      for (int i = 0; i < points.length; ++i) {
-         if (i % 2 == 0) {
-            points[i] = vertices[i / 2].x;
-         } else {
-            points[i] = vertices[i / 2].y;
-         }
+      float[] points = new float[poly.getVertexCount() * 2];
+      for (int i = 0; i < poly.getVertexCount(); ++i) {
+         points[i * 2 + 0] = vertices[i].x;
+         points[i * 2 + 1] = vertices[i].y;
       }
-      converted = new Polygon(points);
+      org.newdawn.slick.geom.Polygon converted = new Polygon(points);
       return converted;
    }
 

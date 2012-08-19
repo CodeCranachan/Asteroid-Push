@@ -1,10 +1,6 @@
 package org.skullforge.asteroidpush;
 
 import org.newdawn.slick.state.GameState;
-import org.skullforge.asteroidpush.ui.IngameUiFactory;
-import org.skullforge.asteroidpush.ui.UiFactory;
-import org.skullforge.asteroidpush.ui.layouts.Layout;
-import org.skullforge.asteroidpush.ui.layouts.SimpleLayout;
 
 /**
  * Abstracts game state creation for the game container.
@@ -42,9 +38,8 @@ public class GameStateFactory {
    }
 
    private MatchGameState createMatchGameState(ResourceLoader resourceLoader) {
-      Layout ui = new SimpleLayout();
-      UiFactory uifactory = new IngameUiFactory(resourceLoader);
-      uifactory.createUi(ui);
-      return new MatchGameState(new Simulator(), ui);
+      MatchGameState state = new MatchGameState(new Simulator(), resourceLoader);
+      state.setScenario(new Scenario());
+      return state;
    }
 }

@@ -19,7 +19,7 @@ public class Simulator {
    public Simulator() {
       doodadList = new ArrayList<Doodad>();
       currentFrameNumber = 0;
-      world = new World(new Vec2(), true);
+      world = new World(new Vec2(0.0f, 9.81f), true);
    }
 
    /**

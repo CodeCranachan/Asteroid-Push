@@ -1,7 +1,8 @@
 package org.skullforge.asteroidpush.ui;
 
-import org.skullforge.asteroidpush.ui.layouts.Layout;
+import org.skullforge.asteroidpush.Simulator;
+import org.skullforge.asteroidpush.ui.Widget;
 
 public interface UiFactory {
-   void createUi(Layout layout);
+   Widget createUi(Simulator sim);
 }

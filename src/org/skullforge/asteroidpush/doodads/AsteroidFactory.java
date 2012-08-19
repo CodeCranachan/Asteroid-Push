@@ -12,7 +12,7 @@ public class AsteroidFactory implements DoodadFactory {
    }
    
    public void setParameters(Vec2 spawnPosition) {
-      spawnPosition.set(spawnPosition);
+      this.spawnPosition.set(spawnPosition);
    }
    
    @Override

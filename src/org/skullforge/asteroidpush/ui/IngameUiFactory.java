@@ -2,7 +2,7 @@ package org.skullforge.asteroidpush.ui;
 
 import org.newdawn.slick.Font;
 import org.skullforge.asteroidpush.ResourceLoader;
-import org.skullforge.asteroidpush.ui.layouts.Layout;
+import org.skullforge.asteroidpush.Simulator;
 
 public class IngameUiFactory implements UiFactory {
 
@@ -11,10 +11,17 @@ public class IngameUiFactory implements UiFactory {
    }
 
    @Override
-   public void createUi(Layout layout) {
+   public Widget createUi(Simulator sim) {
+      SimpleLayout layoutWidget = new SimpleLayout();
       Font font = loader.loadFont("Alfphabet-IV.ttf", 14);
       Widget playerLabel = new Label("PlayerName", font);
-      layout.setWidget("info", playerLabel);
+      layoutWidget.setWidget("info", playerLabel);
+      
+      
+      StaticCamera camera = new StaticCamera(sim);
+      layoutWidget.setWidget("background", camera);
+      
+      return layoutWidget;
    }
 
    private ResourceLoader loader;

@@ -8,7 +8,7 @@ import org.skullforge.asteroidpush.appearances.SimpleAppearanceTest;
 import org.skullforge.asteroidpush.parts.DebrisTest;
 import org.skullforge.asteroidpush.parts.StaticBoxTest;
 import org.skullforge.asteroidpush.ui.LabelTest;
-import org.skullforge.asteroidpush.ui.layouts.SimpleLayoutTest;
+import org.skullforge.asteroidpush.ui.SimpleLayoutTest;
 import org.skullforge.asteroidpush.doodads.DoodadTest;
 import org.skullforge.asteroidpush.doodads.PlayingFieldBorderFactoryTest;
 
