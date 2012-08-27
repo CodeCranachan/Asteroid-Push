@@ -14,6 +14,7 @@ import org.jbox2d.dynamics.World;
 import org.junit.Before;
 import org.junit.Test;
 import org.skullforge.asteroidpush.parts.StaticBox;
+import org.skullforge.asteroidpush.testutils.GeometryVerifier;
 
 public class StaticBoxTest {
    StaticBox testBox;
@@ -144,5 +145,15 @@ public class StaticBoxTest {
       assertThat(boxC, not(equalTo(boxD)));
       assertThat(boxA, is(equalTo(boxA)));
       assertThat(v1, not(equalTo((Object) boxA)));
+   }
+   
+   @Test
+   public void testBodyValidity() {
+      testBox.spawn(testWorld);
+
+      ArrayList<Body> bodies = testBox.getBodies();
+      for (Body body : bodies) {
+         assertTrue(GeometryVerifier.IsBodySane(body));
+      }
    }
 }

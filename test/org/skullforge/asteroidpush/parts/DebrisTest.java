@@ -9,6 +9,7 @@ import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.World;
 import org.junit.Before;
 import org.junit.Test;
+import org.skullforge.asteroidpush.testutils.GeometryVerifier;
 
 public class DebrisTest {
    Debris testDebris;
@@ -26,7 +27,6 @@ public class DebrisTest {
       ArrayList<Body> bodies = testDebris.getBodies();
       assertEquals(0, bodies.size());
    }
-   
 
    @Test
    public void testSpawn() {
@@ -34,7 +34,7 @@ public class DebrisTest {
       ArrayList<Body> bodies = testDebris.getBodies();
       assertEquals(1, bodies.size());
       Body body = bodies.get(0);
-      
+
       // check that nothing is done when a spawned part is spawned is spawned
       // again
       testDebris.spawn(testWorld);
@@ -57,4 +57,13 @@ public class DebrisTest {
       testDebris.despawn(testWorld);
    }
 
+   @Test
+   public void testBodyValidity() {
+      testDebris.spawn(testWorld);
+
+      ArrayList<Body> bodies = testDebris.getBodies();
+      for (Body body : bodies) {
+         assertTrue(GeometryVerifier.IsBodySane(body));
+      }
+   }
 }
