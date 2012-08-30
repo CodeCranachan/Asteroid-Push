@@ -29,6 +29,9 @@ public class GameStateFactory {
       case MATCH:
          state = createMatchGameState(resourceLoader);
          break;
+      case DESIGNER:
+         state = createDesignerGameState();
+         break;
       case INVALID:
       default:
          state = null;
@@ -41,5 +44,9 @@ public class GameStateFactory {
       MatchGameState state = new MatchGameState(new Simulator(), resourceLoader);
       state.setScenario(new Scenario());
       return state;
+   }
+   
+   private GameState createDesignerGameState() {
+      return new DesignerGameState();
    }
 }

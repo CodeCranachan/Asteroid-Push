@@ -35,6 +35,7 @@ public class AsteroidPushTest {
          {
             oneOf(loaderMock).setGameContainer(null);
             oneOf(factoryMock).createGameState(StateInfo.MATCH, loaderMock);
+            oneOf(factoryMock).createGameState(StateInfo.DESIGNER, loaderMock);
             will(returnValue(arenaStateMock));
             oneOf(arenaStateMock).getID();
             will(returnValue(2));
@@ -42,7 +43,7 @@ public class AsteroidPushTest {
       });
 
       testApp.initStatesList(null);
-      int expectedNumberOfStates = 1;
+      int expectedNumberOfStates = 2;
       assertEquals(expectedNumberOfStates, testApp.getStateCount());
 
       context.assertIsSatisfied();
