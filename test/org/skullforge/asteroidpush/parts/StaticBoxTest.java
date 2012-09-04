@@ -146,7 +146,7 @@ public class StaticBoxTest {
       assertThat(boxA, is(equalTo(boxA)));
       assertThat(v1, not(equalTo((Object) boxA)));
    }
-   
+
    @Test
    public void testBodyValidity() {
       testBox.spawn(testWorld);
