@@ -60,10 +60,8 @@ public class SimpleLayoutTest {
          {
             oneOf(backgroundWidgetMock).render(with(same(graphicsMock)),
                                                with(any(Rectangle.class)));
-            inSequence(drawOrder);
             oneOf(infoWidgetMock).render(with(same(graphicsMock)),
                                          with(any(Rectangle.class)));
-            inSequence(drawOrder);
          }
       });
       testLayout.setWidget("invalid element name", infoWidgetMock);
