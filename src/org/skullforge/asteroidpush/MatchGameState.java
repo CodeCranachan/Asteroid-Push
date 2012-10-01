@@ -2,6 +2,7 @@ package org.skullforge.asteroidpush;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.BasicGameState;
@@ -28,6 +29,7 @@ public class MatchGameState extends BasicGameState {
       simulator.initialize(scenario);
       localPlayer = new Player();
       localPlayer.init(simulator, new IngameUiFactory(resourceLoader));
+      this.game = game;
    }
 
    @Override
@@ -56,7 +58,9 @@ public class MatchGameState extends BasicGameState {
 
    @Override
    public void keyPressed(int key, char c) {
-
+      if (Input.KEY_ESCAPE == key) {
+         game.enterState(StateInfo.DESIGNER.getID());
+      }
    }
 
    @Override
@@ -69,4 +73,5 @@ public class MatchGameState extends BasicGameState {
    private ResourceLoader resourceLoader;
    private Player localPlayer;
    private Scenario scenario;
+   private StateBasedGame game;
 }

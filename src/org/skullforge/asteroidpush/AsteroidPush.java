@@ -16,6 +16,7 @@ public class AsteroidPush extends StateBasedGame {
    public void initStatesList(GameContainer container) throws SlickException {
       resourceLoader.setGameContainer(container);
       addState(stateFactory.createGameState(StateInfo.MATCH, resourceLoader));
+      addState(stateFactory.createGameState(StateInfo.DESIGNER, resourceLoader));
    }
 
    private GameStateFactory stateFactory;
