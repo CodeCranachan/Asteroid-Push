@@ -28,5 +28,5 @@ public class ShipDesign {
       }
    }
 
-   private Map<GridCoordinate, Module> moduleLayer;
+   final private Map<GridCoordinate, Module> moduleLayer;
 }

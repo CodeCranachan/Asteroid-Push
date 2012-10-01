@@ -15,5 +15,5 @@ public abstract class BaseModule implements Module {
       this.position.set(position);
    }
 
-   private GridCoordinate position;
+   final private GridCoordinate position;
 }
