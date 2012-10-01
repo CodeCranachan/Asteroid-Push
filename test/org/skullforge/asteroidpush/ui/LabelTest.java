@@ -37,9 +37,9 @@ public class LabelTest {
       context.checking(new Expectations() {
          {
             allowing(labelFontMock).getHeight(testLabelText);
-            will(returnValue((int)textHeight));
+            will(returnValue((int) textHeight));
             allowing(labelFontMock).getWidth(testLabelText);
-            will(returnValue((int)textWidth));
+            will(returnValue((int) textWidth));
 
             oneOf(graphicsMock).getFont();
             will(returnValue(oldFontMock));
@@ -48,9 +48,17 @@ public class LabelTest {
             inSequence(callOrder);
             oneOf(graphicsMock).setColor(Color.green);
             inSequence(callOrder);
+            oneOf(graphicsMock).drawRoundRect(frame.getX(),
+                                              frame.getY(),
+                                              frame.getWidth(),
+                                              frame.getHeight(),
+                                              5);
+            inSequence(callOrder);
             oneOf(graphicsMock).drawString(testLabelText,
-                                           frame.getCenterX() - textWidth/2.0f,
-                                           frame.getCenterY() - textHeight/2.0f);
+                                           frame.getCenterX() - textWidth
+                                                 / 2.0f,
+                                           frame.getCenterY() - textHeight
+                                                 / 2.0f);
             inSequence(callOrder);
             oneOf(graphicsMock).setFont(oldFontMock);
             inSequence(callOrder);

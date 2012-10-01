@@ -1,5 +1,7 @@
 package org.skullforge.asteroidpush;
 
+import java.util.Vector;
+
 import org.jmock.Expectations;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,6 +11,9 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
+import org.skullforge.asteroidpush.designer.GridCoordinate;
+import org.skullforge.asteroidpush.designer.Module;
+import org.skullforge.asteroidpush.designer.ShipDesign;
 
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
@@ -22,8 +27,8 @@ public class DesignerGameStateTest {
    Font fontMock;
    Graphics graphicsMock;
    StateBasedGame gameMock;
+   ShipDesign designMock;
    DesignerGameState testState;
-
 
    @Before
    public void setUp() throws Exception {
@@ -34,25 +39,59 @@ public class DesignerGameStateTest {
       containerMock = context.mock(GameContainer.class);
       graphicsMock = context.mock(Graphics.class);
       fontMock = context.mock(Font.class);
+      designMock = context.mock(ShipDesign.class);
       gameMock = context.mock(StateBasedGame.class);
    }
 
    @Test
    public void testInit() throws SlickException {
-      testState = new DesignerGameState();
+      context.checking(new Expectations() {
+         {
+            allowing(loaderMock).loadFont(with(any(String.class)),
+                                          with(any(int.class)));
+            will(returnValue(fontMock));
+            allowing(designMock).addModule(with(any(GridCoordinate.class)),
+                                           with(any(Module.class)));
+         }
+      });
+      testState = new DesignerGameState(designMock, loaderMock);
       testState.init(null, null);
    }
 
    @Test
    public void testRender() throws SlickException {
-      testState = new DesignerGameState();
+      context.checking(new Expectations() {
+         {
+            allowing(loaderMock).loadFont(with(any(String.class)),
+                                          with(any(int.class)));
+            will(returnValue(fontMock));
+            allowing(containerMock).getWidth();
+            will(returnValue(640));
+            allowing(containerMock).getHeight();
+            will(returnValue(480));
+            allowing(designMock).getModules();
+            will(returnValue(new Vector<Module>()));
+            allowing(designMock).addModule(with(any(GridCoordinate.class)),
+                                           with(any(Module.class)));
+         }
+      });
+      testState = new DesignerGameState(designMock, loaderMock);
       testState.init(null, null);
       testState.render(containerMock, null, graphicsMock);
    }
 
    @Test
    public void testUpdate() throws SlickException {
-      testState = new DesignerGameState();
+      context.checking(new Expectations() {
+         {
+            allowing(loaderMock).loadFont(with(any(String.class)),
+                                          with(any(int.class)));
+            will(returnValue(fontMock));
+            allowing(designMock).addModule(with(any(GridCoordinate.class)),
+                                           with(any(Module.class)));
+         }
+      });
+      testState = new DesignerGameState(designMock, loaderMock);
       testState.update(null, null, 20);
       testState.update(null, null, 5);
       testState.update(null, null, 5);
@@ -62,7 +101,16 @@ public class DesignerGameStateTest {
 
    @Test
    public void testGetId() {
-      testState = new DesignerGameState();
+      context.checking(new Expectations() {
+         {
+            allowing(loaderMock).loadFont(with(any(String.class)),
+                                          with(any(int.class)));
+            will(returnValue(fontMock));
+            allowing(designMock).addModule(with(any(GridCoordinate.class)),
+                                           with(any(Module.class)));
+         }
+      });
+      testState = new DesignerGameState(designMock, loaderMock);
       assertThat(testState.getID(), is(equalTo(2)));
    }
 
@@ -70,10 +118,15 @@ public class DesignerGameStateTest {
    public void testKeyPressed() throws SlickException {
       context.checking(new Expectations() {
          {
+            allowing(loaderMock).loadFont(with(any(String.class)),
+                                          with(any(int.class)));
+            will(returnValue(fontMock));
+            allowing(designMock).addModule(with(any(GridCoordinate.class)),
+                                           with(any(Module.class)));
             allowing(gameMock).enterState(1);
          }
       });
-      testState = new DesignerGameState();
+      testState = new DesignerGameState(designMock, loaderMock);
       testState.init(null, gameMock);
       testState.keyPressed(Input.KEY_SPACE, ' ');
 

@@ -1,6 +1,7 @@
 package org.skullforge.asteroidpush;
 
 import org.newdawn.slick.state.GameState;
+import org.skullforge.asteroidpush.designer.ShipDesign;
 
 /**
  * Abstracts game state creation for the game container.
@@ -30,7 +31,7 @@ public class GameStateFactory {
          state = createMatchGameState(resourceLoader);
          break;
       case DESIGNER:
-         state = createDesignerGameState();
+         state = createDesignerGameState(resourceLoader);
          break;
       case INVALID:
       default:
@@ -45,8 +46,10 @@ public class GameStateFactory {
       state.setScenario(new Scenario());
       return state;
    }
-   
-   private GameState createDesignerGameState() {
-      return new DesignerGameState();
+
+   private GameState createDesignerGameState(ResourceLoader resourceLoader) {
+      DesignerGameState state = new DesignerGameState(new ShipDesign(),
+            resourceLoader);
+      return state;
    }
 }

@@ -22,9 +22,8 @@ public class ShipDesignView implements Widget {
 
       for (Module m : modules) {
          GridCoordinate currentCoordinate = m.getPosition();
-         Rectangle gridFrame = GetFrameForCoordinate(currentCoordinate,
-                                                     frame);
-         
+         Rectangle gridFrame = GetFrameForCoordinate(currentCoordinate, frame);
+
          Label moduleLabel = new Label(m.getName(), font);
          moduleLabel.render(g, gridFrame);
       }
@@ -34,12 +33,14 @@ public class ShipDesignView implements Widget {
                                            Rectangle parentFrame) {
       float totalSideLength = Math.min(parentFrame.getWidth(),
                                        parentFrame.getHeight());
-      
+
       float frameW = totalSideLength / gridSize;
       float frameH = totalSideLength / gridSize;
-      float frameX = (totalSideLength - parentFrame.getWidth()) / 2.0f + coordinate.getX() * (totalSideLength / 5.0f);
-      float frameY = (totalSideLength - parentFrame.getHeight()) / 2.0f + coordinate.getY() * (totalSideLength / 5.0f);
-      
+      float frameX = (parentFrame.getWidth() - totalSideLength) / 2.0f
+            + coordinate.getX() * (totalSideLength / 5.0f);
+      float frameY = (parentFrame.getHeight() - totalSideLength) / 2.0f
+            + coordinate.getY() * (totalSideLength / 5.0f);
+
       return new Rectangle(frameX, frameY, frameW, frameH);
    }
 
