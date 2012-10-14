@@ -2,7 +2,6 @@ package org.skullforge.asteroidpush.ui;
 
 import org.jmock.Expectations;
 import org.jmock.Mockery;
-import org.jmock.Sequence;
 import org.junit.Before;
 import org.junit.Test;
 import org.newdawn.slick.Color;
@@ -54,7 +53,6 @@ public class SimpleLayoutTest {
 
    @Test
    public void testDrawWidgets() {
-      final Sequence drawOrder = context.sequence("drawOrder");
       final Rectangle fullScreen = new Rectangle(0.0f, 0.0f, 640.0f, 480.0f);
       context.checking(new Expectations() {
          {

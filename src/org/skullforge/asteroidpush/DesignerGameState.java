@@ -10,22 +10,23 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.skullforge.asteroidpush.designer.ControlModule;
 import org.skullforge.asteroidpush.designer.GridCoordinate;
 import org.skullforge.asteroidpush.designer.ShipDesign;
-import org.skullforge.asteroidpush.ui.ShipDesignView;
+import org.skullforge.asteroidpush.ui.DesignerUiFactory;
 import org.skullforge.asteroidpush.ui.Widget;
 
 public class DesignerGameState extends BasicGameState {
 
-   public DesignerGameState(ShipDesign design, ResourceLoader resourceLoader) {
-      this.resourceLoader = resourceLoader;
+   public DesignerGameState(ShipDesign design, DesignerUiFactory uiFactory) {
+      this.uiFactory = uiFactory;
       this.shipDesign = design;
-      this.ui = new ShipDesignView(shipDesign,
-            this.resourceLoader.loadFont("Alfphabet-IV.ttf", 10));
    }
 
    @Override
    public void init(GameContainer container, StateBasedGame game)
          throws SlickException {
       this.game = game;
+      uiFactory.init(shipDesign);
+      ui = uiFactory.createUi();
+
       shipDesign.addModule(new GridCoordinate(2, 2), new ControlModule());
    }
 
@@ -35,7 +36,9 @@ public class DesignerGameState extends BasicGameState {
                       Graphics graphics) throws SlickException {
       Rectangle canvas = new Rectangle(0.0f, 0.0f, container.getWidth(),
             container.getHeight());
-      ui.render(graphics, canvas);
+      if (ui != null) {
+         ui.render(graphics, canvas);
+      }
    }
 
    @Override
@@ -57,8 +60,8 @@ public class DesignerGameState extends BasicGameState {
       }
    }
 
-   private ResourceLoader resourceLoader;
    private ShipDesign shipDesign;
+   private DesignerUiFactory uiFactory;
    private Widget ui;
    private StateBasedGame game;
 }

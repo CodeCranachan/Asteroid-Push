@@ -7,16 +7,15 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
-import org.skullforge.asteroidpush.ui.IngameUiFactory;
+import org.skullforge.asteroidpush.ui.MatchUiFactory;
 import org.skullforge.asteroidpush.ui.Widget;
 
 public class MatchGameState extends BasicGameState {
 
-   public MatchGameState(Simulator simulator, ResourceLoader resourceLoader) {
+   public MatchGameState(Simulator simulator, MatchUiFactory uiFactory) {
       this.simulator = simulator;
+      this.uiFactory = uiFactory;
       this.timekeeper = new Timekeeper(simulator.getTimeStep());
-      this.resourceLoader = resourceLoader;
-      this.localPlayer = null;
    }
 
    public void setScenario(Scenario scenario) {
@@ -27,8 +26,8 @@ public class MatchGameState extends BasicGameState {
    public void init(GameContainer container, StateBasedGame game)
          throws SlickException {
       simulator.initialize(scenario);
-      localPlayer = new Player();
-      localPlayer.init(simulator, new IngameUiFactory(resourceLoader));
+      uiFactory.init(simulator);
+      ui = uiFactory.createUi();
       this.game = game;
    }
 
@@ -38,7 +37,6 @@ public class MatchGameState extends BasicGameState {
                       Graphics graphics) throws SlickException {
       Rectangle canvas = new Rectangle(0.0f, 0.0f, container.getWidth(),
             container.getHeight());
-      Widget ui = localPlayer.getUi();
       if (ui != null) {
          ui.render(graphics, canvas);
       }
@@ -70,8 +68,8 @@ public class MatchGameState extends BasicGameState {
 
    private Simulator simulator;
    private Timekeeper timekeeper;
-   private ResourceLoader resourceLoader;
-   private Player localPlayer;
    private Scenario scenario;
    private StateBasedGame game;
+   private MatchUiFactory uiFactory;
+   private Widget ui;
 }

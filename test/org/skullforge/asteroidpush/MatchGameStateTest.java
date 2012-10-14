@@ -4,11 +4,12 @@ import org.jmock.Expectations;
 import org.jmock.Sequence;
 import org.junit.Before;
 import org.junit.Test;
-import org.newdawn.slick.Font;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
-import org.skullforge.asteroidpush.ui.Renderer;
+import org.newdawn.slick.geom.Rectangle;
+import org.skullforge.asteroidpush.ui.MatchUiFactory;
+import org.skullforge.asteroidpush.ui.Widget;
 
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
@@ -18,8 +19,8 @@ public class MatchGameStateTest {
    Scenario scenarioMock;
    Simulator simulatorMock;
    GameContainer containerMock;
-   ResourceLoader loaderMock;
-   Font fontMock;
+   MatchUiFactory uiFactoryMock;
+   Widget uiMock;
    Graphics graphicsMock;
    MatchGameState testState;
    
@@ -29,24 +30,25 @@ public class MatchGameStateTest {
       context = new ClassMockery();
       simulatorMock = context.mock(Simulator.class);
       scenarioMock = context.mock(Scenario.class);
-      loaderMock = context.mock(ResourceLoader.class);
+      uiFactoryMock = context.mock(MatchUiFactory.class);
+      uiMock = context.mock(Widget.class);
       containerMock = context.mock(GameContainer.class);
       graphicsMock = context.mock(Graphics.class);
-      fontMock = context.mock(Font.class);
    }
 
    @Test
    public void testInit() throws SlickException {
       context.checking(new Expectations() {
          {
-            allowing(loaderMock).loadFont(with(any(String.class)), with(any(int.class)));
-            will(returnValue(fontMock));
             allowing(simulatorMock).getTimeStep();
             will(returnValue(0.016f));
-            oneOf(simulatorMock).initialize(with(aNonNull(Scenario.class)));
+            oneOf(simulatorMock).initialize(scenarioMock);
+            oneOf(uiFactoryMock).init(simulatorMock);
+            oneOf(uiFactoryMock).createUi();
+            will(returnValue(uiMock));
          }
       });
-      testState = new MatchGameState(simulatorMock, loaderMock);
+      testState = new MatchGameState(simulatorMock, uiFactoryMock);
       testState.setScenario(scenarioMock);
       testState.init(null, null);
 
@@ -55,23 +57,23 @@ public class MatchGameStateTest {
 
    @Test
    public void testRender() throws SlickException {
+      final Rectangle expectedCanvasRectangle = new Rectangle(0.0f, 0.0f, 640.0f, 480.0f);
       context.checking(new Expectations() {
          {
-            allowing(loaderMock).loadFont(with(any(String.class)), with(any(int.class)));
-            will(returnValue(fontMock));
-            oneOf(simulatorMock).initialize(with(aNonNull(Scenario.class)));
-            oneOf(simulatorMock).render(with(aNonNull(Renderer.class)));
-            allowing(containerMock).getWidth();
-            will(returnValue(640));
-            allowing(containerMock).getHeight();
-            will(returnValue(480));
             allowing(simulatorMock).getTimeStep();
             will(returnValue(0.016f));
-            ignoring(graphicsMock);
-            ignoring(fontMock);
+            oneOf(simulatorMock).initialize(scenarioMock);
+            oneOf(uiFactoryMock).init(simulatorMock);
+            oneOf(uiFactoryMock).createUi();
+            will(returnValue(uiMock));
+            allowing(containerMock).getWidth();
+            will(returnValue((int)expectedCanvasRectangle.getWidth()));
+            allowing(containerMock).getHeight();
+            will(returnValue((int)expectedCanvasRectangle.getHeight()));
+            oneOf(uiMock).render(with(graphicsMock), with(any(Rectangle.class)));
          }
       });
-      testState = new MatchGameState(simulatorMock, loaderMock);
+      testState = new MatchGameState(simulatorMock, uiFactoryMock);
       testState.setScenario(scenarioMock);
       testState.init(containerMock, null);
       testState.render(containerMock, null, graphicsMock);
@@ -98,7 +100,7 @@ public class MatchGameStateTest {
             inSequence(steps);
          }
       });
-      testState = new MatchGameState(simulatorMock, loaderMock);
+      testState = new MatchGameState(simulatorMock, uiFactoryMock);
       testState.update(null, null, 20);
       testState.update(null, null, 5);
       testState.update(null, null, 5);
@@ -116,7 +118,7 @@ public class MatchGameStateTest {
             will(returnValue(0.016f));
          }
       });
-      testState = new MatchGameState(simulatorMock, loaderMock);
+      testState = new MatchGameState(simulatorMock, uiFactoryMock);
       assertThat(testState.getID(), is(equalTo(1)));
 
       context.assertIsSatisfied();

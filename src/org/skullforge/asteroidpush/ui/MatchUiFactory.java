@@ -4,25 +4,28 @@ import org.newdawn.slick.Font;
 import org.skullforge.asteroidpush.ResourceLoader;
 import org.skullforge.asteroidpush.Simulator;
 
-public class IngameUiFactory implements UiFactory {
+public class MatchUiFactory {
 
-   public IngameUiFactory(ResourceLoader loader) {
+   public MatchUiFactory(ResourceLoader loader) {
       this.loader = loader;
    }
 
-   @Override
-   public Widget createUi(Simulator sim) {
+   public void init(Simulator sim) {
+      this.simulator = sim;
+   }
+
+   public Widget createUi() {
       SimpleLayout layoutWidget = new SimpleLayout();
       Font font = loader.loadFont("Alfphabet-IV.ttf", 14);
       Widget playerLabel = new Label("PlayerName", font);
       layoutWidget.setWidget("info", playerLabel);
-      
-      
-      StaticCamera camera = new StaticCamera(sim);
+
+      StaticCamera camera = new StaticCamera(simulator);
       layoutWidget.setWidget("background", camera);
-      
+
       return layoutWidget;
    }
 
    private ResourceLoader loader;
+   private Simulator simulator;
 }

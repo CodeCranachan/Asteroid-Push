@@ -2,6 +2,8 @@ package org.skullforge.asteroidpush;
 
 import org.newdawn.slick.state.GameState;
 import org.skullforge.asteroidpush.designer.ShipDesign;
+import org.skullforge.asteroidpush.ui.DesignerUiFactory;
+import org.skullforge.asteroidpush.ui.MatchUiFactory;
 
 /**
  * Abstracts game state creation for the game container.
@@ -42,14 +44,19 @@ public class GameStateFactory {
    }
 
    private MatchGameState createMatchGameState(ResourceLoader resourceLoader) {
-      MatchGameState state = new MatchGameState(new Simulator(), resourceLoader);
+      Simulator sim = new Simulator();
+      MatchUiFactory uiFactory = new MatchUiFactory(resourceLoader);
+
+      MatchGameState state = new MatchGameState(sim, uiFactory);
       state.setScenario(new Scenario());
       return state;
    }
 
    private GameState createDesignerGameState(ResourceLoader resourceLoader) {
-      DesignerGameState state = new DesignerGameState(new ShipDesign(),
-            resourceLoader);
+      ShipDesign design = new ShipDesign();
+      DesignerUiFactory uiFactory = new DesignerUiFactory(resourceLoader);
+
+      DesignerGameState state = new DesignerGameState(design, uiFactory);
       return state;
    }
 }
