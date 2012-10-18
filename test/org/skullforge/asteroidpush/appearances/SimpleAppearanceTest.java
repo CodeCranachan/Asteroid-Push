@@ -16,8 +16,8 @@ import org.jmock.Mockery;
 import org.junit.Before;
 import org.junit.Test;
 import org.newdawn.slick.geom.Shape;
-import org.skullforge.asteroidpush.ClassMockery;
 import org.skullforge.asteroidpush.parts.Part;
+import org.skullforge.asteroidpush.testutils.ClassMockery;
 import org.skullforge.asteroidpush.ui.Renderer;
 
 public class SimpleAppearanceTest {

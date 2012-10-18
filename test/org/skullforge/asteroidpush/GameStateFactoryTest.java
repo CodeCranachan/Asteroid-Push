@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.newdawn.slick.Font;
 import org.newdawn.slick.state.GameState;
 import org.skullforge.asteroidpush.GameStateFactory;
+import org.skullforge.asteroidpush.testutils.ClassMockery;
 
 public class GameStateFactoryTest {
    Mockery context;

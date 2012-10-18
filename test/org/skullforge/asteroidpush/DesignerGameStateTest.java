@@ -14,6 +14,7 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.skullforge.asteroidpush.designer.GridCoordinate;
 import org.skullforge.asteroidpush.designer.Module;
 import org.skullforge.asteroidpush.designer.ShipDesign;
+import org.skullforge.asteroidpush.testutils.ClassMockery;
 import org.skullforge.asteroidpush.ui.DesignerUiFactory;
 import org.skullforge.asteroidpush.ui.Widget;
 

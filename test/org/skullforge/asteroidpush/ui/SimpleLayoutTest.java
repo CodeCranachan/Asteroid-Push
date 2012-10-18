@@ -7,7 +7,7 @@ import org.junit.Test;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
-import org.skullforge.asteroidpush.ClassMockery;
+import org.skullforge.asteroidpush.testutils.ClassMockery;
 import org.skullforge.asteroidpush.ui.Widget;
 
 public class SimpleLayoutTest {

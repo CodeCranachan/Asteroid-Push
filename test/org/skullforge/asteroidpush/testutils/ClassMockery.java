@@ -1,4 +1,4 @@
-package org.skullforge.asteroidpush;
+package org.skullforge.asteroidpush.testutils;
 
 import org.jmock.Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;

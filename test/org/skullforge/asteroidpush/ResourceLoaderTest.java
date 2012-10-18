@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.newdawn.slick.Font;
 import org.newdawn.slick.GameContainer;
+import org.skullforge.asteroidpush.testutils.ClassMockery;
 
 public class ResourceLoaderTest {
    Mockery context;

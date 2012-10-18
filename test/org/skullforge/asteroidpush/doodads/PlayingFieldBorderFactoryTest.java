@@ -6,9 +6,9 @@ import org.jbox2d.common.Vec2;
 import org.jmock.Expectations;
 import org.junit.Before;
 import org.junit.Test;
-import org.skullforge.asteroidpush.ClassMockery;
 import org.skullforge.asteroidpush.appearances.SimpleAppearance;
 import org.skullforge.asteroidpush.parts.StaticBox;
+import org.skullforge.asteroidpush.testutils.ClassMockery;
 
 public class PlayingFieldBorderFactoryTest {
    ClassMockery context;

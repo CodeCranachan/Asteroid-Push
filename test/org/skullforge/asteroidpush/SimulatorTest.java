@@ -9,6 +9,7 @@ import org.jmock.States;
 import org.junit.Before;
 import org.junit.Test;
 import org.skullforge.asteroidpush.doodads.Doodad;
+import org.skullforge.asteroidpush.testutils.ClassMockery;
 import org.skullforge.asteroidpush.ui.Renderer;
 
 import static org.junit.Assert.*;

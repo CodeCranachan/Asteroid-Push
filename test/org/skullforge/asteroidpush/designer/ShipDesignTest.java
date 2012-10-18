@@ -7,8 +7,8 @@ import java.util.Collection;
 import org.jmock.Expectations;
 import org.junit.Before;
 import org.junit.Test;
-import org.skullforge.asteroidpush.ClassMockery;
 import org.skullforge.asteroidpush.designer.ShipDesign;
+import org.skullforge.asteroidpush.testutils.ClassMockery;
 
 public class ShipDesignTest {
    ClassMockery context;

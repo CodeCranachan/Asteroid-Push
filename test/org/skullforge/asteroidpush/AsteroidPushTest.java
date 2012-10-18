@@ -7,6 +7,7 @@ import org.junit.*;
 import org.newdawn.slick.state.GameState;
 import org.skullforge.asteroidpush.AsteroidPush;
 import org.skullforge.asteroidpush.GameStateFactory;
+import org.skullforge.asteroidpush.testutils.ClassMockery;
 
 public class AsteroidPushTest {
    ClassMockery context;
