@@ -6,6 +6,6 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({ LabelTest.class, SimpleLayoutTest.class, ShipDesignViewTest.class })
-public class UiTests {
+public class UiTestSuite {
 
 }
