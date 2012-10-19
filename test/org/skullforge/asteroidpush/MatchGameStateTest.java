@@ -43,7 +43,6 @@ public class MatchGameStateTest {
          {
             allowing(simulatorMock).getTimeStep();
             will(returnValue(0.016f));
-            oneOf(simulatorMock).initialize(scenarioMock);
             oneOf(uiFactoryMock).init(simulatorMock);
             oneOf(uiFactoryMock).createUi();
             will(returnValue(uiMock));
@@ -63,7 +62,6 @@ public class MatchGameStateTest {
          {
             allowing(simulatorMock).getTimeStep();
             will(returnValue(0.016f));
-            oneOf(simulatorMock).initialize(scenarioMock);
             oneOf(uiFactoryMock).init(simulatorMock);
             oneOf(uiFactoryMock).createUi();
             will(returnValue(uiMock));

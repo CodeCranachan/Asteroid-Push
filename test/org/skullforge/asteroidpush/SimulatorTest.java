@@ -33,6 +33,30 @@ public class SimulatorTest {
    }
 
    @Test
+   public void testClear() {
+      context.checking(new Expectations() {
+         {
+            allowing(abacusMock).isSpawned();
+            will(returnValue(true));
+            allowing(bananaMock).isSpawned();
+            will(returnValue(true));
+            exactly(5).of(abacusMock).update(with(any(Integer.class)));
+            exactly(5).of(bananaMock).update(with(any(Integer.class)));
+            oneOf(abacusMock).despawn(with(aNonNull(World.class)));
+            oneOf(bananaMock).despawn(with(aNonNull(World.class)));
+         }
+      });
+      testSimulator.addDoodad(abacusMock);
+      testSimulator.addDoodad(bananaMock);
+      testSimulator.stepToFrame(5);
+      testSimulator.clear();
+      
+      assertEquals(0, testSimulator.getCurrentFrameNumber());
+      
+      context.assertIsSatisfied();
+   }
+
+   @Test
    public void testInitialize() {
       ArrayList<Doodad> doodads = new ArrayList<Doodad>();
       doodads.add(abacusMock);
@@ -48,7 +72,7 @@ public class SimulatorTest {
       });
 
       testSimulator.initialize(scenarioMock);
-      
+
       context.assertIsSatisfied();
    }
 
@@ -133,7 +157,7 @@ public class SimulatorTest {
       testSimulator.stepToFrame(3);
       context.assertIsSatisfied();
    }
-   
+
    @Test
    public void testRender() {
       context.checking(new Expectations() {
@@ -145,14 +169,14 @@ public class SimulatorTest {
             oneOf(bananaMock).render(rendererMock);
          }
       });
-      
+
       testSimulator.addDoodad(abacusMock);
       testSimulator.addDoodad(bananaMock);
       testSimulator.render(rendererMock);
-      
+
       context.assertIsSatisfied();
    }
-   
+
    @Test
    public void testGetTimeStep() {
       assertEquals(0.0165, testSimulator.getTimeStep(), 0.0001);

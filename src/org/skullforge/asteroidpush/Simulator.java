@@ -23,6 +23,20 @@ public class Simulator {
    }
 
    /**
+    * Clears the simulation from all doodads and resets the frame counter.
+    */
+   public void clear() {
+      for (Doodad doodad : doodadList) {
+         if (doodad.isSpawned()) {
+            doodad.despawn(world);
+         }
+      }
+
+      doodadList.clear();
+      currentFrameNumber = 0;
+   }
+
+   /**
     * Initialize the Simulator with the data contained in a scenario.
     * 
     * @param scenario
@@ -120,7 +134,7 @@ public class Simulator {
       // A bit more than 60 frames per second
       return 0.0165f;
    }
-   
+
    private ArrayList<Doodad> doodadList;
    private int currentFrameNumber;
    private World world;

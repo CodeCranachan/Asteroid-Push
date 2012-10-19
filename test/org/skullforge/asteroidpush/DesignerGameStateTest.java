@@ -30,6 +30,7 @@ public class DesignerGameStateTest {
    ShipDesign designMock;
    DesignerUiFactory uiFactoryMock;
    Widget uiMock;
+   Scenario scenarioMock;
    DesignerGameState testState;
 
    @Before
@@ -41,6 +42,7 @@ public class DesignerGameStateTest {
       uiFactoryMock = context.mock(DesignerUiFactory.class);
       uiMock = context.mock(Widget.class);
       gameMock = context.mock(StateBasedGame.class);
+      scenarioMock = context.mock(Scenario.class);
    }
 
    @Test
@@ -50,11 +52,14 @@ public class DesignerGameStateTest {
             oneOf(uiFactoryMock).init(designMock);
             oneOf(uiFactoryMock).createUi();
             will(returnValue(uiMock));
+            allowing(scenarioMock).getShipDesign();
+            will(returnValue(designMock));
             allowing(designMock).addModule(with(any(GridCoordinate.class)),
                                            with(any(Module.class)));
          }
       });
-      testState = new DesignerGameState(designMock, uiFactoryMock);
+      testState = new DesignerGameState(uiFactoryMock);
+      testState.setScenario(scenarioMock);
       testState.init(null, null);
    }
 
@@ -69,6 +74,8 @@ public class DesignerGameStateTest {
             will(returnValue(640));
             allowing(containerMock).getHeight();
             will(returnValue(480));
+            allowing(scenarioMock).getShipDesign();
+            will(returnValue(designMock));
             allowing(designMock).getModules();
             will(returnValue(new Vector<Module>()));
             allowing(designMock).addModule(with(any(GridCoordinate.class)),
@@ -76,25 +83,16 @@ public class DesignerGameStateTest {
             oneOf(uiMock).render(with(graphicsMock), with(any(Rectangle.class)));
          }
       });
-      testState = new DesignerGameState(designMock, uiFactoryMock);
+      testState = new DesignerGameState(uiFactoryMock);
+      testState.setScenario(scenarioMock);
       testState.init(null, null);
       testState.render(containerMock, null, graphicsMock);
    }
 
    @Test
    public void testUpdate() throws SlickException {
-      context.checking(new Expectations() {
-         {
-            allowing(designMock).addModule(with(any(GridCoordinate.class)),
-                                           with(any(Module.class)));
-         }
-      });
-      testState = new DesignerGameState(designMock, uiFactoryMock);
-      testState.update(null, null, 20);
-      testState.update(null, null, 5);
-      testState.update(null, null, 5);
-      testState.update(null, null, 5);
-      testState.update(null, null, 160);
+      testState = new DesignerGameState(uiFactoryMock);
+      testState.update(null, null, 0);
    }
 
    @Test
@@ -105,7 +103,7 @@ public class DesignerGameStateTest {
                                            with(any(Module.class)));
          }
       });
-      testState = new DesignerGameState(designMock, uiFactoryMock);
+      testState = new DesignerGameState(uiFactoryMock);
       assertThat(testState.getID(), is(equalTo(2)));
    }
 
@@ -117,9 +115,12 @@ public class DesignerGameStateTest {
             allowing(designMock).addModule(with(any(GridCoordinate.class)),
                                            with(any(Module.class)));
             allowing(gameMock).enterState(1);
+            allowing(scenarioMock).getShipDesign();
+            will(returnValue(designMock));
          }
       });
-      testState = new DesignerGameState(designMock, uiFactoryMock);
+      testState = new DesignerGameState(uiFactoryMock);
+      testState.setScenario(scenarioMock);
       testState.init(null, gameMock);
       testState.keyPressed(Input.KEY_SPACE, ' ');
 

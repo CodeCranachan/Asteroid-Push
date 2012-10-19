@@ -25,10 +25,16 @@ public class MatchGameState extends BasicGameState {
    @Override
    public void init(GameContainer container, StateBasedGame game)
          throws SlickException {
-      simulator.initialize(scenario);
       uiFactory.init(simulator);
       ui = uiFactory.createUi();
       this.game = game;
+   }
+
+   @Override
+   public void enter(GameContainer container, StateBasedGame game) {
+      simulator.clear();
+      simulator.initialize(scenario);
+      timekeeper = new Timekeeper(simulator.getTimeStep());
    }
 
    @Override
@@ -59,11 +65,6 @@ public class MatchGameState extends BasicGameState {
       if (Input.KEY_ESCAPE == key) {
          game.enterState(StateInfo.DESIGNER.getID());
       }
-   }
-
-   @Override
-   public void keyReleased(int key, char c) {
-
    }
 
    private Simulator simulator;

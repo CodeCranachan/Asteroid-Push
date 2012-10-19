@@ -15,19 +15,23 @@ import org.skullforge.asteroidpush.ui.Widget;
 
 public class DesignerGameState extends BasicGameState {
 
-   public DesignerGameState(ShipDesign design, DesignerUiFactory uiFactory) {
+   public DesignerGameState(DesignerUiFactory uiFactory) {
       this.uiFactory = uiFactory;
-      this.shipDesign = design;
+   }
+
+   public void setScenario(Scenario scenario) {
+      this.scenario = scenario;
    }
 
    @Override
    public void init(GameContainer container, StateBasedGame game)
          throws SlickException {
       this.game = game;
-      uiFactory.init(shipDesign);
+      uiFactory.init(scenario.getShipDesign());
       ui = uiFactory.createUi();
 
-      shipDesign.addModule(new GridCoordinate(2, 2), new ControlModule());
+      ShipDesign design = scenario.getShipDesign();
+      design.addModule(new GridCoordinate(2, 2), new ControlModule());
    }
 
    @Override
@@ -60,7 +64,7 @@ public class DesignerGameState extends BasicGameState {
       }
    }
 
-   private ShipDesign shipDesign;
+   private Scenario scenario;
    private DesignerUiFactory uiFactory;
    private Widget ui;
    private StateBasedGame game;

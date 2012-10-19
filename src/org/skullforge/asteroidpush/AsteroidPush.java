@@ -10,15 +10,17 @@ public class AsteroidPush extends StateBasedGame {
       super("Asteroid Push");
       this.stateFactory = stateFactory;
       this.resourceLoader = resourceLoader;
+      this.gameScenario = new Scenario();
    }
 
    @Override
    public void initStatesList(GameContainer container) throws SlickException {
       resourceLoader.setGameContainer(container);
-      addState(stateFactory.createGameState(StateInfo.MATCH, resourceLoader));
-      addState(stateFactory.createGameState(StateInfo.DESIGNER, resourceLoader));
+      addState(stateFactory.createGameState(StateInfo.MATCH, resourceLoader, gameScenario));
+      addState(stateFactory.createGameState(StateInfo.DESIGNER, resourceLoader, gameScenario));
    }
 
    private GameStateFactory stateFactory;
    private ResourceLoader resourceLoader;
+   private Scenario gameScenario;
 }

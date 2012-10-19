@@ -3,6 +3,7 @@ package org.skullforge.asteroidpush;
 import java.util.ArrayList;
 
 import org.jbox2d.common.Vec2;
+import org.skullforge.asteroidpush.designer.ShipDesign;
 import org.skullforge.asteroidpush.doodads.AsteroidFactory;
 import org.skullforge.asteroidpush.doodads.Doodad;
 import org.skullforge.asteroidpush.doodads.PlayingFieldBorderFactory;
@@ -14,6 +15,14 @@ import org.skullforge.asteroidpush.doodads.PlayingFieldBorderFactory;
  * 
  */
 public class Scenario {
+
+   public Scenario() {
+      this.design = new ShipDesign();
+   }
+
+   public ShipDesign getShipDesign() {
+      return design;
+   }
 
    /**
     * Builds an array of Doodads in the state at the beginning of a Match.
@@ -29,16 +38,18 @@ public class Scenario {
       list.add(buildAsteroid(new Vec2(2.7f, -4.2f)));
       return list;
    }
-   
+
    private Doodad buildPlayfieldBorder() {
       PlayingFieldBorderFactory factory = new PlayingFieldBorderFactory();
       factory.setParameters(100.0f, 50.0f);
       return factory.createDoodad();
    }
-   
+
    private Doodad buildAsteroid(Vec2 position) {
       AsteroidFactory factory = new AsteroidFactory();
       factory.setParameters(position);
       return factory.createDoodad();
    }
+
+   private ShipDesign design;
 }

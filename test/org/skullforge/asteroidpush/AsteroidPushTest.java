@@ -13,13 +13,15 @@ public class AsteroidPushTest {
    ClassMockery context;
    GameStateFactory factoryMock;
    ResourceLoader loaderMock;
-   GameState arenaStateMock;
+   GameState matchStateMock;
+   GameState designerStateMock;
    AsteroidPush testApp;
 
    @Before
    public void setUp() throws Exception {
       context = new ClassMockery();
-      arenaStateMock = context.mock(GameState.class);
+      matchStateMock = context.mock(GameState.class, "MatchGameState");
+      designerStateMock = context.mock(GameState.class, "DesignerGameState");
       factoryMock = context.mock(GameStateFactory.class);
       loaderMock = context.mock(ResourceLoader.class);
       testApp = new AsteroidPush(factoryMock, loaderMock);
@@ -35,10 +37,18 @@ public class AsteroidPushTest {
       context.checking(new Expectations() {
          {
             oneOf(loaderMock).setGameContainer(null);
-            oneOf(factoryMock).createGameState(StateInfo.MATCH, loaderMock);
-            oneOf(factoryMock).createGameState(StateInfo.DESIGNER, loaderMock);
-            will(returnValue(arenaStateMock));
-            oneOf(arenaStateMock).getID();
+            oneOf(factoryMock).createGameState(with(StateInfo.MATCH),
+                                               with(loaderMock),
+                                               with(aNonNull(Scenario.class)));
+            will(returnValue(matchStateMock));
+            oneOf(factoryMock).createGameState(with(StateInfo.DESIGNER),
+                                               with(loaderMock),
+                                               with(aNonNull(Scenario.class)));
+            will(returnValue(designerStateMock));
+
+            allowing(matchStateMock).getID();
+            will(returnValue(1));
+            allowing(designerStateMock).getID();
             will(returnValue(2));
          }
       });
