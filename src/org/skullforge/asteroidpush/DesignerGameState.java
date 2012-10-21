@@ -32,6 +32,9 @@ public class DesignerGameState extends BasicGameState {
 
       ShipDesign design = scenario.getShipDesign();
       design.addModule(new GridCoordinate(2, 2), new ControlModule());
+      design.addModule(new GridCoordinate(1, 2), new ControlModule());
+      design.addModule(new GridCoordinate(3, 2), new ControlModule());
+      design.addModule(new GridCoordinate(2, 1), new ControlModule());
    }
 
    @Override

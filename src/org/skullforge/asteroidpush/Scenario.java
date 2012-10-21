@@ -7,6 +7,7 @@ import org.skullforge.asteroidpush.designer.ShipDesign;
 import org.skullforge.asteroidpush.doodads.AsteroidFactory;
 import org.skullforge.asteroidpush.doodads.Doodad;
 import org.skullforge.asteroidpush.doodads.PlayingFieldBorderFactory;
+import org.skullforge.asteroidpush.doodads.SpaceshipFactory;
 
 /**
  * Encapsulates the information for starting a new match.
@@ -36,6 +37,7 @@ public class Scenario {
       list.add(buildAsteroid(new Vec2(-2.0f, -2.0f)));
       list.add(buildAsteroid(new Vec2(-4.4f, 2.5f)));
       list.add(buildAsteroid(new Vec2(2.7f, -4.2f)));
+      list.add(buildSpaceship(new Vec2(0.0f, 0.0f)));
       return list;
    }
 
@@ -48,6 +50,12 @@ public class Scenario {
    private Doodad buildAsteroid(Vec2 position) {
       AsteroidFactory factory = new AsteroidFactory();
       factory.setParameters(position);
+      return factory.createDoodad();
+   }
+   
+   private Doodad buildSpaceship(Vec2 position) {
+      SpaceshipFactory factory = new SpaceshipFactory();
+      factory.setParameters(position, getShipDesign());
       return factory.createDoodad();
    }
 
