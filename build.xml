@@ -6,7 +6,7 @@
    <!-- LIBRARY
         Fetches libraries and other dependencies required by the final distribution and the build process itself
      -->
-   <property name="lib.lwjgl.url" value="http://sourceforge.net/projects/java-game-lib/files/Official Releases/LWJGL 2.8.3/lwjgl-2.8.3.zip"/>
+   <property name="lib.lwjgl.url" value="http://sourceforge.net/projects/java-game-lib/files/Official%20Releases/LWJGL%202.8.3/lwjgl-2.8.3.zip"/>
    <property name="lib.lwjgl.archive" value="lwjgl-2.8.3.zip"/>
    <property name="lib.slick.url" value="http://slick.cokeandcode.com/downloads/slick.zip"/>
    <property name="lib.slick.archive" value="slick.zip"/>
