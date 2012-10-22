@@ -10,6 +10,7 @@ import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
 import org.jbox2d.dynamics.World;
+import org.jbox2d.dynamics.joints.Joint;
 
 public class Debris implements Part {
 
@@ -43,6 +44,11 @@ public class Debris implements Part {
       return bodies;
    }
 
+   @Override
+   public ArrayList<Joint> getJoints() {
+      return new ArrayList<Joint>();
+   }
+
    private BodyDef getBodyDef() {
       BodyDef def = new BodyDef();
       def.type = BodyType.DYNAMIC;
@@ -64,13 +70,9 @@ public class Debris implements Part {
 
    private Shape getShape() {
       PolygonShape shape = new PolygonShape();
-      Vec2 vertices[] = new Vec2[] { 
-            new Vec2(0.0f, -2.0f),
-            new Vec2(1.2f, -1.7f), 
-            new Vec2(1.3f, 2.1f),
-            new Vec2(-0.2f, 2.4f),
-            new Vec2(-3.4f, 0.2f),
-            new Vec2(-3.0f, -0.7f) };
+      Vec2 vertices[] = new Vec2[] { new Vec2(0.0f, -2.0f),
+            new Vec2(1.2f, -1.7f), new Vec2(1.3f, 2.1f), new Vec2(-0.2f, 2.4f),
+            new Vec2(-3.4f, 0.2f), new Vec2(-3.0f, -0.7f) };
 
       shape.set(vertices, vertices.length);
       return shape;

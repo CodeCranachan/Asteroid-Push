@@ -15,21 +15,22 @@ public class SpaceshipFactory implements DoodadFactory {
       spawnPosition = new Vec2();
       design = null;
    }
-   
+
    public void setParameters(Vec2 spawnPosition, ShipDesign design) {
       this.spawnPosition.set(spawnPosition);
       this.design = design;
    }
-   
+
    @Override
    public Doodad createDoodad() {
       return initDoodad(new Doodad(doodadName));
    }
-   
+
    public Doodad initDoodad(Doodad doodad) {
       for (Module module : design.getModules()) {
          GridCoordinate coordinate = module.getPosition();
-         Vec2 modulePosition = new Vec2(coordinate.getX() * 0.5f, coordinate.getY() * 0.5f);
+         Vec2 modulePosition = new Vec2(coordinate.getX() * 0.5f,
+               coordinate.getY() * 0.5f);
          modulePosition.addLocal(spawnPosition);
          Part block = new Block(modulePosition, Material.METAL);
          doodad.addPart(block);
@@ -37,7 +38,7 @@ public class SpaceshipFactory implements DoodadFactory {
       }
       return doodad;
    }
-   
+
    private Vec2 spawnPosition;
    private ShipDesign design;
    final private String doodadName = "Spaceship";

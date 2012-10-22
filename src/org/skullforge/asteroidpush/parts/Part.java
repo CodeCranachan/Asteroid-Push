@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.World;
+import org.jbox2d.dynamics.joints.Joint;
 
 /**
  * Interface for individual parts of simulated objects.
@@ -36,4 +37,12 @@ public interface Part {
     *         spawned yet.
     */
    ArrayList<Body> getBodies();
+   
+   /**
+    * Get all jbox2d Joint objects attached to this part.
+    * 
+    * @return a vector of Joint objects, is empty if the Part has not been
+    *         spawned yet.
+    */
+   ArrayList<Joint> getJoints();
 }

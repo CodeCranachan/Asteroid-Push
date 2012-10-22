@@ -8,6 +8,7 @@ import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.FixtureDef;
 import org.jbox2d.dynamics.World;
+import org.jbox2d.dynamics.joints.Joint;
 
 public class StaticBox implements Part {
 
@@ -98,6 +99,11 @@ public class StaticBox implements Part {
          bodies.add(body);
       }
       return bodies;
+   }
+
+   @Override
+   public ArrayList<Joint> getJoints() {
+      return new ArrayList<Joint>();
    }
 
    @Override
