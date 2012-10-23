@@ -11,12 +11,12 @@
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="omegazone/build/library/native/windows"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="build/library/jar/slick.jar"/>
+	<classpathentry kind="lib" path="build/library/jar/slick.jar" sourcepath="build/library/download/slick.zip"/>
 	<classpathentry kind="lib" path="build/library/jar/jmock-legacy-2.5.1.jar"/>
 	<classpathentry kind="lib" path="build/library/jar/cglib-nodep-2.1_3.jar"/>
 	<classpathentry kind="lib" path="build/library/jar/objenesis-1.0.jar"/>
 	<classpathentry kind="lib" path="build/library/jar/one-jar-ant-task-0.97.jar"/>
-	<classpathentry kind="lib" path="build/library/jar/jbox2d-library-2.1.2.2.jar"/>
+	<classpathentry kind="lib" path="build/library/jar/jbox2d-library-2.1.2.2.jar" sourcepath="build/library/download/jbox2d-2.1.2.2.zip"/>
 	<classpathentry kind="lib" path="build/library/jar/slf4j-api-1.6.6.jar"/>
 	<classpathentry kind="lib" path="build/library/jar/slf4j-jdk14-1.6.6.jar"/>
 	<classpathentry kind="lib" path="build/library/jar/hamcrest-all-1.1.jar"/>
