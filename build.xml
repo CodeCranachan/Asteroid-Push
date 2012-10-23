@@ -14,8 +14,16 @@
    <property name="lib.jbox2d.archive" value="jbox2d-2.1.2.2.zip"/>
    <property name="lib.junit.url" value="http://cloud.github.com/downloads/KentBeck/junit/junit-4.10.jar"/>
    <property name="lib.junit.archive" value="junit-4.10.jar"/>
-   <property name="lib.jmock.url" value="http://www.jmock.org/dist/jmock-2.5.1-jars.zip"/>
-   <property name="lib.jmock.archive" value="jmock-2.5.1-jars.zip"/>
+   <property name="lib.jmock.url" value="http://repo1.maven.org/maven2/org/jmock/jmock/2.5.1/jmock-2.5.1.jar"/>
+   <property name="lib.jmock.archive" value="jmock-2.5.1.jar"/>
+   <property name="lib.jmock_legacy.url" value="http://repo1.maven.org/maven2/org/jmock/jmock-legacy/2.5.1/jmock-legacy-2.5.1.jar"/>
+   <property name="lib.jmock_legacy.archive" value="jmock-legacy-2.5.1.jar"/>
+   <property name="lib.cglib.url" value="http://repo1.maven.org/maven2/cglib/cglib-nodep/2.1_3/cglib-nodep-2.1_3.jar"/>
+   <property name="lib.cglib.archive" value="cglib-nodep-2.1_3.jar"/>
+   <property name="lib.objenesis.url" value="http://repo1.maven.org/maven2/org/objenesis/objenesis/1.0/objenesis-1.0.jar"/>
+   <property name="lib.objenesis.archive" value="objenesis-1.0.jar"/>
+   <property name="lib.hamcrest.url" value="http://repo1.maven.org/maven2/org/hamcrest/hamcrest-all/1.1/hamcrest-all-1.1.jar"/>
+   <property name="lib.hamcrest.archive" value="hamcrest-all-1.1.jar"/>   
    <property name="lib.onejar-ant.url" value="http://downloads.sourceforge.net/project/one-jar/one-jar/one-jar-0.97/one-jar-ant-task-0.97.jar"/>
    <property name="lib.onejar-ant.archive" value="one-jar-ant-task-0.97.jar"/>
    <property name="lib.jacoco.url" value="http://sourceforge.net/projects/eclemma/files/07_JaCoCo/0.5.8/jacoco-0.5.8.201207111220.zip"/>
@@ -36,6 +44,10 @@
          <url url="${lib.jbox2d.url}"/>
          <url url="${lib.junit.url}"/>
          <url url="${lib.jmock.url}"/>
+         <url url="${lib.jmock_legacy.url}"/>
+         <url url="${lib.cglib.url}"/>
+         <url url="${lib.objenesis.url}"/>
+         <url url="${lib.hamcrest.url}"/>
          <url url="${lib.jacoco.url}"/>
          <url url="${lib.onejar-ant.url}"/>
          <url url="${lib.slf4j.url}"/>
@@ -74,12 +86,14 @@
       <!-- JUnit -->
       <copy file="${library.downloads}/${lib.junit.archive}" todir="${library.jars}"/>
       <!-- JMock -->
-      <unzip src="${library.downloads}/${lib.jmock.archive}" dest="${library.jars}">
-         <patternset>
-            <include name="**/*.jar"/>
-         </patternset>
-         <mapper type="flatten"/>
-      </unzip>
+      <copy file="${library.downloads}/${lib.jmock.archive}" todir="${library.jars}"/>
+      <copy file="${library.downloads}/${lib.jmock_legacy.archive}" todir="${library.jars}"/>
+      <!-- CGLib -->
+      <copy file="${library.downloads}/${lib.cglib.archive}" todir="${library.jars}"/>
+      <!-- Objenesis -->
+      <copy file="${library.downloads}/${lib.objenesis.archive}" todir="${library.jars}"/>
+      <!-- Hancrest -->
+      <copy file="${library.downloads}/${lib.hamcrest.archive}" todir="${library.jars}"/>
       <!-- OneJar -->
       <copy file="${library.downloads}/${lib.onejar-ant.archive}" todir="${library.jars}"/>
       <!-- Jacoco -->
@@ -140,8 +154,7 @@
       <fileset dir="${library.jars}">
         <include name="junit-4.10.jar"/>
         <include name="jmock-2.5.1.jar"/>
-        <include name="hamcrest-core-1.1.jar"/>
-        <include name="hamcrest-library-1.1.jar"/>
+        <include name="hamcrest-all-1.1.jar"/>
         <include name="jmock-legacy-2.5.1.jar"/>
         <include name="cglib-nodep-2.1_3.jar"/>
         <include name="objenesis-1.0.jar"/>
