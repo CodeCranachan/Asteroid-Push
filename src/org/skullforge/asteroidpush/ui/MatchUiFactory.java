@@ -20,7 +20,7 @@ public class MatchUiFactory {
       Widget playerLabel = new Label("PlayerName", font);
       layoutWidget.setWidget("info", playerLabel);
 
-      StaticCamera camera = new StaticCamera(simulator);
+      Widget camera = new TrackingCamera(simulator);
       layoutWidget.setWidget("background", camera);
 
       return layoutWidget;
