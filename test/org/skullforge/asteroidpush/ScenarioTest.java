@@ -7,13 +7,18 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 import org.skullforge.asteroidpush.doodads.Doodad;
+import org.skullforge.asteroidpush.testutils.ClassMockery;
 
 public class ScenarioTest {
+   ClassMockery context;
+   Player playerMock;
    Scenario testScenario;
 
    @Before
    public void setUp() throws Exception {
-      testScenario = new Scenario();
+      context = new ClassMockery();
+      playerMock = context.mock(Player.class);
+      testScenario = new Scenario(playerMock);
    }
 
    @Test

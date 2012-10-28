@@ -19,6 +19,7 @@ public class MatchGameStateTest {
    ClassMockery context;
    Scenario scenarioMock;
    Simulator simulatorMock;
+   Player playerMock;
    GameContainer containerMock;
    MatchUiFactory uiFactoryMock;
    Widget uiMock;
@@ -30,6 +31,7 @@ public class MatchGameStateTest {
    public void setUp() throws Exception {
       context = new ClassMockery();
       simulatorMock = context.mock(Simulator.class);
+      playerMock = context.mock(Player.class);
       scenarioMock = context.mock(Scenario.class);
       uiFactoryMock = context.mock(MatchUiFactory.class);
       uiMock = context.mock(Widget.class);
@@ -43,7 +45,9 @@ public class MatchGameStateTest {
          {
             allowing(simulatorMock).getTimeStep();
             will(returnValue(0.016f));
-            oneOf(uiFactoryMock).init(simulatorMock);
+            allowing(scenarioMock).getLocalPlayer();
+            will(returnValue(playerMock));
+            oneOf(uiFactoryMock).init(simulatorMock, playerMock);
             oneOf(uiFactoryMock).createUi();
             will(returnValue(uiMock));
          }
@@ -62,7 +66,9 @@ public class MatchGameStateTest {
          {
             allowing(simulatorMock).getTimeStep();
             will(returnValue(0.016f));
-            oneOf(uiFactoryMock).init(simulatorMock);
+            allowing(scenarioMock).getLocalPlayer();
+            will(returnValue(playerMock));
+            oneOf(uiFactoryMock).init(simulatorMock, playerMock);
             oneOf(uiFactoryMock).createUi();
             will(returnValue(uiMock));
             allowing(containerMock).getWidth();

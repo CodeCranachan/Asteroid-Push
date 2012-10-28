@@ -1,6 +1,7 @@
 package org.skullforge.asteroidpush.ui;
 
 import org.newdawn.slick.Font;
+import org.skullforge.asteroidpush.Player;
 import org.skullforge.asteroidpush.ResourceLoader;
 import org.skullforge.asteroidpush.Simulator;
 
@@ -10,8 +11,9 @@ public class MatchUiFactory {
       this.loader = loader;
    }
 
-   public void init(Simulator sim) {
+   public void init(Simulator sim, Player localPlayer) {
       this.simulator = sim;
+      this.localPlayer = localPlayer;
    }
 
    public Widget createUi() {
@@ -20,7 +22,8 @@ public class MatchUiFactory {
       Widget playerLabel = new Label("PlayerName", font);
       layoutWidget.setWidget("info", playerLabel);
 
-      Widget camera = new TrackingCamera(simulator);
+      TrackingCamera camera = new TrackingCamera(simulator);
+      camera.setPositionTracker(localPlayer);
       layoutWidget.setWidget("background", camera);
 
       return layoutWidget;
@@ -28,4 +31,5 @@ public class MatchUiFactory {
 
    private ResourceLoader loader;
    private Simulator simulator;
+   private Player localPlayer;
 }

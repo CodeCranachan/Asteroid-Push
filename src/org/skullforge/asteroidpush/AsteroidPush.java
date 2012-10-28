@@ -10,7 +10,7 @@ public class AsteroidPush extends StateBasedGame {
       super("Asteroid Push");
       this.stateFactory = stateFactory;
       this.resourceLoader = resourceLoader;
-      this.gameScenario = new Scenario();
+      this.gameScenario = new Scenario(new Player());
    }
 
    @Override

@@ -25,7 +25,7 @@ public class MatchGameState extends BasicGameState {
    @Override
    public void init(GameContainer container, StateBasedGame game)
          throws SlickException {
-      uiFactory.init(simulator);
+      uiFactory.init(simulator, scenario.getLocalPlayer());
       ui = uiFactory.createUi();
       this.game = game;
    }

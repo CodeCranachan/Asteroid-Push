@@ -28,6 +28,7 @@ public class DesignerGameStateTest {
    Graphics graphicsMock;
    StateBasedGame gameMock;
    ShipDesign designMock;
+   Player playerMock;
    DesignerUiFactory uiFactoryMock;
    Widget uiMock;
    Scenario scenarioMock;
@@ -38,6 +39,7 @@ public class DesignerGameStateTest {
       context = new ClassMockery();
       containerMock = context.mock(GameContainer.class);
       graphicsMock = context.mock(Graphics.class);
+      playerMock = context.mock(Player.class);
       designMock = context.mock(ShipDesign.class);
       uiFactoryMock = context.mock(DesignerUiFactory.class);
       uiMock = context.mock(Widget.class);
@@ -49,13 +51,11 @@ public class DesignerGameStateTest {
    public void testInit() throws SlickException {
       context.checking(new Expectations() {
          {
-            oneOf(uiFactoryMock).init(designMock);
+            oneOf(uiFactoryMock).init(playerMock);
             oneOf(uiFactoryMock).createUi();
             will(returnValue(uiMock));
-            allowing(scenarioMock).getShipDesign();
-            will(returnValue(designMock));
-            allowing(designMock).addModule(with(any(GridCoordinate.class)),
-                                           with(any(Module.class)));
+            allowing(scenarioMock).getLocalPlayer();
+            will(returnValue(playerMock));
          }
       });
       testState = new DesignerGameState(uiFactoryMock);
@@ -67,14 +67,16 @@ public class DesignerGameStateTest {
    public void testRender() throws SlickException {
       context.checking(new Expectations() {
          {
-            oneOf(uiFactoryMock).init(designMock);
+            oneOf(uiFactoryMock).init(playerMock);
             oneOf(uiFactoryMock).createUi();
             will(returnValue(uiMock));
             allowing(containerMock).getWidth();
             will(returnValue(640));
             allowing(containerMock).getHeight();
             will(returnValue(480));
-            allowing(scenarioMock).getShipDesign();
+            allowing(scenarioMock).getLocalPlayer();
+            will(returnValue(playerMock));
+            allowing(playerMock).getShipDesign();
             will(returnValue(designMock));
             allowing(designMock).getModules();
             will(returnValue(new Vector<Module>()));
@@ -115,7 +117,9 @@ public class DesignerGameStateTest {
             allowing(designMock).addModule(with(any(GridCoordinate.class)),
                                            with(any(Module.class)));
             allowing(gameMock).enterState(1);
-            allowing(scenarioMock).getShipDesign();
+            allowing(scenarioMock).getLocalPlayer();
+            will(returnValue(playerMock));
+            allowing(playerMock).getShipDesign();
             will(returnValue(designMock));
          }
       });

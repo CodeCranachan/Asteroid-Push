@@ -1,7 +1,7 @@
 package org.skullforge.asteroidpush.ui;
 
+import org.skullforge.asteroidpush.Player;
 import org.skullforge.asteroidpush.ResourceLoader;
-import org.skullforge.asteroidpush.designer.ShipDesign;
 
 public class DesignerUiFactory {
 
@@ -9,15 +9,16 @@ public class DesignerUiFactory {
       this.loader = loader;
    }
 
-   public void init(ShipDesign design) {
-      this.shipDesign = design;
+   public void init(Player localPlayer) {
+      this.localPlayer = localPlayer;
    }
 
    public Widget createUi() {
-      Widget ui = new ShipDesignView(shipDesign, loader.loadFont("Alfphabet-IV.ttf", 10));      
+      Widget ui = new ShipDesignView(localPlayer.getShipDesign(),
+            loader.loadFont("Alfphabet-IV.ttf", 10));
       return ui;
    }
 
    private ResourceLoader loader;
-   private ShipDesign shipDesign;
+   private Player localPlayer;
 }

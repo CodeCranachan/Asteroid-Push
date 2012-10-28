@@ -2,6 +2,8 @@ package org.skullforge.asteroidpush.doodads;
 
 import java.util.ArrayList;
 
+import org.jbox2d.common.Vec2;
+import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.World;
 import org.skullforge.asteroidpush.appearances.Appearance;
 import org.skullforge.asteroidpush.parts.Part;
@@ -22,6 +24,22 @@ public class Doodad {
       parts = new ArrayList<Part>();
       partsSpawned = false;
       appearances = new ArrayList<Appearance>();
+   }
+
+   public Vec2 getCenterOfInterest() {
+      Vec2 position = new Vec2(0.0f, 0.0f);
+      float numberOfBodies = 0.0f;
+      for (Part part : parts) {
+         for (Body body : part.getBodies()) {
+            position.addLocal(body.getPosition());
+            ++numberOfBodies;
+         }
+      }
+      return position.mul(1.0f / numberOfBodies);
+   }
+
+   public float getRadiusOfInterest() {
+      return 35.0f;
    }
 
    /**
@@ -74,7 +92,7 @@ public class Doodad {
     *           the renderer to use to visualize this Doodad.
     */
    public void render(Renderer renderer) {
-      for(Appearance a : appearances) {
+      for (Appearance a : appearances) {
          renderer.draw(a);
       }
    }

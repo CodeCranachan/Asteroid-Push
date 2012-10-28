@@ -1,5 +1,6 @@
 package org.skullforge.asteroidpush.ui;
 
+import org.jbox2d.common.Vec2;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
@@ -33,13 +34,18 @@ public class TrackingCamera implements Widget, Renderer {
       this.graphics = g;
       g.pushTransform();
 
-      g.translate(frame.getWidth() / 2.0f - frame.getX(), frame.getHeight()
-            / 2.0f - frame.getY());
-      g.translate(-tracker.getCenter().x, -tracker.getCenter().y);
+      Vec2 centeringVector = new Vec2(frame.getWidth() / 2.0f,
+            frame.getHeight() / 2.0f);
+      Vec2 frameVector = new Vec2(-frame.getX(), -frame.getY());
+      Vec2 translationVector = centeringVector.add(frameVector);
+      g.translate(translationVector.x, translationVector.y);
 
       float canvasSize = Math.min(frame.getWidth(), frame.getHeight());
       float scale = canvasSize / tracker.getRadius();
       g.scale(scale, scale);
+
+      Vec2 trackerVector = tracker.getCenter().negate();
+      g.translate(trackerVector.x, trackerVector.y);
 
       simulator.render(this);
       g.popTransform();

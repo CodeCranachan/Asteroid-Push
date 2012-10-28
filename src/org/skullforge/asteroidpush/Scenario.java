@@ -3,7 +3,6 @@ package org.skullforge.asteroidpush;
 import java.util.ArrayList;
 
 import org.jbox2d.common.Vec2;
-import org.skullforge.asteroidpush.designer.ShipDesign;
 import org.skullforge.asteroidpush.doodads.AsteroidFactory;
 import org.skullforge.asteroidpush.doodads.Doodad;
 import org.skullforge.asteroidpush.doodads.PlayingFieldBorderFactory;
@@ -17,12 +16,12 @@ import org.skullforge.asteroidpush.doodads.SpaceshipFactory;
  */
 public class Scenario {
 
-   public Scenario() {
-      this.design = new ShipDesign();
+   public Scenario(Player localPlayer) {
+      this.localPlayer = new Player();
    }
 
-   public ShipDesign getShipDesign() {
-      return design;
+   public Player getLocalPlayer() {
+      return localPlayer;
    }
 
    /**
@@ -37,7 +36,10 @@ public class Scenario {
       list.add(buildAsteroid(new Vec2(-2.0f, -2.0f)));
       list.add(buildAsteroid(new Vec2(-4.4f, 2.5f)));
       list.add(buildAsteroid(new Vec2(2.7f, -4.2f)));
-      list.add(buildSpaceship(new Vec2(0.0f, 0.0f)));
+      
+      Doodad ship = buildSpaceship(new Vec2(0.0f, 0.0f));
+      localPlayer.setShip(ship);
+      list.add(ship);
       return list;
    }
 
@@ -55,9 +57,9 @@ public class Scenario {
    
    private Doodad buildSpaceship(Vec2 position) {
       SpaceshipFactory factory = new SpaceshipFactory();
-      factory.setParameters(position, getShipDesign());
+      factory.setParameters(position, localPlayer.getShipDesign());
       return factory.createDoodad();
    }
 
-   private ShipDesign design;
+   private Player localPlayer;
 }

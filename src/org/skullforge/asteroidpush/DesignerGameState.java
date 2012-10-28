@@ -7,9 +7,6 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
-import org.skullforge.asteroidpush.designer.ControlModule;
-import org.skullforge.asteroidpush.designer.GridCoordinate;
-import org.skullforge.asteroidpush.designer.ShipDesign;
 import org.skullforge.asteroidpush.ui.DesignerUiFactory;
 import org.skullforge.asteroidpush.ui.Widget;
 
@@ -27,14 +24,8 @@ public class DesignerGameState extends BasicGameState {
    public void init(GameContainer container, StateBasedGame game)
          throws SlickException {
       this.game = game;
-      uiFactory.init(scenario.getShipDesign());
+      uiFactory.init(scenario.getLocalPlayer());
       ui = uiFactory.createUi();
-
-      ShipDesign design = scenario.getShipDesign();
-      design.addModule(new GridCoordinate(2, 2), new ControlModule());
-      design.addModule(new GridCoordinate(1, 2), new ControlModule());
-      design.addModule(new GridCoordinate(3, 2), new ControlModule());
-      design.addModule(new GridCoordinate(2, 1), new ControlModule());
    }
 
    @Override
