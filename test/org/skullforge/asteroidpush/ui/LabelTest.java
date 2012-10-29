@@ -25,7 +25,7 @@ public class LabelTest {
       oldFontMock = context.mock(UnicodeFont.class, "oldFont");
       labelFontMock = context.mock(UnicodeFont.class, "labelFont");
       graphicsMock = context.mock(Graphics.class);
-      testLabel = new Label(testLabelText, labelFontMock);
+      testLabel = new Label(new StringBuffer(testLabelText), labelFontMock);
    }
 
    @Test

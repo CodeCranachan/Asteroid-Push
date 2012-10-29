@@ -64,7 +64,14 @@ public class MatchGameState extends BasicGameState {
    public void keyPressed(int key, char c) {
       if (Input.KEY_ESCAPE == key) {
          game.enterState(StateInfo.DESIGNER.getID());
+      } else {
+         scenario.getLocalPlayer().handleKeyDown(key);
       }
+   }
+
+   @Override
+   public void keyReleased(int key, char c) {
+      scenario.getLocalPlayer().handleKeyUp(key);
    }
 
    private Simulator simulator;

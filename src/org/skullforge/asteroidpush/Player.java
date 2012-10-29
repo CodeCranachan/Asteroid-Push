@@ -10,8 +10,10 @@ import org.skullforge.asteroidpush.ui.PositionTracker;
 public class Player implements PositionTracker {
 
    public Player() {
+      this.controlDescription = new StringBuffer("No Control");
       this.currentShip = null;
       this.shipDesign = new ShipDesign();
+      this.controller = new SignalController();
       shipDesign.addModule(new GridCoordinate(2, 2), new ControlModule());
       shipDesign.addModule(new GridCoordinate(1, 2), new ControlModule());
       shipDesign.addModule(new GridCoordinate(3, 2), new ControlModule());
@@ -44,6 +46,28 @@ public class Player implements PositionTracker {
       currentShip = ship;
    }
 
+   public String getName() {
+      return "LocalPlayer";
+   }
+
+   public StringBuffer getControls() {
+      return controlDescription;
+   }
+
+   public void handleKeyUp(int key) {
+      controller.keyUp(key);
+      controlDescription.delete(0, controlDescription.length());
+      controlDescription.append(controller.getControllerDescription());
+   }
+
+   public void handleKeyDown(int key) {
+      controller.keyDown(key);
+      controlDescription.delete(0, controlDescription.length());
+      controlDescription.append(controller.getControllerDescription());
+   }
+
+   private SignalController controller;
    private ShipDesign shipDesign;
    private Doodad currentShip;
+   private StringBuffer controlDescription;
 }

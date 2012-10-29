@@ -19,8 +19,10 @@ public class MatchUiFactory {
    public Widget createUi() {
       SimpleLayout layoutWidget = new SimpleLayout();
       Font font = loader.loadFont("Alfphabet-IV.ttf", 14);
-      Widget playerLabel = new Label("PlayerName", font);
+      Widget playerLabel = new Label(new StringBuffer(localPlayer.getName()), font);
       layoutWidget.setWidget("info", playerLabel);
+      Widget controlLabel = new Label(localPlayer.getControls(), font);
+      layoutWidget.setWidget("control", controlLabel);
 
       TrackingCamera camera = new TrackingCamera(simulator);
       camera.setPositionTracker(localPlayer);

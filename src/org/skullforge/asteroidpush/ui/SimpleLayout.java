@@ -15,9 +15,13 @@ public class SimpleLayout implements Widget {
       LayoutElement backgroundElement = new LayoutElement(null);
       elements.put("background", backgroundElement);
 
-      Rectangle infoRectangle = new Rectangle(400, 20, 220, 60);
+      Rectangle infoRectangle = new Rectangle(400, 20, 220, 30);
       LayoutElement infoElement = new LayoutElement(infoRectangle);
       elements.put("info", infoElement);
+
+      Rectangle controlRectangle = new Rectangle(400, 50, 220, 30);
+      LayoutElement controlElement = new LayoutElement(controlRectangle);
+      elements.put("control", controlElement);
    }
 
    @Override

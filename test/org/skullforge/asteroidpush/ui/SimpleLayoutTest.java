@@ -15,6 +15,7 @@ public class SimpleLayoutTest {
    Graphics graphicsMock;
    Widget backgroundWidgetMock;
    Widget infoWidgetMock;
+   Widget controlWidgetMock;
    SimpleLayout testLayout;
 
    @Before
@@ -23,6 +24,7 @@ public class SimpleLayoutTest {
       graphicsMock = context.mock(Graphics.class);
       backgroundWidgetMock = context.mock(Widget.class, "background");
       infoWidgetMock = context.mock(Widget.class, "info");
+      controlWidgetMock = context.mock(Widget.class, "control");
       testLayout = new SimpleLayout();
    }
 
@@ -60,11 +62,14 @@ public class SimpleLayoutTest {
                                                with(any(Rectangle.class)));
             oneOf(infoWidgetMock).render(with(same(graphicsMock)),
                                          with(any(Rectangle.class)));
+            oneOf(controlWidgetMock).render(with(same(graphicsMock)),
+                                         with(any(Rectangle.class)));
          }
       });
       testLayout.setWidget("invalid element name", infoWidgetMock);
       testLayout.setWidget("info", infoWidgetMock);
       testLayout.setWidget("background", backgroundWidgetMock);
+      testLayout.setWidget("control", controlWidgetMock);
       testLayout.render(graphicsMock, fullScreen);
       context.assertIsSatisfied();
    }

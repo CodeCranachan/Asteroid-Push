@@ -24,7 +24,7 @@ public class ShipDesignView implements Widget {
          GridCoordinate currentCoordinate = m.getPosition();
          Rectangle gridFrame = GetFrameForCoordinate(currentCoordinate, frame);
 
-         Label moduleLabel = new Label(m.getName(), font);
+         Label moduleLabel = new Label(new StringBuffer(m.getName()), font);
          moduleLabel.render(g, gridFrame);
       }
    }

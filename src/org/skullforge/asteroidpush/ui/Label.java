@@ -7,7 +7,7 @@ import org.newdawn.slick.geom.Rectangle;
 
 public class Label implements Widget {
 
-   public Label(String text, Font font) {
+   public Label(StringBuffer text, Font font) {
       this.text = text;
       this.font = font;
    }
@@ -18,11 +18,11 @@ public class Label implements Widget {
       g.setFont(font);
       g.setColor(Color.green);
       g.drawRoundRect(frame.getX(), frame.getY(), frame.getWidth(), frame.getHeight(), 5);
-      g.drawString(text, frame.getCenterX() - (float) font.getWidth(text)
-            / 2.0f, frame.getCenterY() - (float) font.getHeight(text) / 2.0f);
+      g.drawString(text.toString(), frame.getCenterX() - (float) font.getWidth(text.toString())
+            / 2.0f, frame.getCenterY() - (float) font.getHeight(text.toString()) / 2.0f);
       g.setFont(currentFont);
    }
 
-   private String text;
+   private StringBuffer text;
    private Font font;
 }
