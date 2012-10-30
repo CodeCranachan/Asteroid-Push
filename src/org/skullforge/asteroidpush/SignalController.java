@@ -20,19 +20,19 @@ public class SignalController {
       case Input.KEY_W:
          forwardThrust = 1.0f;
          break;
-      case Input.KEY_Q:
-         anticlockwiseThrust = 1.0f;
-         break;
-      case Input.KEY_E:
-         clockwiseThrust = 1.0f;
-         break;
-      case Input.KEY_A:
-         leftThrust = 1.0f;
-         break;
       case Input.KEY_S:
          backwardThrust = 1.0f;
          break;
+      case Input.KEY_A:
+         anticlockwiseThrust = 1.0f;
+         break;
       case Input.KEY_D:
+         clockwiseThrust = 1.0f;
+         break;
+      case Input.KEY_Q:
+         leftThrust = 1.0f;
+         break;
+      case Input.KEY_E:
          rightThrust = 1.0f;
          break;
       case Input.KEY_RSHIFT:
@@ -51,19 +51,19 @@ public class SignalController {
       case Input.KEY_W:
          forwardThrust = 0.0f;
          break;
-      case Input.KEY_Q:
-         anticlockwiseThrust = 0.0f;
-         break;
-      case Input.KEY_E:
-         clockwiseThrust = 0.0f;
-         break;
-      case Input.KEY_A:
-         leftThrust = 0.0f;
-         break;
       case Input.KEY_S:
          backwardThrust = 0.0f;
          break;
+      case Input.KEY_A:
+         anticlockwiseThrust = 0.0f;
+         break;
       case Input.KEY_D:
+         clockwiseThrust = 0.0f;
+         break;
+      case Input.KEY_Q:
+         leftThrust = 0.0f;
+         break;
+      case Input.KEY_E:
          rightThrust = 0.0f;
          break;
       case Input.KEY_RSHIFT:

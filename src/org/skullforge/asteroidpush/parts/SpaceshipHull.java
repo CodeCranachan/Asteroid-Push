@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.collision.shapes.Shape;
+import org.jbox2d.common.MathUtils;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyDef;
@@ -59,8 +60,9 @@ public class SpaceshipHull implements Part {
       BodyDef def = new BodyDef();
       def.type = BodyType.DYNAMIC;
       def.position.set(spawnPosition);
-      def.linearDamping = 0.01f;
-      def.angularDamping = 0.01f;
+      def.angle = MathUtils.HALF_PI;
+      def.linearDamping = 0.1f;
+      def.angularDamping = 0.25f;
       def.fixedRotation = false;
       return def;
    }

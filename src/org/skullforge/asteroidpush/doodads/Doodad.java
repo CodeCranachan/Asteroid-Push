@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.World;
+import org.skullforge.asteroidpush.Player;
 import org.skullforge.asteroidpush.appearances.Appearance;
+import org.skullforge.asteroidpush.logic.Logic;
 import org.skullforge.asteroidpush.parts.Part;
 import org.skullforge.asteroidpush.ui.Renderer;
 
@@ -21,17 +23,19 @@ public class Doodad {
     */
    public Doodad(String name) {
       doodadName = new String(name);
-      parts = new ArrayList<Part>();
-      partsSpawned = false;
+      partList = new ArrayList<Part>();
       appearances = new ArrayList<Appearance>();
+      logicList = new ArrayList<Logic>();
+      spawned = false;
+      owner = null;
    }
 
    public Vec2 getCenterOfInterest() {
       Vec2 position = new Vec2(0.0f, 0.0f);
       float numberOfBodies = 0.0f;
-      for (Part part : parts) {
+      for (Part part : partList) {
          for (Body body : part.getBodies()) {
-            position.addLocal(body.getPosition());
+            position.addLocal(body.getWorldCenter());
             ++numberOfBodies;
          }
       }
@@ -51,27 +55,38 @@ public class Doodad {
     *           the part that will be added to the Doodad.
     */
    public void addPart(Part part) {
-      parts.add(part);
+      partList.add(part);
+   }
+   
+   /**
+    * Add a Logic to this Doodad. The Logic must be unique to this Doodad and may
+    * not be used in other Doodads.
+    * 
+    * @param logic
+    *           the logic that will be added to the Doodad.
+    */
+   public void addLogic(Logic logic) {
+      logicList.add(logic);
    }
 
    /**
     * Put all parts into the simulation.
     */
    public void spawn(World world) {
-      for (Part part : parts) {
+      for (Part part : partList) {
          part.spawn(world);
       }
-      partsSpawned = true;
+      spawned = true;
    }
 
    /**
     * Remove all Parts from the simulation.
     */
    public void despawn(World world) {
-      for (Part part : parts) {
+      for (Part part : partList) {
          part.despawn(world);
       }
-      partsSpawned = false;
+      spawned = false;
    }
 
    /**
@@ -105,18 +120,31 @@ public class Doodad {
     *           delays and other time based logic.
     */
    public void update(int frameNumber) {
+      for (Logic logic : logicList) {
+         if (owner == null) {
+            logic.update(frameNumber, null);
+         } else {
+            logic.update(frameNumber, owner.getController());
+         }
+      }
    }
 
    public boolean isSpawned() {
-      return this.partsSpawned;
+      return this.spawned;
    }
 
    public String getName() {
       return doodadName;
    }
 
+   public void setOwner(Player owner) {
+      this.owner = owner;
+   }
+
    private String doodadName;
-   private ArrayList<Part> parts;
-   private boolean partsSpawned;
+   private ArrayList<Part> partList;
+   private ArrayList<Logic> logicList;
    private ArrayList<Appearance> appearances;
+   private boolean spawned;
+   private Player owner;
 }

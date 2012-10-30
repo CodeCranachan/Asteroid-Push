@@ -39,6 +39,7 @@ public class Scenario {
       
       Doodad ship = buildSpaceship(new Vec2(0.0f, 0.0f));
       localPlayer.setShip(ship);
+      ship.setOwner(localPlayer);
       list.add(ship);
       return list;
    }

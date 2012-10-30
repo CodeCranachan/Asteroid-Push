@@ -3,6 +3,8 @@ package org.skullforge.asteroidpush.doodads;
 import org.jbox2d.common.Vec2;
 import org.skullforge.asteroidpush.appearances.SimpleAppearance;
 import org.skullforge.asteroidpush.designer.ShipDesign;
+import org.skullforge.asteroidpush.logic.Logic;
+import org.skullforge.asteroidpush.logic.Thruster;
 import org.skullforge.asteroidpush.parts.Part;
 import org.skullforge.asteroidpush.parts.SpaceshipHull;
 
@@ -25,7 +27,9 @@ public class SpaceshipFactory implements DoodadFactory {
 
    public Doodad initDoodad(Doodad doodad) {
       Part hull = new SpaceshipHull(spawnPosition, design);
+      Logic thruster = new Thruster(hull);
       doodad.addPart(hull);
+      doodad.addLogic(thruster);
       doodad.addAppearance(new SimpleAppearance(hull));
       return doodad;
    }
