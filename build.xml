@@ -255,6 +255,9 @@
             <fileset dir="${library.natives}/windows">
                <include name="**.*"/>
             </fileset>
+            <fileset dir="${library.natives}/linux">
+               <include name="**.*"/>
+            </fileset>
          </binlib>
       </one-jar>
    </target>
