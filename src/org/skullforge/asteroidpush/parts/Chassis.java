@@ -12,7 +12,7 @@ import org.jbox2d.dynamics.joints.Joint;
  * @author Konfuzzyus
  * 
  */
-public interface Part {
+public interface Chassis {
    /**
     * Create all simulated bodies and fixtures in the world given. The bodies
     * are created at the origin of the World coordinate system and in rest.

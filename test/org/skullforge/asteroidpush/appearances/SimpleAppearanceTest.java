@@ -16,13 +16,13 @@ import org.jmock.Mockery;
 import org.junit.Before;
 import org.junit.Test;
 import org.newdawn.slick.geom.Shape;
-import org.skullforge.asteroidpush.parts.Part;
+import org.skullforge.asteroidpush.parts.Chassis;
 import org.skullforge.asteroidpush.testutils.ClassMockery;
 import org.skullforge.asteroidpush.ui.Renderer;
 
 public class SimpleAppearanceTest {
    Mockery context;
-   Part partMock;
+   Chassis partMock;
    Renderer rendererMock;
    SimpleAppearance testAppearance;
    World testWorld;
@@ -31,7 +31,7 @@ public class SimpleAppearanceTest {
    @Before
    public void setUp() throws Exception {
       context = new ClassMockery();
-      partMock = context.mock(Part.class);
+      partMock = context.mock(Chassis.class);
       rendererMock = context.mock(Renderer.class);
       testAppearance = new SimpleAppearance(partMock);
 

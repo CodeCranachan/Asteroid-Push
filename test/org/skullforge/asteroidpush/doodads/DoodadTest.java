@@ -3,7 +3,9 @@ package org.skullforge.asteroidpush.doodads;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.World;
 import org.skullforge.asteroidpush.appearances.Appearance;
-import org.skullforge.asteroidpush.parts.Part;
+import org.skullforge.asteroidpush.appearances.NullAppearance;
+import org.skullforge.asteroidpush.logic.Logic;
+import org.skullforge.asteroidpush.parts.Chassis;
 import org.skullforge.asteroidpush.ui.Renderer;
 
 import static org.junit.Assert.*;
@@ -14,9 +16,9 @@ import org.jmock.Mockery;
 
 public class DoodadTest {
    Mockery context;
-   Part boxMock;
-   Part blockMock;
+   Chassis chassisMock;
    Appearance appearanceMock;
+   Logic logicMock;
    Renderer rendererMock;
    World testWorld;
    Doodad testDoodad;
@@ -24,33 +26,41 @@ public class DoodadTest {
    @Before
    public void setUp() {
       context = new Mockery();
-      boxMock = context.mock(Part.class, "Box");
-      blockMock = context.mock(Part.class, "Block");
+      chassisMock = context.mock(Chassis.class);
       appearanceMock = context.mock(Appearance.class);
       rendererMock = context.mock(Renderer.class);
+      logicMock = context.mock(Logic.class);
       Vec2 testGravity = new Vec2();
       testWorld = new World(testGravity, true);
-      testDoodad = new Doodad("TestDoodad");
+      testDoodad = new Doodad();
    }
 
    @Test
-   public void testGetName() {
-      assertEquals("TestDoodad", testDoodad.getName());
-   }
-
-   @Test
-   public void testSpawnAndDespawn() {
+   public void testSpawnAndDespawnWithoutChassis() {
       context.checking(new Expectations() {
          {
-            oneOf(boxMock).spawn(testWorld);
-            oneOf(blockMock).spawn(testWorld);
-            oneOf(boxMock).despawn(testWorld);
-            oneOf(blockMock).despawn(testWorld);
          }
       });
 
-      testDoodad.addPart(boxMock);
-      testDoodad.addPart(blockMock);
+      // Check spawning when there is no chassis defined
+      testDoodad.spawn(testWorld);
+      assertTrue(testDoodad.isSpawned());
+      testDoodad.despawn(testWorld);
+      assertFalse(testDoodad.isSpawned());
+
+      context.assertIsSatisfied();
+   }
+
+   @Test
+   public void testSpawnAndDespawnWithChassis() {
+      context.checking(new Expectations() {
+         {
+            oneOf(chassisMock).spawn(testWorld);
+            oneOf(chassisMock).despawn(testWorld);
+         }
+      });
+
+      testDoodad.setChassis(chassisMock);
       assertFalse(testDoodad.isSpawned());
       testDoodad.spawn(testWorld);
       assertTrue(testDoodad.isSpawned());
@@ -61,21 +71,55 @@ public class DoodadTest {
    }
 
    @Test
-   public void testUpdate() {
-      testDoodad.addPart(boxMock);
-      testDoodad.update(1);
+   public void testUpdateWithLogic() {
+      final int expectedFrameNumber = 1;
+      context.checking(new Expectations() {
+         {
+            oneOf(logicMock).update(expectedFrameNumber, null);
+         }
+      });
+
+      testDoodad.setLogic(logicMock);
+      testDoodad.update(expectedFrameNumber);
+
       context.assertIsSatisfied();
    }
 
    @Test
-   public void testAddAppearance() {
+   public void testUpdateWithoutLogic() {
+      final int expectedFrameNumber = 1;
+      context.checking(new Expectations() {
+         {
+         }
+      });
+
+      testDoodad.update(expectedFrameNumber);
+
+      context.assertIsSatisfied();
+   }
+
+   @Test
+   public void testRenderWithoutAppearance() {
+      context.checking(new Expectations() {
+         {
+            oneOf(rendererMock).draw(with(any(NullAppearance.class)));
+         }
+      });
+
+      testDoodad.render(rendererMock);
+
+      context.assertIsSatisfied();
+   }
+
+   @Test
+   public void testRenderWithAppearance() {
       context.checking(new Expectations() {
          {
             oneOf(rendererMock).draw(appearanceMock);
          }
       });
 
-      testDoodad.addAppearance(appearanceMock);
+      testDoodad.setAppearance(appearanceMock);
       testDoodad.render(rendererMock);
 
       context.assertIsSatisfied();

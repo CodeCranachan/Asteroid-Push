@@ -5,7 +5,7 @@ import org.skullforge.asteroidpush.appearances.SimpleAppearance;
 import org.skullforge.asteroidpush.designer.ShipDesign;
 import org.skullforge.asteroidpush.logic.Logic;
 import org.skullforge.asteroidpush.logic.Thruster;
-import org.skullforge.asteroidpush.parts.Part;
+import org.skullforge.asteroidpush.parts.Chassis;
 import org.skullforge.asteroidpush.parts.SpaceshipHull;
 
 public class SpaceshipFactory implements DoodadFactory {
@@ -22,19 +22,18 @@ public class SpaceshipFactory implements DoodadFactory {
 
    @Override
    public Doodad createDoodad() {
-      return initDoodad(new Doodad(doodadName));
+      return initDoodad(new Doodad());
    }
 
    public Doodad initDoodad(Doodad doodad) {
-      Part hull = new SpaceshipHull(spawnPosition, design);
+      Chassis hull = new SpaceshipHull(spawnPosition, design);
       Logic thruster = new Thruster(hull);
-      doodad.addPart(hull);
-      doodad.addLogic(thruster);
-      doodad.addAppearance(new SimpleAppearance(hull));
+      doodad.setChassis(hull);
+      doodad.setLogic(thruster);
+      doodad.setAppearance(new SimpleAppearance(hull));
       return doodad;
    }
 
    private Vec2 spawnPosition;
    private ShipDesign design;
-   final private String doodadName = "Spaceship";
 }

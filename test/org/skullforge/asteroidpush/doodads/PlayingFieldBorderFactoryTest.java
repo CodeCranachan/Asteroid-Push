@@ -26,7 +26,6 @@ public class PlayingFieldBorderFactoryTest {
    public void testCreateDoodad() {
       Doodad testDoodad = testFactory.createDoodad();
       assertNotNull(testDoodad);
-      assertEquals("PlayingFieldBorder", testDoodad.getName());
    }
 
    @Test
@@ -41,8 +40,8 @@ public class PlayingFieldBorderFactoryTest {
 
       context.checking(new Expectations() {
          {
-            oneOf(doodadMock).addPart(with(equal(expectedBox)));
-            oneOf(doodadMock).addAppearance(with(any(SimpleAppearance.class)));
+            oneOf(doodadMock).setChassis(with(equal(expectedBox)));
+            oneOf(doodadMock).setAppearance(with(any(SimpleAppearance.class)));
          }
       });
 

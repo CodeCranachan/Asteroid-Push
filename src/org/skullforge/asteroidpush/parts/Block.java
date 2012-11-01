@@ -12,7 +12,7 @@ import org.jbox2d.dynamics.FixtureDef;
 import org.jbox2d.dynamics.World;
 import org.jbox2d.dynamics.joints.Joint;
 
-public class Block implements Part {
+public class Block implements Chassis {
 
    public Block(Vec2 position, Material material) {
       this.body = null;

@@ -3,7 +3,7 @@ package org.skullforge.asteroidpush.doodads;
 import org.jbox2d.common.Vec2;
 import org.skullforge.asteroidpush.appearances.SimpleAppearance;
 import org.skullforge.asteroidpush.parts.Debris;
-import org.skullforge.asteroidpush.parts.Part;
+import org.skullforge.asteroidpush.parts.Chassis;
 
 public class AsteroidFactory implements DoodadFactory {
 
@@ -17,16 +17,15 @@ public class AsteroidFactory implements DoodadFactory {
    
    @Override
    public Doodad createDoodad() {
-      return initDoodad(new Doodad(doodadName));
+      return initDoodad(new Doodad());
    }
    
    public Doodad initDoodad(Doodad doodad) {
-      Part debris = new Debris(spawnPosition);
-      doodad.addPart(debris);
-      doodad.addAppearance(new SimpleAppearance(debris));
+      Chassis debris = new Debris(spawnPosition);
+      doodad.setChassis(debris);
+      doodad.setAppearance(new SimpleAppearance(debris));
       return doodad;
    }
    
    Vec2 spawnPosition;
-   final private String doodadName = "Asteroid";
 }

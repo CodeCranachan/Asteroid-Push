@@ -16,7 +16,7 @@ import org.skullforge.asteroidpush.designer.GridCoordinate;
 import org.skullforge.asteroidpush.designer.Module;
 import org.skullforge.asteroidpush.designer.ShipDesign;
 
-public class SpaceshipHull implements Part {
+public class SpaceshipHull implements Chassis {
 
    public SpaceshipHull(Vec2 position, ShipDesign design) {
       this.spawnPosition = new Vec2(position);

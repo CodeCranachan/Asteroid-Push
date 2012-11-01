@@ -26,10 +26,5 @@ public class ScenarioTest {
       ArrayList<Doodad> doodads = testScenario.buildDoodads();
       assertNotNull(doodads);
       assertEquals(6, doodads.size());
-      assertEquals("PlayingFieldBorder", doodads.get(0).getName());
-      for (int i = 1; i < 5; ++i) {
-         assertEquals("Asteroid", doodads.get(i).getName());
-      }
-      assertEquals("Spaceship", doodads.get(5).getName());
    }
 }

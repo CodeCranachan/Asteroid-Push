@@ -27,7 +27,6 @@ public class AsteroidFactoryTest {
    public void testCreateDoodad() {
       Doodad testDoodad = testFactory.createDoodad();
       assertNotNull(testDoodad);
-      assertEquals("Asteroid", testDoodad.getName());
    }
 
    @Test
@@ -35,8 +34,8 @@ public class AsteroidFactoryTest {
       final Vec2 position = new Vec2(10.0f, 5.0f);
       context.checking(new Expectations() {
          {
-            oneOf(doodadMock).addPart(with(any(Debris.class)));
-            oneOf(doodadMock).addAppearance(with(any(SimpleAppearance.class)));
+            oneOf(doodadMock).setChassis(with(any(Debris.class)));
+            oneOf(doodadMock).setAppearance(with(any(SimpleAppearance.class)));
          }
       });
 

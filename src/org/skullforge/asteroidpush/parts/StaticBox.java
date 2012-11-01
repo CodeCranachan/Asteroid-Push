@@ -10,7 +10,7 @@ import org.jbox2d.dynamics.FixtureDef;
 import org.jbox2d.dynamics.World;
 import org.jbox2d.dynamics.joints.Joint;
 
-public class StaticBox implements Part {
+public class StaticBox implements Chassis {
 
    /**
     * Creates a static box with the given dimensions. The box is hollow and

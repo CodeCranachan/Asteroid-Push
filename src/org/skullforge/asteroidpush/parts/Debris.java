@@ -12,7 +12,7 @@ import org.jbox2d.dynamics.FixtureDef;
 import org.jbox2d.dynamics.World;
 import org.jbox2d.dynamics.joints.Joint;
 
-public class Debris implements Part {
+public class Debris implements Chassis {
 
    public Debris(Vec2 position) {
       this.body = null;
