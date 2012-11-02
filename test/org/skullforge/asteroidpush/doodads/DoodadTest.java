@@ -2,34 +2,40 @@ package org.skullforge.asteroidpush.doodads;
 
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.World;
+import org.skullforge.asteroidpush.Player;
+import org.skullforge.asteroidpush.SignalController;
 import org.skullforge.asteroidpush.appearances.Appearance;
 import org.skullforge.asteroidpush.appearances.NullAppearance;
 import org.skullforge.asteroidpush.logic.Logic;
 import org.skullforge.asteroidpush.parts.Chassis;
+import org.skullforge.asteroidpush.testutils.ClassMockery;
 import org.skullforge.asteroidpush.ui.Renderer;
 
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.jmock.Expectations;
-import org.jmock.Mockery;
 
 public class DoodadTest {
-   Mockery context;
+   ClassMockery context;
    Chassis chassisMock;
    Appearance appearanceMock;
    Logic logicMock;
    Renderer rendererMock;
+   Player playerMock;
+   SignalController controllerMock;
    World testWorld;
    Doodad testDoodad;
 
    @Before
    public void setUp() {
-      context = new Mockery();
+      context = new ClassMockery();
       chassisMock = context.mock(Chassis.class);
       appearanceMock = context.mock(Appearance.class);
       rendererMock = context.mock(Renderer.class);
       logicMock = context.mock(Logic.class);
+      playerMock = context.mock(Player.class);
+      controllerMock = context.mock(SignalController.class);
       Vec2 testGravity = new Vec2();
       testWorld = new World(testGravity, true);
       testDoodad = new Doodad();
@@ -75,11 +81,16 @@ public class DoodadTest {
       final int expectedFrameNumber = 1;
       context.checking(new Expectations() {
          {
+            allowing(playerMock).getController();
+            will(returnValue(controllerMock));
             oneOf(logicMock).update(expectedFrameNumber, null);
+            oneOf(logicMock).update(expectedFrameNumber, controllerMock);
          }
       });
 
       testDoodad.setLogic(logicMock);
+      testDoodad.update(expectedFrameNumber);
+      testDoodad.setOwner(playerMock);
       testDoodad.update(expectedFrameNumber);
 
       context.assertIsSatisfied();
