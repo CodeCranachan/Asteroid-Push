@@ -1,4 +1,4 @@
-package org.skullforge.asteroidpush.testutils;
+package org.skullforge.asteroidpush.utils;
 
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.collision.shapes.ShapeType;
@@ -32,7 +32,7 @@ public class GeometryVerifier {
    
    /**
     * Tests the winding of a jbox2d Polygon shape, will also automatically
-    * verify its concaveness.
+    * verify whether it is concave.
     * 
     * @param shape
     *           the shape to be checked
@@ -63,7 +63,7 @@ public class GeometryVerifier {
          }
       }
 
-      // Test last vertex edges
+      // Test last vertex
       {
          Vec2 a = shape.m_vertices[n - 1].sub(shape.m_vertices[0]);
          Vec2 b = shape.m_vertices[0].sub(shape.m_vertices[1]);

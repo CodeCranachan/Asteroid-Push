@@ -10,7 +10,7 @@ import org.jbox2d.dynamics.World;
 import org.junit.Before;
 import org.junit.Test;
 import org.skullforge.asteroidpush.assemblies.Debris;
-import org.skullforge.asteroidpush.testutils.GeometryVerifier;
+import org.skullforge.asteroidpush.utils.GeometryVerifier;
 
 public class DebrisTest {
    Debris testDebris;
