@@ -10,26 +10,28 @@ public class GeometryVerifier {
    /**
     * Checks a jbox2d body for data sanity.
     * 
-    * This will verify whether a jbox2d Body has been created correctly.
-    * It currently only checks PolygonShapes for correct vertex winding order.
-    * @param body the body to be checked
+    * This will verify whether a jbox2d Body has been created correctly. It
+    * currently only checks PolygonShapes for correct vertex winding order.
+    * 
+    * @param body
+    *           the body to be checked
     * @return true of the body is sane, false otherwise
     */
    public static boolean IsBodySane(Body body) {
       Fixture fixture = body.getFixtureList();
-      
+
       while (fixture != null) {
          if (fixture.getType() == ShapeType.POLYGON) {
-            if (!IsWoundCorrectly((PolygonShape)fixture.getShape())) {
+            if (!IsWoundCorrectly((PolygonShape) fixture.getShape())) {
                return false;
             }
          }
          fixture = fixture.getNext();
       }
-      
+
       return true;
    }
-   
+
    /**
     * Tests the winding of a jbox2d Polygon shape, will also automatically
     * verify whether it is concave.
@@ -45,28 +47,10 @@ public class GeometryVerifier {
          return false;
       }
 
-      // Test first vertex
-      {
-         Vec2 a = shape.m_vertices[n - 1].sub(shape.m_vertices[0]);
-         Vec2 b = shape.m_vertices[0].sub(shape.m_vertices[1]);
-         if (Vec2.cross(a, b) <= 0.0f) {
-            return false;
-         }
-      }
-
-      // Test all vertices between first and last
-      for (int i = 1; i < n - 1; ++i) {
-         Vec2 a = shape.m_vertices[i - 1].sub(shape.m_vertices[i]);
-         Vec2 b = shape.m_vertices[i].sub(shape.m_vertices[i + 1]);
-         if (Vec2.cross(a, b) <= 0.0f) {
-            return false;
-         }
-      }
-
-      // Test last vertex
-      {
-         Vec2 a = shape.m_vertices[n - 1].sub(shape.m_vertices[0]);
-         Vec2 b = shape.m_vertices[0].sub(shape.m_vertices[1]);
+      for (int i = 0; i < n; ++i) {
+         int k = i + n;
+         Vec2 a = shape.m_vertices[(k - 1) % n].sub(shape.m_vertices[(k) % n]);
+         Vec2 b = shape.m_vertices[(k) % n].sub(shape.m_vertices[(k + 1) % n]);
          if (Vec2.cross(a, b) <= 0.0f) {
             return false;
          }
