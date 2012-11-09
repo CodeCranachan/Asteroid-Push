@@ -15,7 +15,7 @@ public class StaticCamera implements Widget, Renderer {
    
    @Override
    public void draw(Appearance appearance) {
-      for (Shape s : appearance.getSilhouette()) {
+      for (Shape s : appearance.getOutline()) {
          g.setColor(Color.darkGray);
          g.fill(s);
          g.setColor(Color.gray);

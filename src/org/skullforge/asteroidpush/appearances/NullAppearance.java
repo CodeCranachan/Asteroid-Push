@@ -14,7 +14,7 @@ import org.newdawn.slick.geom.Shape;
 public class NullAppearance implements Appearance {
 
    @Override
-   public ArrayList<Shape> getSilhouette() {
+   public ArrayList<Shape> getOutline() {
       return new ArrayList<Shape>();
    }
 

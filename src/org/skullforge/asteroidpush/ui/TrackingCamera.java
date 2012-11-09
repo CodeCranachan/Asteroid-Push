@@ -21,7 +21,7 @@ public class TrackingCamera implements Widget, Renderer {
 
    @Override
    public void draw(Appearance appearance) {
-      for (Shape s : appearance.getSilhouette()) {
+      for (Shape s : appearance.getOutline()) {
          graphics.setColor(Color.darkGray);
          graphics.fill(s);
          graphics.setColor(Color.gray);

@@ -12,5 +12,5 @@ public interface Appearance {
     * 
     * @return an array of graphic polygons defining the appearance.
     */
-   ArrayList<Shape> getSilhouette();
+   ArrayList<Shape> getOutline();
 }

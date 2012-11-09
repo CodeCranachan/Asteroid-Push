@@ -59,7 +59,7 @@ public class SimpleAppearanceTest {
          }
       });
 
-      ArrayList<Shape> silhouette = testAppearance.getSilhouette();
+      ArrayList<Shape> silhouette = testAppearance.getOutline();
       assertEquals(1, silhouette.size());
       Shape mappedShape = silhouette.get(0);
 
@@ -98,7 +98,7 @@ public class SimpleAppearanceTest {
          }
       });
 
-      ArrayList<Shape> silhouette = testAppearance.getSilhouette();
+      ArrayList<Shape> silhouette = testAppearance.getOutline();
       assertEquals(1, silhouette.size());
       Shape mappedShape = silhouette.get(0);
 
@@ -112,11 +112,5 @@ public class SimpleAppearanceTest {
       }
 
       context.assertIsSatisfied();
-   }
-
-   @Test
-   public void testGetUnknownSilhouette() {
-      Shape mappedShape = testAppearance.convertToSlickShape(null);
-      assertNotNull(mappedShape);
    }
 }
