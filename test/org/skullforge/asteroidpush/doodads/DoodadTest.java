@@ -6,8 +6,8 @@ import org.skullforge.asteroidpush.Player;
 import org.skullforge.asteroidpush.SignalController;
 import org.skullforge.asteroidpush.appearances.Appearance;
 import org.skullforge.asteroidpush.appearances.NullAppearance;
+import org.skullforge.asteroidpush.assemblies.Assembly;
 import org.skullforge.asteroidpush.logic.Logic;
-import org.skullforge.asteroidpush.parts.Chassis;
 import org.skullforge.asteroidpush.testutils.ClassMockery;
 import org.skullforge.asteroidpush.ui.Renderer;
 
@@ -18,7 +18,7 @@ import org.jmock.Expectations;
 
 public class DoodadTest {
    ClassMockery context;
-   Chassis chassisMock;
+   Assembly chassisMock;
    Appearance appearanceMock;
    Logic logicMock;
    Renderer rendererMock;
@@ -30,7 +30,7 @@ public class DoodadTest {
    @Before
    public void setUp() {
       context = new ClassMockery();
-      chassisMock = context.mock(Chassis.class);
+      chassisMock = context.mock(Assembly.class);
       appearanceMock = context.mock(Appearance.class);
       rendererMock = context.mock(Renderer.class);
       logicMock = context.mock(Logic.class);
@@ -66,7 +66,7 @@ public class DoodadTest {
          }
       });
 
-      testDoodad.setChassis(chassisMock);
+      testDoodad.setAssembly(chassisMock);
       assertFalse(testDoodad.isSpawned());
       testDoodad.spawn(testWorld);
       assertTrue(testDoodad.isSpawned());

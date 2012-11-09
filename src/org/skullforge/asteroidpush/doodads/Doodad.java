@@ -6,23 +6,23 @@ import org.jbox2d.dynamics.World;
 import org.skullforge.asteroidpush.Player;
 import org.skullforge.asteroidpush.appearances.Appearance;
 import org.skullforge.asteroidpush.appearances.NullAppearance;
+import org.skullforge.asteroidpush.assemblies.Assembly;
+import org.skullforge.asteroidpush.assemblies.NullChassis;
 import org.skullforge.asteroidpush.logic.Logic;
 import org.skullforge.asteroidpush.logic.NullLogic;
-import org.skullforge.asteroidpush.parts.Chassis;
-import org.skullforge.asteroidpush.parts.NullChassis;
 import org.skullforge.asteroidpush.ui.Renderer;
 
 public class Doodad {
    public Doodad() {
-      this.chassis = new NullChassis();
+      this.assembly = new NullChassis();
       this.appearance = new NullAppearance();
       this.logic = new NullLogic();
       this.spawned = false;
       this.owner = null;
    }
 
-   public void setChassis(Chassis chassis) {
-      this.chassis = chassis;
+   public void setAssembly(Assembly assembly) {
+      this.assembly = assembly;
    }
 
    public void setLogic(Logic logic) {
@@ -34,12 +34,12 @@ public class Doodad {
    }
 
    public void spawn(World world) {
-      chassis.spawn(world);
+      assembly.spawn(world);
       spawned = true;
    }
 
    public void despawn(World world) {
-      chassis.despawn(world);
+      assembly.despawn(world);
       spawned = false;
    }
 
@@ -58,7 +58,7 @@ public class Doodad {
    public Vec2 getCenterOfInterest() {
       Vec2 position = new Vec2(0.0f, 0.0f);
       float numberOfBodies = 0.0f;
-      for (Body body : chassis.getBodies()) {
+      for (Body body : assembly.getBodies()) {
          position.addLocal(body.getWorldCenter());
          ++numberOfBodies;
       }
@@ -77,7 +77,7 @@ public class Doodad {
       this.owner = owner;
    }
 
-   private Chassis chassis;
+   private Assembly assembly;
    private Logic logic;
    private Appearance appearance;
    private boolean spawned;

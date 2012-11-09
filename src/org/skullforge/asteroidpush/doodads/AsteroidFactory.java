@@ -2,8 +2,8 @@ package org.skullforge.asteroidpush.doodads;
 
 import org.jbox2d.common.Vec2;
 import org.skullforge.asteroidpush.appearances.SimpleAppearance;
-import org.skullforge.asteroidpush.parts.Debris;
-import org.skullforge.asteroidpush.parts.Chassis;
+import org.skullforge.asteroidpush.assemblies.Assembly;
+import org.skullforge.asteroidpush.assemblies.Debris;
 
 public class AsteroidFactory implements DoodadFactory {
 
@@ -21,8 +21,8 @@ public class AsteroidFactory implements DoodadFactory {
    }
    
    public Doodad initDoodad(Doodad doodad) {
-      Chassis debris = new Debris(spawnPosition);
-      doodad.setChassis(debris);
+      Assembly debris = new Debris(spawnPosition);
+      doodad.setAssembly(debris);
       doodad.setAppearance(new SimpleAppearance(debris));
       return doodad;
    }

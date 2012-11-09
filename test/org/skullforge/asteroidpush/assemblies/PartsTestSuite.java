@@ -1,4 +1,4 @@
-package org.skullforge.asteroidpush.parts;
+package org.skullforge.asteroidpush.assemblies;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;

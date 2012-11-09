@@ -1,4 +1,4 @@
-package org.skullforge.asteroidpush.parts;
+package org.skullforge.asteroidpush.assemblies;
 
 import java.util.ArrayList;
 
@@ -13,7 +13,7 @@ import org.jbox2d.dynamics.joints.Joint;
  * 
  */
 
-public class NullChassis implements Chassis {
+public class NullChassis implements Assembly {
 
    @Override
    public void spawn(World world) {

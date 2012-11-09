@@ -1,4 +1,4 @@
-package org.skullforge.asteroidpush.parts;
+package org.skullforge.asteroidpush.assemblies;
 
 public enum Material {
    METAL(2500.0f, 0.8f, 0.1f);

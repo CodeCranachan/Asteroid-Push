@@ -1,4 +1,4 @@
-package org.skullforge.asteroidpush.parts;
+package org.skullforge.asteroidpush.assemblies;
 
 import java.util.ArrayList;
 
@@ -10,7 +10,7 @@ import org.jbox2d.dynamics.FixtureDef;
 import org.jbox2d.dynamics.World;
 import org.jbox2d.dynamics.joints.Joint;
 
-public class StaticBox implements Chassis {
+public class StaticBox implements Assembly {
 
    /**
     * Creates a static box with the given dimensions. The box is hollow and

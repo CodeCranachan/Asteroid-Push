@@ -1,4 +1,4 @@
-package org.skullforge.asteroidpush.parts;
+package org.skullforge.asteroidpush.assemblies;
 
 import java.util.ArrayList;
 
@@ -12,12 +12,11 @@ import org.jbox2d.dynamics.FixtureDef;
 import org.jbox2d.dynamics.World;
 import org.jbox2d.dynamics.joints.Joint;
 
-public class Block implements Chassis {
+public class Debris implements Assembly {
 
-   public Block(Vec2 position, Material material) {
+   public Debris(Vec2 position) {
       this.body = null;
       this.spawnPosition = new Vec2(position);
-      this.material = material;
    }
 
    @Override
@@ -62,24 +61,23 @@ public class Block implements Chassis {
 
    private FixtureDef getFixtureDef() {
       FixtureDef def = new FixtureDef();
-      def.density = material.density;
-      def.friction = material.friction;
-      def.restitution = material.restitution;
+      def.density = 2800.0f;
+      def.friction = 0.2f;
+      def.restitution = 0.2f;
       def.shape = getShape();
       return def;
    }
 
    private Shape getShape() {
       PolygonShape shape = new PolygonShape();
-      Vec2 vertices[] = new Vec2[] { new Vec2(0.25f, 0.25f),
-            new Vec2(-0.25f, 0.25f), new Vec2(-0.25f, -0.25f),
-            new Vec2(0.25f, -0.25f) };
+      Vec2 vertices[] = new Vec2[] { new Vec2(0.0f, -2.0f),
+            new Vec2(1.2f, -1.7f), new Vec2(1.3f, 2.1f), new Vec2(-0.2f, 2.4f),
+            new Vec2(-3.4f, 0.2f), new Vec2(-3.0f, -0.7f) };
 
       shape.set(vertices, vertices.length);
       return shape;
    }
 
    Vec2 spawnPosition;
-   Material material;
    Body body;
 }

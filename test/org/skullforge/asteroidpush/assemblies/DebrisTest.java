@@ -1,4 +1,4 @@
-package org.skullforge.asteroidpush.parts;
+package org.skullforge.asteroidpush.assemblies;
 
 import static org.junit.Assert.*;
 
@@ -9,6 +9,7 @@ import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.World;
 import org.junit.Before;
 import org.junit.Test;
+import org.skullforge.asteroidpush.assemblies.Debris;
 import org.skullforge.asteroidpush.testutils.GeometryVerifier;
 
 public class DebrisTest {

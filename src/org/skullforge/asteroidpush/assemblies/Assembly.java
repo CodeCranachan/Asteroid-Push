@@ -1,4 +1,4 @@
-package org.skullforge.asteroidpush.parts;
+package org.skullforge.asteroidpush.assemblies;
 
 import java.util.ArrayList;
 
@@ -12,7 +12,7 @@ import org.jbox2d.dynamics.joints.Joint;
  * @author Konfuzzyus
  * 
  */
-public interface Chassis {
+public interface Assembly {
    /**
     * Create all simulated bodies and fixtures in the world given. The bodies
     * are created at the origin of the World coordinate system and in rest.

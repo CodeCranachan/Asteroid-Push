@@ -5,11 +5,11 @@ import java.util.Collection;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.skullforge.asteroidpush.SignalController;
-import org.skullforge.asteroidpush.parts.Chassis;
+import org.skullforge.asteroidpush.assemblies.Assembly;
 
 public class Thruster implements Logic {
 
-   public Thruster(Chassis propulsee) {
+   public Thruster(Assembly propulsee) {
       this.propulsee = propulsee;
    }
 
@@ -47,5 +47,5 @@ public class Thruster implements Logic {
       }
    }
 
-   private Chassis propulsee;
+   private Assembly propulsee;
 }

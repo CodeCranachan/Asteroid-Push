@@ -12,11 +12,11 @@ import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Transform;
-import org.skullforge.asteroidpush.parts.Chassis;
+import org.skullforge.asteroidpush.assemblies.Assembly;
 
 public class SimpleAppearance implements Appearance {
 
-   public SimpleAppearance(Chassis part) {
+   public SimpleAppearance(Assembly part) {
       this.part = part;
    }
 
@@ -90,5 +90,5 @@ public class SimpleAppearance implements Appearance {
       return converted;
    }
 
-   private Chassis part;
+   private Assembly part;
 }

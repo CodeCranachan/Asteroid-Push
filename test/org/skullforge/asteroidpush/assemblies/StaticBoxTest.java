@@ -1,4 +1,4 @@
-package org.skullforge.asteroidpush.parts;
+package org.skullforge.asteroidpush.assemblies;
 
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
@@ -13,7 +13,7 @@ import org.jbox2d.dynamics.Fixture;
 import org.jbox2d.dynamics.World;
 import org.junit.Before;
 import org.junit.Test;
-import org.skullforge.asteroidpush.parts.StaticBox;
+import org.skullforge.asteroidpush.assemblies.StaticBox;
 import org.skullforge.asteroidpush.testutils.GeometryVerifier;
 
 public class StaticBoxTest {
