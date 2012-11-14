@@ -11,9 +11,9 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.StateBasedGame;
-import org.skullforge.asteroidpush.designer.GridCoordinate;
 import org.skullforge.asteroidpush.designer.Module;
 import org.skullforge.asteroidpush.designer.ShipDesign;
+import org.skullforge.asteroidpush.designer.grid.Placement;
 import org.skullforge.asteroidpush.testutils.ClassMockery;
 import org.skullforge.asteroidpush.ui.DesignerUiFactory;
 import org.skullforge.asteroidpush.ui.Widget;
@@ -80,7 +80,7 @@ public class DesignerGameStateTest {
             will(returnValue(designMock));
             allowing(designMock).getModules();
             will(returnValue(new Vector<Module>()));
-            allowing(designMock).addModule(with(any(GridCoordinate.class)),
+            allowing(designMock).addModule(with(any(Placement.class)),
                                            with(any(Module.class)));
             oneOf(uiMock).render(with(graphicsMock), with(any(Rectangle.class)));
          }
@@ -101,7 +101,7 @@ public class DesignerGameStateTest {
    public void testGetId() {
       context.checking(new Expectations() {
          {
-            allowing(designMock).addModule(with(any(GridCoordinate.class)),
+            allowing(designMock).addModule(with(any(Placement.class)),
                                            with(any(Module.class)));
          }
       });
@@ -114,7 +114,7 @@ public class DesignerGameStateTest {
       context.checking(new Expectations() {
          {
             ignoring(uiFactoryMock);
-            allowing(designMock).addModule(with(any(GridCoordinate.class)),
+            allowing(designMock).addModule(with(any(Placement.class)),
                                            with(any(Module.class)));
             allowing(gameMock).enterState(1);
             allowing(scenarioMock).getLocalPlayer();

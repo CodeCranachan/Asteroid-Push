@@ -1,17 +1,17 @@
-package org.skullforge.asteroidpush.designer;
+package org.skullforge.asteroidpush.designer.grid;
 
-public class GridCoordinate {
-   public GridCoordinate() {
+public class Coordinate {
+   public Coordinate() {
       x = 0;
       y = 0;
    }
 
-   public GridCoordinate(int x, int y) {
+   public Coordinate(int x, int y) {
       this.x = x;
       this.y = y;
    }
 
-   public void set(GridCoordinate coordinate) {
+   public void set(Coordinate coordinate) {
       this.x = coordinate.x;
       this.y = coordinate.y;
    }

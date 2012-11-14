@@ -1,32 +1,32 @@
 package org.skullforge.asteroidpush.designer;
 
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+
+import org.skullforge.asteroidpush.designer.grid.ModuleGrid;
+import org.skullforge.asteroidpush.designer.grid.Placement;
 
 public class ShipDesign {
    public ShipDesign() {
-      moduleLayer = new HashMap<GridCoordinate, Module>();
+      moduleLayer = new ModuleGrid();
    }
 
    public Collection<Module> getModules() {
-      return moduleLayer.values();
+      return moduleLayer.getModules();
    }
 
-   public void addModule(GridCoordinate position, Module module) {
-      if (canAddModule(position, module)) {
-         moduleLayer.put(position, module);
-         module.setPosition(position);
+   public void addModule(Placement placement, Module module) {
+      if (canAddModule(placement, module)) {
+         moduleLayer.addModule(placement, module);
       }
    }
 
-   public boolean canAddModule(GridCoordinate position, Module module) {
-      if (moduleLayer.containsKey(position)) {
+   public boolean canAddModule(Placement placement, Module module) {
+      if (moduleLayer.getModule(placement.getCoordinate()) != null) {
          return false;
       } else {
          return true;
       }
    }
 
-   final private Map<GridCoordinate, Module> moduleLayer;
+   private ModuleGrid moduleLayer;
 }

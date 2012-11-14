@@ -5,9 +5,10 @@ import java.util.Collection;
 import org.newdawn.slick.Font;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
-import org.skullforge.asteroidpush.designer.GridCoordinate;
 import org.skullforge.asteroidpush.designer.Module;
 import org.skullforge.asteroidpush.designer.ShipDesign;
+import org.skullforge.asteroidpush.designer.grid.Coordinate;
+import org.skullforge.asteroidpush.designer.grid.Placement;
 
 public class ShipDesignView implements Widget {
 
@@ -21,15 +22,15 @@ public class ShipDesignView implements Widget {
       Collection<Module> modules = shipDesign.getModules();
 
       for (Module m : modules) {
-         GridCoordinate currentCoordinate = m.getPosition();
-         Rectangle gridFrame = GetFrameForCoordinate(currentCoordinate, frame);
+         Placement currentPlacement = m.getPlacement();
+         Rectangle gridFrame = GetFrameForCoordinate(currentPlacement.getCoordinate(), frame);
 
          Label moduleLabel = new Label(new StringBuffer(m.getName()), font);
          moduleLabel.render(g, gridFrame);
       }
    }
 
-   private Rectangle GetFrameForCoordinate(GridCoordinate coordinate,
+   private Rectangle GetFrameForCoordinate(Coordinate coordinate,
                                            Rectangle parentFrame) {
       float totalSideLength = Math.min(parentFrame.getWidth(),
                                        parentFrame.getHeight());

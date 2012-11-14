@@ -8,6 +8,8 @@ import org.jmock.Expectations;
 import org.junit.Before;
 import org.junit.Test;
 import org.skullforge.asteroidpush.designer.ShipDesign;
+import org.skullforge.asteroidpush.designer.grid.Placement;
+import org.skullforge.asteroidpush.designer.grid.Rotation;
 import org.skullforge.asteroidpush.testutils.ClassMockery;
 
 public class ShipDesignTest {
@@ -32,21 +34,21 @@ public class ShipDesignTest {
 
    @Test
    public void testAddModule() {
-      final GridCoordinate centerPosition = new GridCoordinate();
-      final GridCoordinate bottomPosition = new GridCoordinate(0, 1);
+      final Placement centerPlacement = new Placement();
+      final Placement bottomPlacement = new Placement(0, 1, Rotation.BOW);
       
       context.checking(new Expectations() {
          {
-            oneOf(abacusMock).setPosition(with(any(GridCoordinate.class)));
-            oneOf(bananaMock).setPosition(with(any(GridCoordinate.class)));
+            oneOf(abacusMock).setPlacement(with(any(Placement.class)));
+            oneOf(bananaMock).setPlacement(with(any(Placement.class)));
          }
       });
 
-      assertTrue(testDesign.canAddModule(centerPosition, abacusMock));
-      testDesign.addModule(centerPosition, abacusMock);
-      assertFalse(testDesign.canAddModule(centerPosition, bananaMock));
-      assertTrue(testDesign.canAddModule(bottomPosition, bananaMock));
-      testDesign.addModule(bottomPosition, bananaMock);
+      assertTrue(testDesign.canAddModule(centerPlacement, abacusMock));
+      testDesign.addModule(centerPlacement, abacusMock);
+      assertFalse(testDesign.canAddModule(centerPlacement, bananaMock));
+      assertTrue(testDesign.canAddModule(bottomPlacement, bananaMock));
+      testDesign.addModule(bottomPlacement, bananaMock);
 
       Collection<Module> modules = testDesign.getModules();
       assertEquals(2, modules.size());

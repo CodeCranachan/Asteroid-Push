@@ -2,8 +2,9 @@ package org.skullforge.asteroidpush;
 
 import org.jbox2d.common.Vec2;
 import org.skullforge.asteroidpush.designer.ControlModule;
-import org.skullforge.asteroidpush.designer.GridCoordinate;
 import org.skullforge.asteroidpush.designer.ShipDesign;
+import org.skullforge.asteroidpush.designer.grid.Placement;
+import org.skullforge.asteroidpush.designer.grid.Rotation;
 import org.skullforge.asteroidpush.doodads.Doodad;
 import org.skullforge.asteroidpush.ui.PositionTracker;
 
@@ -14,12 +15,12 @@ public class Player implements PositionTracker {
       this.currentShip = null;
       this.shipDesign = new ShipDesign();
       this.controller = new SignalController();
-      shipDesign.addModule(new GridCoordinate(0, 1), new ControlModule());
-      shipDesign.addModule(new GridCoordinate(0, 3), new ControlModule());
-      shipDesign.addModule(new GridCoordinate(1, 1), new ControlModule());
-      shipDesign.addModule(new GridCoordinate(1, 2), new ControlModule());
-      shipDesign.addModule(new GridCoordinate(1, 3), new ControlModule());
-      shipDesign.addModule(new GridCoordinate(2, 2), new ControlModule());
+      shipDesign.addModule(new Placement(0, 1, Rotation.BOW), new ControlModule());
+      shipDesign.addModule(new Placement(0, 3, Rotation.BOW), new ControlModule());
+      shipDesign.addModule(new Placement(1, 1, Rotation.BOW), new ControlModule());
+      shipDesign.addModule(new Placement(1, 2, Rotation.BOW), new ControlModule());
+      shipDesign.addModule(new Placement(1, 3, Rotation.BOW), new ControlModule());
+      shipDesign.addModule(new Placement(2, 2, Rotation.BOW), new ControlModule());
    }
 
    @Override

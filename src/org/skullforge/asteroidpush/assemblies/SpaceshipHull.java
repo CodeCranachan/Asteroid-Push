@@ -12,9 +12,9 @@ import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
 import org.jbox2d.dynamics.World;
 import org.jbox2d.dynamics.joints.Joint;
-import org.skullforge.asteroidpush.designer.GridCoordinate;
 import org.skullforge.asteroidpush.designer.Module;
 import org.skullforge.asteroidpush.designer.ShipDesign;
+import org.skullforge.asteroidpush.designer.grid.Coordinate;
 
 public class SpaceshipHull implements Assembly {
 
@@ -72,11 +72,11 @@ public class SpaceshipHull implements Assembly {
       def.density = Material.METAL.density;
       def.friction = Material.METAL.friction;
       def.restitution = Material.METAL.restitution;
-      def.shape = getShape(module.getPosition());
+      def.shape = getShape(module.getPlacement().getCoordinate());
       return def;
    }
 
-   private Shape getShape(GridCoordinate coordinate) {
+   private Shape getShape(Coordinate coordinate) {
       PolygonShape shape = new PolygonShape();
       float xOffset = standardModuleSize * coordinate.getX();
       float yOffset = standardModuleSize * coordinate.getY();

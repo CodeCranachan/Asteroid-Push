@@ -1,19 +1,21 @@
 package org.skullforge.asteroidpush.designer;
 
+import org.skullforge.asteroidpush.designer.grid.Placement;
+
 public abstract class BaseModule implements Module {
    public BaseModule() {
-      position = new GridCoordinate();
+      placement = new Placement();
    }
 
    @Override
-   public GridCoordinate getPosition() {
-      return position;
+   public Placement getPlacement() {
+      return placement;
    }
 
    @Override
-   public void setPosition(GridCoordinate position) {
-      this.position.set(position);
+   public void setPlacement(Placement placement) {
+      this.placement.set(placement);
    }
 
-   final private GridCoordinate position;
+   final private Placement placement;
 }

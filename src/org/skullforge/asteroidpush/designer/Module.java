@@ -1,9 +1,11 @@
 package org.skullforge.asteroidpush.designer;
 
+import org.skullforge.asteroidpush.designer.grid.Placement;
+
 public interface Module {
    String getName();
 
-   GridCoordinate getPosition();
+   Placement getPlacement();
 
-   void setPosition(GridCoordinate position);
+   void setPlacement(Placement position);
 }
