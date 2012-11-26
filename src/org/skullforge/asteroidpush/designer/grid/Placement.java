@@ -3,12 +3,12 @@ package org.skullforge.asteroidpush.designer.grid;
 public class Placement {
    public Placement() {
       coordinate = new Coordinate();
-      rotation = Rotation.BOW;
+      rotation = new Rotation();
    }
    
-   public Placement(int x, int y, Rotation rotation) {
+   public Placement(int x, int y, Facing facing) {
       this.coordinate = new Coordinate(x, y);
-      this.rotation = rotation;
+      this.rotation = new Rotation(facing);
    }
    
    public void set(Placement placement) {
@@ -32,6 +32,6 @@ public class Placement {
       this.rotation = rotation;
    }
 
-   public Coordinate coordinate;
-   public Rotation rotation;
+   private Coordinate coordinate;
+   private Rotation rotation;
 }

@@ -1,10 +1,10 @@
 package org.skullforge.asteroidpush.assemblies;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
-import org.jbox2d.collision.shapes.PolygonShape;
-import org.jbox2d.collision.shapes.Shape;
 import org.jbox2d.common.MathUtils;
+import org.jbox2d.common.Transform;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyDef;
@@ -12,48 +12,60 @@ import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
 import org.jbox2d.dynamics.World;
 import org.jbox2d.dynamics.joints.Joint;
-import org.skullforge.asteroidpush.designer.Module;
 import org.skullforge.asteroidpush.designer.ShipDesign;
-import org.skullforge.asteroidpush.designer.grid.Coordinate;
+import org.skullforge.asteroidpush.designer.SubModule;
+import org.skullforge.asteroidpush.designer.modules.data.SubPartData;
 
 public class SpaceshipHull implements Assembly {
 
    public SpaceshipHull(Vec2 position, ShipDesign design) {
       this.spawnPosition = new Vec2(position);
       this.design = design;
-      this.body = null;
+      this.bodyList = new ArrayList<Body>();
    }
 
    @Override
    public void spawn(World world) {
-      if (body == null) {
-         body = world.createBody(getBodyDef());
-         for (Module module : design.getModules()) {
-            body.createFixture(getFixtureDef(module));
+      if (bodyList.isEmpty()) {
+         for (Collection<SubModule> subModuleList : design.getBodyGroups()) {
+            bodyList.add(assembleBody(subModuleList, world));
          }
       }
    }
 
    @Override
    public void despawn(World world) {
-      if (body != null) {
+      for (Body body : bodyList) {
          world.destroyBody(body);
-         body = null;
       }
+      bodyList.clear();
    }
 
    @Override
-   public ArrayList<Body> getBodies() {
-      ArrayList<Body> bodies = new ArrayList<Body>();
-      if (body != null) {
-         bodies.add(body);
-      }
-      return bodies;
+   public Collection<Body> getBodies() {
+      return bodyList;
    }
 
    @Override
-   public ArrayList<Joint> getJoints() {
+   public Collection<Joint> getJoints() {
       return new ArrayList<Joint>();
+   }
+
+   private Body assembleBody(Collection<SubModule> partList, World world) {
+      Body body = world.createBody(getBodyDef());
+      for (SubModule subModule : partList) {
+         Transform transform = new Transform();
+         Vec2 offset = new Vec2(standardModuleSize
+               * subModule.getPlace().getCoordinate().getX(), standardModuleSize
+               * subModule.getPlace().getCoordinate().getY());
+         transform.set(offset, subModule.getPlace().getRotation().getRadians());
+         for (SubPartData subData : subModule.getData().getSubParts()) {
+            FixtureDef fixture = subData.getFixtureDef(transform,
+                                                       standardModuleSize);
+            body.createFixture(fixture);
+         }
+      }
+      return body;
    }
 
    private BodyDef getBodyDef() {
@@ -67,32 +79,8 @@ public class SpaceshipHull implements Assembly {
       return def;
    }
 
-   private FixtureDef getFixtureDef(Module module) {
-      FixtureDef def = new FixtureDef();
-      def.density = Material.METAL.density;
-      def.friction = Material.METAL.friction;
-      def.restitution = Material.METAL.restitution;
-      def.shape = getShape(module.getPlacement().getCoordinate());
-      return def;
-   }
-
-   private Shape getShape(Coordinate coordinate) {
-      PolygonShape shape = new PolygonShape();
-      float xOffset = standardModuleSize * coordinate.getX();
-      float yOffset = standardModuleSize * coordinate.getY();
-      float moduleOffset = standardModuleSize / 2.0f;
-      Vec2 vertices[] = new Vec2[] {
-            new Vec2(xOffset + moduleOffset, yOffset + moduleOffset),
-            new Vec2(xOffset - moduleOffset, yOffset + moduleOffset),
-            new Vec2(xOffset - moduleOffset, yOffset - moduleOffset),
-            new Vec2(xOffset + moduleOffset, yOffset - moduleOffset) };
-
-      shape.set(vertices, vertices.length);
-      return shape;
-   }
-
    private final float standardModuleSize = 0.5f;
-   private Body body;
+   private ArrayList<Body> bodyList;
    private Vec2 spawnPosition;
    private ShipDesign design;
 }

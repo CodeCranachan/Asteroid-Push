@@ -14,6 +14,7 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.skullforge.asteroidpush.designer.Module;
 import org.skullforge.asteroidpush.designer.ShipDesign;
 import org.skullforge.asteroidpush.designer.grid.Placement;
+import org.skullforge.asteroidpush.designer.modules.data.ModuleData;
 import org.skullforge.asteroidpush.testutils.ClassMockery;
 import org.skullforge.asteroidpush.ui.DesignerUiFactory;
 import org.skullforge.asteroidpush.ui.Widget;
@@ -81,7 +82,7 @@ public class DesignerGameStateTest {
             allowing(designMock).getModules();
             will(returnValue(new Vector<Module>()));
             allowing(designMock).addModule(with(any(Placement.class)),
-                                           with(any(Module.class)));
+                                           with(any(ModuleData.class)));
             oneOf(uiMock).render(with(graphicsMock), with(any(Rectangle.class)));
          }
       });
@@ -102,7 +103,7 @@ public class DesignerGameStateTest {
       context.checking(new Expectations() {
          {
             allowing(designMock).addModule(with(any(Placement.class)),
-                                           with(any(Module.class)));
+                                           with(any(ModuleData.class)));
          }
       });
       testState = new DesignerGameState(uiFactoryMock);
@@ -115,7 +116,7 @@ public class DesignerGameStateTest {
          {
             ignoring(uiFactoryMock);
             allowing(designMock).addModule(with(any(Placement.class)),
-                                           with(any(Module.class)));
+                                           with(any(ModuleData.class)));
             allowing(gameMock).enterState(1);
             allowing(scenarioMock).getLocalPlayer();
             will(returnValue(playerMock));

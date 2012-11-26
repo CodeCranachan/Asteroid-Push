@@ -8,21 +8,22 @@ import org.jmock.Expectations;
 import org.junit.Before;
 import org.junit.Test;
 import org.skullforge.asteroidpush.designer.ShipDesign;
+import org.skullforge.asteroidpush.designer.grid.Facing;
 import org.skullforge.asteroidpush.designer.grid.Placement;
-import org.skullforge.asteroidpush.designer.grid.Rotation;
+import org.skullforge.asteroidpush.designer.modules.data.ModuleData;
 import org.skullforge.asteroidpush.testutils.ClassMockery;
 
 public class ShipDesignTest {
    ClassMockery context;
-   Module abacusMock;
-   Module bananaMock;
+   ModuleData abacusMock;
+   ModuleData bananaMock;
    ShipDesign testDesign;
 
    @Before
    public void setUp() throws Exception {
       context = new ClassMockery();
-      abacusMock = context.mock(Module.class, "AbacusModule");
-      bananaMock = context.mock(Module.class, "BananaModule");
+      abacusMock = context.mock(ModuleData.class, "AbacusModule");
+      bananaMock = context.mock(ModuleData.class, "BananaModule");
       testDesign = new ShipDesign();
    }
 
@@ -35,19 +36,17 @@ public class ShipDesignTest {
    @Test
    public void testAddModule() {
       final Placement centerPlacement = new Placement();
-      final Placement bottomPlacement = new Placement(0, 1, Rotation.BOW);
+      final Placement bottomPlacement = new Placement(0, 1, Facing.FORWARD);
       
       context.checking(new Expectations() {
          {
-            oneOf(abacusMock).setPlacement(with(any(Placement.class)));
-            oneOf(bananaMock).setPlacement(with(any(Placement.class)));
          }
       });
 
-      assertTrue(testDesign.canAddModule(centerPlacement, abacusMock));
+      assertTrue(testDesign.canAddModule(centerPlacement));
       testDesign.addModule(centerPlacement, abacusMock);
-      assertFalse(testDesign.canAddModule(centerPlacement, bananaMock));
-      assertTrue(testDesign.canAddModule(bottomPlacement, bananaMock));
+      assertFalse(testDesign.canAddModule(centerPlacement));
+      assertTrue(testDesign.canAddModule(bottomPlacement));
       testDesign.addModule(bottomPlacement, bananaMock);
 
       Collection<Module> modules = testDesign.getModules();

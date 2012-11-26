@@ -1,47 +1,69 @@
 package org.skullforge.asteroidpush.designer.grid;
 
-public enum Rotation {
-   BOW, STARBOARD, PORT, STERN;
+import org.jbox2d.common.MathUtils;
 
-   public Rotation turnClockwise() {
-      switch (this) {
-      case BOW:
-         return STARBOARD;
-      case STARBOARD:
-         return STERN;
-      case STERN:
-         return PORT;
-      case PORT:
-      default:
-         return BOW;
-      }
+public class Rotation {
+
+   public static int FORWARD = 0;
+   public static int LEFT = 1;
+   public static int BACKWARD = 2;
+   public static int RIGHT = 3;
+
+   public Rotation() {
+      this.quarterTurns = 0;
    }
 
-   public Rotation turnAnticlockwise() {
-      switch (this) {
-      case BOW:
-         return PORT;
-      case PORT:
-         return STERN;
-      case STERN:
-         return PORT;
-      case STARBOARD:
-      default:
-         return BOW;
+   public Rotation(Rotation other) {
+      this.quarterTurns = other.quarterTurns;
+   }
+   
+   public Rotation(Facing facing) {
+      switch (facing) {
+      case FORWARD:
+         this.quarterTurns = 0;
+         break;
+      case LEFT:
+         this.quarterTurns = 1;
+         break;
+      case BACKWARD:
+         this.quarterTurns = 2;
+         break;
+      case RIGHT:
+         this.quarterTurns = 3;
+         break;
       }
+   }
+   
+   public void turnClockwise() {
+      quarterTurns += 3;
+      normalize();
    }
 
-   public Rotation turnAround() {
-      switch (this) {
-      case BOW:
-         return STERN;
-      case PORT:
-         return STARBOARD;
-      case STERN:
-         return STERN;
-      case STARBOARD:
-      default:
-         return PORT;
-      }
+   public void turnAnticlockwise() {
+      quarterTurns += 1;
+      normalize();
    }
+
+   public void turnAround() {
+      quarterTurns += 2;
+      normalize();
+   }
+   
+   public int getQuarterTurns() {
+      return quarterTurns;
+   }
+
+   public float getRadians() {
+      return quarterTurns * MathUtils.HALF_PI;
+   }
+
+   public float getDegrees() {
+      return quarterTurns * 90.0f;
+   }
+
+   private void normalize() {
+      quarterTurns = quarterTurns % 4;
+   }
+
+   private int quarterTurns;
 }

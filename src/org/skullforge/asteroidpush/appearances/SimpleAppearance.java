@@ -1,6 +1,7 @@
 package org.skullforge.asteroidpush.appearances;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 import org.jbox2d.dynamics.Body;
 import org.newdawn.slick.geom.Shape;
@@ -15,7 +16,7 @@ public class SimpleAppearance implements Appearance {
 
    @Override
    public ArrayList<Shape> getOutline() {
-      ArrayList<Body> bodies = part.getBodies();
+      Collection<Body> bodies = part.getBodies();
       ArrayList<Shape> outline = new ArrayList<Shape>();
 
       for (Body body : bodies) {

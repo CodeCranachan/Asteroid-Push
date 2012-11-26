@@ -1,6 +1,6 @@
 package org.skullforge.asteroidpush.assemblies;
 
-import java.util.ArrayList;
+import java.util.Collection;
 
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.World;
@@ -36,7 +36,7 @@ public interface Assembly {
     * @return a vector of Body objects, is empty if the Part has not been
     *         spawned yet.
     */
-   ArrayList<Body> getBodies();
+   Collection<Body> getBodies();
    
    /**
     * Get all jbox2d Joint objects attached to this part.
@@ -44,5 +44,5 @@ public interface Assembly {
     * @return a vector of Joint objects, is empty if the Part has not been
     *         spawned yet.
     */
-   ArrayList<Joint> getJoints();
+   Collection<Joint> getJoints();
 }
