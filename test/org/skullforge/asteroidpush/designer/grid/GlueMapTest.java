@@ -22,11 +22,6 @@ public class GlueMapTest {
    }
 
    @Test
-   public void testClear() {
-      testGlueMap.clear();
-   }
-
-   @Test
    public void testSingleGrouping() {
       Placement firstPlacement = new Placement(0, 0, Facing.FORWARD);
       Placement secondPlacement = new Placement(1, 0, Facing.FORWARD);
@@ -46,8 +41,10 @@ public class GlueMapTest {
 
       Iterator<Collection<SubModule>> groupIterator = glueGroups.iterator();
       assertEquals(3, groupIterator.next().size());
+
+      testGlueMap.clear();
    }
-   
+
    @Test
    public void testMultipleGrouping() {
       Placement firstPlacement = new Placement(0, 1, Facing.FORWARD);
@@ -72,4 +69,7 @@ public class GlueMapTest {
       Iterator<Collection<SubModule>> groupIterator = glueGroups.iterator();
       assertEquals(2, groupIterator.next().size());
       assertEquals(2, groupIterator.next().size());
-   }}
+
+      testGlueMap.clear();
+   }
+}

@@ -1,7 +1,5 @@
 package org.skullforge.asteroidpush.designer.grid;
 
-import javax.print.attribute.standard.MediaSize.Other;
-
 public class Coordinate {
    public Coordinate() {
       x = 0;
@@ -28,7 +26,7 @@ public class Coordinate {
    }
 
    public Coordinate getRight() {
-      return new Coordinate(this.x, this.y + 1);
+      return new Coordinate(this.x, this.y - 1);
    }
 
    public Coordinate getBack() {
@@ -36,7 +34,7 @@ public class Coordinate {
    }
 
    public Coordinate getLeft() {
-      return new Coordinate(this.x, this.y - 1);
+      return new Coordinate(this.x, this.y + 1);
    }
 
    public int getX() {
@@ -69,6 +67,14 @@ public class Coordinate {
    public int hashCode() {
       int hash = x * 32 + y;
       return hash;
+   }
+
+   public String toString() {
+      StringBuilder builder = new StringBuilder();
+      builder.append(x);
+      builder.append("/");
+      builder.append(y);
+      return builder.toString();
    }
 
    private int x;
