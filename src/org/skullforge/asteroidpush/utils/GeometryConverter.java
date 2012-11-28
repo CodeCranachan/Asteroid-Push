@@ -35,9 +35,7 @@ public class GeometryConverter {
       return converted;
    }
 
-   static private org.newdawn.slick.geom.Shape convertToSlickShape(org.jbox2d.collision.shapes.Shape shape) {
-      org.newdawn.slick.geom.Shape converted;
-
+   static public org.newdawn.slick.geom.Shape convertToSlickShape(org.jbox2d.collision.shapes.Shape shape) {
       ShapeType type;
       if (shape == null) {
          type = ShapeType.UNKNOWN;
@@ -45,6 +43,7 @@ public class GeometryConverter {
          type = shape.getType();
       }
 
+      org.newdawn.slick.geom.Shape converted;
       switch (type) {
       case POLYGON:
          converted = convertToPolygon(shape);
@@ -61,9 +60,9 @@ public class GeometryConverter {
    }
 
    static private org.newdawn.slick.geom.Shape convertToCircle(org.jbox2d.collision.shapes.Shape shape) {
-      org.newdawn.slick.geom.Shape converted;
       CircleShape circle = (CircleShape) shape;
-      converted = new Circle(circle.m_p.x, circle.m_p.y, circle.m_radius);
+      org.newdawn.slick.geom.Shape converted = new Circle(circle.m_p.x,
+            circle.m_p.y, circle.m_radius);
       return converted;
    }
 
