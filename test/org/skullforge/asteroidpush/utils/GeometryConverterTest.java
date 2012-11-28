@@ -37,13 +37,15 @@ public class GeometryConverterTest {
       testShape = GeometryConverter.convertToSlickShape(circleShape);
       assertEquals(Circle.class, testShape.getClass());
       Shape referenceCircle = new Circle(1.0f, 1.0f, 4.99f);
+      // Shape.contains does not work for circles, since the test checks whether
+      // two shapes fail to intersect. The intersection algorithm for circles
+      // fails to recognize when one circle is contained completely within the
+      // other and does not actually intersect - it basically checks for
+      // overlap. Hence we convert everything to polygons first and then
+      // check intersecting.
       Shape referencePoly = new Polygon(referenceCircle.getPoints());
-      // Shape.contains does not work for circles, since the test checks whether two shapes
-      // fail to intersect. The intersection algorithm for circles fails to recognize
-      // when one circle is contained completely within the other and does not actually
-      // intersect - it basically checks for overlap. Hence we convert the reference to 
-      // a polygon first and then check intersecting.
-      assertTrue(testShape.contains(referencePoly));
+      Shape testPoly = new Polygon(testShape.getPoints());
+      assertTrue(testPoly.contains(referencePoly));
    }
 
 }

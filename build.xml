@@ -8,8 +8,8 @@
      -->
    <property name="lib.lwjgl.url" value="http://sourceforge.net/projects/java-game-lib/files/Official%20Releases/LWJGL%202.8.3/lwjgl-2.8.3.zip"/>
    <property name="lib.lwjgl.archive" value="lwjgl-2.8.3.zip"/>
-   <property name="lib.slick.url" value="http://slick.cokeandcode.com/downloads/slick.zip"/>
-   <property name="lib.slick.archive" value="slick.zip"/>
+   <property name="lib.slick.url" value="http://www.slick2d.org/downloads/slick.jar"/>
+   <property name="lib.slick.archive" value="slick.jar"/>
    <property name="lib.jbox2d.url" value="http://jbox2d.googlecode.com/files/jbox2d-2.1.2.2.zip"/>
    <property name="lib.jbox2d.archive" value="jbox2d-2.1.2.2.zip"/>
    <property name="lib.junit.url" value="http://cloud.github.com/downloads/KentBeck/junit/junit-4.10.jar"/>
@@ -56,12 +56,7 @@
       <mkdir dir="${library.jars}"/>
       <mkdir dir="${library.natives}"/>
       <!-- Slick -->
-      <unzip src="${library.downloads}/${lib.slick.archive}" dest="${library.jars}">
-         <patternset>
-            <include name="lib/slick.jar"/>
-         </patternset>
-         <mapper type="flatten"/>
-      </unzip>
+      <copy file="${library.downloads}/${lib.slick.archive}" todir="${library.jars}"/>
       <!-- Lwjgl -->
       <unzip src="${library.downloads}/${lib.lwjgl.archive}" dest="${library.jars}">
          <patternset>
