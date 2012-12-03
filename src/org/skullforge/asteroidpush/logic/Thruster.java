@@ -1,16 +1,18 @@
 package org.skullforge.asteroidpush.logic;
 
-import java.util.Collection;
-
+import org.jbox2d.common.Mat22;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.skullforge.asteroidpush.SignalController;
-import org.skullforge.asteroidpush.assemblies.Assembly;
+import org.skullforge.asteroidpush.doodads.Effector;
 
-public class Thruster implements Logic {
+public class Thruster implements Effector {
 
-   public Thruster(Assembly propulsee) {
-      this.propulsee = propulsee;
+   public Thruster() {
+      this.propulsee = null;
+      this.anchor = new Vec2();
+      this.magnitude = 0.0f;
+      this.angle = 0.0f;
    }
 
    @Override
@@ -19,33 +21,36 @@ public class Thruster implements Logic {
          return;
       }
 
-      Vec2 backwardThrustDirection = new Vec2(-1.0f, 0.0f)
-            .mul(controller.backwardThrust);
-      Vec2 forwardThrustDirection = new Vec2(1.0f, 0.0f)
-            .mul(controller.forwardThrust);
-      Vec2 leftThrustDirection = new Vec2(0.0f, -1.0f)
-            .mul(controller.leftThrust);
-      Vec2 rightThrustDirection = new Vec2(0.0f, 1.0f)
-            .mul(controller.rightThrust);
+      Mat22 rotation = new Mat22();
+      rotation.set(propulsee.getAngle() + angle);
 
-      float forceMagnitude = 75000.0f;
-      Vec2 force = new Vec2();
-      force.addLocal(backwardThrustDirection);
-      force.addLocal(forwardThrustDirection);
-      force.addLocal(leftThrustDirection);
-      force.addLocal(rightThrustDirection);
-      force.mulLocal(forceMagnitude);
-      float torque = controller.clockwiseThrust
-            - controller.anticlockwiseThrust;
-      torque = torque * 7500.0f;
+      Vec2 force = new Vec2(1.0f, 0.0f);
+      force.mulLocal(magnitude);
+      force.mulLocal(controller.forwardThrust);
+      force = rotation.mul(force);
 
-      Collection<Body> bodies = propulsee.getBodies();
-      for (Body body : bodies) {
-         Vec2 thrustForce = body.getTransform().R.mul(force);
-         body.applyForce(thrustForce.mul(bodies.size()), body.getWorldCenter());
-         body.applyTorque(torque / bodies.size());
-      }
+      Vec2 point = propulsee.getWorldPoint(anchor);
+      propulsee.applyForce(force, point);
    }
 
-   private Assembly propulsee;
+   public void setPropulsee(Body propulsee) {
+      this.propulsee = propulsee;
+   }
+
+   public void setAnchor(Vec2 anchor) {
+      this.anchor.set(anchor);
+   }
+
+   public void setMagnitude(float magnitude) {
+      this.magnitude = magnitude;
+   }
+
+   public void setAngle(float angle) {
+      this.angle = angle;
+   }
+
+   private Body propulsee;
+   private Vec2 anchor;
+   private float magnitude;
+   private float angle;
 }
