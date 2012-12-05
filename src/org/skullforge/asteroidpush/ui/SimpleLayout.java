@@ -10,10 +10,7 @@ import org.newdawn.slick.geom.Rectangle;
 public class SimpleLayout implements Widget {
 
    public SimpleLayout() {
-      elements = new HashMap<String, SimpleLayout.LayoutElement>(2);
-
-      LayoutElement backgroundElement = new LayoutElement(null);
-      elements.put("background", backgroundElement);
+      elements = new HashMap<String, SimpleLayout.LayoutElement>();
 
       Rectangle infoRectangle = new Rectangle(400, 20, 220, 30);
       LayoutElement infoElement = new LayoutElement(infoRectangle);
@@ -26,6 +23,11 @@ public class SimpleLayout implements Widget {
 
    @Override
    public void render(Graphics graphics, Rectangle frame) {
+      if (background != null) {
+         background.render(graphics, new Rectangle(0.0f, 0.0f,
+               frame.getWidth(), frame.getHeight()));
+      }
+
       Collection<LayoutElement> elementCollection = elements.values();
       for (LayoutElement element : elementCollection) {
          Widget widget = element.getWidget();
@@ -67,6 +69,11 @@ public class SimpleLayout implements Widget {
       }
    }
 
+   public void setBackground(Widget widget) {
+      background = widget;
+   }
+
+   Widget background;
    HashMap<String, LayoutElement> elements;
 
    private class LayoutElement {

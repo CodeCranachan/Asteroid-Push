@@ -26,7 +26,7 @@ public class MatchUiFactory {
 
       TrackingCamera camera = new TrackingCamera(simulator);
       camera.setPositionTracker(localPlayer);
-      layoutWidget.setWidget("background", camera);
+      layoutWidget.setBackground(camera);
 
       return layoutWidget;
    }
