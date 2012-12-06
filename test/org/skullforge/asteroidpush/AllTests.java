@@ -11,13 +11,23 @@ import org.skullforge.asteroidpush.ui.UiTestSuite;
 import org.skullforge.asteroidpush.utils.UtilsTestSuite;
 
 @RunWith(Suite.class)
-@SuiteClasses({ AsteroidPushTest.class, GameStateFactoryTest.class,
-      StateInfoTest.class, MatchGameStateTest.class,
-      DesignerGameStateTest.class, SimulatorTest.class, ScenarioTest.class,
-      TimekeeperTest.class, ResourceLoaderTest.class,
-      AppearancesTestSuite.class, DesignerTestSuite.class,
-      DoodadsTestSuite.class, PartsTestSuite.class, UiTestSuite.class,
-      UtilsTestSuite.class })
+@SuiteClasses({
+      AppearancesTestSuite.class,
+      DesignerTestSuite.class,
+      DoodadsTestSuite.class,
+      PartsTestSuite.class,
+      UiTestSuite.class,
+      UtilsTestSuite.class,
+      AsteroidPushTest.class,
+      DesignerGameStateTest.class,
+      GameStateFactoryTest.class,
+      MatchGameStateTest.class,
+      ResourceLoaderTest.class,
+      ScenarioTest.class,
+      SimulatorTest.class,
+      StateInfoTest.class,
+      TimekeeperTest.class
+})
 public class AllTests {
 
 }

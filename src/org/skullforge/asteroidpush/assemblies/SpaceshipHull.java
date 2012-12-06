@@ -12,16 +12,21 @@ import org.jbox2d.dynamics.FixtureDef;
 import org.jbox2d.dynamics.World;
 import org.jbox2d.dynamics.joints.Joint;
 import org.skullforge.asteroidpush.SignalController;
-import org.skullforge.asteroidpush.designer.ShipDesign;
-import org.skullforge.asteroidpush.designer.SubModule;
-import org.skullforge.asteroidpush.designer.modules.data.EffectorFactory;
-import org.skullforge.asteroidpush.designer.modules.data.SubPartData;
+import org.skullforge.asteroidpush.designer.Blueprint;
+import org.skullforge.asteroidpush.designer.ModuleToken;
+import org.skullforge.asteroidpush.designer.grid.GridVector;
+import org.skullforge.asteroidpush.designer.modules.data.ComponentData;
+import org.skullforge.asteroidpush.designer.modules.data.EffectorData;
+import org.skullforge.asteroidpush.designer.modules.data.PrimitiveData;
 import org.skullforge.asteroidpush.doodads.Effector;
+import org.skullforge.asteroidpush.doodads.GlueMap;
+import org.skullforge.asteroidpush.doodads.Part;
+import org.skullforge.asteroidpush.doodads.ThrusterFactory;
 import org.skullforge.asteroidpush.logic.Logic;
 
 public class SpaceshipHull implements Assembly, Logic {
 
-   public SpaceshipHull(Vec2 position, ShipDesign design) {
+   public SpaceshipHull(Vec2 position, Blueprint design) {
       this.spawnPosition = new Vec2(position);
       this.design = design;
       this.bodyList = new ArrayList<Body>();
@@ -31,8 +36,15 @@ public class SpaceshipHull implements Assembly, Logic {
    @Override
    public void spawn(World world) {
       if (bodyList.isEmpty()) {
-         for (Collection<SubModule> subModuleList : design.getBodyGroups()) {
-            bodyList.add(assembleBody(subModuleList, world));
+         GlueMap glueMap = new GlueMap();
+         for (ModuleToken token : design.getTokens()) {
+            for (ComponentData component : token.getData().getComponents()) {
+               glueMap.putPart(new Part(token.getPlacement(), component));
+            }
+         }
+
+         for (Collection<Part> partList : glueMap.getGlueGroups()) {
+            bodyList.add(assembleBody(partList, world));
          }
       }
    }
@@ -56,20 +68,21 @@ public class SpaceshipHull implements Assembly, Logic {
       return new ArrayList<Joint>();
    }
 
-   private Body assembleBody(Collection<SubModule> partList, World world) {
+   private Body assembleBody(Collection<Part> partList, World world) {
       Body body = world.createBody(getBodyDef());
-      for (SubModule subModule : partList) {
+      for (Part subModule : partList) {
          Vec2 offset = calculateFixtureOffset(subModule);
          Transform transform = new Transform();
-         transform.set(offset, subModule.getPlace().getRotation().getRadians());
-         for (SubPartData subData : subModule.getData().getSubParts()) {
+         transform.set(offset, subModule.getPlacement().getRotation()
+               .getRadians());
+         for (PrimitiveData subData : subModule.getComponent().getPrimitives()) {
             FixtureDef fixture = subData.getFixtureDef(transform,
                                                        standardModuleSize);
             body.createFixture(fixture);
          }
 
-         for (EffectorFactory factory : subModule.getData()
-               .getEffectorFactories()) {
+         for (EffectorData data : subModule.getComponent().getEffectors()) {
+            ThrusterFactory factory = new ThrusterFactory();
             effectorList.add(factory.create(transform, body));
          }
       }
@@ -86,10 +99,10 @@ public class SpaceshipHull implements Assembly, Logic {
       }
    }
 
-   private Vec2 calculateFixtureOffset(SubModule subModule) {
-      return new Vec2(standardModuleSize
-            * subModule.getPlace().getCoordinate().getX(), standardModuleSize
-            * subModule.getPlace().getCoordinate().getY());
+   private Vec2 calculateFixtureOffset(Part part) {
+      GridVector coord = part.getPlacement().getCoordinate();
+      return new Vec2(standardModuleSize * coord.getX(), standardModuleSize
+            * coord.getY());
    }
 
    private BodyDef getBodyDef() {
@@ -107,5 +120,5 @@ public class SpaceshipHull implements Assembly, Logic {
    private ArrayList<Body> bodyList;
    private ArrayList<Effector> effectorList;
    private Vec2 spawnPosition;
-   private ShipDesign design;
+   private Blueprint design;
 }

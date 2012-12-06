@@ -5,32 +5,22 @@ import java.util.Collection;
 import org.newdawn.slick.Font;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
-import org.skullforge.asteroidpush.designer.Module;
-import org.skullforge.asteroidpush.designer.ShipDesign;
-import org.skullforge.asteroidpush.designer.grid.Coordinate;
+import org.skullforge.asteroidpush.designer.Blueprint;
+import org.skullforge.asteroidpush.designer.ModuleToken;
+import org.skullforge.asteroidpush.designer.grid.GridVector;
 import org.skullforge.asteroidpush.designer.grid.Placement;
 
 public class ShipDesignView implements Widget {
+   final private Font font;
+   final private int gridSize = 5;
+   final private Blueprint shipDesign;
 
-   public ShipDesignView(ShipDesign shipDesign, Font font) {
+   public ShipDesignView(Blueprint shipDesign, Font font) {
       this.shipDesign = shipDesign;
       this.font = font;
    }
 
-   @Override
-   public void render(Graphics g, Rectangle frame) {
-      Collection<Module> modules = shipDesign.getModules();
-
-      for (Module m : modules) {
-         Placement currentPlacement = m.getPlacement();
-         Rectangle gridFrame = GetFrameForCoordinate(currentPlacement.getCoordinate(), frame);
-
-         Label moduleLabel = new Label(new StringBuffer(m.getName()), font);
-         moduleLabel.render(g, gridFrame);
-      }
-   }
-
-   private Rectangle GetFrameForCoordinate(Coordinate coordinate,
+   private Rectangle GetFrameForCoordinate(GridVector coordinate,
                                            Rectangle parentFrame) {
       float totalSideLength = Math.min(parentFrame.getWidth(),
                                        parentFrame.getHeight());
@@ -45,7 +35,18 @@ public class ShipDesignView implements Widget {
       return new Rectangle(frameX, frameY, frameW, frameH);
    }
 
-   final private int gridSize = 5;
-   private ShipDesign shipDesign;
-   private Font font;
+   @Override
+   public void render(Graphics g, Rectangle frame) {
+      Collection<ModuleToken> modules = shipDesign.getTokens();
+
+      for (ModuleToken m : modules) {
+         Placement currentPlacement = m.getPlacement();
+         Rectangle gridFrame = GetFrameForCoordinate(currentPlacement.getCoordinate(),
+                                                     frame);
+
+         Label moduleLabel = new Label(new StringBuffer(m.getData().getName()),
+               font);
+         moduleLabel.render(g, gridFrame);
+      }
+   }
 }

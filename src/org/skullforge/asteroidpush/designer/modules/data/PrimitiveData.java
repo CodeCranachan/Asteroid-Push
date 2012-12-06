@@ -6,14 +6,9 @@ import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.FixtureDef;
 import org.skullforge.asteroidpush.assemblies.Material;
 
-public class SubPartData {
-   public void setMaterial(Material material) {
-      this.material = material;
-   }
-
-   public void setShape(Vec2[] shape) {
-      this.shape = shape;
-   }
+public class PrimitiveData {
+   private Material material;
+   private Vec2[] shape;
 
    public FixtureDef getFixtureDef(Transform transform, float size) {
       FixtureDef def = new FixtureDef();
@@ -33,6 +28,11 @@ public class SubPartData {
       return def;
    }
 
-   private Material material;
-   private Vec2[] shape;
+   public void setMaterial(Material material) {
+      this.material = material;
+   }
+
+   public void setShape(Vec2[] shape) {
+      this.shape = shape;
+   }
 }

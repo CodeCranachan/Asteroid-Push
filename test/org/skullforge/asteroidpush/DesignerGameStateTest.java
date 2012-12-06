@@ -11,8 +11,8 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.StateBasedGame;
-import org.skullforge.asteroidpush.designer.Module;
-import org.skullforge.asteroidpush.designer.ShipDesign;
+import org.skullforge.asteroidpush.designer.Blueprint;
+import org.skullforge.asteroidpush.designer.ModuleToken;
 import org.skullforge.asteroidpush.designer.grid.Placement;
 import org.skullforge.asteroidpush.designer.modules.data.ModuleData;
 import org.skullforge.asteroidpush.testutils.ClassMockery;
@@ -28,7 +28,7 @@ public class DesignerGameStateTest {
    ResourceLoader loaderMock;
    Graphics graphicsMock;
    StateBasedGame gameMock;
-   ShipDesign designMock;
+   Blueprint designMock;
    Player playerMock;
    DesignerUiFactory uiFactoryMock;
    Widget uiMock;
@@ -41,7 +41,7 @@ public class DesignerGameStateTest {
       containerMock = context.mock(GameContainer.class);
       graphicsMock = context.mock(Graphics.class);
       playerMock = context.mock(Player.class);
-      designMock = context.mock(ShipDesign.class);
+      designMock = context.mock(Blueprint.class);
       uiFactoryMock = context.mock(DesignerUiFactory.class);
       uiMock = context.mock(Widget.class);
       gameMock = context.mock(StateBasedGame.class);
@@ -79,11 +79,12 @@ public class DesignerGameStateTest {
             will(returnValue(playerMock));
             allowing(playerMock).getShipDesign();
             will(returnValue(designMock));
-            allowing(designMock).getModules();
-            will(returnValue(new Vector<Module>()));
+            allowing(designMock).getTokens();
+            will(returnValue(new Vector<ModuleToken>()));
             allowing(designMock).addModule(with(any(Placement.class)),
                                            with(any(ModuleData.class)));
-            oneOf(uiMock).render(with(graphicsMock), with(any(Rectangle.class)));
+            oneOf(uiMock)
+                  .render(with(graphicsMock), with(any(Rectangle.class)));
          }
       });
       testState = new DesignerGameState(uiFactoryMock);

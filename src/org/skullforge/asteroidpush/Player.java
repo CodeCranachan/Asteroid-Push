@@ -1,11 +1,12 @@
 package org.skullforge.asteroidpush;
 
 import org.jbox2d.common.Vec2;
-import org.skullforge.asteroidpush.designer.ShipDesign;
+import org.skullforge.asteroidpush.designer.Blueprint;
 import org.skullforge.asteroidpush.designer.grid.Facing;
 import org.skullforge.asteroidpush.designer.grid.Placement;
-import org.skullforge.asteroidpush.designer.modules.MetalBlock;
-import org.skullforge.asteroidpush.designer.modules.SteamThruster;
+import org.skullforge.asteroidpush.designer.modules.catalogue.MetalBlockFactory;
+import org.skullforge.asteroidpush.designer.modules.catalogue.SteamThrusterFactory;
+import org.skullforge.asteroidpush.designer.modules.data.ModuleData;
 import org.skullforge.asteroidpush.doodads.Doodad;
 import org.skullforge.asteroidpush.ui.PositionTracker;
 
@@ -14,21 +15,23 @@ public class Player implements PositionTracker {
    public Player() {
       this.controlDescription = new StringBuffer("No Control");
       this.currentShip = null;
-      this.shipDesign = new ShipDesign();
+      this.shipDesign = new Blueprint();
       this.controller = new SignalController();
-      shipDesign.addModule(new Placement(0, 0, Facing.FORWARD), new SteamThruster());
-      shipDesign.addModule(new Placement(0, 1, Facing.FORWARD), new SteamThruster());
-      shipDesign.addModule(new Placement(0, 2, Facing.FORWARD), new SteamThruster());
-      shipDesign.addModule(new Placement(0, 3, Facing.FORWARD), new SteamThruster());
-      shipDesign.addModule(new Placement(0, 4, Facing.FORWARD), new SteamThruster());
-      shipDesign.addModule(new Placement(1, 0, Facing.FORWARD), new MetalBlock());
-      shipDesign.addModule(new Placement(1, 1, Facing.FORWARD), new MetalBlock());
-      shipDesign.addModule(new Placement(1, 2, Facing.FORWARD), new MetalBlock());
-      shipDesign.addModule(new Placement(1, 3, Facing.FORWARD), new MetalBlock());
-      shipDesign.addModule(new Placement(1, 4, Facing.FORWARD), new MetalBlock());
-      shipDesign.addModule(new Placement(2, 1, Facing.FORWARD), new MetalBlock());
-      shipDesign.addModule(new Placement(2, 2, Facing.FORWARD), new MetalBlock());
-      shipDesign.addModule(new Placement(2, 3, Facing.FORWARD), new MetalBlock());
+
+      ModuleData thruster = SteamThrusterFactory.createData();
+      ModuleData block = MetalBlockFactory.createData();
+
+      shipDesign.addModule(new Placement(0, 0, Facing.FORWARD), thruster);
+      shipDesign.addModule(new Placement(0, 2, Facing.FORWARD), thruster);
+      shipDesign.addModule(new Placement(0, 4, Facing.FORWARD), thruster);
+      shipDesign.addModule(new Placement(1, 0, Facing.FORWARD), block);
+      shipDesign.addModule(new Placement(1, 1, Facing.FORWARD), block);
+      shipDesign.addModule(new Placement(1, 2, Facing.FORWARD), block);
+      shipDesign.addModule(new Placement(1, 3, Facing.FORWARD), block);
+      shipDesign.addModule(new Placement(1, 4, Facing.FORWARD), block);
+      shipDesign.addModule(new Placement(2, 1, Facing.FORWARD), block);
+      shipDesign.addModule(new Placement(2, 2, Facing.FORWARD), block);
+      shipDesign.addModule(new Placement(2, 3, Facing.FORWARD), block);
    }
 
    @Override
@@ -49,7 +52,7 @@ public class Player implements PositionTracker {
       }
    }
 
-   public ShipDesign getShipDesign() {
+   public Blueprint getShipDesign() {
       return shipDesign;
    }
 
@@ -64,11 +67,11 @@ public class Player implements PositionTracker {
    public StringBuffer getControls() {
       return controlDescription;
    }
-   
+
    public SignalController getController() {
       return controller;
    }
-   
+
    public void handleKeyUp(int key) {
       controller.keyUp(key);
       controlDescription.delete(0, controlDescription.length());
@@ -82,7 +85,7 @@ public class Player implements PositionTracker {
    }
 
    private SignalController controller;
-   private ShipDesign shipDesign;
+   private Blueprint shipDesign;
    private Doodad currentShip;
    private StringBuffer controlDescription;
 }

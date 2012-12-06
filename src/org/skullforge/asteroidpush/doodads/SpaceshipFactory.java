@@ -3,7 +3,7 @@ package org.skullforge.asteroidpush.doodads;
 import org.jbox2d.common.Vec2;
 import org.skullforge.asteroidpush.appearances.SimpleAppearance;
 import org.skullforge.asteroidpush.assemblies.SpaceshipHull;
-import org.skullforge.asteroidpush.designer.ShipDesign;
+import org.skullforge.asteroidpush.designer.Blueprint;
 
 public class SpaceshipFactory implements DoodadFactory {
 
@@ -12,7 +12,7 @@ public class SpaceshipFactory implements DoodadFactory {
       design = null;
    }
 
-   public void setParameters(Vec2 spawnPosition, ShipDesign design) {
+   public void setParameters(Vec2 spawnPosition, Blueprint design) {
       this.spawnPosition.set(spawnPosition);
       this.design = design;
    }
@@ -31,5 +31,5 @@ public class SpaceshipFactory implements DoodadFactory {
    }
 
    private Vec2 spawnPosition;
-   private ShipDesign design;
+   private Blueprint design;
 }

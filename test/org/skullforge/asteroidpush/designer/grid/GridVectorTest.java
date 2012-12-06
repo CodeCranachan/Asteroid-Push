@@ -3,15 +3,15 @@ package org.skullforge.asteroidpush.designer.grid;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
-public class CoordinateTest {
+public class GridVectorTest {
 
    @Test
    public void testEquals() {
-      Coordinate testCoordinate = new Coordinate();
-      Coordinate equalCoordinate = new Coordinate(0, 0);
-      Coordinate firstCoordinate = new Coordinate(0, 5);
-      Coordinate secondCoordinate = new Coordinate(-2, 4);
-      Coordinate thirdCoordinate = new Coordinate(-56, 0);
+      GridVector testCoordinate = new GridVector();
+      GridVector equalCoordinate = new GridVector(0, 0);
+      GridVector firstCoordinate = new GridVector(0, 5);
+      GridVector secondCoordinate = new GridVector(-2, 4);
+      GridVector thirdCoordinate = new GridVector(-56, 0);
 
       // invalid objects
       assertFalse(testCoordinate.equals(null));
@@ -31,12 +31,12 @@ public class CoordinateTest {
    
    @Test
    public void testAdjacencyGetters() {
-      Coordinate test = new Coordinate(2, -2);
+      GridVector test = new GridVector(2, -2);
       
-      Coordinate front = new Coordinate(3, -2);
-      Coordinate back = new Coordinate(1, -2);
-      Coordinate left = new Coordinate(2, -1);
-      Coordinate right = new Coordinate(2, -3);
+      GridVector front = new GridVector(3, -2);
+      GridVector back = new GridVector(1, -2);
+      GridVector left = new GridVector(2, -1);
+      GridVector right = new GridVector(2, -3);
       
       assertEquals(front, test.getFront());
       assertEquals(back, test.getBack());
@@ -46,8 +46,8 @@ public class CoordinateTest {
 
    @Test
    public void testToString() {
-      Coordinate first = new Coordinate(2, -2);
-      Coordinate second = new Coordinate(5, 0);
+      GridVector first = new GridVector(2, -2);
+      GridVector second = new GridVector(5, 0);
       
       assertEquals("2/-2", first.toString());
       assertEquals("5/0", second.toString());
@@ -55,8 +55,8 @@ public class CoordinateTest {
    
    @Test
    public void testSetAndGet() {
-      Coordinate test = new Coordinate();
-      Coordinate other = new Coordinate(22, 34);
+      GridVector test = new GridVector();
+      GridVector other = new GridVector(22, 34);
       
       assertEquals(0, test.getX());
       assertEquals(0, test.getY());
@@ -71,7 +71,7 @@ public class CoordinateTest {
       assertEquals(other, test);
       assertNotSame(other, test);
       
-      Coordinate another = new Coordinate(other);
+      GridVector another = new GridVector(other);
       assertEquals(other, another);
       assertNotSame(other, another);
    }

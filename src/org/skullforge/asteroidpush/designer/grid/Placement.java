@@ -2,12 +2,12 @@ package org.skullforge.asteroidpush.designer.grid;
 
 public class Placement {
    public Placement() {
-      coordinate = new Coordinate();
+      coordinate = new GridVector();
       rotation = new Rotation();
    }
    
    public Placement(int x, int y, Facing facing) {
-      this.coordinate = new Coordinate(x, y);
+      this.coordinate = new GridVector(x, y);
       this.rotation = new Rotation(facing);
    }
    
@@ -16,11 +16,11 @@ public class Placement {
       this.rotation = placement.rotation;
    }
    
-   public Coordinate getCoordinate() {
+   public GridVector getCoordinate() {
       return coordinate;
    }
 
-   public void setCoordinate(Coordinate coordinate) {
+   public void setCoordinate(GridVector coordinate) {
       this.coordinate.set(coordinate);
    }
 
@@ -32,6 +32,6 @@ public class Placement {
       this.rotation = rotation;
    }
 
-   private Coordinate coordinate;
+   private GridVector coordinate;
    private Rotation rotation;
 }

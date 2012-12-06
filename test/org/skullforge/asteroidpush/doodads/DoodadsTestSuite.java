@@ -5,8 +5,12 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({ DoodadTest.class, AsteroidFactoryTest.class,
-      PlayingFieldBorderFactoryTest.class })
+@SuiteClasses({
+      AsteroidFactoryTest.class,
+      DoodadTest.class,
+      GlueMapTest.class,
+      PlayingFieldBorderFactoryTest.class
+})
 public class DoodadsTestSuite {
 
 }
