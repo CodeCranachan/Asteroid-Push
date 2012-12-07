@@ -1,9 +1,9 @@
-package org.skullforge.asteroidpush.designer.modules.catalogue;
+package org.skullforge.asteroidpush.designer.catalogue;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
-import org.skullforge.asteroidpush.designer.modules.data.ModuleData;
+import org.skullforge.asteroidpush.designer.data.ModuleData;
 
 public class ModuleCatalogue {
    ArrayList<ModuleData> availableModules;

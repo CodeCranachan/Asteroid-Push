@@ -1,8 +1,8 @@
-package org.skullforge.asteroidpush.designer.modules.data.effectors;
+package org.skullforge.asteroidpush.designer.data.effectors;
 
 import org.jbox2d.common.Transform;
 import org.jbox2d.common.Vec2;
-import org.skullforge.asteroidpush.designer.modules.data.EffectorData;
+import org.skullforge.asteroidpush.designer.data.EffectorData;
 
 public class ForceFeederData implements EffectorData {
    private Transform anchor;

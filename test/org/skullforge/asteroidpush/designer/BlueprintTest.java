@@ -8,9 +8,9 @@ import org.jmock.Expectations;
 import org.junit.Before;
 import org.junit.Test;
 import org.skullforge.asteroidpush.designer.Blueprint;
+import org.skullforge.asteroidpush.designer.data.ModuleData;
 import org.skullforge.asteroidpush.designer.grid.Facing;
 import org.skullforge.asteroidpush.designer.grid.Placement;
-import org.skullforge.asteroidpush.designer.modules.data.ModuleData;
 import org.skullforge.asteroidpush.testutils.ClassMockery;
 
 public class BlueprintTest {

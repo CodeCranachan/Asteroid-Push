@@ -2,7 +2,7 @@ package org.skullforge.asteroidpush.doodads;
 
 import org.jbox2d.common.Transform;
 import org.jbox2d.dynamics.Body;
-import org.skullforge.asteroidpush.designer.modules.data.EffectorFactory;
+import org.skullforge.asteroidpush.designer.data.EffectorFactory;
 import org.skullforge.asteroidpush.logic.Thruster;
 
 public class ThrusterFactory implements EffectorFactory {

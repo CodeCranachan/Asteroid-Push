@@ -2,11 +2,11 @@ package org.skullforge.asteroidpush;
 
 import org.jbox2d.common.Vec2;
 import org.skullforge.asteroidpush.designer.Blueprint;
+import org.skullforge.asteroidpush.designer.catalogue.MetalBlockFactory;
+import org.skullforge.asteroidpush.designer.catalogue.SteamThrusterFactory;
+import org.skullforge.asteroidpush.designer.data.ModuleData;
 import org.skullforge.asteroidpush.designer.grid.Facing;
 import org.skullforge.asteroidpush.designer.grid.Placement;
-import org.skullforge.asteroidpush.designer.modules.catalogue.MetalBlockFactory;
-import org.skullforge.asteroidpush.designer.modules.catalogue.SteamThrusterFactory;
-import org.skullforge.asteroidpush.designer.modules.data.ModuleData;
 import org.skullforge.asteroidpush.doodads.Doodad;
 import org.skullforge.asteroidpush.ui.PositionTracker;
 

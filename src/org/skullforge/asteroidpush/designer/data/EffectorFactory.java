@@ -1,4 +1,4 @@
-package org.skullforge.asteroidpush.designer.modules.data;
+package org.skullforge.asteroidpush.designer.data;
 
 import org.jbox2d.common.Transform;
 import org.jbox2d.dynamics.Body;

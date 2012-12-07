@@ -1,7 +1,7 @@
 package org.skullforge.asteroidpush.doodads;
 
+import org.skullforge.asteroidpush.designer.data.ComponentData;
 import org.skullforge.asteroidpush.designer.grid.Placement;
-import org.skullforge.asteroidpush.designer.modules.data.ComponentData;
 
 public class Part {
    final private ComponentData component;

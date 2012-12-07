@@ -1,7 +1,7 @@
 package org.skullforge.asteroidpush.designer;
 
+import org.skullforge.asteroidpush.designer.data.ModuleData;
 import org.skullforge.asteroidpush.designer.grid.Placement;
-import org.skullforge.asteroidpush.designer.modules.data.ModuleData;
 
 public class ModuleToken {
    private ModuleData data;

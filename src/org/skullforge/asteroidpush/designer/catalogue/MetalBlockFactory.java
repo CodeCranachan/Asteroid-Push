@@ -1,11 +1,11 @@
-package org.skullforge.asteroidpush.designer.modules.catalogue;
+package org.skullforge.asteroidpush.designer.catalogue;
 
 import org.jbox2d.common.Vec2;
 import org.skullforge.asteroidpush.assemblies.Material;
+import org.skullforge.asteroidpush.designer.data.ComponentData;
+import org.skullforge.asteroidpush.designer.data.ModuleData;
+import org.skullforge.asteroidpush.designer.data.PrimitiveData;
 import org.skullforge.asteroidpush.designer.grid.GridVector;
-import org.skullforge.asteroidpush.designer.modules.data.ComponentData;
-import org.skullforge.asteroidpush.designer.modules.data.ModuleData;
-import org.skullforge.asteroidpush.designer.modules.data.PrimitiveData;
 
 public class MetalBlockFactory {
 

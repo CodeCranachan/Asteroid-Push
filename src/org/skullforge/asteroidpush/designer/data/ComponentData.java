@@ -1,4 +1,4 @@
-package org.skullforge.asteroidpush.designer.modules.data;
+package org.skullforge.asteroidpush.designer.data;
 
 import java.util.ArrayList;
 import java.util.Collection;

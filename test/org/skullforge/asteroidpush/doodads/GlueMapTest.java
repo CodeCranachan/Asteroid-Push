@@ -7,10 +7,10 @@ import java.util.Iterator;
 import org.jmock.Mockery;
 import org.junit.Before;
 import org.junit.Test;
+import org.skullforge.asteroidpush.designer.data.ComponentData;
 import org.skullforge.asteroidpush.designer.grid.Facing;
 import org.skullforge.asteroidpush.designer.grid.GridVector;
 import org.skullforge.asteroidpush.designer.grid.Placement;
-import org.skullforge.asteroidpush.designer.modules.data.ComponentData;
 import org.skullforge.asteroidpush.doodads.GlueMap;
 import org.skullforge.asteroidpush.testutils.ClassMockery;
 

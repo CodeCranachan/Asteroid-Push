@@ -2,9 +2,9 @@ package org.skullforge.asteroidpush.designer;
 
 import java.util.Collection;
 
+import org.skullforge.asteroidpush.designer.data.ModuleData;
 import org.skullforge.asteroidpush.designer.grid.Grid;
 import org.skullforge.asteroidpush.designer.grid.Placement;
-import org.skullforge.asteroidpush.designer.modules.data.ModuleData;
 
 public class Blueprint {
    private Grid<ModuleToken> grid;

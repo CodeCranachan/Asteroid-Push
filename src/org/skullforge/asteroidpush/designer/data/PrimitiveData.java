@@ -1,4 +1,4 @@
-package org.skullforge.asteroidpush.designer.modules.data;
+package org.skullforge.asteroidpush.designer.data;
 
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Transform;
