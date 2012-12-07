@@ -68,8 +68,8 @@ public class SimpleLayoutTest {
       });
       testLayout.setWidget("invalid element name", infoWidgetMock);
       testLayout.setWidget("info", infoWidgetMock);
-      testLayout.setWidget("background", backgroundWidgetMock);
       testLayout.setWidget("control", controlWidgetMock);
+      testLayout.setBackground(backgroundWidgetMock);
       testLayout.render(graphicsMock, fullScreen);
       context.assertIsSatisfied();
    }
