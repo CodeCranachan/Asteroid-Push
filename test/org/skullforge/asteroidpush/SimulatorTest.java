@@ -8,7 +8,7 @@ import org.jmock.Expectations;
 import org.jmock.Sequence;
 import org.junit.Before;
 import org.junit.Test;
-import org.skullforge.asteroidpush.doodads.Entity;
+import org.skullforge.asteroidpush.entities.Entity;
 import org.skullforge.asteroidpush.testutils.ClassMockery;
 import org.skullforge.asteroidpush.ui.Renderer;
 

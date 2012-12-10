@@ -7,22 +7,11 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 import org.skullforge.asteroidpush.Simulator;
-import org.skullforge.asteroidpush.doodads.appearances.Appearance;
 
 public class StaticCamera implements Widget, Renderer {
 
    public StaticCamera(Simulator sim) {
       this.sim = sim;
-   }
-
-   @Override
-   public void draw(Appearance appearance) {
-      for (Shape s : appearance.getOutline()) {
-         g.setColor(Color.darkGray);
-         g.fill(s);
-         g.setColor(Color.gray);
-         g.draw(s);
-      }
    }
 
    @Override

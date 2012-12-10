@@ -1,4 +1,4 @@
-package org.skullforge.asteroidpush.doodads.spaceship;
+package org.skullforge.asteroidpush.entities.spaceship;
 
 import static org.junit.Assert.*;
 import java.util.Collection;
@@ -11,6 +11,8 @@ import org.skullforge.asteroidpush.designer.data.ComponentData;
 import org.skullforge.asteroidpush.designer.grid.Facing;
 import org.skullforge.asteroidpush.designer.grid.GridVector;
 import org.skullforge.asteroidpush.designer.grid.Placement;
+import org.skullforge.asteroidpush.entities.spaceship.GlueMap;
+import org.skullforge.asteroidpush.entities.spaceship.Part;
 
 import org.skullforge.asteroidpush.testutils.ClassMockery;
 

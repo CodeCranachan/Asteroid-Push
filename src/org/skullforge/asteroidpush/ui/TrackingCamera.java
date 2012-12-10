@@ -8,7 +8,6 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 import org.skullforge.asteroidpush.Simulator;
-import org.skullforge.asteroidpush.doodads.appearances.Appearance;
 
 public class TrackingCamera implements Widget, Renderer {
 
@@ -19,11 +18,6 @@ public class TrackingCamera implements Widget, Renderer {
 
    public void setPositionTracker(PositionTracker tracker) {
       this.tracker = tracker;
-   }
-
-   @Override
-   public void draw(Appearance appearance) {
-      drawOutline(appearance.getOutline());
    }
 
    @Override

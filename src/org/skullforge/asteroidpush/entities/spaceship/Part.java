@@ -1,4 +1,4 @@
-package org.skullforge.asteroidpush.doodads.spaceship;
+package org.skullforge.asteroidpush.entities.spaceship;
 
 import org.skullforge.asteroidpush.designer.data.ComponentData;
 import org.skullforge.asteroidpush.designer.grid.Placement;

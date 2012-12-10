@@ -7,7 +7,7 @@ import org.skullforge.asteroidpush.designer.catalogue.SteamThrusterFactory;
 import org.skullforge.asteroidpush.designer.data.ModuleData;
 import org.skullforge.asteroidpush.designer.grid.Facing;
 import org.skullforge.asteroidpush.designer.grid.Placement;
-import org.skullforge.asteroidpush.doodads.Entity;
+import org.skullforge.asteroidpush.entities.Entity;
 import org.skullforge.asteroidpush.ui.PositionTracker;
 
 public class Player implements PositionTracker {

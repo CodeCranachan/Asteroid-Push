@@ -5,7 +5,7 @@ import java.util.LinkedList;
 
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.World;
-import org.skullforge.asteroidpush.doodads.Entity;
+import org.skullforge.asteroidpush.entities.Entity;
 import org.skullforge.asteroidpush.ui.Renderer;
 
 public class Simulator {

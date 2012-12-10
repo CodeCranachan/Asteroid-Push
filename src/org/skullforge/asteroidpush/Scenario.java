@@ -5,8 +5,9 @@ import java.util.LinkedList;
 
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.World;
-import org.skullforge.asteroidpush.doodads.AsteroidFactory;
-import org.skullforge.asteroidpush.doodads.PlayingFieldBorderFactory;
+import org.skullforge.asteroidpush.entities.AsteroidFactory;
+import org.skullforge.asteroidpush.entities.PlayingFieldBorderFactory;
+import org.skullforge.asteroidpush.entities.spaceship.SpaceshipFactory;
 
 public class Scenario {
 
@@ -29,13 +30,18 @@ public class Scenario {
 
       AsteroidFactory asteroidFactory = new AsteroidFactory(world);
       commands.push(new SpawnEntityCommand(asteroidFactory, new Vec2(10.0f,
-            4.0f), localPlayer));
+            4.0f), null));
       commands.push(new SpawnEntityCommand(asteroidFactory, new Vec2(-4.0f,
             -2.0f), null));
       commands.push(new SpawnEntityCommand(asteroidFactory, new Vec2(-9.4f,
             2.5f), null));
       commands.push(new SpawnEntityCommand(asteroidFactory, new Vec2(6.0f,
             -4.2f), null));
+
+      SpaceshipFactory shipFactory = new SpaceshipFactory(
+            localPlayer.getShipDesign(), world);
+      commands.push(new SpawnEntityCommand(shipFactory, new Vec2(0.0f, 0.0f),
+            localPlayer));
 
       return commands;
    }

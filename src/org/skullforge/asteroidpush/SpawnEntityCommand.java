@@ -1,8 +1,8 @@
 package org.skullforge.asteroidpush;
 
 import org.jbox2d.common.Vec2;
-import org.skullforge.asteroidpush.doodads.Entity;
-import org.skullforge.asteroidpush.doodads.EntityFactory;
+import org.skullforge.asteroidpush.entities.Entity;
+import org.skullforge.asteroidpush.entities.EntityFactory;
 
 public class SpawnEntityCommand implements SimulatorCommand {
 

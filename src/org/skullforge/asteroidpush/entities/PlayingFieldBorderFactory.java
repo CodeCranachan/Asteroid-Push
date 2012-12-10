@@ -1,4 +1,4 @@
-package org.skullforge.asteroidpush.doodads;
+package org.skullforge.asteroidpush.entities;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package org.skullforge.asteroidpush.doodads;
+package org.skullforge.asteroidpush.entities;
 
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.collision.shapes.Shape;
@@ -28,7 +28,7 @@ public class AsteroidFactory implements EntityFactory {
       BodyDef def = new BodyDef();
       def.type = BodyType.DYNAMIC;
       def.position.set(location);
-      def.linearDamping = 0.01f;
+      def.linearDamping = 0.05f;
       def.angularDamping = 0.01f;
       def.fixedRotation = false;
       return def;

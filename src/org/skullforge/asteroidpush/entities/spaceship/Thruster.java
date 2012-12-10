@@ -1,4 +1,4 @@
-package org.skullforge.asteroidpush.doodads.spaceship;
+package org.skullforge.asteroidpush.entities.spaceship;
 
 import org.jbox2d.common.Mat22;
 import org.jbox2d.common.Vec2;

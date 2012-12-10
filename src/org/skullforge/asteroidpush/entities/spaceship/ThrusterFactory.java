@@ -1,4 +1,4 @@
-package org.skullforge.asteroidpush.doodads.spaceship;
+package org.skullforge.asteroidpush.entities.spaceship;
 
 import org.jbox2d.common.Transform;
 import org.jbox2d.dynamics.Body;

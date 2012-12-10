@@ -1,14 +1,13 @@
-package org.skullforge.asteroidpush.doodads;
+package org.skullforge.asteroidpush.entities;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
-import org.skullforge.asteroidpush.doodads.spaceship.GlueMapTest;
+import org.skullforge.asteroidpush.entities.spaceship.GlueMapTest;
 
 @RunWith(Suite.class)
 @SuiteClasses({
       AsteroidFactoryTest.class,
-      DoodadTest.class,
       GlueMapTest.class,
       PlayingFieldBorderFactoryTest.class
 })

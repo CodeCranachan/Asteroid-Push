@@ -28,6 +28,6 @@ public class ScenarioTest {
       Collection<SimulatorCommand> commands = testScenario
             .getSetupCommands(testWorld);
       assertNotNull(commands);
-      assertEquals(5, commands.size());
+      assertEquals(6, commands.size());
    }
 }
