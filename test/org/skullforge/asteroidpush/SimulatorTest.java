@@ -1,14 +1,14 @@
 package org.skullforge.asteroidpush;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 import org.jbox2d.dynamics.World;
 import org.jmock.Expectations;
 import org.jmock.Sequence;
-import org.jmock.States;
 import org.junit.Before;
 import org.junit.Test;
-import org.skullforge.asteroidpush.doodads.Doodad;
+import org.skullforge.asteroidpush.doodads.Entity;
 import org.skullforge.asteroidpush.testutils.ClassMockery;
 import org.skullforge.asteroidpush.ui.Renderer;
 
@@ -16,8 +16,8 @@ import static org.junit.Assert.*;
 
 public class SimulatorTest {
    ClassMockery context;
-   Doodad abacusMock;
-   Doodad bananaMock;
+   Entity abacusMock;
+   Entity bananaMock;
    Scenario scenarioMock;
    Renderer rendererMock;
    Simulator testSimulator;
@@ -25,8 +25,8 @@ public class SimulatorTest {
    @Before
    public void setUp() throws Exception {
       context = new ClassMockery();
-      abacusMock = context.mock(Doodad.class, "Abacus");
-      bananaMock = context.mock(Doodad.class, "Banana");
+      abacusMock = context.mock(Entity.class, "Abacus");
+      bananaMock = context.mock(Entity.class, "Banana");
       scenarioMock = context.mock(Scenario.class);
       rendererMock = context.mock(Renderer.class);
       testSimulator = new Simulator();
@@ -36,38 +36,29 @@ public class SimulatorTest {
    public void testClear() {
       context.checking(new Expectations() {
          {
-            allowing(abacusMock).isSpawned();
-            will(returnValue(true));
-            allowing(bananaMock).isSpawned();
-            will(returnValue(true));
             exactly(5).of(abacusMock).update(with(any(Integer.class)));
             exactly(5).of(bananaMock).update(with(any(Integer.class)));
-            oneOf(abacusMock).despawn(with(aNonNull(World.class)));
-            oneOf(bananaMock).despawn(with(aNonNull(World.class)));
+            oneOf(abacusMock).destroy();
+            oneOf(bananaMock).destroy();
          }
       });
-      testSimulator.addDoodad(abacusMock);
-      testSimulator.addDoodad(bananaMock);
+      testSimulator.addEntity(abacusMock);
+      testSimulator.addEntity(bananaMock);
       testSimulator.stepToFrame(5);
       testSimulator.clear();
-      
+
       assertEquals(0, testSimulator.getCurrentFrameNumber());
-      
+
       context.assertIsSatisfied();
    }
 
    @Test
    public void testInitialize() {
-      ArrayList<Doodad> doodads = new ArrayList<Doodad>();
-      doodads.add(abacusMock);
-      doodads.add(bananaMock);
-      final ArrayList<Doodad> finalDoodads = new ArrayList<Doodad>(doodads);
+      final Collection<Entity> commands = new ArrayList<Entity>();
       context.checking(new Expectations() {
          {
-            oneOf(scenarioMock).buildDoodads();
-            will(returnValue(finalDoodads));
-            oneOf(abacusMock).spawn(with(aNonNull(World.class)));
-            oneOf(bananaMock).spawn(with(aNonNull(World.class)));
+            oneOf(scenarioMock).getSetupCommands(with(aNonNull(World.class)));
+            will(returnValue(commands));
          }
       });
 
@@ -77,13 +68,9 @@ public class SimulatorTest {
    }
 
    @Test
-   public void testAddDoodad() {
+   public void testAddEntity() {
       context.checking(new Expectations() {
          {
-            allowing(abacusMock).isSpawned();
-            will(returnValue(true));
-            allowing(bananaMock).isSpawned();
-            will(returnValue(true));
             oneOf(abacusMock).update(1);
             oneOf(abacusMock).update(2);
             oneOf(abacusMock).update(3);
@@ -91,10 +78,10 @@ public class SimulatorTest {
          }
       });
 
-      testSimulator.addDoodad(abacusMock);
+      testSimulator.addEntity(abacusMock);
       testSimulator.stepToFrame(1);
       testSimulator.stepToFrame(2);
-      testSimulator.addDoodad(bananaMock);
+      testSimulator.addEntity(bananaMock);
       testSimulator.stepToFrame(3);
 
       context.assertIsSatisfied();
@@ -105,8 +92,6 @@ public class SimulatorTest {
       final Sequence update = context.sequence("updateSequence");
       context.checking(new Expectations() {
          {
-            allowing(abacusMock).isSpawned();
-            will(returnValue(true));
             oneOf(abacusMock).update(1);
             inSequence(update);
             oneOf(abacusMock).update(2);
@@ -121,7 +106,7 @@ public class SimulatorTest {
       });
 
       assertEquals(0, testSimulator.getCurrentFrameNumber());
-      testSimulator.addDoodad(abacusMock);
+      testSimulator.addEntity(abacusMock);
       testSimulator.stepToFrame(2);
       assertEquals(2, testSimulator.getCurrentFrameNumber());
       testSimulator.stepToFrame(5);
@@ -133,45 +118,16 @@ public class SimulatorTest {
    }
 
    @Test
-   public void testSpawningDuringStepping() {
-      final States status = context.states("status").startsAs("despawned");
-      context.checking(new Expectations() {
-         {
-            allowing(abacusMock).isSpawned();
-            will(returnValue(false));
-            when(status.is("despawned"));
-
-            oneOf(abacusMock).spawn(with(aNonNull(World.class)));
-            then(status.is("spawned"));
-
-            allowing(abacusMock).isSpawned();
-            will(returnValue(true));
-            when(status.is("spawned"));
-
-            oneOf(abacusMock).update(2);
-            oneOf(abacusMock).update(3);
-         }
-      });
-
-      testSimulator.addDoodad(abacusMock);
-      testSimulator.stepToFrame(3);
-      context.assertIsSatisfied();
-   }
-
-   @Test
    public void testRender() {
       context.checking(new Expectations() {
          {
-            allowing(abacusMock).isSpawned();
-            will(returnValue(false));
-            allowing(bananaMock).isSpawned();
-            will(returnValue(true));
+            oneOf(abacusMock).render(rendererMock);
             oneOf(bananaMock).render(rendererMock);
          }
       });
 
-      testSimulator.addDoodad(abacusMock);
-      testSimulator.addDoodad(bananaMock);
+      testSimulator.addEntity(abacusMock);
+      testSimulator.addEntity(bananaMock);
       testSimulator.render(rendererMock);
 
       context.assertIsSatisfied();

@@ -4,12 +4,12 @@ import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.World;
 import org.skullforge.asteroidpush.Player;
-import org.skullforge.asteroidpush.appearances.Appearance;
-import org.skullforge.asteroidpush.appearances.NullAppearance;
-import org.skullforge.asteroidpush.assemblies.Assembly;
-import org.skullforge.asteroidpush.assemblies.NullChassis;
-import org.skullforge.asteroidpush.logic.Logic;
-import org.skullforge.asteroidpush.logic.NullLogic;
+import org.skullforge.asteroidpush.doodads.appearances.Appearance;
+import org.skullforge.asteroidpush.doodads.appearances.NullAppearance;
+import org.skullforge.asteroidpush.doodads.assemblies.Assembly;
+import org.skullforge.asteroidpush.doodads.assemblies.NullChassis;
+import org.skullforge.asteroidpush.doodads.logic.Logic;
+import org.skullforge.asteroidpush.doodads.logic.NullLogic;
 import org.skullforge.asteroidpush.ui.Renderer;
 
 public class Doodad {

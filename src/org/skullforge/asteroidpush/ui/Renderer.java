@@ -1,6 +1,9 @@
 package org.skullforge.asteroidpush.ui;
 
-import org.skullforge.asteroidpush.appearances.Appearance;
+import java.util.Collection;
+
+import org.newdawn.slick.geom.Shape;
+import org.skullforge.asteroidpush.doodads.appearances.Appearance;
 
 /**
  * Encapsulates the drawing of world objects onto the screen. It is usually
@@ -18,4 +21,6 @@ public interface Renderer {
     *           an appearance of any kind that needs to be drawn on screen.
     */
    void draw(Appearance appearance);
+   
+   void drawOutline(Collection<Shape> outline);
 }

@@ -4,7 +4,6 @@ import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Transform;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.FixtureDef;
-import org.skullforge.asteroidpush.assemblies.Material;
 
 public class PrimitiveData {
    private Material material;

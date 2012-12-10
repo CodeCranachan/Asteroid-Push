@@ -2,11 +2,12 @@ package org.skullforge.asteroidpush;
 
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
+import java.util.Collection;
 
+import org.jbox2d.common.Vec2;
+import org.jbox2d.dynamics.World;
 import org.junit.Before;
 import org.junit.Test;
-import org.skullforge.asteroidpush.doodads.Doodad;
 import org.skullforge.asteroidpush.testutils.ClassMockery;
 
 public class ScenarioTest {
@@ -22,9 +23,11 @@ public class ScenarioTest {
    }
 
    @Test
-   public void testBuildDoodads() {
-      ArrayList<Doodad> doodads = testScenario.buildDoodads();
-      assertNotNull(doodads);
-      assertEquals(6, doodads.size());
+   public void testSetupCommands() {
+      World testWorld = new World(new Vec2(), true);
+      Collection<SimulatorCommand> commands = testScenario
+            .getSetupCommands(testWorld);
+      assertNotNull(commands);
+      assertEquals(5, commands.size());
    }
 }

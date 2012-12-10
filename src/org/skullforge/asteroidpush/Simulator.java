@@ -1,131 +1,53 @@
 package org.skullforge.asteroidpush;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.World;
-import org.skullforge.asteroidpush.doodads.Doodad;
+import org.skullforge.asteroidpush.doodads.Entity;
 import org.skullforge.asteroidpush.ui.Renderer;
 
-/**
- * Encapsulates the jbox2d World and all the nifty stuff required to compute the
- * dynamics of the game.
- * 
- * @author Konfuzzyus
- * 
- */
 public class Simulator {
+   private LinkedList<SimulatorCommand> commandList;
+   private int currentFrameNumber;
+   private ArrayList<Entity> entityList;
+   private World world;
 
    public Simulator() {
-      doodadList = new ArrayList<Doodad>();
+      entityList = new ArrayList<Entity>();
+      commandList = new LinkedList<SimulatorCommand>();
       currentFrameNumber = 0;
       world = new World(new Vec2(0.0f, 9.81f), true);
    }
 
-   /**
-    * Clears the simulation from all doodads and resets the frame counter.
-    */
+   public void addEntity(Entity entity) {
+      entityList.add(entity);
+   }
+
    public void clear() {
-      for (Doodad doodad : doodadList) {
-         if (doodad.isSpawned()) {
-            doodad.despawn(world);
-         }
+      for (Entity entity : entityList) {
+         entity.destroy();
       }
-
-      doodadList.clear();
+      commandList.clear();
+      entityList.clear();
       currentFrameNumber = 0;
-   }
-
-   /**
-    * Initialize the Simulator with the data contained in a scenario.
-    * 
-    * @param scenario
-    *           the scenario to be replicated within the Simulator.
-    */
-   public void initialize(Scenario scenario) {
-      for (Doodad doodad : scenario.buildDoodads()) {
-         addDoodad(doodad);
-         doodad.spawn(world);
-      }
-   }
-
-   /**
-    * Adds a Doodad to the simulation. Doodads can not be removed from the
-    * outside. To get rid of the Doodad it must be scheduled for destruction by
-    * the Doodad itself. The simulation will take care of the rest.
-    * 
-    * @param doodad
-    *           the Doodad to add
-    */
-   public void addDoodad(Doodad doodad) {
-      doodadList.add(doodad);
-   }
-
-   /**
-    * Steps the Simulation until it reaches the given frame.
-    * 
-    * @param targetFrameNumber
-    *           the simulation will stop stepping and return when its internal
-    *           frame counter reaches this number.
-    */
-   public void stepToFrame(int targetFrameNumber) {
-      while (currentFrameNumber < targetFrameNumber) {
-         computeNextFrame();
-      }
-   }
-
-   /**
-    * Displays the contents of the Simulator using the given renderer.
-    * 
-    * @param renderer
-    *           a renderer to use to display the current simulation state.
-    */
-   public void render(Renderer renderer) {
-      for (Doodad doodad : doodadList) {
-         if (doodad.isSpawned()) {
-            doodad.render(renderer);
-         }
-      }
    }
 
    private void computeNextFrame() {
       ++currentFrameNumber;
-      updateSpawnedDoodads();
-      spawnUnspawnedDoodads();
+      updateEntities();
+      executeCommands();
       stepWorld();
    }
 
-   private void stepWorld() {
-      final int velocityIterations = 8;
-      final int positionIterations = 3;
-      world.step(getTimeStep(), velocityIterations, positionIterations);
-   }
-
-   private void updateSpawnedDoodads() {
-      // Copy the doodadList so there is no weird behavior if a Doodad is added
-      // during Doodad::update().
-      ArrayList<Doodad> listCopy = new ArrayList<Doodad>(doodadList);
-      for (Doodad doodad : listCopy) {
-         if (doodad.isSpawned()) {
-            doodad.update(currentFrameNumber);
-         }
+   private void executeCommands() {
+      while (!commandList.isEmpty()) {
+         SimulatorCommand command = commandList.pop();
+         command.execute(this);
       }
    }
 
-   private void spawnUnspawnedDoodads() {
-      for (Doodad doodad : doodadList) {
-         if (!doodad.isSpawned()) {
-            doodad.spawn(world);
-         }
-      }
-   }
-
-   /**
-    * Getter for the current simulation frame number. This number counts the
-    * simulation steps taken since the start of the simulation.
-    * 
-    * @return an integer containing the current frame number.
-    */
    public int getCurrentFrameNumber() {
       return currentFrameNumber;
    }
@@ -135,7 +57,31 @@ public class Simulator {
       return 0.0165f;
    }
 
-   private ArrayList<Doodad> doodadList;
-   private int currentFrameNumber;
-   private World world;
+   public void initialize(Scenario scenario) {
+      commandList.addAll(scenario.getSetupCommands(world));
+   }
+
+   public void render(Renderer renderer) {
+      for (Entity entity : entityList) {
+         entity.render(renderer);
+      }
+   }
+
+   public void stepToFrame(int targetFrameNumber) {
+      while (currentFrameNumber < targetFrameNumber) {
+         computeNextFrame();
+      }
+   }
+
+   private void stepWorld() {
+      final int velocityIterations = 8;
+      final int positionIterations = 3;
+      world.step(getTimeStep(), velocityIterations, positionIterations);
+   }
+
+   private void updateEntities() {
+      for (Entity entity : entityList) {
+         entity.update(getCurrentFrameNumber());
+      }
+   }
 }

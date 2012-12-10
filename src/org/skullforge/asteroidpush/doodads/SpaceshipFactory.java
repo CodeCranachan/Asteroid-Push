@@ -1,9 +1,9 @@
 package org.skullforge.asteroidpush.doodads;
 
 import org.jbox2d.common.Vec2;
-import org.skullforge.asteroidpush.appearances.SimpleAppearance;
-import org.skullforge.asteroidpush.assemblies.SpaceshipHull;
 import org.skullforge.asteroidpush.designer.Blueprint;
+import org.skullforge.asteroidpush.doodads.appearances.SimpleAppearance;
+import org.skullforge.asteroidpush.doodads.spaceship.SpaceshipHull;
 
 public class SpaceshipFactory implements DoodadFactory {
 

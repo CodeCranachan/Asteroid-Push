@@ -1,12 +1,14 @@
 package org.skullforge.asteroidpush.ui;
 
+import java.util.Collection;
+
 import org.jbox2d.common.Vec2;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 import org.skullforge.asteroidpush.Simulator;
-import org.skullforge.asteroidpush.appearances.Appearance;
+import org.skullforge.asteroidpush.doodads.appearances.Appearance;
 
 public class TrackingCamera implements Widget, Renderer {
 
@@ -21,7 +23,12 @@ public class TrackingCamera implements Widget, Renderer {
 
    @Override
    public void draw(Appearance appearance) {
-      for (Shape s : appearance.getOutline()) {
+      drawOutline(appearance.getOutline());
+   }
+
+   @Override
+   public void drawOutline(Collection<Shape> outline) {
+      for (Shape s : outline) {
          graphics.setColor(Color.darkGray);
          graphics.fill(s);
          graphics.setColor(Color.gray);

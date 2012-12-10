@@ -7,7 +7,7 @@ import org.skullforge.asteroidpush.designer.catalogue.SteamThrusterFactory;
 import org.skullforge.asteroidpush.designer.data.ModuleData;
 import org.skullforge.asteroidpush.designer.grid.Facing;
 import org.skullforge.asteroidpush.designer.grid.Placement;
-import org.skullforge.asteroidpush.doodads.Doodad;
+import org.skullforge.asteroidpush.doodads.Entity;
 import org.skullforge.asteroidpush.ui.PositionTracker;
 
 public class Player implements PositionTracker {
@@ -56,7 +56,7 @@ public class Player implements PositionTracker {
       return shipDesign;
    }
 
-   public void setShip(Doodad ship) {
+   public void setShip(Entity ship) {
       currentShip = ship;
    }
 
@@ -86,6 +86,6 @@ public class Player implements PositionTracker {
 
    private SignalController controller;
    private Blueprint shipDesign;
-   private Doodad currentShip;
+   private Entity currentShip;
    private StringBuffer controlDescription;
 }
