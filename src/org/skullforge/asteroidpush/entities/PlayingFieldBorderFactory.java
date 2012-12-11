@@ -25,8 +25,8 @@ public class PlayingFieldBorderFactory implements EntityFactory {
 
    public PlayingFieldBorderFactory(World world) {
       this.world = world;
-      fieldWidth = 256.0f;
-      fieldHeight = 256.0f;
+      fieldWidth = 100.0f;
+      fieldHeight = 50.0f;
    }
 
    @Override

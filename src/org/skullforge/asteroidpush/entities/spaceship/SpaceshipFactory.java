@@ -1,6 +1,7 @@
 package org.skullforge.asteroidpush.entities.spaceship;
 
 import java.util.Collection;
+import java.util.LinkedList;
 
 import org.jbox2d.common.Transform;
 import org.jbox2d.common.Vec2;
@@ -12,8 +13,11 @@ import org.jbox2d.dynamics.World;
 import org.skullforge.asteroidpush.designer.Blueprint;
 import org.skullforge.asteroidpush.designer.ModuleToken;
 import org.skullforge.asteroidpush.designer.data.ComponentData;
+import org.skullforge.asteroidpush.designer.data.EffectorData;
 import org.skullforge.asteroidpush.designer.data.PrimitiveData;
 import org.skullforge.asteroidpush.designer.grid.GridVector;
+import org.skullforge.asteroidpush.designer.grid.Placement;
+import org.skullforge.asteroidpush.designer.grid.Rotation;
 import org.skullforge.asteroidpush.entities.Entity;
 import org.skullforge.asteroidpush.entities.EntityFactory;
 
@@ -40,16 +44,25 @@ public class SpaceshipFactory implements EntityFactory {
       }
 
       for (Collection<Part> partList : glueMap.getGlueGroups()) {
-         ship.addBody(assembleBody(partList, position));
+         Body body = assembleBody(partList, position);
+         Collection<Effector> effectors = assembleEffectors(partList, body);
+         ship.addBody(body);
+         ship.addEffectors(effectors);
       }
 
       return ship;
    }
 
-   private Vec2 calculateFixtureOffset(Part part) {
-      GridVector coord = part.getPlacement().getCoordinate();
-      return new Vec2(standardModuleSize * coord.getX(), standardModuleSize
-            * coord.getY());
+   private Transform calculateFixtureTransform(Placement placement) {
+      GridVector coord = placement.getCoordinate();
+      Rotation rot = placement.getRotation();
+
+      Vec2 offset = new Vec2(coord.getX(), coord.getY());
+      offset.mulLocal(standardModuleSize);
+
+      Transform transform = new Transform();
+      transform.set(offset, rot.getRadians());
+      return transform;
    }
 
    private BodyDef getBodyDef(Vec2 position) {
@@ -63,13 +76,24 @@ public class SpaceshipFactory implements EntityFactory {
       return def;
    }
 
+   Collection<Effector> assembleEffectors(Collection<Part> partList, Body body) {
+      LinkedList<Effector> effectors = new LinkedList<Effector>();
+      for (Part part : partList) {
+         Transform transform = calculateFixtureTransform(part.getPlacement());
+         ComponentData component = part.getComponent();
+         for (EffectorData data : component.getEffectors()) {
+            Effector effector = data.createEffector(transform, body);
+            effectors.add(effector);
+         }
+      }
+      return effectors;
+   }
+
    private Body assembleBody(Collection<Part> partList, Vec2 position) {
       Body body = world.createBody(getBodyDef(position));
       for (Part subModule : partList) {
-         Vec2 offset = calculateFixtureOffset(subModule);
-         Transform transform = new Transform();
-         transform.set(offset, subModule.getPlacement().getRotation()
-               .getRadians());
+         Transform transform = calculateFixtureTransform(subModule
+               .getPlacement());
          for (PrimitiveData subData : subModule.getComponent().getPrimitives()) {
             FixtureDef fixture = subData.getFixtureDef(transform,
                                                        standardModuleSize);

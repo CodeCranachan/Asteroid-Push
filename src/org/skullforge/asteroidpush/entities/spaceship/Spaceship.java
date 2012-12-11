@@ -1,6 +1,7 @@
 package org.skullforge.asteroidpush.entities.spaceship;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
@@ -12,12 +13,14 @@ import org.skullforge.asteroidpush.utils.GeometryConverter;
 
 public class Spaceship implements Entity {
 
+   ArrayList<Effector> effectors;
    ArrayList<Body> bodies;
    World world;
    Player owner;
-   
+
    public Spaceship(World world) {
       this.bodies = new ArrayList<Body>();
+      this.effectors = new ArrayList<Effector>();
       this.world = world;
       this.owner = null;
    }
@@ -26,12 +29,18 @@ public class Spaceship implements Entity {
       bodies.add(body);
    }
 
+   public void addEffectors(Collection<Effector> effectors) {
+      this.effectors.addAll(effectors);
+   }
+
    @Override
    public void destroy() {
       for (Body body : bodies) {
          world.destroyBody(body);
       }
       bodies.clear();
+      effectors.clear();
+      world = null;
    }
 
    @Override
@@ -43,7 +52,13 @@ public class Spaceship implements Entity {
 
    @Override
    public void update(int frameNumber) {
-      // TODO Auto-generated method stub
+      for (Effector effector : effectors) {
+         if (owner != null) {
+            effector.update(frameNumber, owner.getController());
+         } else {
+            effector.update(frameNumber, null);
+         }
+      }
    }
 
    @Override

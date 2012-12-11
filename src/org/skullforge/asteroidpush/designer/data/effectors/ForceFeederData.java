@@ -2,11 +2,22 @@ package org.skullforge.asteroidpush.designer.data.effectors;
 
 import org.jbox2d.common.Transform;
 import org.jbox2d.common.Vec2;
+import org.jbox2d.dynamics.Body;
 import org.skullforge.asteroidpush.designer.data.EffectorData;
+import org.skullforge.asteroidpush.entities.spaceship.Effector;
+import org.skullforge.asteroidpush.entities.spaceship.ForceFeeder;
 
 public class ForceFeederData implements EffectorData {
    private Transform anchor;
    private float magnitude;
+
+   @Override
+   public Effector createEffector(Transform transform, Body body) {
+      ForceFeeder feeder = new ForceFeeder(this);
+      feeder.setPropulsee(body);
+      feeder.setPlacement(transform);
+      return feeder;
+   }
 
    public ForceFeederData() {
       this.anchor = new Transform();
