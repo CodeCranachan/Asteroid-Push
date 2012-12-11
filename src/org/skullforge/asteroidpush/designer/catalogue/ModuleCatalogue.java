@@ -20,5 +20,8 @@ public class ModuleCatalogue {
    private void populate() {
       availableModules.add(SteamThrusterFactory.createData());
       availableModules.add(MetalBlockFactory.createData());
+      availableModules.add(MetalWedgeFactory.createData());
+      availableModules.add(ClockworkSpinnerFactory.createData());
+      availableModules.add(MetalSpikeFactory.createData());
    }
 }

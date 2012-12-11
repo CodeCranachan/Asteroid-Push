@@ -18,7 +18,7 @@ public class Simulator {
       entityList = new ArrayList<Entity>();
       commandList = new LinkedList<SimulatorCommand>();
       currentFrameNumber = 0;
-      world = new World(new Vec2(0.0f, 9.81f), true);
+      world = new World(new Vec2(0.0f, -9.81f), true);
    }
 
    public void addEntity(Entity entity) {

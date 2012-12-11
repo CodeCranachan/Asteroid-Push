@@ -2,7 +2,10 @@ package org.skullforge.asteroidpush;
 
 import org.jbox2d.common.Vec2;
 import org.skullforge.asteroidpush.designer.Blueprint;
+import org.skullforge.asteroidpush.designer.catalogue.ClockworkSpinnerFactory;
 import org.skullforge.asteroidpush.designer.catalogue.MetalBlockFactory;
+import org.skullforge.asteroidpush.designer.catalogue.MetalSpikeFactory;
+import org.skullforge.asteroidpush.designer.catalogue.MetalWedgeFactory;
 import org.skullforge.asteroidpush.designer.catalogue.SteamThrusterFactory;
 import org.skullforge.asteroidpush.designer.data.ModuleData;
 import org.skullforge.asteroidpush.designer.grid.Facing;
@@ -19,7 +22,10 @@ public class Player implements PositionTracker {
       this.controller = new SignalController();
 
       ModuleData thruster = SteamThrusterFactory.createData();
+      ModuleData rotator = ClockworkSpinnerFactory.createData();
       ModuleData block = MetalBlockFactory.createData();
+      ModuleData wedge = MetalWedgeFactory.createData();
+      ModuleData spike = MetalSpikeFactory.createData();
 
       shipDesign.addModule(new Placement(0, 0, Facing.FORWARD), thruster);
       shipDesign.addModule(new Placement(0, 2, Facing.FORWARD), thruster);
@@ -29,9 +35,12 @@ public class Player implements PositionTracker {
       shipDesign.addModule(new Placement(1, 2, Facing.FORWARD), block);
       shipDesign.addModule(new Placement(1, 3, Facing.FORWARD), block);
       shipDesign.addModule(new Placement(1, 4, Facing.FORWARD), block);
+      shipDesign.addModule(new Placement(2, 0, Facing.RIGHT), wedge);
       shipDesign.addModule(new Placement(2, 1, Facing.FORWARD), block);
-      shipDesign.addModule(new Placement(2, 2, Facing.FORWARD), block);
+      shipDesign.addModule(new Placement(2, 2, Facing.FORWARD), rotator);
       shipDesign.addModule(new Placement(2, 3, Facing.FORWARD), block);
+      shipDesign.addModule(new Placement(2, 4, Facing.FORWARD), wedge);
+      shipDesign.addModule(new Placement(3, 2, Facing.FORWARD), spike);
    }
 
    @Override
