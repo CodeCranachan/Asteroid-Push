@@ -3,14 +3,14 @@ package org.skullforge.asteroidpush.entities;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
-import org.skullforge.asteroidpush.entities.spaceship.GlueMapTest;
+import org.skullforge.asteroidpush.entities.spaceship.SpaceshipTestSuite;
 
 @RunWith(Suite.class)
 @SuiteClasses({
+      SpaceshipTestSuite.class,
       AsteroidFactoryTest.class,
-      GlueMapTest.class,
       PlayingFieldBorderFactoryTest.class
 })
-public class DoodadsTestSuite {
+public class EntitiesTestSuite {
 
 }

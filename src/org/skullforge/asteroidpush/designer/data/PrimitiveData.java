@@ -14,16 +14,7 @@ public class PrimitiveData {
       def.density = material.density;
       def.friction = material.friction;
       def.restitution = material.restitution;
-
-      Vec2 vertices[] = new Vec2[shape.length];
-      for (int i = 0; i < shape.length; ++i) {
-         vertices[i] = shape[i].mul(size);
-         vertices[i] = Transform.mul(transform, vertices[i]);
-      }
-
-      PolygonShape polygon = new PolygonShape();
-      polygon.set(vertices, vertices.length);
-      def.shape = polygon;
+      def.shape = getShape(transform, size);
       return def;
    }
 
@@ -33,5 +24,16 @@ public class PrimitiveData {
 
    public void setShape(Vec2[] shape) {
       this.shape = shape;
+   }
+
+   public PolygonShape getShape(Transform transform, float size) {
+      Vec2 vertices[] = new Vec2[shape.length];
+      for (int i = 0; i < shape.length; ++i) {
+         vertices[i] = shape[i].mul(size);
+         vertices[i] = Transform.mul(transform, vertices[i]);
+      }
+      PolygonShape polygon = new PolygonShape();
+      polygon.set(vertices, shape.length);
+      return polygon;
    }
 }

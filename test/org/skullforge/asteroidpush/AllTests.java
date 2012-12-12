@@ -4,16 +4,17 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 import org.skullforge.asteroidpush.designer.DesignerTestSuite;
-import org.skullforge.asteroidpush.entities.DoodadsTestSuite;
+import org.skullforge.asteroidpush.entities.EntitiesTestSuite;
 import org.skullforge.asteroidpush.ui.UiTestSuite;
 import org.skullforge.asteroidpush.utils.UtilsTestSuite;
 
 @RunWith(Suite.class)
 @SuiteClasses({
       DesignerTestSuite.class,
-      DoodadsTestSuite.class,
+      EntitiesTestSuite.class,
       UiTestSuite.class,
       UtilsTestSuite.class,
+
       AsteroidPushTest.class,
       DesignerGameStateTest.class,
       GameStateFactoryTest.class,
