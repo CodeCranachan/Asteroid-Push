@@ -6,7 +6,7 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({
-   GridVectorTest.class
+      GridVectorTest.class, GridTest.class
 })
 public class GridTestSuite {
 

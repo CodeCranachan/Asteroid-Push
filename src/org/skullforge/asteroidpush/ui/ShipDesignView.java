@@ -12,7 +12,6 @@ import org.skullforge.asteroidpush.designer.grid.Placement;
 
 public class ShipDesignView implements Widget {
    final private Font font;
-   final private int gridSize = 5;
    final private Blueprint shipDesign;
 
    public ShipDesignView(Blueprint shipDesign, Font font) {
@@ -25,14 +24,26 @@ public class ShipDesignView implements Widget {
       float totalSideLength = Math.min(parentFrame.getWidth(),
                                        parentFrame.getHeight());
 
-      float frameW = totalSideLength / gridSize;
-      float frameH = totalSideLength / gridSize;
-      float frameX = (parentFrame.getWidth() - totalSideLength) / 2.0f
-            + coordinate.getX() * (totalSideLength / 5.0f);
-      float frameY = (parentFrame.getHeight() - totalSideLength) / 2.0f
-            + coordinate.getY() * (totalSideLength / 5.0f);
+      float frameW = totalSideLength / getGridSize();
+      float frameH = totalSideLength / getGridSize();
 
-      return new Rectangle(frameX, frameY, frameW, frameH);
+      float gridX = coordinate.getX() * (totalSideLength / getGridSize());
+      float gridY = coordinate.getY() * (totalSideLength / getGridSize());
+
+      float frameX = (parentFrame.getWidth() - totalSideLength) / 2.0f;
+      float frameY = (parentFrame.getHeight() - totalSideLength) / 2.0f;
+
+      return new Rectangle(frameX + gridX, frameY + gridY, frameW, frameH);
+   }
+
+   private int getGridSize() {
+      GridVector min = shipDesign.getMin();
+      GridVector max = shipDesign.getMax();
+
+      int gridSize = Math.max(max.getX() - min.getX(), max.getY() - min.getY());
+      gridSize += 3;
+
+      return gridSize;
    }
 
    @Override

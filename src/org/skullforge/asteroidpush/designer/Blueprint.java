@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import org.skullforge.asteroidpush.designer.data.ModuleData;
 import org.skullforge.asteroidpush.designer.grid.Grid;
+import org.skullforge.asteroidpush.designer.grid.GridVector;
 import org.skullforge.asteroidpush.designer.grid.Placement;
 
 public class Blueprint {
@@ -27,6 +28,14 @@ public class Blueprint {
       } else {
          return true;
       }
+   }
+
+   public GridVector getMin() {
+      return grid.min();
+   }
+
+   public GridVector getMax() {
+      return grid.max();
    }
 
    public Collection<ModuleToken> getTokens() {
