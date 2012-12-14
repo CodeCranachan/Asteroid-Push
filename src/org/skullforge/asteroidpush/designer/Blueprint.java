@@ -31,11 +31,11 @@ public class Blueprint {
    }
 
    public GridVector getMin() {
-      return grid.min();
+      return grid.getMin();
    }
 
    public GridVector getMax() {
-      return grid.max();
+      return grid.getMax();
    }
 
    public Collection<ModuleToken> getTokens() {

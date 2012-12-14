@@ -14,8 +14,7 @@ public class DesignerUiFactory {
    }
 
    public Widget createUi() {
-      Widget ui = new ShipDesignView(localPlayer.getShipDesign(),
-            loader.loadFont("Alfphabet-IV.ttf", 10));
+      Widget ui = new ShipDesignView(localPlayer.getShipDesign());
       return ui;
    }
 

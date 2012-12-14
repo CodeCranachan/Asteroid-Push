@@ -3,6 +3,7 @@ package org.skullforge.asteroidpush.entities.spaceship;
 import java.util.Collection;
 import java.util.LinkedList;
 
+import org.jbox2d.common.MathUtils;
 import org.jbox2d.common.Transform;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
@@ -69,7 +70,7 @@ public class SpaceshipFactory implements EntityFactory {
       BodyDef def = new BodyDef();
       def.type = BodyType.DYNAMIC;
       def.position.set(position);
-      def.angle = 0.0f;
+      def.angle = MathUtils.HALF_PI;
       def.linearDamping = 0.05f;
       def.angularDamping = 0.25f;
       def.fixedRotation = false;

@@ -22,8 +22,21 @@ public class PrimitiveData {
       this.material = material;
    }
 
-   public void setShape(Vec2[] shape) {
+   public void setVertices(Vec2[] shape) {
       this.shape = shape;
+   }
+
+   public Vec2[] getVertices() {
+      return this.shape;
+   }
+
+   public float[] getPointArray() {
+      float points[] = new float[shape.length * 2];
+      for (int i = 0; i < shape.length; ++i) {
+         points[i * 2] = shape[i].x;
+         points[i * 2 + 1] = shape[i].y;
+      }
+      return points;
    }
 
    public PolygonShape getShape(Transform transform, float size) {
@@ -36,4 +49,5 @@ public class PrimitiveData {
       polygon.set(vertices, shape.length);
       return polygon;
    }
+
 }

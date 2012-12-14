@@ -22,7 +22,7 @@ public class MetalSpikeFactory {
             new Vec2(-0.5f, -0.5f),
             new Vec2(0.5f, 0.0f)
       };
-      block.setShape(shape);
+      block.setVertices(shape);
       component.addPrimitive(block);
 
       component.addWeldDirection(GridVector.BACK);

@@ -26,7 +26,7 @@ public class SteamThrusterFactory {
             new Vec2(0.25f, 0.25f),
             new Vec2(0.0f, 0.25f)
       };
-      nozzle.setShape(shape);
+      nozzle.setVertices(shape);
       component.addPrimitive(nozzle);
 
       ForceFeederData thruster = new ForceFeederData();

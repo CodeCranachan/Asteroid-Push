@@ -19,7 +19,7 @@ public class Grid<Type> {
       return layout.values();
    }
 
-   public GridVector max() {
+   public GridVector getMax() {
       if (layout.isEmpty()) {
          return new GridVector();
       }
@@ -36,7 +36,7 @@ public class Grid<Type> {
       return max;
    }
 
-   public GridVector min() {
+   public GridVector getMin() {
       if (layout.isEmpty()) {
          return new GridVector();
       }

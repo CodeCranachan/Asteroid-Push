@@ -17,7 +17,7 @@ public class PrimitiveDataTest {
       Vec2 testShape[] = {
             new Vec2(-0.5f, 0.0f), new Vec2(0.5f, 0.0f), new Vec2(0.0f, 0.5f)
       };
-      testPrimitive.setShape(testShape);
+      testPrimitive.setVertices(testShape);
 
       Transform testTransform = new Transform();
       testTransform.set(new Vec2(), 0.0f);

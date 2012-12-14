@@ -34,6 +34,8 @@ public class TrackingCamera implements Widget, Renderer {
    public void render(Graphics g, Rectangle frame) {
       this.graphics = g;
       g.pushTransform();
+      g.setAntiAlias(true);
+      g.setLineWidth(1.5f);
 
       Vec2 centeringVector = new Vec2(frame.getWidth() / 2.0f,
             frame.getHeight() / 2.0f);

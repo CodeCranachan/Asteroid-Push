@@ -1,6 +1,10 @@
 package org.skullforge.asteroidpush.designer.data;
 
 import java.util.ArrayList;
+import java.util.Collection;
+
+import org.newdawn.slick.geom.Polygon;
+import org.newdawn.slick.geom.Shape;
 
 public class ModuleData {
    private ArrayList<ComponentData> components;
@@ -15,11 +19,25 @@ public class ModuleData {
       this.components.add(data);
    }
 
-   public ArrayList<ComponentData> getComponents() {
+   public Collection<ComponentData> getComponents() {
       return components;
    }
 
    public String getName() {
       return name;
+   }
+
+   public Collection<Shape> getOutline() {
+      Collection<Shape> outline = new ArrayList<Shape>();
+
+      for (ComponentData componentData : components) {
+         for (PrimitiveData primitive : componentData.getPrimitives()) {
+            float points[] = primitive.getPointArray();
+            Polygon poly = new Polygon(points);
+            outline.add(poly);
+         }
+      }
+
+      return outline;
    }
 }

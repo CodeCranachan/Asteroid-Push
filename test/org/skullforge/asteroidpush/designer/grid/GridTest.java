@@ -48,6 +48,9 @@ public class GridTest {
    public void testBoundaryDetection() {
       Grid<Integer> testGrid = new Grid<Integer>();
 
+      assertThat(testGrid.getMin(), equalTo(new GridVector()));
+      assertThat(testGrid.getMax(), equalTo(new GridVector()));
+
       GridVector firstPos = new GridVector(2, -2);
       Integer firstValue = 1;
       GridVector secondPos = new GridVector(-2, 2);
@@ -59,8 +62,8 @@ public class GridTest {
       GridVector expectedMin = new GridVector(-2, -2);
       GridVector expectedMax = new GridVector(2, 2);
 
-      assertThat(testGrid.min(), equalTo(expectedMin));
-      assertThat(testGrid.max(), equalTo(expectedMax));
+      assertThat(testGrid.getMin(), equalTo(expectedMin));
+      assertThat(testGrid.getMax(), equalTo(expectedMax));
    }
 
 }

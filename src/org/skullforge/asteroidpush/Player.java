@@ -1,5 +1,8 @@
 package org.skullforge.asteroidpush;
 
+import java.util.Date;
+import java.util.Random;
+
 import org.jbox2d.common.Vec2;
 import org.skullforge.asteroidpush.designer.Blueprint;
 import org.skullforge.asteroidpush.designer.catalogue.ClockworkSpinnerFactory;
@@ -15,12 +18,22 @@ import org.skullforge.asteroidpush.ui.PositionTracker;
 
 public class Player implements PositionTracker {
 
+   static Random random = new Random(new Date().getTime());
+
    public Player() {
       this.controlDescription = new StringBuffer("No Control");
       this.currentShip = null;
       this.shipDesign = new Blueprint();
       this.controller = new SignalController();
 
+      if (random.nextBoolean()) {
+         loadDesignOne();
+      } else {
+         loadDesignTwo();
+      }
+   }
+
+   private void loadDesignOne() {
       ModuleData thruster = SteamThrusterFactory.createData();
       ModuleData rotator = ClockworkSpinnerFactory.createData();
       ModuleData block = MetalBlockFactory.createData();
@@ -41,6 +54,26 @@ public class Player implements PositionTracker {
       shipDesign.addModule(new Placement(2, 3, Facing.FORWARD), block);
       shipDesign.addModule(new Placement(2, 4, Facing.FORWARD), wedge);
       shipDesign.addModule(new Placement(3, 2, Facing.FORWARD), spike);
+   }
+
+   private void loadDesignTwo() {
+      ModuleData thruster = SteamThrusterFactory.createData();
+      ModuleData rotator = ClockworkSpinnerFactory.createData();
+      ModuleData block = MetalBlockFactory.createData();
+      ModuleData wedge = MetalWedgeFactory.createData();
+      ModuleData spike = MetalSpikeFactory.createData();
+
+      shipDesign.addModule(new Placement(0, 1, Facing.FORWARD), thruster);
+      shipDesign.addModule(new Placement(0, 0, Facing.FORWARD), thruster);
+      shipDesign.addModule(new Placement(0, -1, Facing.FORWARD), thruster);
+      shipDesign.addModule(new Placement(1, 1, Facing.FORWARD), wedge);
+      shipDesign.addModule(new Placement(1, 0, Facing.FORWARD), block);
+      shipDesign.addModule(new Placement(1, -1, Facing.RIGHT), wedge);
+      shipDesign.addModule(new Placement(2, 0, Facing.FORWARD), rotator);
+      shipDesign.addModule(new Placement(3, 1, Facing.LEFT), spike);
+      shipDesign.addModule(new Placement(3, 0, Facing.FORWARD), block);
+      shipDesign.addModule(new Placement(3, -1, Facing.RIGHT), spike);
+      shipDesign.addModule(new Placement(4, 0, Facing.FORWARD), spike);
    }
 
    @Override
