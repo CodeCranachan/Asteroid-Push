@@ -2,11 +2,13 @@ package org.skullforge.asteroidpush.ui;
 
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.Vector2f;
 
-public class DesignerLayout implements Widget {
+public class DesignerLayout extends BasicWidget {
 
    Widget catalogue;
    Widget blueprint;
+   final float blueprintRatio = 0.75f;
 
    public DesignerLayout() {
       this.catalogue = null;
@@ -23,20 +25,42 @@ public class DesignerLayout implements Widget {
 
    @Override
    public void render(Graphics g, Rectangle frame) {
-      float ratio = 0.75f;
+      Vector2f hoverPosition = getHover();
 
-      Rectangle blueprintFrame = new Rectangle(frame.getX(), frame.getY(),
-            frame.getWidth() * ratio, frame.getHeight());
       if (blueprint != null) {
-
+         Rectangle blueprintFrame = getBlueprintFrame(frame);
+         if (hoverPosition != null
+               && blueprintFrame.contains(hoverPosition.x, hoverPosition.y)) {
+            blueprint.setHover(hoverPosition.x - blueprintFrame.getX(),
+                               hoverPosition.y - blueprintFrame.getY());
+         } else {
+            blueprint.resetHover();
+         }
          blueprint.render(g, blueprintFrame);
       }
-      Rectangle catalogueFrame = new Rectangle(frame.getX()
-            + blueprintFrame.getWidth(), frame.getY(), frame.getWidth()
-            - blueprintFrame.getWidth(), frame.getHeight());
+
       if (catalogue != null) {
+         Rectangle catalogueFrame = getCatalogueFrame(frame);
+         if (hoverPosition != null
+               && catalogueFrame.contains(hoverPosition.x, hoverPosition.y)) {
+            catalogue.setHover(hoverPosition.x - catalogueFrame.getX(),
+                               hoverPosition.y - catalogueFrame.getY());
+         } else {
+            catalogue.resetHover();
+         }
          catalogue.render(g, catalogueFrame);
       }
+   }
+
+   private Rectangle getCatalogueFrame(Rectangle frame) {
+      return new Rectangle(frame.getX() * (1.0f - blueprintRatio),
+            frame.getY(), frame.getWidth() * (1.0f - blueprintRatio),
+            frame.getHeight());
+   }
+
+   private Rectangle getBlueprintFrame(Rectangle frame) {
+      return new Rectangle(frame.getX(), frame.getY(), frame.getWidth()
+            * blueprintRatio, frame.getHeight());
    }
 
 }

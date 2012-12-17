@@ -9,7 +9,7 @@ import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 import org.skullforge.asteroidpush.Simulator;
 
-public class TrackingCamera implements Widget, Renderer {
+public class TrackingCamera extends BasicWidget implements Renderer {
 
    public TrackingCamera(Simulator simulator) {
       this.simulator = simulator;
@@ -45,7 +45,7 @@ public class TrackingCamera implements Widget, Renderer {
 
       float canvasSize = Math.min(frame.getWidth(), frame.getHeight());
       float scale = canvasSize / tracker.getRadius();
-      g.scale(scale, - scale);
+      g.scale(scale, -scale);
 
       Vec2 trackerVector = tracker.getCenter().negate();
       g.translate(trackerVector.x, trackerVector.y);

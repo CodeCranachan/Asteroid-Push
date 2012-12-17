@@ -8,7 +8,7 @@ import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Transform;
 import org.skullforge.asteroidpush.designer.ModuleToken;
 
-public class TokenView implements Widget {
+public class TokenView extends BasicWidget {
 
    private ModuleToken token;
 

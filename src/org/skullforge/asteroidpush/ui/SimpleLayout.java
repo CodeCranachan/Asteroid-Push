@@ -7,7 +7,7 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
 
-public class SimpleLayout implements Widget {
+public class SimpleLayout extends BasicWidget {
 
    public SimpleLayout() {
       elements = new HashMap<String, SimpleLayout.LayoutElement>();

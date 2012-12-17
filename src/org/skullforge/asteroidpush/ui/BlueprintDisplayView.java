@@ -12,7 +12,7 @@ import org.skullforge.asteroidpush.designer.ModuleToken;
 import org.skullforge.asteroidpush.designer.grid.GridVector;
 import org.skullforge.asteroidpush.designer.grid.Placement;
 
-public class BlueprintDisplayView implements Widget {
+public class BlueprintDisplayView extends BasicWidget {
    final private Blueprint shipDesign;
 
    public BlueprintDisplayView(Blueprint shipDesign) {
@@ -64,8 +64,13 @@ public class BlueprintDisplayView implements Widget {
       Rectangle square = getCenteredSquare(parentFrame);
       float tileLength = square.getHeight() / getGridSize();
 
-      GridVector delta = new GridVector(-MathUtils.floor(point.x / tileLength),
-            -MathUtils.floor(point.y / tileLength));
+      if (!square.contains(point.x, point.y)) {
+         return null;
+      }
+
+      GridVector delta = new GridVector(-MathUtils.floor((point.y - square
+            .getY()) / tileLength), -MathUtils.floor((point.x - square.getX())
+            / tileLength));
 
       return delta.add(getGridOffset());
    }
@@ -101,6 +106,18 @@ public class BlueprintDisplayView implements Widget {
          Rectangle gridFrame = getFrameForCoordinate(currentPlacement.getCoordinate(),
                                                      frame);
          tokenWidget.render(g, gridFrame);
+      }
+
+      Vector2f hover = getHover();
+      if (hover != null) {
+         GridVector hoveredCoordinate = getCoordinateForPoint(hover, frame);
+         if (hoveredCoordinate != null) {
+            Rectangle highlightFrame = getFrameForCoordinate(hoveredCoordinate,
+                                                             frame);
+            g.setLineWidth(3.5f);
+            g.setColor(new Color(1.0f, 1.0f, 0.0f, 0.75f));
+            g.draw(highlightFrame);
+         }
       }
    }
 }
