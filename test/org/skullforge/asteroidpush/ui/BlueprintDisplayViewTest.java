@@ -39,6 +39,10 @@ public class BlueprintDisplayViewTest {
             will(returnValue(new GridVector()));
             allowing(designMock).getTokens();
             will(returnValue(new Vector<ModuleToken>()));
+            allowing(designMock).getWidth();
+            will(returnValue(1));
+            allowing(designMock).getHeight();
+            will(returnValue(1));
          }
       });
 

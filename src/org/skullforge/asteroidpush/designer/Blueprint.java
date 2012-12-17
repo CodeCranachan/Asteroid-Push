@@ -29,7 +29,7 @@ public class Blueprint {
          return true;
       }
    }
-   
+
    public void clear() {
       grid.clear();
    }
@@ -40,6 +40,14 @@ public class Blueprint {
 
    public GridVector getMax() {
       return grid.getMax();
+   }
+
+   public int getWidth() {
+      return getMax().getX() - getMin().getX() + 1;
+   }
+
+   public int getHeight() {
+      return getMax().getY() - getMin().getY() + 1;
    }
 
    public Collection<ModuleToken> getTokens() {

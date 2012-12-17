@@ -1,5 +1,6 @@
 package org.skullforge.asteroidpush.ui;
 
+import org.jbox2d.common.MathUtils;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
@@ -26,7 +27,7 @@ public class TokenView implements Widget {
                .createScaleTransform(frame.getWidth() * 0.8f,
                                      -frame.getHeight() * 0.8f);
          Transform rotation = Transform.createRotateTransform(token
-               .getRotation());
+               .getRotation() + MathUtils.HALF_PI);
          shape = shape.transform(rotation);
          shape = shape.transform(scale);
          shape = shape.transform(translation);
