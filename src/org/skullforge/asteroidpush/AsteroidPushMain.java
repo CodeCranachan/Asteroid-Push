@@ -11,6 +11,7 @@ public class AsteroidPushMain {
     ResourceLoader resourceLoader = new ResourceLoader();
     AsteroidPush game = new AsteroidPush(stateFactory, resourceLoader);
     AppGameContainer app = new AppGameContainer(game);
+    app.setResizable(true);
     app.start();
   }
 }

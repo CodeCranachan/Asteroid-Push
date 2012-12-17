@@ -14,7 +14,8 @@ public class DesignerUiFactory {
    }
 
    public Widget createUi() {
-      Widget ui = new ShipDesignView(localPlayer.getShipDesign());
+      DesignerLayout ui = new DesignerLayout();
+      ui.setBlueprintWidget(new BlueprintDisplayView(localPlayer.getShipDesign()));
       return ui;
    }
 

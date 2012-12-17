@@ -5,17 +5,15 @@ import java.util.Collection;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
-import org.newdawn.slick.geom.Shape;
-import org.newdawn.slick.geom.Transform;
 import org.skullforge.asteroidpush.designer.Blueprint;
 import org.skullforge.asteroidpush.designer.ModuleToken;
 import org.skullforge.asteroidpush.designer.grid.GridVector;
 import org.skullforge.asteroidpush.designer.grid.Placement;
 
-public class ShipDesignView implements Widget {
+public class BlueprintDisplayView implements Widget {
    final private Blueprint shipDesign;
 
-   public ShipDesignView(Blueprint shipDesign) {
+   public BlueprintDisplayView(Blueprint shipDesign) {
       this.shipDesign = shipDesign;
    }
 
@@ -82,25 +80,14 @@ public class ShipDesignView implements Widget {
          g.drawLine(printSquare.getMinX(), y, printSquare.getMaxX(), y);
       }
 
+      TokenView tokenWidget = new TokenView();
       for (ModuleToken m : modules) {
+         tokenWidget.setToken(m);
+
          Placement currentPlacement = m.getPlacement();
          Rectangle gridFrame = getFrameForCoordinate(currentPlacement.getCoordinate(),
                                                      frame);
-
-         g.setLineWidth(1.5f);
-         g.setColor(Color.white);
-         for (Shape shape : m.getData().getOutline()) {
-            Transform translation = Transform
-                  .createTranslateTransform(gridFrame.getCenterX(),
-                                            gridFrame.getCenterY());
-            Transform scale = Transform.createScaleTransform(gridFrame
-                  .getWidth() * 0.8f, - gridFrame.getHeight() * 0.8f);
-            Transform rotation = Transform.createRotateTransform(m.getPlacement().getRotation().getRadians());
-            shape = shape.transform(rotation);
-            shape = shape.transform(scale);
-            shape = shape.transform(translation);
-            g.draw(shape);
-         }
+         tokenWidget.render(g, gridFrame);
       }
    }
 }

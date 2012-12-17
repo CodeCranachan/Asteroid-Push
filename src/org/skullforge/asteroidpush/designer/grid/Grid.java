@@ -52,6 +52,10 @@ public class Grid<Type> {
       }
       return min;
    }
+   
+   public void clear() {
+      layout.clear();
+   }
 
    public void put(GridVector location, Type module) {
       layout.put(location, module);

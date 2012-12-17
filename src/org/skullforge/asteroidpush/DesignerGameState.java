@@ -53,8 +53,13 @@ public class DesignerGameState extends BasicGameState {
 
    @Override
    public void keyPressed(int key, char c) {
-      if (Input.KEY_SPACE == key) {
+      switch (key) {
+      case Input.KEY_SPACE:
          game.enterState(StateInfo.MATCH.getID());
+         break;
+      case Input.KEY_UP:
+         scenario.getLocalPlayer().cycleShipDesign();
+         break;
       }
    }
 

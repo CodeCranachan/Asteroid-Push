@@ -13,9 +13,9 @@ import org.skullforge.asteroidpush.designer.ModuleToken;
 import org.skullforge.asteroidpush.designer.grid.GridVector;
 import org.skullforge.asteroidpush.testutils.ClassMockery;
 
-public class ShipDesignViewTest {
+public class BlueprintDisplayViewTest {
    ClassMockery context;
-   ShipDesignView testDesignView;
+   BlueprintDisplayView testDesignView;
    Blueprint designMock;
    Graphics graphicsMock;
 
@@ -24,7 +24,7 @@ public class ShipDesignViewTest {
       context = new ClassMockery();
       designMock = context.mock(Blueprint.class);
       graphicsMock = context.mock(Graphics.class);
-      testDesignView = new ShipDesignView(designMock);
+      testDesignView = new BlueprintDisplayView(designMock);
    }
 
    @Test

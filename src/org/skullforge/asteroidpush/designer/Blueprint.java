@@ -29,6 +29,10 @@ public class Blueprint {
          return true;
       }
    }
+   
+   public void clear() {
+      grid.clear();
+   }
 
    public GridVector getMin() {
       return grid.getMin();
