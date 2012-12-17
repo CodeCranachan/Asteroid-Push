@@ -2,6 +2,7 @@ package org.skullforge.asteroidpush.ui;
 
 import java.util.Collection;
 
+import org.jbox2d.common.MathUtils;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
@@ -34,11 +35,8 @@ public class BlueprintDisplayView implements Widget {
 
    public Rectangle getFrameForCoordinate(GridVector coordinate,
                                           Rectangle parentFrame) {
-
       Rectangle square = getCenteredSquare(parentFrame);
-
       float tileLength = square.getHeight() / getGridSize();
-
       GridVector relativePosition = coordinate.sub(getGridOffset());
 
       float gridX = -relativePosition.getY() * tileLength;
@@ -56,16 +54,20 @@ public class BlueprintDisplayView implements Widget {
 
    private GridVector getGridOffset() {
       int gridSize = getGridSize();
-      GridVector delta = new GridVector(
-            (gridSize - shipDesign.getWidth()) / 2,
+      GridVector delta = new GridVector((gridSize - shipDesign.getWidth()) / 2,
             (gridSize - shipDesign.getHeight()) / 2);
       GridVector max = shipDesign.getMax();
       return max.add(delta);
    }
 
-   public GridVector getCoordinateForPoint(Vector2f point) {
-      GridVector coordinate = new GridVector();
-      return coordinate;
+   public GridVector getCoordinateForPoint(Vector2f point, Rectangle parentFrame) {
+      Rectangle square = getCenteredSquare(parentFrame);
+      float tileLength = square.getHeight() / getGridSize();
+
+      GridVector delta = new GridVector(-MathUtils.floor(point.x / tileLength),
+            -MathUtils.floor(point.y / tileLength));
+
+      return delta.add(getGridOffset());
    }
 
    @Override
