@@ -2,15 +2,17 @@ package org.skullforge.asteroidpush.ui;
 
 import java.util.Collection;
 
+import org.jbox2d.common.MathUtils;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.Vector2f;
 import org.skullforge.asteroidpush.designer.Blueprint;
 import org.skullforge.asteroidpush.designer.ModuleToken;
 import org.skullforge.asteroidpush.designer.grid.GridVector;
 import org.skullforge.asteroidpush.designer.grid.Placement;
 
-public class BlueprintDisplayView implements Widget {
+public class BlueprintDisplayView extends BasicWidget {
    final private Blueprint shipDesign;
 
    public BlueprintDisplayView(Blueprint shipDesign) {
@@ -33,28 +35,44 @@ public class BlueprintDisplayView implements Widget {
 
    public Rectangle getFrameForCoordinate(GridVector coordinate,
                                           Rectangle parentFrame) {
-
       Rectangle square = getCenteredSquare(parentFrame);
-
       float tileLength = square.getHeight() / getGridSize();
+      GridVector relativePosition = coordinate.sub(getGridOffset());
 
-      float gridX = (coordinate.getX() - (shipDesign.getMin().getX() - 1))
-            * tileLength;
-      float gridY = ((shipDesign.getMax().getY() + 1) - coordinate.getY())
-            * tileLength;
+      float gridX = -relativePosition.getY() * tileLength;
+      float gridY = -relativePosition.getX() * tileLength;
 
       return new Rectangle(square.getX() + gridX, square.getY() + gridY,
             tileLength, tileLength);
    }
 
    private int getGridSize() {
-      GridVector min = shipDesign.getMin();
-      GridVector max = shipDesign.getMax();
-
-      int gridSize = Math.max(max.getX() - min.getX(), max.getY() - min.getY());
-      gridSize += 3;
-
+      int gridSize = Math.max(shipDesign.getWidth(), shipDesign.getHeight());
+      gridSize += 2;
       return gridSize;
+   }
+
+   private GridVector getGridOffset() {
+      int gridSize = getGridSize();
+      GridVector delta = new GridVector((gridSize - shipDesign.getWidth()) / 2,
+            (gridSize - shipDesign.getHeight()) / 2);
+      GridVector max = shipDesign.getMax();
+      return max.add(delta);
+   }
+
+   public GridVector getCoordinateForPoint(Vector2f point, Rectangle parentFrame) {
+      Rectangle square = getCenteredSquare(parentFrame);
+      float tileLength = square.getHeight() / getGridSize();
+
+      if (!square.contains(point.x, point.y)) {
+         return null;
+      }
+
+      GridVector delta = new GridVector(-MathUtils.floor((point.y - square
+            .getY()) / tileLength), -MathUtils.floor((point.x - square.getX())
+            / tileLength));
+
+      return delta.add(getGridOffset());
    }
 
    @Override
@@ -88,6 +106,18 @@ public class BlueprintDisplayView implements Widget {
          Rectangle gridFrame = getFrameForCoordinate(currentPlacement.getCoordinate(),
                                                      frame);
          tokenWidget.render(g, gridFrame);
+      }
+
+      Vector2f hover = getHover();
+      if (hover != null) {
+         GridVector hoveredCoordinate = getCoordinateForPoint(hover, frame);
+         if (hoveredCoordinate != null) {
+            Rectangle highlightFrame = getFrameForCoordinate(hoveredCoordinate,
+                                                             frame);
+            g.setLineWidth(3.5f);
+            g.setColor(new Color(1.0f, 1.0f, 0.0f, 0.75f));
+            g.draw(highlightFrame);
+         }
       }
    }
 }

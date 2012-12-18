@@ -5,4 +5,6 @@ import org.newdawn.slick.geom.Rectangle;
 
 public interface Widget {
    void render(Graphics g, Rectangle frame);
+   void setHover(float x, float y);
+   void resetHover();
 }

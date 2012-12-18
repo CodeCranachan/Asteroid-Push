@@ -28,6 +28,10 @@ public class GridVector {
       return new GridVector(this.x + other.x, this.y + other.y);
    }
 
+   public GridVector sub(GridVector other) {
+      return new GridVector(this.x - other.x, this.y - other.y);
+   }
+
    public boolean equals(Object obj) {
       if (obj == null) {
          return false;

@@ -63,6 +63,11 @@ public class DesignerGameState extends BasicGameState {
       }
    }
 
+   @Override
+   public void mouseMoved(int oldx, int oldy, int newx, int newy) {
+      ui.setHover(newx, newy);
+   }
+
    private Scenario scenario;
    private DesignerUiFactory uiFactory;
    private Widget ui;

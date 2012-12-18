@@ -5,7 +5,7 @@ import org.newdawn.slick.Font;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
 
-public class Label implements Widget {
+public class Label extends BasicWidget {
 
    public Label(StringBuffer text, Font font) {
       this.text = text;

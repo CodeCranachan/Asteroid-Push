@@ -123,17 +123,15 @@ public class Player implements PositionTracker {
       shipDesign.addModule(new Placement(0, -2, Facing.FORWARD), rotator);
       shipDesign.addModule(new Placement(0, -3, Facing.RIGHT), wedge);
 
-      shipDesign.addModule(new Placement(1, 2, Facing.FORWARD), block);
+      shipDesign.addModule(new Placement(1, 2, Facing.FORWARD), wedge);
       shipDesign.addModule(new Placement(1, 1, Facing.BACKWARD), wedge);
       shipDesign.addModule(new Placement(1, 0, Facing.FORWARD), spike);
       shipDesign.addModule(new Placement(1, -1, Facing.LEFT), wedge);
-      shipDesign.addModule(new Placement(1, -2, Facing.FORWARD), block);
+      shipDesign.addModule(new Placement(1, -2, Facing.RIGHT), wedge);
 
-      shipDesign.addModule(new Placement(2, 2, Facing.FORWARD), wedge);
-      shipDesign.addModule(new Placement(2, 1, Facing.BACKWARD), block);
+      shipDesign.addModule(new Placement(2, 1, Facing.FORWARD), wedge);
       shipDesign.addModule(new Placement(2, 0, Facing.FORWARD), block);
-      shipDesign.addModule(new Placement(2, -1, Facing.LEFT), block);
-      shipDesign.addModule(new Placement(2, -2, Facing.RIGHT), wedge);
+      shipDesign.addModule(new Placement(2, -1, Facing.RIGHT), wedge);
 
       shipDesign.addModule(new Placement(3, 0, Facing.FORWARD), spike);
    }
