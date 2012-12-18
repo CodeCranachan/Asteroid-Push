@@ -53,7 +53,7 @@ public class DesignerLayout extends BasicWidget {
    }
 
    private Rectangle getCatalogueFrame(Rectangle frame) {
-      return new Rectangle(frame.getX() * (1.0f - blueprintRatio),
+      return new Rectangle(frame.getWidth() * blueprintRatio,
             frame.getY(), frame.getWidth() * (1.0f - blueprintRatio),
             frame.getHeight());
    }

@@ -36,4 +36,16 @@ public class ShipModuleList implements Widget {
 
    ModuleCatalogue moduleCatalogue;
    Font font;
+
+   @Override
+   public void setHover(float x, float y) {
+      // TODO Auto-generated method stub
+
+   }
+
+   @Override
+   public void resetHover() {
+      // TODO Auto-generated method stub
+
+   }
 }
