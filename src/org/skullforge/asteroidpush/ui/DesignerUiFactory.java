@@ -1,7 +1,9 @@
 package org.skullforge.asteroidpush.ui;
 
+import org.newdawn.slick.Font;
 import org.skullforge.asteroidpush.Player;
 import org.skullforge.asteroidpush.ResourceLoader;
+import org.skullforge.asteroidpush.designer.catalogue.ModuleCatalogue;
 
 public class DesignerUiFactory {
 
@@ -14,8 +16,11 @@ public class DesignerUiFactory {
    }
 
    public Widget createUi() {
+      Font font = loader.loadFont("Alfphabet-IV.ttf", 14);
+
       DesignerLayout ui = new DesignerLayout();
       ui.setBlueprintWidget(new BlueprintDisplayView(localPlayer.getShipDesign()));
+      ui.setCatalogueWidget(new ShipModuleList(new ModuleCatalogue(), font));
       return ui;
    }
 
