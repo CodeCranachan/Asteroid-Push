@@ -33,9 +33,8 @@ public class Player implements PositionTracker {
       ++designNumber;
       switch (designNumber) {
       default:
-         designNumber = 0;
-         // Intentional fall-through
       case 0:
+         designNumber = 0;
          loadDesignOne();
          break;
       case 1:

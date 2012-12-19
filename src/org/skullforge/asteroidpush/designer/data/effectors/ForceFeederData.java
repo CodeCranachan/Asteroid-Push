@@ -4,6 +4,7 @@ import org.jbox2d.common.Transform;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.skullforge.asteroidpush.designer.data.EffectorData;
+import org.skullforge.asteroidpush.designer.grid.Facing;
 import org.skullforge.asteroidpush.entities.spaceship.Effector;
 import org.skullforge.asteroidpush.entities.spaceship.ForceFeeder;
 
@@ -16,6 +17,7 @@ public class ForceFeederData implements EffectorData {
       ForceFeeder feeder = new ForceFeeder(this);
       feeder.setPropulsee(body);
       feeder.setPlacement(transform);
+      feeder.setFacing(Facing.fromTransform(transform));
       return feeder;
    }
 

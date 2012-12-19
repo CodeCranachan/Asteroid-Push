@@ -4,10 +4,10 @@ import org.jbox2d.common.MathUtils;
 
 public class Rotation {
 
-   public static int FORWARD = 0;
-   public static int LEFT = 1;
-   public static int BACKWARD = 2;
-   public static int RIGHT = 3;
+   public static final int FORWARD = 0;
+   public static final int LEFT = 1;
+   public static final int BACKWARD = 2;
+   public static final int RIGHT = 3;
 
    public Rotation() {
       this.quarterTurns = 0;
