@@ -8,17 +8,18 @@ public enum Facing {
 
    public static Facing fromTransform(Transform transform) {
       float angle = transform.getAngle();
-
-      if (angle < MathUtils.QUARTER_PI) {
-         return FORWARD;
-      } else if (angle < MathUtils.HALF_PI + MathUtils.QUARTER_PI) {
-         return LEFT;
-      } else if (angle < MathUtils.PI + MathUtils.QUARTER_PI) {
-         return BACKWARD;
-      } else if (angle < MathUtils.THREE_HALVES_PI + MathUtils.QUARTER_PI) {
-         return RIGHT;
+      Facing result;
+      if (angle < -3 * MathUtils.QUARTER_PI) {
+         result = BACKWARD;
+      } else if (angle < -MathUtils.QUARTER_PI) {
+         result = RIGHT;
+      } else if (angle < MathUtils.QUARTER_PI) {
+         result = FORWARD;
+      } else if (angle < 3 * MathUtils.QUARTER_PI) {
+         result = LEFT;
       } else {
-         return FORWARD;
+         result = BACKWARD;
       }
+      return result;
    }
 }
