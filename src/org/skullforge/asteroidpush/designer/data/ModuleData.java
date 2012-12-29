@@ -5,13 +5,16 @@ import java.util.Collection;
 
 import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.Shape;
+import org.skullforge.asteroidpush.designer.data.joints.JointData;
 
 public class ModuleData {
    private ArrayList<ComponentData> components;
+   private ArrayList<JointData> joints;
    private String name;
 
    public ModuleData(String name) {
       this.components = new ArrayList<ComponentData>();
+      this.joints = new ArrayList<JointData>();
       this.name = name;
    }
 
@@ -19,8 +22,16 @@ public class ModuleData {
       this.components.add(data);
    }
 
+   public void addJoint(JointData data) {
+      this.joints.add(data);
+   }
+
    public Collection<ComponentData> getComponents() {
       return components;
+   }
+
+   public Collection<JointData> getJoints() {
+      return joints;
    }
 
    public String getName() {

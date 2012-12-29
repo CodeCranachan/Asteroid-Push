@@ -1,5 +1,6 @@
 package org.skullforge.asteroidpush.entities.spaceship;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 
@@ -11,11 +12,14 @@ import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
 import org.jbox2d.dynamics.World;
+import org.jbox2d.dynamics.joints.Joint;
+import org.jbox2d.dynamics.joints.JointDef;
 import org.skullforge.asteroidpush.designer.Blueprint;
 import org.skullforge.asteroidpush.designer.ModuleToken;
 import org.skullforge.asteroidpush.designer.data.ComponentData;
 import org.skullforge.asteroidpush.designer.data.EffectorData;
 import org.skullforge.asteroidpush.designer.data.PrimitiveData;
+import org.skullforge.asteroidpush.designer.data.joints.JointData;
 import org.skullforge.asteroidpush.designer.grid.GridVector;
 import org.skullforge.asteroidpush.designer.grid.Placement;
 import org.skullforge.asteroidpush.designer.grid.Rotation;
@@ -37,18 +41,43 @@ public class SpaceshipFactory implements EntityFactory {
    public Entity createEntity(Vec2 position) {
       Spaceship ship = new Spaceship(world);
 
+      ArrayList<Link> shipLinks = new ArrayList<Link>();
+
       GlueMap glueMap = new GlueMap();
       for (ModuleToken token : design.getTokens()) {
-         for (ComponentData component : token.getData().getComponents()) {
-            glueMap.putPart(new Part(token.getPlacement(), component));
+         ArrayList<Link> links = new ArrayList<Link>();
+         for (JointData joint : token.getData().getJoints()) {
+            links.add(new Link(joint));
          }
+
+         for (ComponentData component : token.getData().getComponents()) {
+            Part part = new Part(token.getPlacement(), component);
+            for (Link link : links) {
+               link.match(part);
+            }
+            glueMap.putPart(part);
+         }
+         shipLinks.addAll(links);
       }
 
-      for (Collection<Part> partList : glueMap.getGlueGroups()) {
+      Collection<Collection<Part>> partLists = glueMap.getGlueGroups();
+
+      for (Collection<Part> partList : partLists) {
          Body body = assembleBody(partList, position);
+         for (Part part : partList) {
+            part.setBody(body);
+         }
          Collection<Effector> effectors = assembleEffectors(partList, body);
          ship.addBody(body);
          ship.addEffectors(effectors);
+      }
+
+      for (Link link : shipLinks) {
+         JointDef def = link.getJointDef(standardModuleSize);
+         if (def != null) {
+            Joint joint = world.createJoint(def);
+            ship.addJoint(joint);
+         }
       }
 
       return ship;

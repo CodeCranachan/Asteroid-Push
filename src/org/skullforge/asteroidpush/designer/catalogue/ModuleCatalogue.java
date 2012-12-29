@@ -23,5 +23,6 @@ public class ModuleCatalogue {
       availableModules.add(MetalWedgeFactory.createData());
       availableModules.add(ClockworkSpinnerFactory.createData());
       availableModules.add(MetalSpikeFactory.createData());
+      availableModules.add(DamperFactory.createData());
    }
 }

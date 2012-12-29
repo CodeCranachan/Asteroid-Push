@@ -1,5 +1,8 @@
 package org.skullforge.asteroidpush.designer.grid;
 
+import org.jbox2d.common.Transform;
+import org.jbox2d.common.Vec2;
+
 public class Placement {
    public Placement() {
       coordinate = new GridVector();
@@ -30,6 +33,12 @@ public class Placement {
 
    public void setRotation(Rotation rotation) {
       this.rotation = new Rotation(rotation);
+   }
+   
+   public Transform getTransform() {
+      Transform transform = new Transform();
+      transform.set(new Vec2(coordinate.getX(), coordinate.getY()), rotation.getRadians());
+      return transform;
    }
 
    private GridVector coordinate;

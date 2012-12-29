@@ -31,6 +31,13 @@ public class TrackingCamera extends BasicWidget implements Renderer {
    }
 
    @Override
+   public void drawLine(Vec2 start, Vec2 end) {
+      graphics.setColor(Color.pink);
+      graphics.setLineWidth(1.5f);
+      graphics.drawLine(start.x, start.y, end.x, end.y);
+   }
+
+   @Override
    public void render(Graphics g) {
       Rectangle frame = getFrame();
       this.graphics = g;

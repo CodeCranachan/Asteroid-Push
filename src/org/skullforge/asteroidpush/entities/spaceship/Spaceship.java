@@ -6,6 +6,7 @@ import java.util.Collection;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.World;
+import org.jbox2d.dynamics.joints.Joint;
 import org.skullforge.asteroidpush.Player;
 import org.skullforge.asteroidpush.entities.Entity;
 import org.skullforge.asteroidpush.ui.Renderer;
@@ -15,14 +16,20 @@ public class Spaceship implements Entity {
 
    ArrayList<Effector> effectors;
    ArrayList<Body> bodies;
+   ArrayList<Joint> joints;
    World world;
    Player owner;
 
    public Spaceship(World world) {
       this.bodies = new ArrayList<Body>();
       this.effectors = new ArrayList<Effector>();
+      this.joints = new ArrayList<Joint>();
       this.world = world;
       this.owner = null;
+   }
+
+   public void addJoint(Joint joint) {
+      joints.add(joint);
    }
 
    public void addBody(Body body) {
@@ -35,11 +42,15 @@ public class Spaceship implements Entity {
 
    @Override
    public void destroy() {
+      for (Joint joint : joints) {
+         world.destroyJoint(joint);
+      }
       for (Body body : bodies) {
          world.destroyBody(body);
       }
       bodies.clear();
       effectors.clear();
+      joints.clear();
       world = null;
    }
 
@@ -47,6 +58,13 @@ public class Spaceship implements Entity {
    public void render(Renderer renderer) {
       for (Body body : bodies) {
          renderer.drawOutline(GeometryConverter.extractOutline(body));
+      }
+      for (Joint joint : joints) {
+         Vec2 start = new Vec2();
+         Vec2 end = new Vec2();
+         joint.getAnchorA(start);
+         joint.getAnchorB(end);
+         renderer.drawLine(start, end);
       }
    }
 
