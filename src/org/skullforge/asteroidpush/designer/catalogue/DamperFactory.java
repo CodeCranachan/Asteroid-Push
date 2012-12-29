@@ -7,6 +7,7 @@ import org.skullforge.asteroidpush.designer.data.Material;
 import org.skullforge.asteroidpush.designer.data.ModuleData;
 import org.skullforge.asteroidpush.designer.data.PrimitiveData;
 import org.skullforge.asteroidpush.designer.data.joints.DistanceJointData;
+import org.skullforge.asteroidpush.designer.data.joints.PrismaticJointData;
 import org.skullforge.asteroidpush.designer.grid.GridVector;
 
 public class DamperFactory {
@@ -44,21 +45,28 @@ public class DamperFactory {
       back.addPrimitive(backBlock);
       back.addWeldDirection(GridVector.BACK);
 
-      DistanceJointData joint = new DistanceJointData();
       JointAnchorData firstAnchor = new JointAnchorData();
       firstAnchor.component = back;
       firstAnchor.anchor = new Vec2(-0.45f, 0.0f);
-      joint.setFirst(firstAnchor);
       JointAnchorData secondAnchor = new JointAnchorData();
       secondAnchor.component = front;
       secondAnchor.anchor = new Vec2(0.45f, 0.0f);
-      joint.setSecond(secondAnchor);
-      joint.setCollideConnected(true);
-      joint.setDampingRatio(0.2f);
-      joint.setFrequency(5.0f);
-      joint.setLength(0.9f);
-      data.addJoint(joint);
 
+      PrismaticJointData rotationConstraint = new PrismaticJointData();
+      rotationConstraint.setFirst(firstAnchor);
+      rotationConstraint.setSecond(secondAnchor);
+      rotationConstraint.setCollideConnected(true);
+      data.addJoint(rotationConstraint);
+      
+      DistanceJointData distanceConstraint = new DistanceJointData();
+      distanceConstraint.setFirst(firstAnchor);
+      distanceConstraint.setSecond(secondAnchor);
+      distanceConstraint.setCollideConnected(true);
+      distanceConstraint.setDampingRatio(0.2f);
+      distanceConstraint.setFrequency(5.0f);
+      distanceConstraint.setLength(0.9f);
+      data.addJoint(distanceConstraint);
+      
       return data;
    }
 }
