@@ -76,10 +76,14 @@ public class BlueprintDisplayView extends BasicWidget {
    }
 
    @Override
-   public void render(Graphics g, Rectangle frame) {
+   public void render(Graphics g) {
+      if (getFrame() == null) {
+         return;
+      }
+      
       Collection<ModuleToken> modules = shipDesign.getTokens();
 
-      Rectangle printSquare = getCenteredSquare(frame);
+      Rectangle printSquare = getCenteredSquare(getFrame());
       g.setAntiAlias(true);
       g.setColor(Color.blue);
       g.fill(printSquare);
@@ -87,7 +91,7 @@ public class BlueprintDisplayView extends BasicWidget {
       g.setLineWidth(3.0f);
       g.draw(printSquare);
 
-      Rectangle reference = getFrameForCoordinate(new GridVector(), frame);
+      Rectangle reference = getFrameForCoordinate(new GridVector(), getFrame());
       float lit = reference.getWidth();
       g.setLineWidth(1.5f);
       g.setColor(new Color(1.0f, 1.0f, 1.0f, 0.25f));
@@ -104,16 +108,17 @@ public class BlueprintDisplayView extends BasicWidget {
 
          Placement currentPlacement = m.getPlacement();
          Rectangle gridFrame = getFrameForCoordinate(currentPlacement.getCoordinate(),
-                                                     frame);
-         tokenWidget.render(g, gridFrame);
+                                                     getFrame());
+         tokenWidget.resize(gridFrame);
+         tokenWidget.render(g);
       }
 
       Vector2f hover = getHover();
       if (hover != null) {
-         GridVector hoveredCoordinate = getCoordinateForPoint(hover, frame);
+         GridVector hoveredCoordinate = getCoordinateForPoint(hover, getFrame());
          if (hoveredCoordinate != null) {
             Rectangle highlightFrame = getFrameForCoordinate(hoveredCoordinate,
-                                                             frame);
+                                                             getFrame());
             g.setLineWidth(3.5f);
             g.setColor(new Color(1.0f, 1.0f, 0.0f, 0.75f));
             g.draw(highlightFrame);

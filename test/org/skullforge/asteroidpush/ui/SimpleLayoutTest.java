@@ -49,7 +49,7 @@ public class SimpleLayoutTest {
                                               with(any(float.class)));
          }
       });
-      testLayout.render(graphicsMock, fullScreen);
+      testLayout.render(graphicsMock);
       context.assertIsSatisfied();
    }
 
@@ -58,19 +58,16 @@ public class SimpleLayoutTest {
       final Rectangle fullScreen = new Rectangle(0.0f, 0.0f, 640.0f, 480.0f);
       context.checking(new Expectations() {
          {
-            oneOf(backgroundWidgetMock).render(with(same(graphicsMock)),
-                                               with(any(Rectangle.class)));
-            oneOf(infoWidgetMock).render(with(same(graphicsMock)),
-                                         with(any(Rectangle.class)));
-            oneOf(controlWidgetMock).render(with(same(graphicsMock)),
-                                         with(any(Rectangle.class)));
+            oneOf(backgroundWidgetMock).render(with(same(graphicsMock)));
+            oneOf(infoWidgetMock).render(with(same(graphicsMock)));
+            oneOf(controlWidgetMock).render(with(same(graphicsMock)));
          }
       });
       testLayout.setWidget("invalid element name", infoWidgetMock);
       testLayout.setWidget("info", infoWidgetMock);
       testLayout.setWidget("control", controlWidgetMock);
       testLayout.setBackground(backgroundWidgetMock);
-      testLayout.render(graphicsMock, fullScreen);
+      testLayout.render(graphicsMock);
       context.assertIsSatisfied();
    }
 }

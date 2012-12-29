@@ -83,8 +83,9 @@ public class DesignerGameStateTest {
             will(returnValue(new Vector<ModuleToken>()));
             allowing(designMock).addModule(with(any(Placement.class)),
                                            with(any(ModuleData.class)));
+            oneOf(uiMock).resize(with(any(Rectangle.class)));
             oneOf(uiMock)
-                  .render(with(graphicsMock), with(any(Rectangle.class)));
+                  .render(with(graphicsMock));
          }
       });
       testState = new DesignerGameState(uiFactoryMock);

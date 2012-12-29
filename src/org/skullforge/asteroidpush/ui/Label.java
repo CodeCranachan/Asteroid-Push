@@ -13,13 +13,21 @@ public class Label extends BasicWidget {
    }
 
    @Override
-   public void render(Graphics g, Rectangle frame) {
+   public void render(Graphics g) {
+      Rectangle frame = getFrame();
       Font currentFont = g.getFont();
       g.setFont(font);
       g.setColor(Color.green);
-      g.drawRoundRect(frame.getX(), frame.getY(), frame.getWidth(), frame.getHeight(), 5);
-      g.drawString(text.toString(), frame.getCenterX() - (float) font.getWidth(text.toString())
-            / 2.0f, frame.getCenterY() - (float) font.getHeight(text.toString()) / 2.0f);
+      g.drawRoundRect(frame.getX(),
+                      frame.getY(),
+                      frame.getWidth(),
+                      frame.getHeight(),
+                      5);
+      g.drawString(text.toString(),
+                   frame.getCenterX() - (float) font.getWidth(text.toString())
+                         / 2.0f,
+                   frame.getCenterY() - (float) font.getHeight(text.toString())
+                         / 2.0f);
       g.setFont(currentFont);
    }
 

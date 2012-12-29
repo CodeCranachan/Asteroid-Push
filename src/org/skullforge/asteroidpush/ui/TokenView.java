@@ -17,7 +17,8 @@ public class TokenView extends BasicWidget {
    }
 
    @Override
-   public void render(Graphics g, Rectangle frame) {
+   public void render(Graphics g) {
+      Rectangle frame = getFrame();
       g.setLineWidth(1.5f);
       g.setColor(Color.white);
       for (Shape shape : token.getOutline()) {

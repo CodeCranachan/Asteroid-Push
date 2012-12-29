@@ -75,7 +75,8 @@ public class MatchGameStateTest {
             will(returnValue((int)expectedCanvasRectangle.getWidth()));
             allowing(containerMock).getHeight();
             will(returnValue((int)expectedCanvasRectangle.getHeight()));
-            oneOf(uiMock).render(with(graphicsMock), with(any(Rectangle.class)));
+            oneOf(uiMock).render(with(graphicsMock));
+            oneOf(uiMock).resize(with(any(Rectangle.class)));
          }
       });
       testState = new MatchGameState(simulatorMock, uiFactoryMock);

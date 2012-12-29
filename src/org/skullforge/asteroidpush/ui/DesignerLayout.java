@@ -2,7 +2,6 @@ package org.skullforge.asteroidpush.ui;
 
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
-import org.newdawn.slick.geom.Vector2f;
 
 public class DesignerLayout extends BasicWidget {
 
@@ -24,38 +23,52 @@ public class DesignerLayout extends BasicWidget {
    }
 
    @Override
-   public void render(Graphics g, Rectangle frame) {
-      Vector2f hoverPosition = getHover();
+   public void resize(Rectangle frame) {
+      super.resize(frame);
 
       if (blueprint != null) {
-         Rectangle blueprintFrame = getBlueprintFrame(frame);
-         if (hoverPosition != null
-               && blueprintFrame.contains(hoverPosition.x, hoverPosition.y)) {
-            blueprint.setHover(hoverPosition.x - blueprintFrame.getX(),
-                               hoverPosition.y - blueprintFrame.getY());
-         } else {
-            blueprint.resetHover();
-         }
-         blueprint.render(g, blueprintFrame);
+         blueprint.resize(getBlueprintFrame(getFrame()));
       }
-
       if (catalogue != null) {
-         Rectangle catalogueFrame = getCatalogueFrame(frame);
-         if (hoverPosition != null
-               && catalogueFrame.contains(hoverPosition.x, hoverPosition.y)) {
-            catalogue.setHover(hoverPosition.x - catalogueFrame.getX(),
-                               hoverPosition.y - catalogueFrame.getY());
-         } else {
-            catalogue.resetHover();
-         }
-         catalogue.render(g, catalogueFrame);
+         catalogue.resize(getCatalogueFrame(getFrame()));
+      }
+   }
+
+   @Override
+   public void setHover(float x, float y) {
+      super.setHover(x, y);
+      if (blueprint != null && getBlueprintFrame(getFrame()).contains(x, y)) {
+         blueprint.setHover(x, y);
+      }
+      if (catalogue != null && getCatalogueFrame(getFrame()).contains(x, y)) {
+         catalogue.setHover(x, y);
+      }
+   }
+
+   @Override
+   public void resetHover() {
+      super.resetHover();
+      if (blueprint != null) {
+         blueprint.resetHover();
+      }
+      if (catalogue != null) {
+         catalogue.resetHover();
+      }
+   }
+
+   @Override
+   public void render(Graphics g) {
+      if (blueprint != null) {
+         blueprint.render(g);
+      }
+      if (catalogue != null) {
+         catalogue.render(g);
       }
    }
 
    private Rectangle getCatalogueFrame(Rectangle frame) {
-      return new Rectangle(frame.getWidth() * blueprintRatio,
-            frame.getY(), frame.getWidth() * (1.0f - blueprintRatio),
-            frame.getHeight());
+      return new Rectangle(frame.getWidth() * blueprintRatio, frame.getY(),
+            frame.getWidth() * (1.0f - blueprintRatio), frame.getHeight());
    }
 
    private Rectangle getBlueprintFrame(Rectangle frame) {

@@ -65,7 +65,8 @@ public class LabelTest {
          }
       });
 
-      testLabel.render(graphicsMock, frame);
+      testLabel.resize(frame);
+      testLabel.render(graphicsMock);
 
       context.assertIsSatisfied();
    }

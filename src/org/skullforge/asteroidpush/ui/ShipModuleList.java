@@ -7,10 +7,12 @@ import org.newdawn.slick.geom.Rectangle;
 import org.skullforge.asteroidpush.designer.catalogue.ModuleCatalogue;
 import org.skullforge.asteroidpush.designer.data.ModuleData;
 
-public class ShipModuleList implements Widget {
-
+public class ShipModuleList extends BasicWidget {
    private final float marginX = 3.0f;
    private final float marginY = 3.0f;
+
+   Font font;
+   ModuleCatalogue moduleCatalogue;
 
    public ShipModuleList(ModuleCatalogue moduleCatalogue, Font font) {
       this.moduleCatalogue = moduleCatalogue;
@@ -18,34 +20,23 @@ public class ShipModuleList implements Widget {
    }
 
    @Override
-   public void render(Graphics g, Rectangle frame) {
+   public void render(Graphics g) {
+      Rectangle frame = getFrame();
       g.setColor(Color.gray);
-      g.drawRoundRect(frame.getX(), frame.getY(), frame.getWidth(), frame.getHeight(), 5);
+      g.drawRoundRect(frame.getX(),
+                      frame.getY(),
+                      frame.getWidth(),
+                      frame.getHeight(),
+                      5);
 
       Font currentFont = g.getFont();
       g.setFont(font);
       g.setColor(Color.white);
       float top = frame.getY() + marginY;
-      for (ModuleData module : this.moduleCatalogue.getModuleData())
-      {
+      for (ModuleData module : this.moduleCatalogue.getModuleData()) {
          g.drawString(module.getName(), frame.getX() + marginX, top);
          top += g.getFont().getLineHeight();
       }
       g.setFont(currentFont);
-   }
-
-   ModuleCatalogue moduleCatalogue;
-   Font font;
-
-   @Override
-   public void setHover(float x, float y) {
-      // TODO Auto-generated method stub
-
-   }
-
-   @Override
-   public void resetHover() {
-      // TODO Auto-generated method stub
-
    }
 }

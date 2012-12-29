@@ -35,7 +35,8 @@ public class DesignerGameState extends BasicGameState {
       Rectangle canvas = new Rectangle(0.0f, 0.0f, container.getWidth(),
             container.getHeight());
       if (ui != null) {
-         ui.render(graphics, canvas);
+         ui.resize(canvas);
+         ui.render(graphics);
       }
    }
 

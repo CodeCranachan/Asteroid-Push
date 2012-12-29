@@ -31,7 +31,8 @@ public class TrackingCamera extends BasicWidget implements Renderer {
    }
 
    @Override
-   public void render(Graphics g, Rectangle frame) {
+   public void render(Graphics g) {
+      Rectangle frame = getFrame();
       this.graphics = g;
       g.pushTransform();
       g.setAntiAlias(true);

@@ -3,7 +3,6 @@ package org.skullforge.asteroidpush.ui;
 import java.util.Collection;
 import java.util.HashMap;
 
-import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
 
@@ -22,10 +21,10 @@ public class SimpleLayout extends BasicWidget {
    }
 
    @Override
-   public void render(Graphics graphics, Rectangle frame) {
+   public void resize(Rectangle frame) {
+      super.resize(frame);
       if (background != null) {
-         background.render(graphics, new Rectangle(0.0f, 0.0f,
-               frame.getWidth(), frame.getHeight()));
+         background.resize(frame);
       }
 
       Collection<LayoutElement> elementCollection = elements.values();
@@ -36,30 +35,25 @@ public class SimpleLayout extends BasicWidget {
             target = new Rectangle(0.0f, 0.0f, frame.getWidth(),
                   frame.getHeight());
          }
-         if (widget == null) {
-            drawMissingWidget(graphics, target);
-         } else {
-            widget.render(graphics, target);
+         if (widget != null) {
+            widget.resize(target);
          }
       }
    }
 
-   private void drawMissingWidget(Graphics graphics, Rectangle frame) {
-      graphics.setColor(Color.black);
-      graphics.fillRoundRect(frame.getX(),
-                             frame.getY(),
-                             frame.getWidth() - 1.0f,
-                             frame.getHeight() - 1.0f,
-                             15);
-      graphics.setColor(Color.gray);
-      graphics.drawRoundRect(frame.getX(),
-                             frame.getY(),
-                             frame.getWidth() - 1.0f,
-                             frame.getHeight() - 1.0f,
-                             15);
-      graphics.setColor(Color.red);
-      graphics.drawString("Widget Missing", frame.getX() + 10.0f, frame.getY()
-            + frame.getHeight() - 25.0f);
+   @Override
+   public void render(Graphics graphics) {
+      if (background != null) {
+         background.render(graphics);
+      }
+
+      Collection<LayoutElement> elementCollection = elements.values();
+      for (LayoutElement element : elementCollection) {
+         Widget widget = element.getWidget();
+         if (widget != null) {
+            widget.render(graphics);
+         }
+      }
    }
 
    public void setWidget(String elementName, Widget widget) {

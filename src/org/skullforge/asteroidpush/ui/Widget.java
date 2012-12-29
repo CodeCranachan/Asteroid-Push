@@ -4,7 +4,8 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
 
 public interface Widget {
-   void render(Graphics g, Rectangle frame);
+   void resize(Rectangle frame);
+   void render(Graphics g);
    void setHover(float x, float y);
    void resetHover();
 }
