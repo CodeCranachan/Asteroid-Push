@@ -5,7 +5,6 @@ import java.util.Collection;
 
 import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.Shape;
-import org.skullforge.asteroidpush.designer.data.joints.JointData;
 
 public class ModuleData {
    private ArrayList<ComponentData> components;

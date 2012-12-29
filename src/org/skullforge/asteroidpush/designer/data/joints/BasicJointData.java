@@ -2,7 +2,10 @@ package org.skullforge.asteroidpush.designer.data.joints;
 
 import java.util.ArrayList;
 
+import org.jbox2d.dynamics.joints.JointDef;
 import org.skullforge.asteroidpush.designer.data.JointAnchorData;
+import org.skullforge.asteroidpush.designer.data.JointData;
+import org.skullforge.asteroidpush.entities.spaceship.Part;
 
 public class BasicJointData implements JointData {
    private ArrayList<JointAnchorData> anchors;
@@ -31,6 +34,11 @@ public class BasicJointData implements JointData {
    @Override
    public JointAnchorData getSecond() {
       return anchors.get(1);
+   }
+
+   @Override
+   public JointDef generateJointDef(Part first, Part second, float moduleSize) {
+      return null;
    }
 
 }

@@ -53,6 +53,10 @@ public class DamperFactory {
       secondAnchor.component = front;
       secondAnchor.anchor = new Vec2(0.45f, 0.0f);
       joint.setSecond(secondAnchor);
+      joint.setCollideConnected(true);
+      joint.setDampingRatio(0.2f);
+      joint.setFrequency(5.0f);
+      joint.setLength(0.9f);
       data.addJoint(joint);
 
       return data;
