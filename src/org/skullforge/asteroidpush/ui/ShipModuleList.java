@@ -1,9 +1,12 @@
 package org.skullforge.asteroidpush.ui;
 
+import java.util.Vector;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Font;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
+import org.skullforge.asteroidpush.designer.BlueprintManipulator;
 import org.skullforge.asteroidpush.designer.catalogue.ModuleCatalogue;
 import org.skullforge.asteroidpush.designer.data.ModuleData;
 
@@ -12,13 +15,15 @@ public class ShipModuleList extends BasicWidget {
    private final float marginY = 3.0f;
 
    Font font;
-   ModuleCatalogue moduleCatalogue;
+   Vector<ModuleData> moduleCatalogue;
    int selectedIndex;
+   BlueprintManipulator manipulator;
 
-   public ShipModuleList(ModuleCatalogue moduleCatalogue, Font font) {
-      this.moduleCatalogue = moduleCatalogue;
+   public ShipModuleList(BlueprintManipulator manipulator, ModuleCatalogue moduleCatalogue, Font font) {
+      this.moduleCatalogue = new Vector<ModuleData>(moduleCatalogue.getModuleData());
       this.font = font;
       this.selectedIndex = 0;
+      this.manipulator = manipulator;
    }
 
    @Override
@@ -27,18 +32,16 @@ public class ShipModuleList extends BasicWidget {
       Font currentFont = g.getFont();
       g.setFont(font);
       float top = frame.getY() + marginY;
-      int currentIndex = 0;
-      for (ModuleData module : this.moduleCatalogue.getModuleData()) {
-         if (currentIndex==selectedIndex) {
+      for (int index=0; index < this.moduleCatalogue.size(); index++) {
+         if (index==selectedIndex) {
             g.setColor(Color.gray);
          } else {
             g.setColor(Color.black);
          }
          g.fillRect(frame.getX(), top, frame.getWidth(), font.getLineHeight());
          g.setColor(Color.white);
-         g.drawString(module.getName(), frame.getX() + marginX, top);
+         g.drawString(this.moduleCatalogue.get(index).getName(), frame.getX() + marginX, top);
          top += g.getFont().getLineHeight();
-         currentIndex += 1;
       }
       g.setFont(currentFont);
 
@@ -54,6 +57,12 @@ public class ShipModuleList extends BasicWidget {
 
    @Override
    public void mousePressed(int button, int x, int y) {
-      selectedIndex = (int) ((y - getFrame().getY()) / font.getLineHeight());
+      int newIndex = (int) ((y - getFrame().getY()) / font.getLineHeight());
+      if (newIndex < this.moduleCatalogue.size()) {
+         selectedIndex = newIndex;
+         if (manipulator != null) {
+            manipulator.select(this.moduleCatalogue.get(selectedIndex));
+         }
+      }
    }
 }

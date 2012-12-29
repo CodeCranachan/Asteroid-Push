@@ -22,7 +22,7 @@ public class DesignerUiFactory {
       DesignerLayout ui = new DesignerLayout();
       ui.setBlueprintWidget(new BlueprintDisplayView(localPlayer
             .getShipDesign(), manipulator));
-      ui.setCatalogueWidget(new ShipModuleList(new ModuleCatalogue(), font));
+      ui.setCatalogueWidget(new ShipModuleList(this.manipulator, new ModuleCatalogue(), font));
       ui.setSelectionWidget(new SelectionView(manipulator));
       return ui;
    }
