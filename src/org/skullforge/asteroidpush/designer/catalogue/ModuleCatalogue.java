@@ -24,5 +24,6 @@ public class ModuleCatalogue {
       availableModules.add(ClockworkSpinnerFactory.createData());
       availableModules.add(MetalSpikeFactory.createData());
       availableModules.add(DamperFactory.createData());
+      availableModules.add(ProjectileGunFactory.createData());
    }
 }

@@ -2,10 +2,11 @@ package org.skullforge.asteroidpush.ui;
 
 import java.util.Collection;
 
-import org.jbox2d.common.Vec2;
+import org.newdawn.slick.Color;
+import org.newdawn.slick.geom.Point;
 import org.newdawn.slick.geom.Shape;
 
 public interface Renderer {   
    void drawOutline(Collection<Shape> outline);
-   void drawLine(Vec2 start, Vec2 end);
+   void drawLine(Point start, Point end, float width, Color color);
 }

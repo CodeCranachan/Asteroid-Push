@@ -1,7 +1,10 @@
 package org.skullforge.asteroidpush.entities.spaceship;
 
+import java.util.Collection;
+
 import org.jbox2d.dynamics.Body;
 import org.skullforge.asteroidpush.SignalController;
+import org.skullforge.asteroidpush.SimulatorCommand;
 import org.skullforge.asteroidpush.designer.data.effectors.TorqueFeederData;
 
 public class TorqueFeeder implements Effector {
@@ -18,7 +21,7 @@ public class TorqueFeeder implements Effector {
    }
 
    @Override
-   public void update(int frameNumber, SignalController controller) {
+   public Collection<SimulatorCommand> update(int frameNumber, SignalController controller) {
       float signal = 0.0f;
       if (controller != null) {
          signal += controller.anticlockwiseThrust;
@@ -28,5 +31,7 @@ public class TorqueFeeder implements Effector {
       float torque = data.getMagnitude() * signal;
 
       propulsee.applyTorque(torque);
+      
+      return null;
    }
 }

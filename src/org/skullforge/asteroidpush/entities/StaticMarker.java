@@ -5,35 +5,42 @@ import java.util.Collection;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.World;
+import org.newdawn.slick.Color;
+import org.newdawn.slick.geom.Point;
 import org.skullforge.asteroidpush.Player;
 import org.skullforge.asteroidpush.SimulatorCommand;
 import org.skullforge.asteroidpush.ui.Renderer;
-import org.skullforge.asteroidpush.utils.GeometryConverter;
 
-public class PassiveObject implements Entity {
-   private World world;
-   private Body body;
+public class StaticMarker implements Entity {
    private Player owner;
+   private World world;
+   private Vec2 location;
 
-   public PassiveObject(Body body, World world) {
+   public StaticMarker(Body body, World world, Vec2 location) {
       this.world = world;
-      this.body = body;
       this.owner = null;
+      this.location = location;
    }
 
    @Override
    public void destroy() {
-      world.destroyBody(body);
    }
 
    @Override
    public void render(Renderer renderer) {
-      renderer.drawOutline(GeometryConverter.extractOutline(body));
+      renderer.drawLine(new Point(location.x - 1.0f, location.y - 1.0f),
+                        new Point(location.x + 1.0f, location.y + 1.0f),
+                        2.0f,
+                        Color.red);
+      renderer.drawLine(new Point(location.x + 1.0f, location.y - 1.0f),
+                        new Point(location.x - 1.0f, location.y + 1.0f),
+                        2.0f,
+                        Color.red);
    }
 
    @Override
    public Collection<SimulatorCommand> update(int frameNumber) {
-      // Passive objects do nothing special
+      // Markers do nothing special
       return null;
    }
 
@@ -49,7 +56,7 @@ public class PassiveObject implements Entity {
 
    @Override
    public Vec2 getCenterOfInterest() {
-      return body.getWorldCenter();
+      return location;
    }
 
    @Override
