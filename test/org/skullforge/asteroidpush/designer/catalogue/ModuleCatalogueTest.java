@@ -35,7 +35,7 @@ public class ModuleCatalogueTest {
          for (ComponentData component : components) {
             for (PrimitiveData primitive : component.getPrimitives()) {
                PolygonShape poly = primitive.getShape(testTransform, testSize);
-               assertThat(module.getName(), GeometryVerifier.IsWoundCorrectly(poly), is(true));
+               assertThat(module.getName() + " geometry winding", GeometryVerifier.IsWoundCorrectly(poly), is(true));
             }
          }
       }

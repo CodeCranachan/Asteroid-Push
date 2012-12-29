@@ -15,15 +15,49 @@ public class ClockworkSpinnerFactory {
       ComponentData component = new ComponentData();
       data.addComponent(component);
 
-      PrimitiveData block = new PrimitiveData();
+      PrimitiveData block;
+      block = new PrimitiveData();
       block.setMaterial(Material.METAL);
-      Vec2 shape[] = {
-            new Vec2(0.5f, 0.5f),
-            new Vec2(-0.5f, 0.5f),
+      Vec2 shapeA[] = {
             new Vec2(-0.5f, -0.5f),
-            new Vec2(0.5f, -0.5f)
+            new Vec2(-0.2f, -0.2f),
+            new Vec2(-0.2f, 0.2f),
+            new Vec2(-0.5f, 0.5f),
       };
-      block.setVertices(shape);
+      block.setVertices(shapeA);
+      component.addPrimitive(block);
+
+      block = new PrimitiveData();
+      block.setMaterial(Material.METAL);
+      Vec2 shapeB[] = {
+            new Vec2(0.5f, -0.5f),
+            new Vec2(0.2f, -0.2f),
+            new Vec2(-0.2f, -0.2f),
+            new Vec2(-0.5f, -0.5f),
+      };
+      block.setVertices(shapeB);
+      component.addPrimitive(block);
+
+      block = new PrimitiveData();
+      block.setMaterial(Material.METAL);
+      Vec2 shapeC[] = {
+            new Vec2(0.5f, 0.5f),
+            new Vec2(0.2f, 0.2f),
+            new Vec2(0.2f, -0.2f),
+            new Vec2(0.5f, -0.5f),
+      };
+      block.setVertices(shapeC);
+      component.addPrimitive(block);
+
+      block = new PrimitiveData();
+      block.setMaterial(Material.METAL);
+      Vec2 shapeD[] = {
+            new Vec2(-0.5f, 0.5f),
+            new Vec2(-0.2f, 0.2f),
+            new Vec2(0.2f, 0.2f),
+            new Vec2(0.5f, 0.5f),
+      };
+      block.setVertices(shapeD);
       component.addPrimitive(block);
 
       component.addWeldDirection(GridVector.FORWARD);
