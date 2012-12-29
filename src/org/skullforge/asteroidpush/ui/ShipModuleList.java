@@ -22,6 +22,7 @@ public class ShipModuleList extends BasicWidget {
    @Override
    public void render(Graphics g) {
       Rectangle frame = getFrame();
+      g.setLineWidth(2.0f);
       g.setColor(Color.gray);
       g.drawRoundRect(frame.getX(),
                       frame.getY(),

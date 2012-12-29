@@ -37,11 +37,19 @@ public class DesignerLayout extends BasicWidget {
    @Override
    public void setHover(float x, float y) {
       super.setHover(x, y);
-      if (blueprint != null && getBlueprintFrame(getFrame()).contains(x, y)) {
-         blueprint.setHover(x, y);
+      if (blueprint != null) {
+         if (getBlueprintFrame(getFrame()).contains(x, y)) {
+            blueprint.setHover(x, y);
+         } else {
+            blueprint.resetHover();
+         }
       }
-      if (catalogue != null && getCatalogueFrame(getFrame()).contains(x, y)) {
-         catalogue.setHover(x, y);
+      if (catalogue != null) {
+         if (getCatalogueFrame(getFrame()).contains(x, y)) {
+            catalogue.setHover(x, y);
+         } else {
+            catalogue.resetHover();
+         }
       }
    }
 
