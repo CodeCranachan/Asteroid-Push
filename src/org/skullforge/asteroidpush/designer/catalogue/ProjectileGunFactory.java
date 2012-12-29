@@ -5,6 +5,7 @@ import org.skullforge.asteroidpush.designer.data.ComponentData;
 import org.skullforge.asteroidpush.designer.data.Material;
 import org.skullforge.asteroidpush.designer.data.ModuleData;
 import org.skullforge.asteroidpush.designer.data.PrimitiveData;
+import org.skullforge.asteroidpush.designer.data.effectors.ProjectileSourceFeederData;
 import org.skullforge.asteroidpush.designer.grid.GridVector;
 
 public class ProjectileGunFactory {
@@ -62,6 +63,11 @@ public class ProjectileGunFactory {
       };
       gundecoleft.setVertices(decoleftshape);
       component.addPrimitive(gundecoleft);
+
+      ProjectileSourceFeederData canon = new ProjectileSourceFeederData();
+      canon.setAnchor(new Vec2(0.0f, 0.0f), 0.0f);
+      canon.setProjectileVelocity(10.0f);
+      component.addEffector(canon);
 
       component.addWeldDirection(GridVector.RIGHT);
 

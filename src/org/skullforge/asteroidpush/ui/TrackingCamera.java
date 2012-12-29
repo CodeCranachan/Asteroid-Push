@@ -5,6 +5,7 @@ import java.util.Collection;
 import org.jbox2d.common.Vec2;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.geom.Point;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 import org.skullforge.asteroidpush.Simulator;
@@ -28,6 +29,15 @@ public class TrackingCamera extends BasicWidget implements Renderer {
          graphics.setColor(Color.gray);
          graphics.draw(s);
       }
+   }
+
+   @Override
+   public void drawLine(Point start, Point end, float width, Color color) {
+      graphics.setColor(color);
+      float oldWidth = graphics.getLineWidth();
+      graphics.setLineWidth(width);
+      graphics.drawLine(start.getX(), start.getY(), end.getX(), end.getY());
+      graphics.setLineWidth(oldWidth);
    }
 
    @Override
