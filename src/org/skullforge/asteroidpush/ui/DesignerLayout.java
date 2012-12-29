@@ -7,11 +7,14 @@ public class DesignerLayout extends BasicWidget {
 
    Widget catalogue;
    Widget blueprint;
+   Widget selection;
    final float blueprintRatio = 0.75f;
+   final float catalogueRatio = 0.75f;
 
    public DesignerLayout() {
       this.catalogue = null;
       this.blueprint = null;
+      this.selection = null;
    }
 
    public void setCatalogueWidget(Widget widget) {
@@ -20,6 +23,10 @@ public class DesignerLayout extends BasicWidget {
 
    public void setBlueprintWidget(Widget widget) {
       this.blueprint = widget;
+   }
+
+   public void setSelectionWidget(Widget widget) {
+      this.selection = widget;
    }
 
    @Override
@@ -31,6 +38,9 @@ public class DesignerLayout extends BasicWidget {
       }
       if (catalogue != null) {
          catalogue.resize(getCatalogueFrame(getFrame()));
+      }
+      if (selection != null) {
+         selection.resize(getSelectionFrame(getFrame()));
       }
    }
 
@@ -72,16 +82,31 @@ public class DesignerLayout extends BasicWidget {
       if (catalogue != null) {
          catalogue.render(g);
       }
-   }
-
-   private Rectangle getCatalogueFrame(Rectangle frame) {
-      return new Rectangle(frame.getWidth() * blueprintRatio, frame.getY(),
-            frame.getWidth() * (1.0f - blueprintRatio), frame.getHeight());
+      if (selection != null) {
+         selection.render(g);
+      }
    }
 
    private Rectangle getBlueprintFrame(Rectangle frame) {
       return new Rectangle(frame.getX(), frame.getY(), frame.getWidth()
             * blueprintRatio, frame.getHeight());
+   }
+
+   private Rectangle getCatalogueFrame(Rectangle frame) {
+      float x = frame.getWidth() * blueprintRatio;
+      float y = frame.getY();
+      float w = frame.getWidth() * (1.0f - blueprintRatio);
+      float h = frame.getHeight() * catalogueRatio;
+      return new Rectangle(x, y, w, h);
+   }
+
+   private Rectangle getSelectionFrame(Rectangle frame) {
+      Rectangle catalogueFrame = getCatalogueFrame(frame);
+      float x = catalogueFrame.getX();
+      float y = catalogueFrame.getY() + catalogueFrame.getHeight();
+      float w = catalogueFrame.getWidth();
+      float h = frame.getHeight() - catalogueFrame.getHeight();
+      return new Rectangle(x, y, w, h);
    }
 
    @Override
