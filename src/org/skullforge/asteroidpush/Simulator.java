@@ -1,6 +1,7 @@
 package org.skullforge.asteroidpush;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedList;
 
 import org.jbox2d.common.Vec2;
@@ -81,7 +82,9 @@ public class Simulator {
 
    private void updateEntities() {
       for (Entity entity : entityList) {
-         entity.update(getCurrentFrameNumber());
+         Collection<SimulatorCommand> commands = entity.update(getCurrentFrameNumber());
+         if (commands != null)
+            commandList.addAll(commands);
       }
    }
 }

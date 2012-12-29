@@ -7,6 +7,7 @@ import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.World;
 import org.skullforge.asteroidpush.Player;
+import org.skullforge.asteroidpush.SimulatorCommand;
 import org.skullforge.asteroidpush.entities.Entity;
 import org.skullforge.asteroidpush.ui.Renderer;
 import org.skullforge.asteroidpush.utils.GeometryConverter;
@@ -51,14 +52,22 @@ public class Spaceship implements Entity {
    }
 
    @Override
-   public void update(int frameNumber) {
+   public Collection<SimulatorCommand> update(int frameNumber) {
+      Collection<SimulatorCommand> commands = new ArrayList<SimulatorCommand>();
+      Collection<SimulatorCommand> effectorCommands;
+
       for (Effector effector : effectors) {
          if (owner != null) {
-            effector.update(frameNumber, owner.getController());
+            effectorCommands = effector.update(frameNumber, owner.getController());
          } else {
-            effector.update(frameNumber, null);
+            effectorCommands = effector.update(frameNumber, null);
+         }
+         if (effectorCommands!=null) {
+            commands.addAll(effectorCommands);
          }
       }
+      
+      return commands;
    }
 
    @Override

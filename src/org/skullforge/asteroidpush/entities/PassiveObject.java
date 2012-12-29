@@ -1,9 +1,12 @@
 package org.skullforge.asteroidpush.entities;
 
+import java.util.Collection;
+
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.World;
 import org.skullforge.asteroidpush.Player;
+import org.skullforge.asteroidpush.SimulatorCommand;
 import org.skullforge.asteroidpush.ui.Renderer;
 import org.skullforge.asteroidpush.utils.GeometryConverter;
 
@@ -29,8 +32,9 @@ public class PassiveObject implements Entity {
    }
 
    @Override
-   public void update(int frameNumber) {
+   public Collection<SimulatorCommand> update(int frameNumber) {
       // Passive objects do nothing special
+      return null;
    }
 
    @Override

@@ -1,7 +1,10 @@
 package org.skullforge.asteroidpush.entities.spaceship;
 
+import java.util.Collection;
+
 import org.skullforge.asteroidpush.SignalController;
+import org.skullforge.asteroidpush.SimulatorCommand;
 
 public interface Effector {
-   void update(int frameNumber, SignalController controller);
+   Collection<SimulatorCommand> update(int frameNumber, SignalController controller);
 }

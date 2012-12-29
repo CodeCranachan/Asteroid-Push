@@ -1,9 +1,12 @@
 package org.skullforge.asteroidpush.entities.spaceship;
 
+import java.util.Collection;
+
 import org.jbox2d.common.Transform;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.skullforge.asteroidpush.SignalController;
+import org.skullforge.asteroidpush.SimulatorCommand;
 import org.skullforge.asteroidpush.designer.data.effectors.ForceFeederData;
 import org.skullforge.asteroidpush.designer.grid.Facing;
 
@@ -22,7 +25,7 @@ public class ForceFeeder implements Effector {
    }
 
    @Override
-   public void update(int frameNumber, SignalController controller) {
+   public Collection<SimulatorCommand> update(int frameNumber, SignalController controller) {
       float signal = 1.0f;
       if (controller != null) {
          switch (facing) {
@@ -53,6 +56,8 @@ public class ForceFeeder implements Effector {
       offset = Transform.mul(bodyTransform, offset);
 
       propulsee.applyForce(force, offset);
+      
+      return null;
    }
 
    public void setPropulsee(Body propulsee) {
