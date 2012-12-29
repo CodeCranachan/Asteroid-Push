@@ -29,7 +29,7 @@ public class Placement {
    }
 
    public void setRotation(Rotation rotation) {
-      this.rotation = rotation;
+      this.rotation = new Rotation(rotation);
    }
 
    private GridVector coordinate;

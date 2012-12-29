@@ -60,6 +60,20 @@ public class Rotation {
    public float getDegrees() {
       return quarterTurns * 90.0f;
    }
+   
+   public Facing getFacing() {
+      switch (quarterTurns) {
+      default:
+      case 0:
+         return Facing.FORWARD;
+      case 1:
+         return Facing.LEFT;
+      case 2:
+         return Facing.BACKWARD;
+      case 3:
+         return Facing.RIGHT;
+      }
+   }
 
    private void normalize() {
       quarterTurns = quarterTurns % 4;

@@ -5,6 +5,7 @@ import java.util.Collection;
 import org.newdawn.slick.geom.Shape;
 import org.skullforge.asteroidpush.designer.data.ModuleData;
 import org.skullforge.asteroidpush.designer.grid.Placement;
+import org.skullforge.asteroidpush.designer.grid.Rotation;
 
 public class ModuleToken {
    private ModuleData data;
@@ -29,6 +30,10 @@ public class ModuleToken {
 
    public float getRotation() {
       return placement.getRotation().getRadians();
+   }
+   
+   public void setRotation(Rotation rotation) {
+      placement.setRotation(rotation);
    }
 
    public Collection<Shape> getOutline() {

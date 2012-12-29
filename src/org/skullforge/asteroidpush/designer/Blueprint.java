@@ -29,6 +29,10 @@ public class Blueprint {
          return true;
       }
    }
+   
+   public void removeModule(GridVector coordinate) {
+      grid.remove(coordinate);
+   }
 
    public void clear() {
       grid.clear();

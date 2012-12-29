@@ -12,6 +12,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.StateBasedGame;
 import org.skullforge.asteroidpush.designer.Blueprint;
+import org.skullforge.asteroidpush.designer.BlueprintManipulator;
 import org.skullforge.asteroidpush.designer.ModuleToken;
 import org.skullforge.asteroidpush.designer.data.ModuleData;
 import org.skullforge.asteroidpush.designer.grid.Placement;
@@ -52,7 +53,9 @@ public class DesignerGameStateTest {
    public void testInit() throws SlickException {
       context.checking(new Expectations() {
          {
-            oneOf(uiFactoryMock).init(playerMock);
+            allowing(playerMock).getShipDesign();
+            will(returnValue(designMock));
+            oneOf(uiFactoryMock).init(with(same(playerMock)), with(any(BlueprintManipulator.class)));
             oneOf(uiFactoryMock).createUi();
             will(returnValue(uiMock));
             allowing(scenarioMock).getLocalPlayer();
@@ -68,7 +71,7 @@ public class DesignerGameStateTest {
    public void testRender() throws SlickException {
       context.checking(new Expectations() {
          {
-            oneOf(uiFactoryMock).init(playerMock);
+            oneOf(uiFactoryMock).init(with(same(playerMock)), with(any(BlueprintManipulator.class)));
             oneOf(uiFactoryMock).createUi();
             will(returnValue(uiMock));
             allowing(containerMock).getWidth();
