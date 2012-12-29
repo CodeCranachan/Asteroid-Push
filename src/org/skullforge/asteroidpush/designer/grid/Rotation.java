@@ -16,7 +16,7 @@ public class Rotation {
    public Rotation(Rotation other) {
       this.quarterTurns = other.quarterTurns;
    }
-   
+
    public Rotation(Facing facing) {
       switch (facing) {
       case FORWARD:
@@ -33,7 +33,7 @@ public class Rotation {
          break;
       }
    }
-   
+
    public void turnClockwise() {
       quarterTurns += 3;
       normalize();
@@ -48,7 +48,7 @@ public class Rotation {
       quarterTurns += 2;
       normalize();
    }
-   
+
    public int getQuarterTurns() {
       return quarterTurns;
    }
@@ -60,7 +60,7 @@ public class Rotation {
    public float getDegrees() {
       return quarterTurns * 90.0f;
    }
-   
+
    public Facing getFacing() {
       switch (quarterTurns) {
       default:

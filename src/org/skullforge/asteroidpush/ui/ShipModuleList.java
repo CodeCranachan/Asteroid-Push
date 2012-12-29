@@ -13,15 +13,35 @@ public class ShipModuleList extends BasicWidget {
 
    Font font;
    ModuleCatalogue moduleCatalogue;
+   int selectedIndex;
 
    public ShipModuleList(ModuleCatalogue moduleCatalogue, Font font) {
       this.moduleCatalogue = moduleCatalogue;
       this.font = font;
+      this.selectedIndex = 0;
    }
 
    @Override
    public void render(Graphics g) {
       Rectangle frame = getFrame();
+      Font currentFont = g.getFont();
+      g.setFont(font);
+      float top = frame.getY() + marginY;
+      int currentIndex = 0;
+      for (ModuleData module : this.moduleCatalogue.getModuleData()) {
+         if (currentIndex==selectedIndex) {
+            g.setColor(Color.gray);
+         } else {
+            g.setColor(Color.black);
+         }
+         g.fillRect(frame.getX(), top, frame.getWidth(), font.getLineHeight());
+         g.setColor(Color.white);
+         g.drawString(module.getName(), frame.getX() + marginX, top);
+         top += g.getFont().getLineHeight();
+         currentIndex += 1;
+      }
+      g.setFont(currentFont);
+
       g.setLineWidth(2.0f);
       g.setColor(Color.gray);
       g.drawRoundRect(frame.getX(),
@@ -30,14 +50,10 @@ public class ShipModuleList extends BasicWidget {
                       frame.getHeight(),
                       5);
 
-      Font currentFont = g.getFont();
-      g.setFont(font);
-      g.setColor(Color.white);
-      float top = frame.getY() + marginY;
-      for (ModuleData module : this.moduleCatalogue.getModuleData()) {
-         g.drawString(module.getName(), frame.getX() + marginX, top);
-         top += g.getFont().getLineHeight();
-      }
-      g.setFont(currentFont);
+   }
+
+   @Override
+   public void mousePressed(int button, int x, int y) {
+      selectedIndex = (int) ((y - getFrame().getY()) / font.getLineHeight());
    }
 }

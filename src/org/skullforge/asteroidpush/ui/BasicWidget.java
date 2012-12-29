@@ -48,4 +48,8 @@ public class BasicWidget implements Widget {
       this.currentHover = null;
    }
 
+   @Override
+   public void mousePressed(int button, int x, int y) {
+   }
+
 }

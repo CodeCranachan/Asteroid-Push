@@ -82,4 +82,9 @@ public class DesignerGameState extends BasicGameState {
          throws SlickException {
       // TODO Auto-generated method stub
    }
+
+   @Override
+   public void mousePressed(int button, int x, int y) {
+      ui.mousePressed(button, x, y);
+   }
 }

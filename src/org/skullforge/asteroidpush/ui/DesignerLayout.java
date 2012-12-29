@@ -84,4 +84,14 @@ public class DesignerLayout extends BasicWidget {
             * blueprintRatio, frame.getHeight());
    }
 
+   @Override
+   public void mousePressed(int button, int x, int y) {
+      if (blueprint != null && getBlueprintFrame(getFrame()).contains(x, y)) {
+         blueprint.mousePressed(button, x, y);
+      }
+      if (catalogue != null && getCatalogueFrame(getFrame()).contains(x, y)) {
+         catalogue.mousePressed(button, x, y);
+      }
+   }
+
 }

@@ -8,4 +8,5 @@ public interface Widget {
    void render(Graphics g);
    void setHover(float x, float y);
    void resetHover();
+   void mousePressed(int button, int x, int y);
 }
