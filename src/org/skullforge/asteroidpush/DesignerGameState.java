@@ -69,6 +69,11 @@ public class DesignerGameState extends BasicGameState {
       ui.setHover(newx, newy);
    }
 
+   @Override
+   public void mousePressed(int button, int x, int y) {
+      ui.mousePressed(button, x, y);
+   }
+
    private Scenario scenario;
    private DesignerUiFactory uiFactory;
    private Widget ui;
