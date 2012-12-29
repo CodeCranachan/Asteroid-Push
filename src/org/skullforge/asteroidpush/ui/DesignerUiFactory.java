@@ -21,7 +21,7 @@ public class DesignerUiFactory {
 
       DesignerLayout ui = new DesignerLayout();
       ui.setBlueprintWidget(new BlueprintDisplayView(localPlayer
-            .getShipDesign()));
+            .getShipDesign(), manipulator));
       ui.setCatalogueWidget(new ShipModuleList(new ModuleCatalogue(), font));
       return ui;
    }

@@ -9,6 +9,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
 
 import org.skullforge.asteroidpush.designer.Blueprint;
+import org.skullforge.asteroidpush.designer.BlueprintManipulator;
 import org.skullforge.asteroidpush.designer.ModuleToken;
 import org.skullforge.asteroidpush.designer.grid.GridVector;
 import org.skullforge.asteroidpush.testutils.ClassMockery;
@@ -17,6 +18,7 @@ public class BlueprintDisplayViewTest {
    ClassMockery context;
    BlueprintDisplayView testDesignView;
    Blueprint designMock;
+   BlueprintManipulator manipulatorMock;
    Graphics graphicsMock;
 
    @Before
@@ -24,7 +26,8 @@ public class BlueprintDisplayViewTest {
       context = new ClassMockery();
       designMock = context.mock(Blueprint.class);
       graphicsMock = context.mock(Graphics.class);
-      testDesignView = new BlueprintDisplayView(designMock);
+      manipulatorMock = context.mock(BlueprintManipulator.class);
+      testDesignView = new BlueprintDisplayView(designMock, manipulatorMock);
    }
 
    @Test

@@ -5,18 +5,23 @@ import java.util.Collection;
 import org.jbox2d.common.MathUtils;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Vector2f;
 import org.skullforge.asteroidpush.designer.Blueprint;
+import org.skullforge.asteroidpush.designer.BlueprintManipulator;
 import org.skullforge.asteroidpush.designer.ModuleToken;
 import org.skullforge.asteroidpush.designer.grid.GridVector;
 import org.skullforge.asteroidpush.designer.grid.Placement;
 
 public class BlueprintDisplayView extends BasicWidget {
    final private Blueprint shipDesign;
+   final private BlueprintManipulator manipulator;
 
-   public BlueprintDisplayView(Blueprint shipDesign) {
+   public BlueprintDisplayView(Blueprint shipDesign,
+         BlueprintManipulator manipulator) {
       this.shipDesign = shipDesign;
+      this.manipulator = manipulator;
    }
 
    public Rectangle getCenteredSquare(Rectangle parentFrame) {
@@ -80,7 +85,7 @@ public class BlueprintDisplayView extends BasicWidget {
       if (getFrame() == null) {
          return;
       }
-      
+
       Collection<ModuleToken> modules = shipDesign.getTokens();
 
       Rectangle printSquare = getCenteredSquare(getFrame());
@@ -123,6 +128,20 @@ public class BlueprintDisplayView extends BasicWidget {
             g.setColor(new Color(1.0f, 1.0f, 0.0f, 0.75f));
             g.draw(highlightFrame);
          }
+      }
+   }
+
+   @Override
+   public void mousePressed(int button, int x, int y) {
+      GridVector coordinate = getCoordinateForPoint(new Vector2f(x, y), getFrame());
+      
+      switch (button) {
+      case Input.MOUSE_LEFT_BUTTON:
+         manipulator.placeModule(coordinate);
+         break;
+      case Input.MOUSE_RIGHT_BUTTON:
+         manipulator.removeModule(coordinate);
+         break;
       }
    }
 }
