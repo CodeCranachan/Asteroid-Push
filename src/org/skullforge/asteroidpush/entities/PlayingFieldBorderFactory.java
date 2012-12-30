@@ -42,7 +42,7 @@ public class PlayingFieldBorderFactory implements EntityFactory {
          body.createFixture(def);
       }
 
-      Entity entity = new PassiveObject(body, world);
+      Entity entity = new PassiveObject(body);
       return entity;
    }
 

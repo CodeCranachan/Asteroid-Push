@@ -4,26 +4,23 @@ import java.util.Collection;
 
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
-import org.jbox2d.dynamics.World;
 import org.skullforge.asteroidpush.Player;
 import org.skullforge.asteroidpush.SimulatorCommand;
 import org.skullforge.asteroidpush.ui.Renderer;
 import org.skullforge.asteroidpush.utils.GeometryConverter;
 
 public class PassiveObject implements Entity {
-   private World world;
    private Body body;
    private Player owner;
 
-   public PassiveObject(Body body, World world) {
-      this.world = world;
+   public PassiveObject(Body body) {
       this.body = body;
       this.owner = null;
    }
 
    @Override
    public void destroy() {
-      world.destroyBody(body);
+      body.getWorld().destroyBody(body);
    }
 
    @Override

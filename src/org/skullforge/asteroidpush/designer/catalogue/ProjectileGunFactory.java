@@ -1,11 +1,12 @@
 package org.skullforge.asteroidpush.designer.catalogue;
 
+import org.jbox2d.common.MathUtils;
 import org.jbox2d.common.Vec2;
 import org.skullforge.asteroidpush.designer.data.ComponentData;
 import org.skullforge.asteroidpush.designer.data.Material;
 import org.skullforge.asteroidpush.designer.data.ModuleData;
 import org.skullforge.asteroidpush.designer.data.PrimitiveData;
-import org.skullforge.asteroidpush.designer.data.effectors.ProjectileSourceFeederData;
+import org.skullforge.asteroidpush.designer.data.effectors.EntityEmitterData;
 import org.skullforge.asteroidpush.designer.grid.GridVector;
 
 public class ProjectileGunFactory {
@@ -58,16 +59,16 @@ public class ProjectileGunFactory {
             new Vec2(-0.1f, 0.3f),
             new Vec2(-0.13f, 0.45f),
             new Vec2(-0.2f, 0.45f),
-            new Vec2(-0.2f, 0.2f),          
+            new Vec2(-0.2f, 0.2f),
             new Vec2(-0.1f, 0.2f)
       };
       gundecoleft.setVertices(decoleftshape);
       component.addPrimitive(gundecoleft);
 
-      ProjectileSourceFeederData canon = new ProjectileSourceFeederData();
-      canon.setAnchor(new Vec2(0.0f, 0.0f), 0.0f);
-      canon.setProjectileVelocity(10.0f);
-      component.addEffector(canon);
+      EntityEmitterData cannon = new EntityEmitterData();
+      cannon.setAnchor(new Vec2(0.0f, 0.5f), MathUtils.HALF_PI);
+      cannon.setProjectileVelocity(100.0f);
+      component.addEffector(cannon);
 
       component.addWeldDirection(GridVector.RIGHT);
 
