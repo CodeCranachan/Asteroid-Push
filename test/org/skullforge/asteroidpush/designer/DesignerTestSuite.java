@@ -12,8 +12,7 @@ import org.skullforge.asteroidpush.designer.grid.GridTestSuite;
       CatalogueTestSuite.class,
       DataTestSuite.class,
       GridTestSuite.class,
-      BlueprintTest.class,
-      BlueprintManipulatorTest.class
+      BlueprintTest.class
 })
 public class DesignerTestSuite {
 

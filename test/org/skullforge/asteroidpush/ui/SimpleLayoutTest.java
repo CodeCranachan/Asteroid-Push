@@ -6,7 +6,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.geom.Rectangle;
 import org.skullforge.asteroidpush.testutils.ClassMockery;
 import org.skullforge.asteroidpush.ui.Widget;
 
@@ -30,7 +29,6 @@ public class SimpleLayoutTest {
 
    @Test
    public void testDrawMissingWidgets() {
-      final Rectangle fullScreen = new Rectangle(0.0f, 0.0f, 640.0f, 480.0f);
       context.checking(new Expectations() {
          {
             allowing(graphicsMock).drawRoundRect(with(any(float.class)),
@@ -55,7 +53,6 @@ public class SimpleLayoutTest {
 
    @Test
    public void testDrawWidgets() {
-      final Rectangle fullScreen = new Rectangle(0.0f, 0.0f, 640.0f, 480.0f);
       context.checking(new Expectations() {
          {
             oneOf(backgroundWidgetMock).render(with(same(graphicsMock)));
