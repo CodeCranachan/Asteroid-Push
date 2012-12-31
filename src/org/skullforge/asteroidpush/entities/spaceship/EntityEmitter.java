@@ -3,6 +3,7 @@ package org.skullforge.asteroidpush.entities.spaceship;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import org.jbox2d.common.MathUtils;
 import org.jbox2d.common.Transform;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
@@ -43,9 +44,13 @@ public class EntityEmitter implements Effector {
          velocity = shooterTransform.R.mul(velocity);
          velocity.addLocal(shooter.getLinearVelocity());
 
+         float angle = placement.getAngle();
+         angle += shooterTransform.getAngle();
+         angle += MathUtils.HALF_PI;
+
          ArrayList<SimulatorCommand> commands = new ArrayList<SimulatorCommand>();
-         ProjectileFactory factory = new ProjectileFactory(
-               shooter.getWorld(), velocity);
+         ProjectileFactory factory = new ProjectileFactory(shooter.getWorld(),
+               velocity, angle);
          commands.add(new SpawnEntityCommand(factory, offset, null));
          this.shotHandled = true;
          return commands;

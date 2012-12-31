@@ -12,10 +12,12 @@ import org.jbox2d.dynamics.World;
 public class ProjectileFactory implements EntityFactory {
    final World world;
    final Vec2 velocity;
+   final float angle;
 
-   public ProjectileFactory(World world, Vec2 velocity) {
+   public ProjectileFactory(World world, Vec2 velocity, float angle) {
       this.world = world;
       this.velocity = velocity;
+      this.angle = angle;
    }
 
    @Override
@@ -34,6 +36,7 @@ public class ProjectileFactory implements EntityFactory {
       def.angularDamping = 0.01f;
       def.fixedRotation = false;
       def.linearVelocity = velocity;
+      def.angle = angle;
       return def;
    }
 
