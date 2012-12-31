@@ -126,6 +126,7 @@
    </path>
    
    <target name="release" depends="library,testing">
+     <delete dir="${release.classes}"/>
       <mkdir dir="${release.classes}"/>
       <javac srcdir="${source.root}" destdir="${release.classes}" includeantruntime="no" debug="off">
          <compilerarg value="-Xlint:all"/>
@@ -161,6 +162,7 @@
          <classpath path="${library.jars}/jacocoant.jar"/>
       </taskdef>
 
+      <delete dir="${testing.classes}"/>
       <mkdir dir="${testing.classes}"/>
       <javac destdir="${testing.classes}" includeantruntime="false" debug="on">
          <compilerarg value="-Xlint:all"/>
