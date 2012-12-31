@@ -26,6 +26,10 @@ public class Simulator {
       entityList.add(entity);
    }
 
+   public void removeEntity(Entity entity) {
+      entityList.remove(entity);
+   }
+
    public void clear() {
       for (Entity entity : entityList) {
          entity.destroy();
@@ -82,7 +86,8 @@ public class Simulator {
 
    private void updateEntities() {
       for (Entity entity : entityList) {
-         Collection<SimulatorCommand> commands = entity.update(getCurrentFrameNumber());
+         Collection<SimulatorCommand> commands = entity
+               .update(getCurrentFrameNumber());
          if (commands != null)
             commandList.addAll(commands);
       }

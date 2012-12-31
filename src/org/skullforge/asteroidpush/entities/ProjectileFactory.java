@@ -24,7 +24,7 @@ public class ProjectileFactory implements EntityFactory {
    public Entity createEntity(Vec2 location) {
       Body body = world.createBody(getBodyDef(location));
       body.createFixture(getFixtureDef());
-      PassiveObject entity = new PassiveObject(body);
+      Projectile entity = new Projectile(body, 300);
       return entity;
    }
 
@@ -37,6 +37,7 @@ public class ProjectileFactory implements EntityFactory {
       def.fixedRotation = false;
       def.linearVelocity = velocity;
       def.angle = angle;
+      def.bullet = true;
       return def;
    }
 
