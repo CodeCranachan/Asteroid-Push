@@ -9,6 +9,7 @@ import org.skullforge.asteroidpush.SignalController;
 import org.skullforge.asteroidpush.SimulatorCommand;
 import org.skullforge.asteroidpush.designer.data.effectors.ForceFeederData;
 import org.skullforge.asteroidpush.designer.grid.Facing;
+import org.skullforge.asteroidpush.utils.Pointer;
 
 public class ForceFeeder implements Effector {
 
@@ -25,7 +26,8 @@ public class ForceFeeder implements Effector {
    }
 
    @Override
-   public Collection<SimulatorCommand> update(int frameNumber, SignalController controller) {
+   public Collection<SimulatorCommand> update(int frameNumber,
+                                              SignalController controller) {
       float signal = 1.0f;
       if (controller != null) {
          switch (facing) {
@@ -44,19 +46,16 @@ public class ForceFeeder implements Effector {
          }
       }
 
-      Transform bodyTransform = propulsee.getTransform();
+      Pointer pointer = data.getAnchor();
+      pointer = pointer.applyTransform(placement);
+      pointer = pointer.applyTransform(propulsee.getTransform());
 
-      Vec2 force = data.getForce();
-      force.mulLocal(signal);
-      force = placement.R.mul(force);
-      force = bodyTransform.R.mul(force);
+      Vec2 force = pointer.getDirection();
+      force = force.mul(data.getMagnitude());
+      force = force.mul(signal);
 
-      Vec2 offset = data.getOffset();
-      offset = Transform.mul(placement, offset);
-      offset = Transform.mul(bodyTransform, offset);
+      propulsee.applyForce(force, pointer.getPosition());
 
-      propulsee.applyForce(force, offset);
-      
       return null;
    }
 

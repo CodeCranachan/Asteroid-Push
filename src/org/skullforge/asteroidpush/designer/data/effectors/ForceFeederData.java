@@ -7,9 +7,10 @@ import org.skullforge.asteroidpush.designer.data.EffectorData;
 import org.skullforge.asteroidpush.designer.grid.Facing;
 import org.skullforge.asteroidpush.entities.spaceship.Effector;
 import org.skullforge.asteroidpush.entities.spaceship.ForceFeeder;
+import org.skullforge.asteroidpush.utils.Pointer;
 
 public class ForceFeederData implements EffectorData {
-   private Transform anchor;
+   private Pointer anchor;
    private float magnitude;
 
    @Override
@@ -22,19 +23,16 @@ public class ForceFeederData implements EffectorData {
    }
 
    public ForceFeederData() {
-      this.anchor = new Transform();
+      this.anchor = new Pointer();
       this.magnitude = 0.0f;
    }
 
-   public Vec2 getForce() {
-      Vec2 force = new Vec2(1.0f, 0.0f);
-      force = anchor.R.mul(force);
-      force.mulLocal(magnitude);
-      return force;
+   public Pointer getAnchor() {
+      return this.anchor;
    }
-
-   public Vec2 getOffset() {
-      return anchor.position;
+   
+   public float getMagnitude() {
+      return this.magnitude;
    }
 
    public void setAnchor(Vec2 offset, float angle) {
