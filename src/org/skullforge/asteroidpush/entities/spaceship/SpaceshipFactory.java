@@ -112,7 +112,7 @@ public class SpaceshipFactory implements EntityFactory {
          Transform transform = calculateFixtureTransform(part.getPlacement());
          ComponentData component = part.getComponent();
          for (EffectorData data : component.getEffectors()) {
-            Effector effector = data.createEffector(transform, body);
+            Effector effector = data.createEffector(standardModuleSize, transform, body);
             effectors.add(effector);
          }
       }

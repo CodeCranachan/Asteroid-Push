@@ -4,7 +4,6 @@ import org.jbox2d.dynamics.Body;
 import org.junit.Before;
 import org.junit.Test;
 import org.skullforge.asteroidpush.SignalController;
-import org.skullforge.asteroidpush.designer.data.effectors.TorqueFeederData;
 import org.skullforge.asteroidpush.testutils.ClassMockery;
 
 public class TorqueFeederTest {
@@ -20,12 +19,8 @@ public class TorqueFeederTest {
 
    @Test
    public void testUpdate() {
-      final float expectedTorque = 1000.0f;
-
       SignalController testController = new SignalController();
-      TorqueFeederData data = new TorqueFeederData();
-      data.setMagnitude(expectedTorque);
-      TorqueFeeder testFeeder = new TorqueFeeder(data);
+      TorqueFeeder testFeeder = new TorqueFeeder();
       testFeeder.setPropulsee(bodyMock);
 
       // Body can not be mocked due to excessive use of 'final'

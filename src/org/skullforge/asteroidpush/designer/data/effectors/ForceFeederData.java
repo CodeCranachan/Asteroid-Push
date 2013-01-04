@@ -14,25 +14,19 @@ public class ForceFeederData implements EffectorData {
    private float magnitude;
 
    @Override
-   public Effector createEffector(Transform transform, Body body) {
-      ForceFeeder feeder = new ForceFeeder(this);
+   public Effector createEffector(float size, Transform placement, Body body) {
+      ForceFeeder feeder = new ForceFeeder();
       feeder.setPropulsee(body);
-      feeder.setPlacement(transform);
-      feeder.setFacing(Facing.fromTransform(transform));
+      Pointer pointer = anchor.applyScale(size);
+      feeder.setPlacement(pointer.applyTransform(placement));
+      feeder.setFacing(Facing.fromTransform(placement));
+      feeder.setMagnitude(magnitude);
       return feeder;
    }
 
    public ForceFeederData() {
       this.anchor = new Pointer();
       this.magnitude = 0.0f;
-   }
-
-   public Pointer getAnchor() {
-      return this.anchor;
-   }
-   
-   public float getMagnitude() {
-      return this.magnitude;
    }
 
    public void setAnchor(Vec2 offset, float angle) {

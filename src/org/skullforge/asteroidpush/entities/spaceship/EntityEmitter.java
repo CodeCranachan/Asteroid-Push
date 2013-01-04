@@ -3,27 +3,25 @@ package org.skullforge.asteroidpush.entities.spaceship;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import org.jbox2d.common.MathUtils;
-import org.jbox2d.common.Transform;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.skullforge.asteroidpush.SignalController;
 import org.skullforge.asteroidpush.SimulatorCommand;
 import org.skullforge.asteroidpush.SpawnEntityCommand;
-import org.skullforge.asteroidpush.designer.data.effectors.EntityEmitterData;
 import org.skullforge.asteroidpush.entities.ProjectileFactory;
+import org.skullforge.asteroidpush.utils.Pointer;
 
 public class EntityEmitter implements Effector {
 
-   final private EntityEmitterData data;
    private Body shooter;
-   private Transform placement;
+   final private Pointer placement;
+   private float emitterVelocity;
    private boolean shotHandled;
 
-   public EntityEmitter(EntityEmitterData data) {
-      this.data = data;
-      this.placement = new Transform();
+   public EntityEmitter() {
+      this.placement = new Pointer();
       this.shooter = null;
+      this.emitterVelocity = 0.0f;
       this.shotHandled = false;
    }
 
@@ -33,25 +31,18 @@ public class EntityEmitter implements Effector {
       if (controller.primaryFire == 0.0f) {
          this.shotHandled = false;
       } else if (!this.shotHandled) {
-         Transform shooterTransform = shooter.getTransform();
 
-         Vec2 offset = data.getOffset();
-         offset = Transform.mul(placement, offset);
-         offset = Transform.mul(shooterTransform, offset);
+         Pointer pointer = placement.applyTransform(shooter.getTransform());
 
-         Vec2 velocity = data.getVelocity();
-         velocity = placement.R.mul(velocity);
-         velocity = shooterTransform.R.mul(velocity);
+         Vec2 velocity = pointer.getDirection();
+         velocity = velocity.mul(emitterVelocity);
          velocity.addLocal(shooter.getLinearVelocity());
-
-         float angle = placement.getAngle();
-         angle += shooterTransform.getAngle();
-         angle += MathUtils.HALF_PI;
 
          ArrayList<SimulatorCommand> commands = new ArrayList<SimulatorCommand>();
          ProjectileFactory factory = new ProjectileFactory(shooter.getWorld(),
-               velocity, angle);
-         commands.add(new SpawnEntityCommand(factory, offset, null));
+               velocity, pointer.getAngle());
+         commands.add(new SpawnEntityCommand(factory, pointer.getPosition(),
+               null));
          this.shotHandled = true;
          return commands;
       }
@@ -62,8 +53,12 @@ public class EntityEmitter implements Effector {
       this.shooter = shooter;
    }
 
-   public void setPlacement(Transform transform) {
-      this.placement.set(transform);
+   public void setPlacement(Pointer placement) {
+      this.placement.set(placement.getPosition(), placement.getAngle());
+   }
+
+   public void setVelocity(float velocity) {
+      this.emitterVelocity = velocity;
    }
 
 }

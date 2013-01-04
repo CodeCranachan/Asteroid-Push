@@ -5,5 +5,5 @@ import org.jbox2d.dynamics.Body;
 import org.skullforge.asteroidpush.entities.spaceship.Effector;
 
 public interface EffectorData {
-   Effector createEffector(Transform transform, Body body);
+   Effector createEffector(float size, Transform placement, Body body);
 }

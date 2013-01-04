@@ -67,7 +67,7 @@ public class ProjectileGunFactory {
 
       EntityEmitterData cannon = new EntityEmitterData();
       cannon.setAnchor(new Vec2(0.0f, 0.5f), MathUtils.HALF_PI);
-      cannon.setProjectileVelocity(100.0f);
+      cannon.setProjectileVelocity(50.0f);
       component.addEffector(cannon);
 
       component.addWeldDirection(GridVector.RIGHT);

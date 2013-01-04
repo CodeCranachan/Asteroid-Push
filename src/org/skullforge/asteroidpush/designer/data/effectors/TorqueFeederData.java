@@ -11,9 +11,10 @@ public class TorqueFeederData implements EffectorData {
    private float magnitude;
 
    @Override
-   public Effector createEffector(Transform transform, Body body) {
-      TorqueFeeder feeder = new TorqueFeeder(this);
+   public Effector createEffector(float size, Transform placement, Body body) {
+      TorqueFeeder feeder = new TorqueFeeder();
       feeder.setPropulsee(body);
+      feeder.setMagnitude(magnitude);
       return feeder;
    }
 

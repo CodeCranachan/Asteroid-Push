@@ -46,4 +46,8 @@ public class Pointer {
       Vec2 resultPosition = Transform.mul(transform, position);
       return new Pointer(resultPosition, resultAngle);
    }
+   
+   public Pointer applyScale(float scale) {
+      return new Pointer(position.mul(scale), angle);
+   }
 }

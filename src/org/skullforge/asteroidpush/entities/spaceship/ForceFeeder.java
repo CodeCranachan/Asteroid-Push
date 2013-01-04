@@ -2,27 +2,25 @@ package org.skullforge.asteroidpush.entities.spaceship;
 
 import java.util.Collection;
 
-import org.jbox2d.common.Transform;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.skullforge.asteroidpush.SignalController;
 import org.skullforge.asteroidpush.SimulatorCommand;
-import org.skullforge.asteroidpush.designer.data.effectors.ForceFeederData;
 import org.skullforge.asteroidpush.designer.grid.Facing;
 import org.skullforge.asteroidpush.utils.Pointer;
 
 public class ForceFeeder implements Effector {
 
-   final private ForceFeederData data;
    private Body propulsee;
-   private Transform placement;
+   private Pointer placement;
    private Facing facing;
+   private float magnitude;
 
-   public ForceFeeder(ForceFeederData data) {
-      this.data = data;
-      this.placement = new Transform();
+   public ForceFeeder() {
+      this.placement = new Pointer();
       this.propulsee = null;
       this.facing = Facing.FORWARD;
+      this.magnitude = 0.0f;
    }
 
    @Override
@@ -46,14 +44,9 @@ public class ForceFeeder implements Effector {
          }
       }
 
-      Pointer pointer = data.getAnchor();
-      pointer = pointer.applyTransform(placement);
-      pointer = pointer.applyTransform(propulsee.getTransform());
-
+      Pointer pointer = this.placement.applyTransform(propulsee.getTransform());
       Vec2 force = pointer.getDirection();
-      force = force.mul(data.getMagnitude());
-      force = force.mul(signal);
-
+      force = force.mul(signal * magnitude);
       propulsee.applyForce(force, pointer.getPosition());
 
       return null;
@@ -63,12 +56,15 @@ public class ForceFeeder implements Effector {
       this.propulsee = propulsee;
    }
 
-   public void setPlacement(Transform transform) {
-      this.placement.set(transform);
+   public void setPlacement(Pointer pointer) {
+      this.placement.set(pointer.getPosition(), pointer.getAngle());
    }
 
    public void setFacing(Facing facing) {
       this.facing = facing;
    }
 
+   public void setMagnitude(float magnitude) {
+      this.magnitude = magnitude;
+   }
 }
