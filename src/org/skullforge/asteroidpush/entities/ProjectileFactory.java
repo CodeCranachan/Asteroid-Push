@@ -1,6 +1,6 @@
 package org.skullforge.asteroidpush.entities;
 
-import org.jbox2d.collision.shapes.PolygonShape;
+import org.jbox2d.collision.shapes.CircleShape;
 import org.jbox2d.collision.shapes.Shape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
@@ -37,7 +37,7 @@ public class ProjectileFactory implements EntityFactory {
       def.fixedRotation = false;
       def.linearVelocity = velocity;
       def.angle = angle;
-      def.bullet = true;
+      def.bullet = false;
       return def;
    }
 
@@ -51,13 +51,8 @@ public class ProjectileFactory implements EntityFactory {
    }
 
    private Shape getShape() {
-      PolygonShape shape = new PolygonShape();
-      Vec2 vertices[] = new Vec2[] {
-            new Vec2(-0.1f, 0.1f),
-            new Vec2(-0.1f, -0.1f),
-            new Vec2(0.2f, 0.0f)
-      };
-      shape.set(vertices, vertices.length);
+      CircleShape shape = new CircleShape();
+      shape.m_radius = 0.1f;
       return shape;
    }
 

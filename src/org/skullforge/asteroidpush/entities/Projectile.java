@@ -5,21 +5,33 @@ import java.util.Collection;
 
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
+import org.jbox2d.dynamics.Fixture;
+import org.newdawn.slick.geom.Shape;
+import org.newdawn.slick.geom.Transform;
 import org.skullforge.asteroidpush.DestroyEntityCommand;
+import org.skullforge.asteroidpush.ImpactListener;
 import org.skullforge.asteroidpush.Player;
 import org.skullforge.asteroidpush.SimulatorCommand;
 import org.skullforge.asteroidpush.ui.Renderer;
 import org.skullforge.asteroidpush.utils.GeometryConverter;
 
-public class Projectile implements Entity {
+public class Projectile implements Entity, ImpactListener {
    private Body body;
    private Player owner;
    private int timeToLive;
+   private boolean impactDetected;
 
    public Projectile(Body body, int timeToLive) {
       this.body = body;
       this.owner = null;
       this.timeToLive = timeToLive;
+      this.impactDetected = false;
+      
+      Fixture fixture = body.getFixtureList();
+      while (fixture != null) {
+         fixture.setUserData(this);
+         fixture = fixture.getNext();
+      }
    }
 
    @Override
@@ -34,7 +46,7 @@ public class Projectile implements Entity {
 
    @Override
    public Collection<SimulatorCommand> update(int frameNumber) {
-      if (timeToLive <= 0) {
+      if (timeToLive <= 0 || impactDetected) {
          ArrayList<SimulatorCommand> commands = new ArrayList<SimulatorCommand>();
          commands.add(new DestroyEntityCommand(this));
          return commands;
@@ -64,4 +76,8 @@ public class Projectile implements Entity {
       return 30.0f;
    }
 
+   @Override
+   public void handleImpact() {
+      impactDetected = true;
+   }
 }

@@ -36,7 +36,7 @@ public class EntityEmitter implements Effector {
 
          Vec2 velocity = pointer.getDirection();
          velocity = velocity.mul(emitterVelocity);
-         velocity.addLocal(shooter.getLinearVelocity());
+         velocity.addLocal(shooter.getLinearVelocityFromLocalPoint(placement.getPosition()));
 
          ArrayList<SimulatorCommand> commands = new ArrayList<SimulatorCommand>();
          ProjectileFactory factory = new ProjectileFactory(shooter.getWorld(),

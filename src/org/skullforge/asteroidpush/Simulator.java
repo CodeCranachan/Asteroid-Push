@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 
+import org.jbox2d.callbacks.ContactListener;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.World;
 import org.skullforge.asteroidpush.entities.Entity;
@@ -20,6 +21,7 @@ public class Simulator {
       commandList = new LinkedList<SimulatorCommand>();
       currentFrameNumber = 0;
       world = new World(new Vec2(0.0f, -9.81f), true);
+      world.setContactListener(new CollisionObserver());
    }
 
    public void addEntity(Entity entity) {

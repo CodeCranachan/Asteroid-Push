@@ -66,7 +66,7 @@ public class ProjectileGunFactory {
       component.addPrimitive(gundecoleft);
 
       EntityEmitterData cannon = new EntityEmitterData();
-      cannon.setAnchor(new Vec2(0.0f, 0.5f), MathUtils.HALF_PI);
+      cannon.setAnchor(new Vec2(0.0f, 1.0f), MathUtils.HALF_PI);
       cannon.setProjectileVelocity(50.0f);
       component.addEffector(cannon);
 
