@@ -1,24 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="src" path="test"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="build/library/jar/jinput.jar"/>
-	<classpathentry kind="lib" path="build/library/jar/jmock-2.5.1.jar"/>
-	<classpathentry kind="lib" path="build/library/jar/junit-4.10.jar"/>
-	<classpathentry kind="lib" path="build/library/jar/lwjgl.jar">
+	<classpathentry kind="src" output="target/classes" path="src/main/java">
 		<attributes>
-			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="omegazone/build/library/native/windows"/>
+			<attribute name="optional" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="build/library/jar/slick.jar" sourcepath="build/library/download/slick.zip"/>
-	<classpathentry kind="lib" path="build/library/jar/jmock-legacy-2.5.1.jar"/>
-	<classpathentry kind="lib" path="build/library/jar/cglib-nodep-2.1_3.jar"/>
-	<classpathentry kind="lib" path="build/library/jar/objenesis-1.0.jar"/>
-	<classpathentry kind="lib" path="build/library/jar/one-jar-ant-task-0.97.jar"/>
-	<classpathentry kind="lib" path="build/library/jar/jbox2d-library-2.1.2.2.jar" sourcepath="build/library/download/jbox2d-2.1.2.2.zip"/>
-	<classpathentry kind="lib" path="build/library/jar/slf4j-api-1.6.6.jar"/>
-	<classpathentry kind="lib" path="build/library/jar/slf4j-jdk14-1.6.6.jar"/>
-	<classpathentry kind="lib" path="build/library/jar/hamcrest-all-1.1.jar"/>
-	<classpathentry kind="output" path="build/eclipse/classes"/>
+	<classpathentry kind="src" output="target/test-classes" path="src/test/java">
+		<attributes>
+			<attribute name="optional" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE-1.5">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path="target/classes"/>
 </classpath>
