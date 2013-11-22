@@ -1,13 +1,14 @@
 **ASTEROID PUSH**
 
-At the moment there are only two things you need to install in order to get this compiled and running: 
+To get this compiled and running you will need the following: 
 - JDK 7 
-- Apache Ant 1.8.2 (others might work as well, but that is what I am using)
-Everything else is bundled in the repository.
+- Apache Maven 3.1.1 (I guess what matters is that it supports POM 4.0.0)
+- slick2d-maven from GitHub (https://github.com/nguillaumin/slick2d-maven)
 
-Configure your environment variables so JAVA_HOME points to your JDK and ANT_HOME points to the ant installation and add the ant's bin directory to your path.
+The slick2d developers have not yet deemed it necessary to migrate to maven, making our lives needlessly difficult.
+To get the build to work you will need to clone slick2d-maven to your local drive, and then run 'mvn clean install' on it.
 
-Then execute ant play in the directory you found this file. This compiles, packs and starts the game
+Once you have everything installed you can package the game using 'mvn package'.
 
 Cheers
     Christian Meyer
