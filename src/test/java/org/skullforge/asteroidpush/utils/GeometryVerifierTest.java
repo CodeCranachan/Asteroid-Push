@@ -15,12 +15,6 @@ public class GeometryVerifierTest {
       
       PolygonShape shape = new PolygonShape();
 
-      Vec2 lineVertices[] = new Vec2[] {
-            new Vec2(-1.0f, -1.0f), new Vec2(1.0f, 1.0f)
-      };
-      shape.set(lineVertices, lineVertices.length);
-      assertTrue(GeometryVerifier.IsWoundCorrectly(shape));
-
       Vec2 boxVertices[] = new Vec2[] {
             new Vec2(0.25f, 0.25f),
             new Vec2(-0.25f, 0.25f),
