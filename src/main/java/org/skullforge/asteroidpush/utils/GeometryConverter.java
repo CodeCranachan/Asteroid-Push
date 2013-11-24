@@ -28,8 +28,10 @@ public class GeometryConverter {
    }
 
    static private org.newdawn.slick.geom.Transform convertToSlickTransform(org.jbox2d.common.Transform transform) {
-      Transform converted = Transform.createRotateTransform(transform.q.getAngle(), transform.p.x, transform.p.y);
-      return converted;
+      Transform rotation = Transform.createRotateTransform(transform.q.getAngle(), 0, 0);
+      Transform translation = Transform.createTranslateTransform(transform.p.x, transform.p.y);
+      translation.concatenate(rotation);
+      return translation;
    }
 
    static public org.newdawn.slick.geom.Shape convertToSlickShape(org.jbox2d.collision.shapes.Shape shape) {
