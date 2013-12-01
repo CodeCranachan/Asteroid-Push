@@ -67,7 +67,7 @@ public class Projectile implements Entity, ImpactListener {
       return 30.0f;
    }
 
-   public void handleImpact() {
+   public void handleImpact(Vec2 worldCoordinates, float magnitude) {
       impactDetected = true;
    }
 }
