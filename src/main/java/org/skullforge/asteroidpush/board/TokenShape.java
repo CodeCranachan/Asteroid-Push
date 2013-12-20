@@ -1,24 +1,25 @@
 package org.skullforge.asteroidpush.board;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Vector;
 
 class TokenShape {
-   private Vector<String> form_;
+   private Set<BoardCoordinate> coordinates_;
 
-   public TokenShape(String... form) {
-      form_ = new Vector<String>();
-      
-      if (form.length == 0) {
-         form_.add("X");
+   public TokenShape(String... shape) {
+      Vector<String> code = new Vector<String>();
+      if (shape.length == 0) {
+         code.add("X");
       }
-      
-      for (String line : form) {
-         if (!line.contains("X")) {
-            throw new IllegalArgumentException("invalid form strings passed");
-         } else {
-            form_.add(line);
-         }
+
+      for (String line : shape) {
+         code.add(line);
       }
+
+      coordinates_ = convertShape(code);
+      if (coordinates_.isEmpty())
+         throw new IllegalArgumentException("invalid shape strings passed");
    }
 
    public boolean equals(Object obj) {
@@ -28,9 +29,37 @@ class TokenShape {
          return false;
 
       TokenShape other = (TokenShape) obj;
-      if (other.form_.equals(this.form_))
+      if (other.coordinates_.equals(this.coordinates_))
          return true;
       else
          return false;
+   }
+
+   public Set<BoardCoordinate> getOccupiedCoordinates() {
+      return coordinates_;
+   }
+
+   public Set<BoardCoordinate> getOccupiedCoordinatesOffset(BoardCoordinate offset) {
+      Set<BoardCoordinate> cooked = new HashSet<BoardCoordinate>();
+      for (BoardCoordinate coordinate : coordinates_) {
+         cooked.add(new BoardCoordinate(coordinate.getX() + offset.getX(), coordinate.getY() + offset.getY()));
+      }
+      return cooked;
+   }
+
+   private Set<BoardCoordinate> convertShape(Vector<String> shape) {
+      HashSet<BoardCoordinate> converted = new HashSet<BoardCoordinate>();
+      int y = 0;
+      for (String line : shape) {
+         int x = 0;
+         for (char c : line.toCharArray()) {
+            if (c == 'X') {
+               converted.add(new BoardCoordinate(x, y));
+            }
+            x++;
+         }
+         y++;
+      }
+      return converted;
    }
 }

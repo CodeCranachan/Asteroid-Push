@@ -3,6 +3,7 @@ package org.skullforge.asteroidpush;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
+import org.skullforge.asteroidpush.board.BoardTestSuite;
 import org.skullforge.asteroidpush.designer.DesignerTestSuite;
 import org.skullforge.asteroidpush.entities.EntitiesTestSuite;
 import org.skullforge.asteroidpush.ui.UiTestSuite;
@@ -10,6 +11,7 @@ import org.skullforge.asteroidpush.utils.UtilsTestSuite;
 
 @RunWith(Suite.class)
 @SuiteClasses({
+      BoardTestSuite.class,
       DesignerTestSuite.class,
       EntitiesTestSuite.class,
       UiTestSuite.class,

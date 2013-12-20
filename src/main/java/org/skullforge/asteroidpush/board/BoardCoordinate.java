@@ -14,6 +14,14 @@ class BoardCoordinate {
       y_ = y;
    }
 
+   public int getX() {
+      return x_;
+   }
+
+   public int getY() {
+      return y_;
+   }
+
    public boolean equals(Object obj) {
       if (obj == null) {
          return false;
@@ -28,5 +36,9 @@ class BoardCoordinate {
    public int hashCode() {
       int hash = x_ * (2 ^ 16) + y_;
       return hash;
+   }
+
+   public String toString() {
+      return String.format("%d/%d", x_, y_);
    }
 }
