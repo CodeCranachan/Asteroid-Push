@@ -1,25 +1,25 @@
 package org.skullforge.asteroidpush.board;
 
 class BoardCoordinate {
-   private int x_;
-   private int y_;
+   private int x;
+   private int y;
 
    public BoardCoordinate() {
-      x_ = 0;
-      y_ = 0;
+      x = 0;
+      y = 0;
    }
 
    public BoardCoordinate(int x, int y) {
-      x_ = x;
-      y_ = y;
+      this.x = x;
+      this.y = y;
    }
 
    public int getX() {
-      return x_;
+      return x;
    }
 
    public int getY() {
-      return y_;
+      return y;
    }
 
    public boolean equals(Object obj) {
@@ -30,15 +30,15 @@ class BoardCoordinate {
          return false;
       }
       BoardCoordinate other = (BoardCoordinate) obj;
-      return (other.x_ == this.x_) && (other.y_ == this.y_);
+      return (other.x == this.x) && (other.y == this.y);
    }
 
    public int hashCode() {
-      int hash = x_ * (2 ^ 16) + y_;
+      int hash = x * (2 ^ 16) + y;
       return hash;
    }
 
    public String toString() {
-      return String.format("%d/%d", x_, y_);
+      return String.format("%d/%d", x, y);
    }
 }

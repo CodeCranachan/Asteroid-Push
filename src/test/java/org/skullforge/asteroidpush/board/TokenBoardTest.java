@@ -95,4 +95,42 @@ public class TokenBoardTest {
       assertNull(board.inspectToken(new BoardCoordinate(0, 1)));
       assertNull(board.inspectToken(new BoardCoordinate(0, -1)));
    }
+
+   @Test
+   public void PlaceTokenWithSpecialShape_CanBeFoundOnAllCoordinates() {
+      Token token = new Token(new TokenShape("XX"));
+      board.putToken(token, new BoardCoordinate());
+      assertSame(board.inspectToken(new BoardCoordinate(0, 0)), token);
+      assertSame(board.inspectToken(new BoardCoordinate(1, 0)), token);
+   }
+
+   @Test(expected = IllegalArgumentException.class)
+   public void PlaceOverlappingTokens_ThrowIllegalArgumentException() {
+      Token firstToken = new Token(new TokenShape("XX"));
+      Token secondToken = new Token(new TokenShape("X", "X"));
+      board.putToken(firstToken, new BoardCoordinate(0, 0));
+      board.putToken(secondToken, new BoardCoordinate(1, -1));
+   }
+
+   @Test
+   public void PlaceOverlappingTokens_TokenDoesNotGetPlaced() {
+      Token firstToken = new Token(new TokenShape("XX"));
+      Token secondToken = new Token(new TokenShape("X", "X"));
+      board.putToken(firstToken, new BoardCoordinate(0, 0));
+      try {
+         board.putToken(secondToken, new BoardCoordinate(1, -1));
+      } catch (IllegalArgumentException e) {
+         assertNull(board.inspectToken(new BoardCoordinate(1, -1)));
+         assertSame(board.inspectToken(new BoardCoordinate(1, 0)), firstToken);
+      }
+   }
+
+   @Test
+   public void RemoveTokenWithSpecialShape_AllCoordinatesAreFreed() {
+      Token token = new Token(new TokenShape("XX"));
+      board.putToken(token, new BoardCoordinate());
+      assertSame(board.pickToken(new BoardCoordinate()), token);
+      assertNull(board.inspectToken(new BoardCoordinate(0, 0)));
+      assertNull(board.inspectToken(new BoardCoordinate(1, 0)));
+   }
 }

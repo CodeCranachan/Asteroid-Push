@@ -5,7 +5,7 @@ import java.util.Set;
 import java.util.Vector;
 
 class TokenShape {
-   private Set<BoardCoordinate> coordinates_;
+   private Set<BoardCoordinate> coordinates;
 
    public TokenShape(String... shape) {
       Vector<String> code = new Vector<String>();
@@ -17,8 +17,8 @@ class TokenShape {
          code.add(line);
       }
 
-      coordinates_ = convertShape(code);
-      if (coordinates_.isEmpty())
+      coordinates = convertShape(code);
+      if (coordinates.isEmpty())
          throw new IllegalArgumentException("invalid shape strings passed");
    }
 
@@ -29,20 +29,21 @@ class TokenShape {
          return false;
 
       TokenShape other = (TokenShape) obj;
-      if (other.coordinates_.equals(this.coordinates_))
+      if (other.coordinates.equals(this.coordinates))
          return true;
       else
          return false;
    }
 
    public Set<BoardCoordinate> getOccupiedCoordinates() {
-      return coordinates_;
+      return coordinates;
    }
 
    public Set<BoardCoordinate> getOccupiedCoordinatesOffset(BoardCoordinate offset) {
       Set<BoardCoordinate> cooked = new HashSet<BoardCoordinate>();
-      for (BoardCoordinate coordinate : coordinates_) {
-         cooked.add(new BoardCoordinate(coordinate.getX() + offset.getX(), coordinate.getY() + offset.getY()));
+      for (BoardCoordinate coordinate : coordinates) {
+         cooked.add(new BoardCoordinate(coordinate.getX() + offset.getX(),
+               coordinate.getY() + offset.getY()));
       }
       return cooked;
    }
