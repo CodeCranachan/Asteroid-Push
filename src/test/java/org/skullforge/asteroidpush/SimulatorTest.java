@@ -1,3 +1,19 @@
+//    Asteroid Push - A game featuring selfmade spaceships and pompous physics
+//    Copyright (C) 2013  Christian Meyer, Silvan Wegmann
+//
+//    This program is free software: you can redistribute it and/or modify
+//    it under the terms of the GNU General Public License as published by
+//    the Free Software Foundation, either version 3 of the License, or
+//    (at your option) any later version.
+//
+//    This program is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//    GNU General Public License for more details.
+//
+//    You should have received a copy of the GNU General Public License
+//    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 package org.skullforge.asteroidpush;
 
 import java.util.ArrayList;
@@ -31,6 +47,37 @@ public class SimulatorTest {
       rendererMock = context.mock(Renderer.class);
       testSimulator = new Simulator();
    }
+
+   @Test
+   public void freshlyConstructed_FrameNumberIsZero() {
+      Simulator testSimulator = new Simulator();
+      assertEquals(0, testSimulator.getCurrentFrameNumber());
+   }
+
+   @Test
+   public void stepToFrameIsCalled_FrameNumberIsSet() {
+      assertFrameCounterCorrectlyUpdated(0, 0);
+      assertFrameCounterCorrectlyUpdated(0, 5);
+      assertFrameCounterCorrectlyUpdated(2, 5);
+      assertFrameCounterCorrectlyUpdated(5, 5);
+   }
+
+   private void assertFrameCounterCorrectlyUpdated(int initialFrameNumber,
+                                                   int finalFrameNumber) {
+      Simulator testSimulator = new Simulator();
+      testSimulator.stepToFrame(initialFrameNumber);
+      testSimulator.stepToFrame(finalFrameNumber);
+      assertEquals(finalFrameNumber, testSimulator.getCurrentFrameNumber());
+   }
+   
+   @Test
+   public void clearWasCalled_FrameNumberIsReset() {
+      Simulator testSimulator = new Simulator();
+      testSimulator.stepToFrame(5);
+      testSimulator.clear();
+      assertEquals(0, testSimulator.getCurrentFrameNumber());
+   }
+
 
    @Test
    public void testClear() {
