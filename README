@@ -3,12 +3,8 @@
 To get this compiled and running you will need the following: 
 - JDK 7 
 - Apache Maven 3.1.1 (I guess what matters is that it supports POM 4.0.0)
-- slick2d-maven from GitHub (https://github.com/nguillaumin/slick2d-maven)
 
-The slick2d developers have not yet deemed it necessary to migrate to maven, making our lives needlessly difficult.
-To get the build to work you will need to clone slick2d-maven to your local drive, and then run 'mvn clean install' on it.
-
-Once you have everything installed you can package the game using 'mvn package'.
+Packaging the game is just a matter of typing 'mvn package'.
 
 Cheers
     Christian Meyer
