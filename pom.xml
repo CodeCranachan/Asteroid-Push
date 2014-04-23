@@ -15,8 +15,7 @@
 		<natives.targetDir>target/natives</natives.targetDir>
 		<junit.version>4.11</junit.version>
 		<jmock.version>2.6.0</jmock.version>
-		<lwjgl.version>2.9.0</lwjgl.version>
-		<slick2d.version>2013.10-SNAPSHOT</slick2d.version>
+		<slick2d.version>1.0.0</slick2d.version>
 		<jbox2d.version>2.2.1.1</jbox2d.version>
 		<jacoco.version>0.6.3.201306030806</jacoco.version>
 	</properties>
@@ -39,11 +38,6 @@
 			<artifactId>jmock-legacy</artifactId>
 			<version>${jmock.version}</version>
 			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.lwjgl.lwjgl</groupId>
-			<artifactId>lwjgl</artifactId>
-			<version>${lwjgl.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.slick2d</groupId>
