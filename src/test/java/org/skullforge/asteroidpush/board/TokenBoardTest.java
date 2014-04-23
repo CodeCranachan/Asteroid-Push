@@ -18,84 +18,9 @@ package org.skullforge.asteroidpush.board;
 
 import static org.junit.Assert.*;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.management.openmbean.KeyAlreadyExistsException;
-
-import org.jmock.auto.Mock;
-import org.jmock.integration.junit4.JUnitRuleMockery;
 import org.junit.*;
 
 public class TokenBoardTest {
-   class TokenBoard {
-      private Map<BoardCoordinate, Token> tokens;
-
-      public TokenBoard() {
-         tokens = new HashMap<BoardCoordinate, Token>();
-      }
-
-      public boolean isEmpty() {
-         return tokens.isEmpty();
-      }
-
-      public void putToken(Token token, BoardCoordinate location) {
-         if (token == null)
-            throw new IllegalArgumentException("null was passed as token");
-         if (location == null)
-            throw new IllegalArgumentException("null was passed as location");
-         if (tokens.containsKey(location))
-            throw new KeyAlreadyExistsException("location already occupied");
-         tokens.put(location, token);
-      }
-
-      public Token pickToken(BoardCoordinate location) {
-         return tokens.remove(location);
-      }
-
-      public Token inspectToken(BoardCoordinate location) {
-         return tokens.get(location);
-      }
-   }
-
-   class Token {
-      public Token() {
-
-      }
-
-   }
-
-   class BoardCoordinate {
-      private int x_;
-      private int y_;
-
-      public BoardCoordinate() {
-         x_ = 0;
-         y_ = 0;
-      }
-
-      public BoardCoordinate(int x, int y) {
-         x_ = x;
-         y_ = y;
-      }
-
-      public boolean equals(Object obj) {
-         if (obj == null) {
-            return false;
-         }
-         if (obj.getClass() != BoardCoordinate.class) {
-            return false;
-         }
-         BoardCoordinate other = (BoardCoordinate) obj;
-         return (other.x_ == this.x_) && (other.y_ == this.y_);
-      }
-
-      public int hashCode() {
-         int hash = x_ * (2 ^ 16) + y_;
-         return hash;
-      }
-   }
-
    private TokenBoard board;
 
    @Before
@@ -170,10 +95,58 @@ public class TokenBoardTest {
       assertSame(secondToken, board.inspectToken(secondCoordinate));
    }
 
-   @Test(expected = KeyAlreadyExistsException.class)
-   public void PutTokenOnOccupiedCoordinate_ThrowKeyAlreadyExistsException() {
+   @Test(expected = IllegalArgumentException.class)
+   public void PutTokenOnOccupiedCoordinate_ThrowIllegalArgumentException() {
       BoardCoordinate location = new BoardCoordinate();
       board.putToken(new Token(), location);
       board.putToken(new Token(), location);
+   }
+
+   @Test
+   public void PlaceTokenWithUndefinedShape_FormIsSingleSquare() {
+      Token token = new Token();
+      board.putToken(token, new BoardCoordinate());
+      assertNull(board.inspectToken(new BoardCoordinate(1, 0)));
+      assertNull(board.inspectToken(new BoardCoordinate(-1, 0)));
+      assertNull(board.inspectToken(new BoardCoordinate(0, 1)));
+      assertNull(board.inspectToken(new BoardCoordinate(0, -1)));
+   }
+
+   @Test
+   public void PlaceTokenWithSpecialShape_CanBeFoundOnAllCoordinates() {
+      Token token = new Token(new TokenShape("XX"));
+      board.putToken(token, new BoardCoordinate());
+      assertSame(board.inspectToken(new BoardCoordinate(0, 0)), token);
+      assertSame(board.inspectToken(new BoardCoordinate(1, 0)), token);
+   }
+
+   @Test(expected = IllegalArgumentException.class)
+   public void PlaceOverlappingTokens_ThrowIllegalArgumentException() {
+      Token firstToken = new Token(new TokenShape("XX"));
+      Token secondToken = new Token(new TokenShape("X", "X"));
+      board.putToken(firstToken, new BoardCoordinate(0, 0));
+      board.putToken(secondToken, new BoardCoordinate(1, -1));
+   }
+
+   @Test
+   public void PlaceOverlappingTokens_TokenDoesNotGetPlaced() {
+      Token firstToken = new Token(new TokenShape("XX"));
+      Token secondToken = new Token(new TokenShape("X", "X"));
+      board.putToken(firstToken, new BoardCoordinate(0, 0));
+      try {
+         board.putToken(secondToken, new BoardCoordinate(1, -1));
+      } catch (IllegalArgumentException e) {
+         assertNull(board.inspectToken(new BoardCoordinate(1, -1)));
+         assertSame(board.inspectToken(new BoardCoordinate(1, 0)), firstToken);
+      }
+   }
+
+   @Test
+   public void RemoveTokenWithSpecialShape_AllCoordinatesAreFreed() {
+      Token token = new Token(new TokenShape("XX"));
+      board.putToken(token, new BoardCoordinate());
+      assertSame(board.pickToken(new BoardCoordinate()), token);
+      assertNull(board.inspectToken(new BoardCoordinate(0, 0)));
+      assertNull(board.inspectToken(new BoardCoordinate(1, 0)));
    }
 }
