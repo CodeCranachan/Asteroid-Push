@@ -57,4 +57,32 @@ class BoardCoordinate {
    public String toString() {
       return String.format("%d/%d", x, y);
    }
+
+   public void move(int dx, int dy) {
+      this.x += dx;
+      this.y += dy;
+   }
+
+   public void turn(int quarters) {
+      int tx = this.x;
+      int ty = this.y;
+      
+      switch ((4 + quarters % 4) % 4) {
+      case 1:
+         this.x = -ty;
+         this.y = tx;
+         break;
+      case 2:
+         this.x = -tx;
+         this.y = -ty;
+         break;
+      case 3:
+         this.x = ty;
+         this.y = -tx;
+         break;
+      case 0:
+         break;
+      }
+   }
+
 }
