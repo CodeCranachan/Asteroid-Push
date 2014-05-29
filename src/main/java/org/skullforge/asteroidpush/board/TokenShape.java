@@ -55,15 +55,6 @@ class TokenShape {
       return coordinates;
    }
 
-   public Set<BoardCoordinate> getOccupiedCoordinatesOffset(BoardCoordinate offset) {
-      Set<BoardCoordinate> cooked = new HashSet<BoardCoordinate>();
-      for (BoardCoordinate coordinate : coordinates) {
-         cooked.add(new BoardCoordinate(coordinate.getX() + offset.getX(),
-               coordinate.getY() + offset.getY()));
-      }
-      return cooked;
-   }
-
    private Set<BoardCoordinate> convertShape(Vector<String> shape) {
       HashSet<BoardCoordinate> converted = new HashSet<BoardCoordinate>();
       int y = 0;

@@ -30,6 +30,11 @@ class BoardCoordinate {
       this.y = y;
    }
 
+   public BoardCoordinate(BoardCoordinate other) {
+      this.x = other.x;
+      this.y = other.y;
+   }
+
    public int getX() {
       return x;
    }
@@ -66,7 +71,7 @@ class BoardCoordinate {
    public void turn(int quarters) {
       int tx = this.x;
       int ty = this.y;
-      
+
       switch ((4 + quarters % 4) % 4) {
       case 1:
          this.x = -ty;

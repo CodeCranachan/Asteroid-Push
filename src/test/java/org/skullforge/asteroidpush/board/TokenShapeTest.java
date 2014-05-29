@@ -54,16 +54,4 @@ public class TokenShapeTest {
       TokenShape testShape = new TokenShape("X.X", "", "X.X");
       assertEquals(expectedCoordinates, testShape.getOccupiedCoordinates());
    }
-
-   @Test
-   public void GetOccupiedCoordinatesWithOffset_ReturnTranslatedCoordinates() {
-      BoardCoordinate offset = new BoardCoordinate(1,1);
-      Set<BoardCoordinate> expectedCoordinates = new HashSet<BoardCoordinate>();
-      expectedCoordinates.add(new BoardCoordinate(1, 1));
-      expectedCoordinates.add(new BoardCoordinate(1, 2));
-      expectedCoordinates.add(new BoardCoordinate(2, 1));
-      expectedCoordinates.add(new BoardCoordinate(2, 2));
-      TokenShape testShape = new TokenShape("XX", "XX");
-      assertEquals(expectedCoordinates, testShape.getOccupiedCoordinatesOffset(offset));
-   }
 }

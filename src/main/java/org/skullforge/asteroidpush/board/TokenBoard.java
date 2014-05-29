@@ -17,6 +17,7 @@
 package org.skullforge.asteroidpush.board;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -39,8 +40,8 @@ class TokenBoard {
       if (location == null)
          throw new IllegalArgumentException("null was passed as location");
 
-      Set<BoardCoordinate> occupiedCoordinates = token.getShape()
-            .getOccupiedCoordinatesOffset(location);
+      Set<BoardCoordinate> occupiedCoordinates = translateShape(token.getShape(),
+                                                                location);
       for (BoardCoordinate occupied : occupiedCoordinates) {
          if (tokens.containsKey(occupied))
             throw new IllegalArgumentException("location already occupied");
@@ -62,5 +63,16 @@ class TokenBoard {
 
    public Token inspectToken(BoardCoordinate location) {
       return tokens.get(location);
+   }
+
+   private Set<BoardCoordinate> translateShape(TokenShape shape,
+                                               BoardCoordinate offset) {
+      Set<BoardCoordinate> cooked = new HashSet<BoardCoordinate>();
+      for (BoardCoordinate original : shape.getOccupiedCoordinates()) {
+         BoardCoordinate translated = new BoardCoordinate(original);
+         translated.move(offset.getX(), offset.getY());
+         cooked.add(translated);
+      }
+      return cooked;
    }
 }
