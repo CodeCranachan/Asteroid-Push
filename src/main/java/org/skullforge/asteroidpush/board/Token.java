@@ -26,7 +26,7 @@ class Token {
    public Token(TokenShape shape) {
       this.shape = shape;
    }
-   
+
    public TokenShape getShape() {
       return shape;
    }
