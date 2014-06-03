@@ -14,62 +14,62 @@
 //    You should have received a copy of the GNU General Public License
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-package org.skullforge.asteroidpush.board;
+package org.skullforge.asteroidpush.workshop;
 
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-class TokenBoard {
-   private Map<BoardCoordinate, Token> tokens;
-   private Map<Token, Set<BoardCoordinate>> placement;
+class TokenBoard<TokenData> {
+   private Map<OrthogonalCoordinate, Token<TokenData>> tokens;
+   private Map<Token<TokenData>, Set<OrthogonalCoordinate>> placement;
 
    public TokenBoard() {
-      tokens = new HashMap<BoardCoordinate, Token>();
-      placement = new HashMap<Token, Set<BoardCoordinate>>();
+      tokens = new HashMap<OrthogonalCoordinate, Token<TokenData>>();
+      placement = new HashMap<Token<TokenData>, Set<OrthogonalCoordinate>>();
    }
 
    public boolean isEmpty() {
       return tokens.isEmpty();
    }
 
-   public void putToken(Token token, BoardCoordinate location) {
+   public void putToken(Token<TokenData> token, OrthogonalCoordinate location) {
       if (token == null)
          throw new IllegalArgumentException("null was passed as token");
       if (location == null)
          throw new IllegalArgumentException("null was passed as location");
 
-      Set<BoardCoordinate> occupiedCoordinates = translateShape(token.getShape(),
-                                                                location);
-      for (BoardCoordinate occupied : occupiedCoordinates) {
+      Set<OrthogonalCoordinate> occupiedCoordinates = translateShape(token.getShape(),
+                                                                     location);
+      for (OrthogonalCoordinate occupied : occupiedCoordinates) {
          if (tokens.containsKey(occupied))
             throw new IllegalArgumentException("location already occupied");
       }
-      for (BoardCoordinate occupied : occupiedCoordinates)
+      for (OrthogonalCoordinate occupied : occupiedCoordinates)
          tokens.put(occupied, token);
       placement.put(token, occupiedCoordinates);
    }
 
-   public Token pickToken(BoardCoordinate location) {
-      Token token = inspectToken(location);
+   public Token<TokenData> pickToken(OrthogonalCoordinate location) {
+      Token<TokenData> token = inspectToken(location);
       if (token != null) {
-         for (BoardCoordinate place : placement.remove(token)) {
+         for (OrthogonalCoordinate place : placement.remove(token)) {
             tokens.remove(place);
          }
       }
       return token;
    }
 
-   public Token inspectToken(BoardCoordinate location) {
+   public Token<TokenData> inspectToken(OrthogonalCoordinate location) {
       return tokens.get(location);
    }
 
-   private Set<BoardCoordinate> translateShape(TokenShape shape,
-                                               BoardCoordinate offset) {
-      Set<BoardCoordinate> cooked = new HashSet<BoardCoordinate>();
-      for (BoardCoordinate original : shape.getOccupiedCoordinates()) {
-         BoardCoordinate translated = new BoardCoordinate(original);
+   private Set<OrthogonalCoordinate> translateShape(TokenShape shape,
+                                                    OrthogonalCoordinate offset) {
+      Set<OrthogonalCoordinate> cooked = new HashSet<OrthogonalCoordinate>();
+      for (OrthogonalCoordinate original : shape.getOccupiedCoordinates()) {
+         OrthogonalCoordinate translated = new OrthogonalCoordinate(original);
          translated.move(offset.getX(), offset.getY());
          cooked.add(translated);
       }

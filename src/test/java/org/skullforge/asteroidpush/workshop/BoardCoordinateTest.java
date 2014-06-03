@@ -1,13 +1,14 @@
-package org.skullforge.asteroidpush.board;
+package org.skullforge.asteroidpush.workshop;
 
 import static org.junit.Assert.*;
 
 import org.junit.*;
+import org.skullforge.asteroidpush.workshop.OrthogonalCoordinate;
 
 public class BoardCoordinateTest {
    @Test
    public void InvokeDefaultConstructor_CreateOrigin() {
-      BoardCoordinate coordinate = new BoardCoordinate();
+      OrthogonalCoordinate coordinate = new OrthogonalCoordinate();
       assertEquals(0, coordinate.getX());
       assertEquals(0, coordinate.getY());
    }
@@ -16,7 +17,7 @@ public class BoardCoordinateTest {
    public void InvokeConstructor_CreateGivenCoordinate() {
       int expectedX = -5;
       int expectedY = 4;
-      BoardCoordinate coordinate = new BoardCoordinate(expectedX, expectedY);
+      OrthogonalCoordinate coordinate = new OrthogonalCoordinate(expectedX, expectedY);
       assertEquals(expectedX, coordinate.getX());
       assertEquals(expectedY, coordinate.getY());
    }
@@ -27,7 +28,7 @@ public class BoardCoordinateTest {
       int initialY = 5;
       int translationX = -2;
       int translationY = 4;
-      BoardCoordinate coordinate = new BoardCoordinate(initialX, initialY);
+      OrthogonalCoordinate coordinate = new OrthogonalCoordinate(initialX, initialY);
       coordinate.move(translationX, translationY);
       assertEquals(initialX + translationX, coordinate.getX());
       assertEquals(initialY + translationY, coordinate.getY());
@@ -53,7 +54,7 @@ public class BoardCoordinateTest {
                              int quarterTurns,
                              int expectedX,
                              int expectedY) {
-      BoardCoordinate coordinate = new BoardCoordinate(initialX, initialY);
+      OrthogonalCoordinate coordinate = new OrthogonalCoordinate(initialX, initialY);
       coordinate.turn(quarterTurns);
       assertEquals(expectedX, coordinate.getX());
       assertEquals(expectedY, coordinate.getY());

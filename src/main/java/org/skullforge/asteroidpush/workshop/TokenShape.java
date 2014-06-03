@@ -14,14 +14,14 @@
 //    You should have received a copy of the GNU General Public License
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-package org.skullforge.asteroidpush.board;
+package org.skullforge.asteroidpush.workshop;
 
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Vector;
 
 class TokenShape {
-   private Set<BoardCoordinate> coordinates;
+   private Set<OrthogonalCoordinate> coordinates;
 
    public TokenShape(String... shape) {
       Vector<String> code = new Vector<String>();
@@ -51,18 +51,18 @@ class TokenShape {
          return false;
    }
 
-   public Set<BoardCoordinate> getOccupiedCoordinates() {
+   public Set<OrthogonalCoordinate> getOccupiedCoordinates() {
       return coordinates;
    }
 
-   private Set<BoardCoordinate> convertShape(Vector<String> shape) {
-      HashSet<BoardCoordinate> converted = new HashSet<BoardCoordinate>();
+   private Set<OrthogonalCoordinate> convertShape(Vector<String> shape) {
+      HashSet<OrthogonalCoordinate> converted = new HashSet<OrthogonalCoordinate>();
       int y = 0;
       for (String line : shape) {
          int x = 0;
          for (char c : line.toCharArray()) {
             if (c == 'X') {
-               converted.add(new BoardCoordinate(x, y));
+               converted.add(new OrthogonalCoordinate(x, y));
             }
             x++;
          }

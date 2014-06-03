@@ -14,23 +14,23 @@
 //    You should have received a copy of the GNU General Public License
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-package org.skullforge.asteroidpush.board;
+package org.skullforge.asteroidpush.workshop;
 
-class BoardCoordinate {
+class OrthogonalCoordinate {
    private int x;
    private int y;
 
-   public BoardCoordinate() {
+   public OrthogonalCoordinate() {
       x = 0;
       y = 0;
    }
 
-   public BoardCoordinate(int x, int y) {
+   public OrthogonalCoordinate(int x, int y) {
       this.x = x;
       this.y = y;
    }
 
-   public BoardCoordinate(BoardCoordinate other) {
+   public OrthogonalCoordinate(OrthogonalCoordinate other) {
       this.x = other.x;
       this.y = other.y;
    }
@@ -47,10 +47,10 @@ class BoardCoordinate {
       if (obj == null) {
          return false;
       }
-      if (obj.getClass() != BoardCoordinate.class) {
+      if (obj.getClass() != OrthogonalCoordinate.class) {
          return false;
       }
-      BoardCoordinate other = (BoardCoordinate) obj;
+      OrthogonalCoordinate other = (OrthogonalCoordinate) obj;
       return (other.x == this.x) && (other.y == this.y);
    }
 

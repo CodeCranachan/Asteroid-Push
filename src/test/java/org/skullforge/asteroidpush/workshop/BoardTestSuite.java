@@ -1,4 +1,4 @@
-package org.skullforge.asteroidpush.board;
+package org.skullforge.asteroidpush.workshop;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;

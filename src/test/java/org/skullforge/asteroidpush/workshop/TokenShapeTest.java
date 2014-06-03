@@ -1,4 +1,4 @@
-package org.skullforge.asteroidpush.board;
+package org.skullforge.asteroidpush.workshop;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -7,6 +7,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.Test;
+import org.skullforge.asteroidpush.workshop.OrthogonalCoordinate;
+import org.skullforge.asteroidpush.workshop.TokenShape;
 
 public class TokenShapeTest {
    @Test(expected = IllegalArgumentException.class)
@@ -26,31 +28,31 @@ public class TokenShapeTest {
 
    @Test
    public void CreateDefaultShape_OnlyCenterIsOccupied() {
-      Set<BoardCoordinate> expectedCoordinates = new HashSet<BoardCoordinate>();
-      expectedCoordinates.add(new BoardCoordinate(0, 0));
+      Set<OrthogonalCoordinate> expectedCoordinates = new HashSet<OrthogonalCoordinate>();
+      expectedCoordinates.add(new OrthogonalCoordinate(0, 0));
       TokenShape testShape = new TokenShape();
       assertEquals(expectedCoordinates, testShape.getOccupiedCoordinates());
    }
 
    @Test
    public void CreateStarShape_AllAdjacentFieldsAreOccupied() {
-      Set<BoardCoordinate> expectedCoordinates = new HashSet<BoardCoordinate>();
-      expectedCoordinates.add(new BoardCoordinate(1, 1));
-      expectedCoordinates.add(new BoardCoordinate(0, 1));
-      expectedCoordinates.add(new BoardCoordinate(2, 1));
-      expectedCoordinates.add(new BoardCoordinate(1, 0));
-      expectedCoordinates.add(new BoardCoordinate(1, 2));
+      Set<OrthogonalCoordinate> expectedCoordinates = new HashSet<OrthogonalCoordinate>();
+      expectedCoordinates.add(new OrthogonalCoordinate(1, 1));
+      expectedCoordinates.add(new OrthogonalCoordinate(0, 1));
+      expectedCoordinates.add(new OrthogonalCoordinate(2, 1));
+      expectedCoordinates.add(new OrthogonalCoordinate(1, 0));
+      expectedCoordinates.add(new OrthogonalCoordinate(1, 2));
       TokenShape testShape = new TokenShape(".X.", "XXX", ".X.");
       assertEquals(expectedCoordinates, testShape.getOccupiedCoordinates());
    }
 
    @Test
    public void CreateIrregularShape_AllCornersAreOccupied() {
-      Set<BoardCoordinate> expectedCoordinates = new HashSet<BoardCoordinate>();
-      expectedCoordinates.add(new BoardCoordinate(0, 0));
-      expectedCoordinates.add(new BoardCoordinate(0, 2));
-      expectedCoordinates.add(new BoardCoordinate(2, 0));
-      expectedCoordinates.add(new BoardCoordinate(2, 2));
+      Set<OrthogonalCoordinate> expectedCoordinates = new HashSet<OrthogonalCoordinate>();
+      expectedCoordinates.add(new OrthogonalCoordinate(0, 0));
+      expectedCoordinates.add(new OrthogonalCoordinate(0, 2));
+      expectedCoordinates.add(new OrthogonalCoordinate(2, 0));
+      expectedCoordinates.add(new OrthogonalCoordinate(2, 2));
       TokenShape testShape = new TokenShape("X.X", "", "X.X");
       assertEquals(expectedCoordinates, testShape.getOccupiedCoordinates());
    }

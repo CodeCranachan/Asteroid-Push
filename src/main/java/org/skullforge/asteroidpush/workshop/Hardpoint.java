@@ -14,21 +14,35 @@
 //    You should have received a copy of the GNU General Public License
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-package org.skullforge.asteroidpush.board;
+package org.skullforge.asteroidpush.workshop;
 
-class Token {
-   private TokenShape shape;
-   
-   public Token() {
-      shape = new TokenShape("X");
-   }
+import java.util.Set;
 
-   public Token(TokenShape shape) {
-      this.shape = shape;
-   }
 
-   public TokenShape getShape() {
-      return shape;
-   }
+class TokenPlus {
+   private Set<Hardpoint> hardPoints;
+   private Set<SoftLink> softLinks;
+}
+
+class Hardpoint {
+   private Set<OrthogonalCoordinate> hardLinks;
+   private Set<Module> modules;
+}
+
+interface Module {
+
+}
+
+interface SoftLink {
+   public Hardpoint getFirstPoint();
+
+   public Hardpoint getSecondPoint();
+
+   public void OnCreation(Body firstBody, Body secondBody);
+
+   public void OnDestruction();
+}
+
+interface Body {
 
 }
