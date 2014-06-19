@@ -72,7 +72,8 @@ public class TokenBoardTest {
    public void InspectTokenWhichWasPreviouslyPut_GetThatToken() {
       Token<Integer> testToken = new Token<Integer>();
       board.place(testToken, new OrthogonalCoordinate(), 0);
-      assertSame(testToken, board.inspect(new OrthogonalCoordinate()).getToken());
+      assertSame(testToken, board.inspect(new OrthogonalCoordinate())
+            .getToken());
       assertFalse(board.isEmpty());
    }
 
@@ -117,8 +118,10 @@ public class TokenBoardTest {
    public void PlaceTokenWithSpecialShape_CanBeFoundOnAllCoordinates() {
       Token<Integer> token = new Token<Integer>(new TokenShape("XX"), 0);
       board.place(token, new OrthogonalCoordinate(), 0);
-      assertSame(board.inspect(new OrthogonalCoordinate(0, 0)).getToken(), token);
-      assertSame(board.inspect(new OrthogonalCoordinate(1, 0)).getToken(), token);
+      assertSame(board.inspect(new OrthogonalCoordinate(0, 0)).getToken(),
+                 token);
+      assertSame(board.inspect(new OrthogonalCoordinate(1, 0)).getToken(),
+                 token);
    }
 
    @Test(expected = IllegalArgumentException.class)
@@ -152,5 +155,18 @@ public class TokenBoardTest {
       assertSame(board.pick(new OrthogonalCoordinate()).getToken(), token);
       assertNull(board.inspect(new OrthogonalCoordinate(0, 0)));
       assertNull(board.inspect(new OrthogonalCoordinate(1, 0)));
+   }
+
+   @Test
+   public void PlaceRotatedToken_TokenOccupiesCorrectCoordinates() {
+      Token<Integer> token = new Token<Integer>(new TokenShape("XX"), 0);
+      board.place(token, OC(1, 1), 1);
+      assertSame(board.inspect(OC(1, 1)).getToken(), token);
+      assertSame(board.inspect(OC(1, 2)).getToken(), token);
+      assertNull(board.inspect(OC(2, 1)));
+   }
+
+   private OrthogonalCoordinate OC(int x, int y) {
+      return new OrthogonalCoordinate(x, y);
    }
 }
