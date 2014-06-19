@@ -16,7 +16,7 @@
 
 package org.codecranachan.asteroidpush.workshop;
 
-class OrthogonalCoordinate {
+public class OrthogonalCoordinate {
    private int x;
    private int y;
 

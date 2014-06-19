@@ -7,7 +7,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.codecranachan.asteroidpush.workshop.OrthogonalCoordinate;
-import org.codecranachan.asteroidpush.workshop.TokenShape;
 import org.junit.Test;
 
 public class TokenShapeTest {

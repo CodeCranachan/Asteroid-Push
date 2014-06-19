@@ -14,35 +14,27 @@
 //    You should have received a copy of the GNU General Public License
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-package org.codecranachan.asteroidpush.workshop;
+package org.codecranachan.asteroidpush.workshop.spaceship;
 
 import java.util.Set;
 
+import org.codecranachan.asteroidpush.workshop.OrthogonalCoordinate;
 
-class TokenPlus {
-   private Set<Hardpoint> hardPoints;
-   private Set<SoftLink> softLinks;
-}
-
-class Hardpoint {
+public class Hardpoint {
    private Set<OrthogonalCoordinate> hardLinks;
-   private Set<Module> modules;
-}
+   private Set<Effect> effect;
 
-interface Module {
+   public Hardpoint() {
+      hardLinks = null;
+      effect = null;
+   }
 
-}
+   public Set<OrthogonalCoordinate> getHardLinks() {
+      return hardLinks;
+   }
 
-interface SoftLink {
-   public Hardpoint getFirstPoint();
-
-   public Hardpoint getSecondPoint();
-
-   public void OnCreation(Body firstBody, Body secondBody);
-
-   public void OnDestruction();
-}
-
-interface Body {
+   public Set<Effect> getEffect() {
+      return effect;
+   }
 
 }

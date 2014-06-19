@@ -16,7 +16,7 @@
 
 package org.codecranachan.asteroidpush.workshop;
 
-class Token<Data> {
+public class Token<Data> {
    private TokenShape shape;
    private Data data;
    
