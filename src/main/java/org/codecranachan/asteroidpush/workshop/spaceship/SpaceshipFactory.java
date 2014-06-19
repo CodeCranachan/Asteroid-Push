@@ -10,8 +10,6 @@ import org.codecranachan.asteroidpush.workshop.Part;
 import org.codecranachan.asteroidpush.workshop.TokenBoard;
 import org.codecranachan.asteroidpush.workshop.TokenPlacement;
 import org.jbox2d.common.Vec2;
-import org.jgrapht.Graph;
-import org.jgrapht.UndirectedGraph;
 import org.jgrapht.alg.ConnectivityInspector;
 
 public class SpaceshipFactory implements EntityFactory {
