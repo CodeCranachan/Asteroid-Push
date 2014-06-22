@@ -14,16 +14,18 @@
 //    You should have received a copy of the GNU General Public License
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-package org.codecranachan.asteroidpush.workshop;
+package org.codecranachan.asteroidpush.workshop.tokenboard;
 
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Vector;
 
-class TokenShape {
+import org.codecranachan.asteroidpush.workshop.OrthogonalCoordinate;
+
+class Shape {
    private Set<OrthogonalCoordinate> coordinates;
 
-   public TokenShape(String... shape) {
+   public Shape(String... shape) {
       Vector<String> code = new Vector<String>();
       if (shape.length == 0) {
          code.add("X");
@@ -41,10 +43,10 @@ class TokenShape {
    public boolean equals(Object obj) {
       if (obj == null)
          return false;
-      if (obj.getClass() != TokenShape.class)
+      if (obj.getClass() != Shape.class)
          return false;
 
-      TokenShape other = (TokenShape) obj;
+      Shape other = (Shape) obj;
       if (other.coordinates.equals(this.coordinates))
          return true;
       else

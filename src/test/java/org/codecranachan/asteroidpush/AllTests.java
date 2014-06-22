@@ -20,14 +20,14 @@ import org.codecranachan.asteroidpush.designer.DesignerTestSuite;
 import org.codecranachan.asteroidpush.entities.EntitiesTestSuite;
 import org.codecranachan.asteroidpush.ui.UiTestSuite;
 import org.codecranachan.asteroidpush.utils.UtilsTestSuite;
-import org.codecranachan.asteroidpush.workshop.BoardTestSuite;
+import org.codecranachan.asteroidpush.workshop.tokenboard.TokenBoardTestSuite;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({
-      BoardTestSuite.class,
+      TokenBoardTestSuite.class,
       DesignerTestSuite.class,
       EntitiesTestSuite.class,
       UiTestSuite.class,

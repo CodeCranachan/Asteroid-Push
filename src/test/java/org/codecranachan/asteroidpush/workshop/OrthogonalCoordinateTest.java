@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import org.codecranachan.asteroidpush.workshop.OrthogonalCoordinate;
 import org.junit.*;
 
-public class BoardCoordinateTest {
+public class OrthogonalCoordinateTest {
    @Test
    public void InvokeDefaultConstructor_CreateOrigin() {
       OrthogonalCoordinate coordinate = new OrthogonalCoordinate();

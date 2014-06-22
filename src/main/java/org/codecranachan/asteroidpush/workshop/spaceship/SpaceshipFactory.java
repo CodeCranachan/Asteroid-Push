@@ -7,15 +7,16 @@ import org.codecranachan.asteroidpush.entities.Entity;
 import org.codecranachan.asteroidpush.entities.EntityFactory;
 import org.codecranachan.asteroidpush.workshop.OrthogonalCoordinate;
 import org.codecranachan.asteroidpush.workshop.Part;
-import org.codecranachan.asteroidpush.workshop.TokenBoard;
-import org.codecranachan.asteroidpush.workshop.TokenPlacement;
+import org.codecranachan.asteroidpush.workshop.tokenboard.Token;
+import org.codecranachan.asteroidpush.workshop.tokenboard.Board;
+import org.codecranachan.asteroidpush.workshop.tokenboard.Placement;
 import org.jbox2d.common.Vec2;
 import org.jgrapht.alg.ConnectivityInspector;
 
 public class SpaceshipFactory implements EntityFactory {
-   private TokenBoard<Part> blueprint;
+   private Board<Part> blueprint;
 
-   public SpaceshipFactory(TokenBoard<Part> blueprint) {
+   public SpaceshipFactory(Board<Part> blueprint) {
       assert (blueprint != null);
       this.blueprint = blueprint;
    }
@@ -36,8 +37,9 @@ public class SpaceshipFactory implements EntityFactory {
 
    private SpaceshipGraph assembleSkeleton() {
       SpaceshipGraph skeleton = new SpaceshipGraph();
-      for (TokenPlacement<Part> placement : blueprint.getPlacements()) {
-         Part part = placement.getToken().getData();
+      for (Token<Part> token : blueprint.getTokens()) {
+         Part part = token.getData();
+         Placement placement = token.getPlacement();
          for (Hardpoint hardpoint : part.hardpoints) {
             for (OrthogonalCoordinate relLink : hardpoint.getHardLinks()) {
                // transform relative link coordinate to absolute link coordinate
