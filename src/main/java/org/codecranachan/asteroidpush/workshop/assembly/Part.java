@@ -1,4 +1,4 @@
-package org.codecranachan.asteroidpush.workshop;
+package org.codecranachan.asteroidpush.workshop.assembly;
 
 import java.util.Set;
 

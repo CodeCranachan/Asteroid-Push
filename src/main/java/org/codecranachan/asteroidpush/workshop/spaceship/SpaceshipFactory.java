@@ -6,7 +6,7 @@ import java.util.Set;
 import org.codecranachan.asteroidpush.entities.Entity;
 import org.codecranachan.asteroidpush.entities.EntityFactory;
 import org.codecranachan.asteroidpush.workshop.OrthogonalCoordinate;
-import org.codecranachan.asteroidpush.workshop.Part;
+import org.codecranachan.asteroidpush.workshop.assembly.Part;
 import org.codecranachan.asteroidpush.workshop.tokenboard.Token;
 import org.codecranachan.asteroidpush.workshop.tokenboard.Board;
 import org.codecranachan.asteroidpush.workshop.tokenboard.Placement;

@@ -1,6 +1,7 @@
 package org.codecranachan.asteroidpush.workshop.spaceship;
 
 
+
 public interface Softlink {
    public Hardpoint getFirstPoint();
    public Hardpoint getSecondPoint();
