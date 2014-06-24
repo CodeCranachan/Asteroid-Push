@@ -4,30 +4,30 @@ import org.jbox2d.common.MathUtils;
 import org.jbox2d.common.Transform;
 import org.jbox2d.common.Vec2;
 
-public class Vector {
+public class Arrow {
    private Vec2 origin;
    private float angle;
    private float magnitude;
 
-   public Vector() {
+   public Arrow() {
       this.origin = new Vec2(0, 0);
       this.angle = 0;
       this.magnitude = 1;
    }
 
-   public Vector(Vec2 origin, float angle) {
+   public Arrow(Vec2 origin, float angle) {
       this.origin = new Vec2(origin);
       this.angle = angle;
       this.magnitude = 1f;
    }
    
-   public Vector(Vec2 origin, float angle, float magnitude) {
+   public Arrow(Vec2 origin, float angle, float magnitude) {
       this.origin = new Vec2(origin);
       this.angle = angle;
       this.magnitude = magnitude;
    }
 
-   public Vector(Vec2 tail, Vec2 tip) {
+   public Arrow(Vec2 tail, Vec2 tip) {
       Vec2 diff = tip.sub(tail);
       this.origin = new Vec2(tail);
       this.magnitude = diff.length();
@@ -61,13 +61,13 @@ public class Vector {
       return result;
    }
 
-   public Vector applyTransform(Transform transform) {
+   public Arrow applyTransform(Transform transform) {
       float resultAngle = this.angle + transform.q.getAngle();
       Vec2 resultPosition = Transform.mul(transform, origin);
-      return new Vector(resultPosition, resultAngle, magnitude);
+      return new Arrow(resultPosition, resultAngle, magnitude);
    }
 
-   public Vector applyScale(float scale) {
-      return new Vector(origin.mul(scale), angle, magnitude * scale);
+   public Arrow applyScale(float scale) {
+      return new Arrow(origin.mul(scale), angle, magnitude * scale);
    }
 }

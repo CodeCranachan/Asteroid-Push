@@ -16,25 +16,35 @@
 
 package org.codecranachan.asteroidpush.workshop.spaceship;
 
-import java.util.Set;
+import java.util.Collection;
+import java.util.LinkedList;
 
 import org.codecranachan.asteroidpush.workshop.OrthogonalCoordinate;
+import org.codecranachan.asteroidpush.workshop.assembly.BehaviorFactory;
 
 public class Hardpoint {
-   private Set<OrthogonalCoordinate> hardLinks;
-   private Set<Effect> effect;
+   private Collection<OrthogonalCoordinate> hardLinks;
+   private Collection<BehaviorFactory> behaviors;
 
    public Hardpoint() {
-      hardLinks = null;
-      effect = null;
+      hardLinks = new LinkedList<OrthogonalCoordinate>();
+      behaviors = new LinkedList<BehaviorFactory>();
    }
 
-   public Set<OrthogonalCoordinate> getHardLinks() {
+   public void AddHardLink(OrthogonalCoordinate coordinate) {
+      hardLinks.add(coordinate);
+   }
+
+   public void AddBehaviorFactory(BehaviorFactory factory) {
+      behaviors.add(factory);
+   }
+
+   public Collection<OrthogonalCoordinate> getHardLinks() {
       return hardLinks;
    }
 
-   public Set<Effect> getEffect() {
-      return effect;
+   public Collection<BehaviorFactory> getBehaviors() {
+      return behaviors;
    }
 
 }

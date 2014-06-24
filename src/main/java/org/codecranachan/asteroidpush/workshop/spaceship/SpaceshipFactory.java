@@ -40,7 +40,7 @@ public class SpaceshipFactory implements EntityFactory {
       for (Token<Part> token : blueprint.getTokens()) {
          Part part = token.getData();
          Placement placement = token.getPlacement();
-         for (Hardpoint hardpoint : part.hardpoints) {
+         for (Hardpoint hardpoint : part.getHardpoints()) {
             for (OrthogonalCoordinate relLink : hardpoint.getHardLinks()) {
                // transform relative link coordinate to absolute link coordinate
                // using token placement
