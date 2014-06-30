@@ -3,31 +3,28 @@ package org.codecranachan.asteroidpush.workshop.assembly;
 import java.util.Collection;
 import java.util.LinkedList;
 
-import org.codecranachan.asteroidpush.workshop.spaceship.Hardpoint;
-import org.codecranachan.asteroidpush.workshop.spaceship.Softlink;
-
 public class Part {
-   private Collection<Hardpoint> hardpoints;
-   private Collection<Softlink> softlinks;
+   private Collection<AssemblyVertex> hardpoints;
+   private Collection<DynamicConnector> softlinks;
    
    public Part() {
-      hardpoints = new LinkedList<Hardpoint>();
-      softlinks = new LinkedList<Softlink>();
+      hardpoints = new LinkedList<AssemblyVertex>();
+      softlinks = new LinkedList<DynamicConnector>();
    }
    
-   public void AddHardpoint(Hardpoint hardpoint) {
+   public void AddHardpoint(AssemblyVertex hardpoint) {
       hardpoints.add(hardpoint);
    }
    
-   public void AddSoftlink(Softlink softlink) {
+   public void AddSoftlink(DynamicConnector softlink) {
       softlinks.add(softlink);
    }
 
-   public Collection<Hardpoint> getHardpoints() {
+   public Collection<AssemblyVertex> getHardpoints() {
       return hardpoints;
    }
 
-   public Collection<Softlink> getSoftlinks() {
+   public Collection<DynamicConnector> getSoftlinks() {
       return softlinks;
    }  
 }

@@ -81,7 +81,10 @@ public class Spaceship implements Entity {
          Vec2 end = new Vec2();
          joint.getAnchorA(start);
          joint.getAnchorB(end);
-         renderer.drawLine(new Point(start.x, start.y), new Point(end.x, end.y), 1.5f, Color.pink);
+         renderer.drawLine(new Point(start.x, start.y),
+                           new Point(end.x, end.y),
+                           1.5f,
+                           Color.pink);
       }
    }
 
@@ -91,15 +94,16 @@ public class Spaceship implements Entity {
 
       for (Effector effector : effectors) {
          if (owner != null) {
-            effectorCommands = effector.update(frameNumber, owner.getController());
+            effectorCommands = effector.update(frameNumber,
+                                               owner.getController());
          } else {
             effectorCommands = effector.update(frameNumber, null);
          }
-         if (effectorCommands!=null) {
+         if (effectorCommands != null) {
             commands.addAll(effectorCommands);
          }
       }
-      
+
       return commands;
    }
 

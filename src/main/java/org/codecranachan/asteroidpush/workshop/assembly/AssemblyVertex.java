@@ -14,25 +14,35 @@
 //    You should have received a copy of the GNU General Public License
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-package org.codecranachan.asteroidpush.workshop.spaceship;
+package org.codecranachan.asteroidpush.workshop.assembly;
 
 import java.util.Collection;
 import java.util.LinkedList;
 
+import org.codecranachan.asteroidpush.utils.Arrow;
 import org.codecranachan.asteroidpush.workshop.OrthogonalCoordinate;
-import org.codecranachan.asteroidpush.workshop.assembly.BehaviorFactory;
 
-public class Hardpoint {
-   private Collection<OrthogonalCoordinate> hardLinks;
+public class AssemblyVertex {
+   private Collection<OrthogonalCoordinate> rigidConnections;
    private Collection<BehaviorFactory> behaviors;
+   private Arrow placement;
 
-   public Hardpoint() {
-      hardLinks = new LinkedList<OrthogonalCoordinate>();
+   public AssemblyVertex() {
+      rigidConnections = new LinkedList<OrthogonalCoordinate>();
       behaviors = new LinkedList<BehaviorFactory>();
+      placement = null;
+   }
+
+   public Arrow getPlacement() {
+      return placement;
+   }
+
+   public void setPlacement(Arrow location) {
+      this.placement = location;
    }
 
    public void AddHardLink(OrthogonalCoordinate coordinate) {
-      hardLinks.add(coordinate);
+      rigidConnections.add(coordinate);
    }
 
    public void AddBehaviorFactory(BehaviorFactory factory) {
@@ -40,7 +50,7 @@ public class Hardpoint {
    }
 
    public Collection<OrthogonalCoordinate> getHardLinks() {
-      return hardLinks;
+      return rigidConnections;
    }
 
    public Collection<BehaviorFactory> getBehaviors() {

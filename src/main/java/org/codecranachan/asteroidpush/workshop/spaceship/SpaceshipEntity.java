@@ -5,10 +5,18 @@ import java.util.Collection;
 import org.codecranachan.asteroidpush.Player;
 import org.codecranachan.asteroidpush.SimulatorCommand;
 import org.codecranachan.asteroidpush.entities.Entity;
+import org.codecranachan.asteroidpush.simulation.Constraint;
+import org.codecranachan.asteroidpush.simulation.RigidBody;
 import org.codecranachan.asteroidpush.ui.Renderer;
 import org.jbox2d.common.Vec2;
 
 public class SpaceshipEntity implements Entity {
+
+   public void addBody(RigidBody body) {
+   }
+
+   public void addConstraint(Constraint constraint) {
+   }
 
    public void destroy() {
       // TODO Auto-generated method stub
@@ -34,7 +42,7 @@ public class SpaceshipEntity implements Entity {
       // TODO Auto-generated method stub
 
    }
-   
+
    public Vec2 getCenterOfInterest() {
       // TODO Auto-generated method stub
       return null;
