@@ -20,7 +20,7 @@ public class Arrow {
       this.angle = angle;
       this.magnitude = 1f;
    }
-   
+
    public Arrow(Vec2 origin, float angle, float magnitude) {
       this.origin = new Vec2(origin);
       this.angle = angle;
@@ -48,6 +48,10 @@ public class Arrow {
 
    public float getAngle() {
       return angle;
+   }
+
+   public float getMagnitude() {
+      return magnitude;
    }
 
    public Vec2 getDirection() {
