@@ -19,6 +19,7 @@ package org.codecranachan.asteroidpush.workshop.assembly;
 import java.util.Collection;
 import java.util.LinkedList;
 
+import org.codecranachan.asteroidpush.simulation.modular.BehaviorFactory;
 import org.codecranachan.asteroidpush.utils.Arrow;
 import org.codecranachan.asteroidpush.workshop.OrthogonalCoordinate;
 

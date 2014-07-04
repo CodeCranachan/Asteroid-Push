@@ -1,7 +1,7 @@
 package org.codecranachan.asteroidpush.simulation;
 
-import org.jbox2d.common.Vec2;
+import org.codecranachan.asteroidpush.utils.Arrow;
 
 public interface RigidBodyFactory {
-   public RigidBody createBody(Vec2 offset);
+   public RigidBody createBody(Arrow offset);
 }

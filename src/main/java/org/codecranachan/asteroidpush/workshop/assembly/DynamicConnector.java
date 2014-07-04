@@ -1,5 +1,7 @@
 package org.codecranachan.asteroidpush.workshop.assembly;
 
+import org.codecranachan.asteroidpush.simulation.modular.ConstraintFactory;
+
 
 public class DynamicConnector {
    private AssemblyVertex nodeA;

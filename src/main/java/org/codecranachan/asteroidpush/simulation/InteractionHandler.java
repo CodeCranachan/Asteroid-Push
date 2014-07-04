@@ -1,5 +1,5 @@
 package org.codecranachan.asteroidpush.simulation;
 
-public interface Constraint {
+public interface InteractionHandler {
 
 }

@@ -31,6 +31,7 @@ import org.codecranachan.asteroidpush.designer.grid.Placement;
 import org.codecranachan.asteroidpush.designer.grid.Rotation;
 import org.codecranachan.asteroidpush.entities.Entity;
 import org.codecranachan.asteroidpush.entities.EntityFactory;
+import org.codecranachan.asteroidpush.utils.Arrow;
 import org.jbox2d.common.MathUtils;
 import org.jbox2d.common.Transform;
 import org.jbox2d.common.Vec2;
@@ -51,6 +52,10 @@ public class SpaceshipFactory implements EntityFactory {
    public SpaceshipFactory(Blueprint design, World world) {
       this.design = design;
       this.world = world;
+   }
+
+   public Entity createEntity(Arrow position) {
+      return null;
    }
 
    public Entity createEntity(Vec2 position) {
@@ -127,7 +132,9 @@ public class SpaceshipFactory implements EntityFactory {
          Transform transform = calculateFixtureTransform(part.getPlacement());
          ComponentData component = part.getComponent();
          for (EffectorData data : component.getEffectors()) {
-            Effector effector = data.createEffector(standardModuleSize, transform, body);
+            Effector effector = data.createEffector(standardModuleSize,
+                                                    transform,
+                                                    body);
             effectors.add(effector);
          }
       }

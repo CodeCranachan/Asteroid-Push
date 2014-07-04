@@ -1,4 +1,4 @@
-package org.codecranachan.asteroidpush.workshop.spaceship;
+package org.codecranachan.asteroidpush.simulation.modular;
 
 import org.jgrapht.EdgeFactory;
 import org.jgrapht.graph.AbstractBaseGraph;

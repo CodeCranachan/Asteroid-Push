@@ -16,8 +16,12 @@
 
 package org.codecranachan.asteroidpush.entities;
 
+import org.codecranachan.asteroidpush.utils.Arrow;
 import org.jbox2d.common.Vec2;
 
 public interface EntityFactory {
+   @Deprecated
    Entity createEntity(Vec2 location);
+   
+   Entity createEntity(Arrow location);
 }

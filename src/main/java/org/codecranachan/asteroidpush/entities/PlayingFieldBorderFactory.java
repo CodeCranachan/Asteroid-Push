@@ -18,6 +18,7 @@ package org.codecranachan.asteroidpush.entities;
 
 import java.util.ArrayList;
 
+import org.codecranachan.asteroidpush.utils.Arrow;
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
@@ -43,6 +44,10 @@ public class PlayingFieldBorderFactory implements EntityFactory {
       this.world = world;
       fieldWidth = 100.0f;
       fieldHeight = 50.0f;
+   }
+
+   public Entity createEntity(Arrow location) {
+      return null;
    }
 
    public Entity createEntity(Vec2 location) {

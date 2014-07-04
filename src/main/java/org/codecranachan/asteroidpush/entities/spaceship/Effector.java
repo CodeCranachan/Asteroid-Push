@@ -22,5 +22,6 @@ import org.codecranachan.asteroidpush.SignalController;
 import org.codecranachan.asteroidpush.SimulatorCommand;
 
 public interface Effector {
-   Collection<SimulatorCommand> update(int frameNumber, SignalController controller);
+   Collection<SimulatorCommand> update(int frameNumber,
+                                       SignalController controller);
 }

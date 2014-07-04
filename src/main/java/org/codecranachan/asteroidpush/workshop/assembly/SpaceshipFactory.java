@@ -6,15 +6,17 @@ import java.util.Set;
 
 import org.codecranachan.asteroidpush.entities.Entity;
 import org.codecranachan.asteroidpush.entities.EntityFactory;
-import org.codecranachan.asteroidpush.simulation.Behavior;
-import org.codecranachan.asteroidpush.simulation.Constraint;
 import org.codecranachan.asteroidpush.simulation.RigidBody;
 import org.codecranachan.asteroidpush.simulation.RigidBodyFactory;
+import org.codecranachan.asteroidpush.simulation.modular.Behavior;
+import org.codecranachan.asteroidpush.simulation.modular.BehaviorFactory;
+import org.codecranachan.asteroidpush.simulation.modular.BodyGraph;
+import org.codecranachan.asteroidpush.simulation.modular.BodyVertex;
+import org.codecranachan.asteroidpush.simulation.modular.Constraint;
+import org.codecranachan.asteroidpush.simulation.modular.ConstraintFactory;
+import org.codecranachan.asteroidpush.simulation.modular.ModularEntity;
 import org.codecranachan.asteroidpush.utils.Arrow;
 import org.codecranachan.asteroidpush.workshop.OrthogonalCoordinate;
-import org.codecranachan.asteroidpush.workshop.spaceship.BodyGraph;
-import org.codecranachan.asteroidpush.workshop.spaceship.BodyVertex;
-import org.codecranachan.asteroidpush.workshop.spaceship.SpaceshipEntity;
 import org.codecranachan.asteroidpush.workshop.tokenboard.Token;
 import org.codecranachan.asteroidpush.workshop.tokenboard.Board;
 import org.codecranachan.asteroidpush.workshop.tokenboard.Placement;
@@ -79,8 +81,12 @@ public class SpaceshipFactory implements EntityFactory {
       return new Arrow(origin, angle, gridSize);
    }
 
-   public Entity createEntity(Vec2 location) {
-      SpaceshipEntity ship = new SpaceshipEntity();
+   public Entity createEntity(Vec2 placment) {
+      return null;
+   }
+   
+   public Entity createEntity(Arrow placement) {
+      ModularEntity ship = new ModularEntity();
 
       ConnectivityInspector<AssemblyVertex, RigidConnector> inspector = new ConnectivityInspector<AssemblyVertex, RigidConnector>(
             skeleton);
@@ -92,19 +98,17 @@ public class SpaceshipFactory implements EntityFactory {
       for (Set<AssemblyVertex> rigidSet : inspector.connectedSets()) {
          Subgraph<AssemblyVertex, RigidConnector, AssemblyGraph> subSkeleton = new Subgraph<AssemblyVertex, RigidConnector, AssemblyGraph>(
                skeleton, rigidSet);
-         RigidBody body = bodyFactory.createBody(location);
-
+         RigidBody body = bodyFactory.createBody(placement);
          BodyGraph bodyGraph = new BodyGraph();
 
          // Create vertices on body graph
          for (AssemblyVertex assemblyNode : subSkeleton.vertexSet()) {
-            BodyVertex bodyNode = new BodyVertex();
+            BodyVertex bodyNode = new BodyVertex(assemblyNode.getPlacement());
             nodeToBodyMap.put(assemblyNode, bodyNode);
             bodyGraph.addVertex(bodyNode);
             for (BehaviorFactory factory : assemblyNode.getBehaviors()) {
-               Behavior behavior = factory.createBehavior(assemblyNode
-                     .getPlacement());
-               body.addBehavior(behavior, bodyNode);
+               Behavior behavior = factory.createBehavior(bodyNode);
+               ship.addBehavior(behavior);
             }
          }
 
@@ -116,8 +120,7 @@ public class SpaceshipFactory implements EntityFactory {
                               nodeToBodyMap.get(nodeB));
          }
 
-         body.setGraph(bodyGraph);
-         ship.addBody(body);
+         ship.addBody(body, bodyGraph);
       }
 
       // Create constraints
@@ -127,7 +130,8 @@ public class SpaceshipFactory implements EntityFactory {
             AssemblyVertex nodeA = connector.getNodeA();
             AssemblyVertex nodeB = connector.getNodeB();
             ConstraintFactory factory = connector.getConstraintFactory();
-            Constraint constraint = factory.createConstraint(nodeToBodyMap
+            Constraint constraint = factory
+                  .createConstraint(nodeToBodyMap
                   .get(nodeA), nodeToBodyMap.get(nodeB));
             ship.addConstraint(constraint);
          }

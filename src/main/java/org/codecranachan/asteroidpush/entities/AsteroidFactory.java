@@ -16,6 +16,7 @@
 
 package org.codecranachan.asteroidpush.entities;
 
+import org.codecranachan.asteroidpush.utils.Arrow;
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.collision.shapes.Shape;
 import org.jbox2d.common.Vec2;
@@ -32,6 +33,10 @@ public class AsteroidFactory implements EntityFactory {
       this.world = world;
    }
 
+   public Entity createEntity(Arrow location) {
+      return null;
+   }
+   
    public Entity createEntity(Vec2 location) {
       Body body = world.createBody(getBodyDef(location));
       body.createFixture(getFixtureDef());
