@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.codecranachan.asteroidpush.Player;
 import org.codecranachan.asteroidpush.SimulatorCommand;
@@ -22,6 +23,7 @@ public class ModularEntity implements Entity {
       bodies = new HashMap<BodyGraph, RigidBody>();
       behaviors = new LinkedList<Behavior>();
       constraints = new LinkedList<Constraint>();
+
    }
 
    public void addBody(RigidBody body, BodyGraph graph) {
@@ -51,8 +53,22 @@ public class ModularEntity implements Entity {
    }
 
    public Collection<SimulatorCommand> update(int frameNumber) {
-      // TODO Auto-generated method stub
-      return null;
+      Collection<SimulatorCommand> allActions = new LinkedList<SimulatorCommand>();
+      for (Behavior behavior : behaviors) {
+         Collection<SimulatorCommand> actions = behavior
+               .update(getBodyOf(behavior.getNode()), frameNumber);
+         allActions.addAll(actions);
+      }
+
+      for (Constraint constraint : constraints) {
+         Collection<SimulatorCommand> actions = constraint
+               .update(getBodyOf(constraint.getNodeA()),
+                       getBodyOf(constraint.getNodeB()),
+                       frameNumber);
+         allActions.addAll(actions);
+      }
+
+      return allActions;
    }
 
    public Player getOwner() {
@@ -73,6 +89,18 @@ public class ModularEntity implements Entity {
    public float getRadiusOfInterest() {
       // TODO Auto-generated method stub
       return 0;
+   }
+
+   private RigidBody getBodyOf(BodyVertex vertex) {
+      // TODO Could be optimized by keeping an association between
+      // vertices and bodies (e.g. a Map)
+      assert (vertex != null);
+      for (Entry<BodyGraph, RigidBody> entry : bodies.entrySet()) {
+         if (entry.getKey().containsVertex(vertex)) {
+            return entry.getValue();
+         }
+      }
+      return null;
    }
 
 }
