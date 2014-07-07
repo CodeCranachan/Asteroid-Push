@@ -17,12 +17,10 @@ public class ModularEntity implements Entity {
 
    private Map<BodyGraph, RigidBody> bodies;
    private Collection<Behavior> behaviors;
-   private Collection<Constraint> constraints;
 
    public ModularEntity() {
       bodies = new HashMap<BodyGraph, RigidBody>();
       behaviors = new LinkedList<Behavior>();
-      constraints = new LinkedList<Constraint>();
 
    }
 
@@ -37,11 +35,6 @@ public class ModularEntity implements Entity {
       behaviors.add(behavior);
    }
 
-   public void addConstraint(Constraint constraint) {
-      assert (constraint != null);
-      constraints.add(constraint);
-   }
-
    public void destroy() {
       // TODO Auto-generated method stub
 
@@ -54,17 +47,10 @@ public class ModularEntity implements Entity {
 
    public Collection<SimulatorCommand> update(int frameNumber) {
       Collection<SimulatorCommand> allActions = new LinkedList<SimulatorCommand>();
+
       for (Behavior behavior : behaviors) {
          Collection<SimulatorCommand> actions = behavior
-               .update(getBodyOf(behavior.getNode()), frameNumber);
-         allActions.addAll(actions);
-      }
-
-      for (Constraint constraint : constraints) {
-         Collection<SimulatorCommand> actions = constraint
-               .update(getBodyOf(constraint.getNodeA()),
-                       getBodyOf(constraint.getNodeB()),
-                       frameNumber);
+               .update(getNodeAssociation(behavior), frameNumber);
          allActions.addAll(actions);
       }
 
@@ -89,6 +75,17 @@ public class ModularEntity implements Entity {
    public float getRadiusOfInterest() {
       // TODO Auto-generated method stub
       return 0;
+   }
+
+   private Map<BodyVertex, RigidBody> getNodeAssociation(Behavior behavior) {
+      // TODO Could be optimized by just returning the overall association
+      // between behaviors and bodies (e.g. a Map)
+      assert (behavior != null);
+      Map<BodyVertex, RigidBody> nodeAssociation = new HashMap<BodyVertex, RigidBody>();
+      for (BodyVertex vertex : behavior.getNodes()) {
+         nodeAssociation.put(vertex, getBodyOf(vertex));
+      }
+      return null;
    }
 
    private RigidBody getBodyOf(BodyVertex vertex) {

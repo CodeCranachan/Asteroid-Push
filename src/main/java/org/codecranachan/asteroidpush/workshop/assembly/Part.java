@@ -3,28 +3,30 @@ package org.codecranachan.asteroidpush.workshop.assembly;
 import java.util.Collection;
 import java.util.LinkedList;
 
+import org.codecranachan.asteroidpush.simulation.modular.BehaviorFactory;
+
 public class Part {
    private Collection<AssemblyVertex> hardpoints;
-   private Collection<DynamicConnector> softlinks;
+   private Collection<BehaviorFactory> behaviors;
    
    public Part() {
       hardpoints = new LinkedList<AssemblyVertex>();
-      softlinks = new LinkedList<DynamicConnector>();
+      behaviors = new LinkedList<BehaviorFactory>();
    }
    
    public void AddHardpoint(AssemblyVertex hardpoint) {
       hardpoints.add(hardpoint);
    }
    
-   public void AddSoftlink(DynamicConnector softlink) {
-      softlinks.add(softlink);
+   public void AddSoftlink(BehaviorFactory softlink) {
+      behaviors.add(softlink);
    }
 
    public Collection<AssemblyVertex> getHardpoints() {
       return hardpoints;
    }
 
-   public Collection<DynamicConnector> getSoftlinks() {
-      return softlinks;
+   public Collection<BehaviorFactory> getBehaviors() {
+      return behaviors;
    }  
 }

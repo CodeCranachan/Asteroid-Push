@@ -1,5 +1,7 @@
 package org.codecranachan.asteroidpush.workshop.assembly;
 
+import java.util.AbstractList;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -12,8 +14,6 @@ import org.codecranachan.asteroidpush.simulation.modular.Behavior;
 import org.codecranachan.asteroidpush.simulation.modular.BehaviorFactory;
 import org.codecranachan.asteroidpush.simulation.modular.BodyGraph;
 import org.codecranachan.asteroidpush.simulation.modular.BodyVertex;
-import org.codecranachan.asteroidpush.simulation.modular.Constraint;
-import org.codecranachan.asteroidpush.simulation.modular.ConstraintFactory;
 import org.codecranachan.asteroidpush.simulation.modular.ModularEntity;
 import org.codecranachan.asteroidpush.utils.Arrow;
 import org.codecranachan.asteroidpush.workshop.OrthogonalCoordinate;
@@ -84,7 +84,7 @@ public class SpaceshipFactory implements EntityFactory {
    public Entity createEntity(Vec2 placment) {
       return null;
    }
-   
+
    public Entity createEntity(Arrow placement) {
       ModularEntity ship = new ModularEntity();
 
@@ -106,10 +106,6 @@ public class SpaceshipFactory implements EntityFactory {
             BodyVertex bodyNode = new BodyVertex(assemblyNode.getPlacement());
             nodeToBodyMap.put(assemblyNode, bodyNode);
             bodyGraph.addVertex(bodyNode);
-            for (BehaviorFactory factory : assemblyNode.getBehaviors()) {
-               Behavior behavior = factory.createBehavior(bodyNode);
-               ship.addBehavior(behavior);
-            }
          }
 
          // Create edges on body graph
@@ -123,17 +119,18 @@ public class SpaceshipFactory implements EntityFactory {
          ship.addBody(body, bodyGraph);
       }
 
-      // Create constraints
+      // Create behaviors
       for (Token<Part> token : blueprint.getTokens()) {
          Part part = token.getData();
-         for (DynamicConnector connector : part.getSoftlinks()) {
-            AssemblyVertex nodeA = connector.getNodeA();
-            AssemblyVertex nodeB = connector.getNodeB();
-            ConstraintFactory factory = connector.getConstraintFactory();
-            Constraint constraint = factory
-                  .createConstraint(nodeToBodyMap
-                  .get(nodeA), nodeToBodyMap.get(nodeB));
-            ship.addConstraint(constraint);
+         for (BehaviorFactory factory : part.getBehaviors()) {
+            // Build list of nody nodes
+            AbstractList<BodyVertex> bodyVertices = new ArrayList<BodyVertex>();
+            for (AssemblyVertex vertex : factory.getNodes()) {
+               bodyVertices.add(nodeToBodyMap.get(vertex));
+            }
+
+            Behavior behavior = factory.createBehavior(bodyVertices);
+            ship.addBehavior(behavior);
          }
       }
 
