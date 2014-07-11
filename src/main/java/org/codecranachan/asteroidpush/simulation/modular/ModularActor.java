@@ -6,22 +6,19 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.codecranachan.asteroidpush.Player;
-import org.codecranachan.asteroidpush.SimulatorCommand;
-import org.codecranachan.asteroidpush.entities.Entity;
+import org.codecranachan.asteroidpush.simulation.Actor;
 import org.codecranachan.asteroidpush.simulation.RigidBody;
-import org.codecranachan.asteroidpush.ui.Renderer;
-import org.jbox2d.common.Vec2;
+import org.codecranachan.asteroidpush.simulation.command.Command;
+import org.codecranachan.asteroidpush.utils.Arrow;
 
-public class ModularEntity implements Entity {
+public class ModularActor implements Actor {
 
    private Map<BodyGraph, RigidBody> bodies;
    private Collection<Behavior> behaviors;
 
-   public ModularEntity() {
+   public ModularActor() {
       bodies = new HashMap<BodyGraph, RigidBody>();
       behaviors = new LinkedList<Behavior>();
-
    }
 
    public void addBody(RigidBody body, BodyGraph graph) {
@@ -35,46 +32,16 @@ public class ModularEntity implements Entity {
       behaviors.add(behavior);
    }
 
-   public void destroy() {
-      // TODO Auto-generated method stub
-
-   }
-
-   public void render(Renderer renderer) {
-      // TODO Auto-generated method stub
-
-   }
-
-   public Collection<SimulatorCommand> update(int frameNumber) {
-      Collection<SimulatorCommand> allActions = new LinkedList<SimulatorCommand>();
+   public Collection<Command> update(int frameNumber) {
+      Collection<Command> allActions = new LinkedList<Command>();
 
       for (Behavior behavior : behaviors) {
-         Collection<SimulatorCommand> actions = behavior
+         Collection<Command> actions = behavior
                .update(getNodeAssociation(behavior), frameNumber);
          allActions.addAll(actions);
       }
 
       return allActions;
-   }
-
-   public Player getOwner() {
-      // TODO Auto-generated method stub
-      return null;
-   }
-
-   public void setOwner(Player owner) {
-      // TODO Auto-generated method stub
-
-   }
-
-   public Vec2 getCenterOfInterest() {
-      // TODO Auto-generated method stub
-      return null;
-   }
-
-   public float getRadiusOfInterest() {
-      // TODO Auto-generated method stub
-      return 0;
    }
 
    private Map<BodyVertex, RigidBody> getNodeAssociation(Behavior behavior) {
@@ -100,4 +67,8 @@ public class ModularEntity implements Entity {
       return null;
    }
 
+   public Arrow getFocus() {
+      // TODO
+      return new Arrow();
+   }
 }

@@ -7,14 +7,15 @@ import java.util.Map;
 import java.util.Set;
 
 import org.codecranachan.asteroidpush.entities.Entity;
-import org.codecranachan.asteroidpush.entities.EntityFactory;
+import org.codecranachan.asteroidpush.simulation.Actor;
+import org.codecranachan.asteroidpush.simulation.ActorFactory;
 import org.codecranachan.asteroidpush.simulation.RigidBody;
 import org.codecranachan.asteroidpush.simulation.RigidBodyFactory;
 import org.codecranachan.asteroidpush.simulation.modular.Behavior;
 import org.codecranachan.asteroidpush.simulation.modular.BehaviorFactory;
 import org.codecranachan.asteroidpush.simulation.modular.BodyGraph;
 import org.codecranachan.asteroidpush.simulation.modular.BodyVertex;
-import org.codecranachan.asteroidpush.simulation.modular.ModularEntity;
+import org.codecranachan.asteroidpush.simulation.modular.ModularActor;
 import org.codecranachan.asteroidpush.utils.Arrow;
 import org.codecranachan.asteroidpush.workshop.OrthogonalCoordinate;
 import org.codecranachan.asteroidpush.workshop.tokenboard.Token;
@@ -25,20 +26,24 @@ import org.jbox2d.common.Vec2;
 import org.jgrapht.alg.ConnectivityInspector;
 import org.jgrapht.graph.Subgraph;
 
-public class SpaceshipFactory implements EntityFactory {
+public class SpaceshipFactory implements ActorFactory {
    private Board<Part> blueprint;
    private RigidBodyFactory bodyFactory;
    private float gridSize;
    private AssemblyGraph skeleton;
 
-   public SpaceshipFactory(Board<Part> blueprint, RigidBodyFactory bodyFactory,
-         float gridSize) {
+   public SpaceshipFactory(Board<Part> blueprint, float gridSize) {
       assert (blueprint != null);
       assert (bodyFactory != null);
       this.blueprint = blueprint;
-      this.bodyFactory = bodyFactory;
+      this.bodyFactory = null;
       this.gridSize = gridSize;
       this.skeleton = assembleSkeleton();
+   }
+
+   public void setBodyFactory(RigidBodyFactory factory) {
+      assert (factory != null);
+      this.bodyFactory = factory;
    }
 
    private AssemblyGraph assembleSkeleton() {
@@ -85,8 +90,9 @@ public class SpaceshipFactory implements EntityFactory {
       return null;
    }
 
-   public Entity createEntity(Arrow placement) {
-      ModularEntity ship = new ModularEntity();
+   public Actor createActor(Arrow placement) {
+      assert (bodyFactory != null);
+      ModularActor ship = new ModularActor();
 
       ConnectivityInspector<AssemblyVertex, RigidConnector> inspector = new ConnectivityInspector<AssemblyVertex, RigidConnector>(
             skeleton);
@@ -123,7 +129,7 @@ public class SpaceshipFactory implements EntityFactory {
       for (Token<Part> token : blueprint.getTokens()) {
          Part part = token.getData();
          for (BehaviorFactory factory : part.getBehaviors()) {
-            // Build list of nody nodes
+            // Build list of body nodes
             AbstractList<BodyVertex> bodyVertices = new ArrayList<BodyVertex>();
             for (AssemblyVertex vertex : factory.getNodes()) {
                bodyVertices.add(nodeToBodyMap.get(vertex));
