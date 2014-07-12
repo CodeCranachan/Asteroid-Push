@@ -16,9 +16,17 @@
 
 package org.codecranachan.asteroidpush;
 
-import org.codecranachan.asteroidpush.designer.DesignerTestSuite;
-import org.codecranachan.asteroidpush.entities.EntitiesTestSuite;
-import org.codecranachan.asteroidpush.ui.UiTestSuite;
+import org.codecranachan.asteroidpush.legacy.designer.DesignerTestSuite;
+import org.codecranachan.asteroidpush.legacy.entities.EntitiesTestSuite;
+import org.codecranachan.asteroidpush.legacy.ResourceLoaderTest;
+import org.codecranachan.asteroidpush.legacy.MatchGameStateTest;
+import org.codecranachan.asteroidpush.legacy.TimekeeperTest;
+import org.codecranachan.asteroidpush.legacy.GameStateFactoryTest;
+import org.codecranachan.asteroidpush.legacy.DesignerGameStateTest;
+import org.codecranachan.asteroidpush.legacy.ScenarioTest;
+import org.codecranachan.asteroidpush.legacy.StateInfoTest;
+import org.codecranachan.asteroidpush.legacy.SimulatorTest;
+import org.codecranachan.asteroidpush.legacy.ui.UiTestSuite;
 import org.codecranachan.asteroidpush.utils.UtilsTestSuite;
 import org.codecranachan.asteroidpush.workshop.tokenboard.TokenBoardTestSuite;
 import org.junit.runner.RunWith;

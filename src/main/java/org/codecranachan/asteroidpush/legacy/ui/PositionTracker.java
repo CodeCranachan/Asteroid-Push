@@ -14,21 +14,22 @@
 //    You should have received a copy of the GNU General Public License
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-package org.codecranachan.asteroidpush;
+package org.codecranachan.asteroidpush.legacy.ui;
 
-import org.codecranachan.asteroidpush.legacy.GameStateFactory;
-import org.codecranachan.asteroidpush.legacy.ResourceLoader;
-import org.newdawn.slick.AppGameContainer;
-import org.newdawn.slick.SlickException;
+import org.jbox2d.common.Vec2;
 
-public class AsteroidPushMain {
+public interface PositionTracker {
+   /**
+    * Get the center of attention for the object being tracked.
+    * 
+    * @return A Vec2 to the central point of interest
+    */
+   Vec2 getCenter();
 
-   public static void main(String[] args) throws SlickException {
-
-      GameStateFactory stateFactory = new GameStateFactory();
-      ResourceLoader resourceLoader = new ResourceLoader();
-      AsteroidPush game = new AsteroidPush(stateFactory, resourceLoader);
-      AppGameContainer app = new AppGameContainer(game);
-      app.start();
-   }
+   /**
+    * Get the radius around the tracked object that should be visible.
+    * 
+    * @return The radius of a circle centered around the main point of interest.
+    */
+   float getRadius();
 }

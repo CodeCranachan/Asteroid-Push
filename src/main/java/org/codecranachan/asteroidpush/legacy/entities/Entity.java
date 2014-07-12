@@ -14,21 +14,27 @@
 //    You should have received a copy of the GNU General Public License
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-package org.codecranachan.asteroidpush;
+package org.codecranachan.asteroidpush.legacy.entities;
 
-import org.codecranachan.asteroidpush.legacy.GameStateFactory;
-import org.codecranachan.asteroidpush.legacy.ResourceLoader;
-import org.newdawn.slick.AppGameContainer;
-import org.newdawn.slick.SlickException;
+import java.util.Collection;
 
-public class AsteroidPushMain {
+import org.codecranachan.asteroidpush.legacy.Player;
+import org.codecranachan.asteroidpush.legacy.SimulatorCommand;
+import org.codecranachan.asteroidpush.legacy.ui.Renderer;
+import org.jbox2d.common.Vec2;
 
-   public static void main(String[] args) throws SlickException {
+public interface Entity {
+   void destroy();
 
-      GameStateFactory stateFactory = new GameStateFactory();
-      ResourceLoader resourceLoader = new ResourceLoader();
-      AsteroidPush game = new AsteroidPush(stateFactory, resourceLoader);
-      AppGameContainer app = new AppGameContainer(game);
-      app.start();
-   }
+   void render(Renderer renderer);
+
+   Collection<SimulatorCommand> update(int frameNumber);
+
+   Player getOwner();
+
+   void setOwner(Player owner);
+
+   Vec2 getCenterOfInterest();
+
+   float getRadiusOfInterest();
 }

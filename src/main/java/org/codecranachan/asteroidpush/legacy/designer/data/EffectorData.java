@@ -14,21 +14,12 @@
 //    You should have received a copy of the GNU General Public License
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-package org.codecranachan.asteroidpush;
+package org.codecranachan.asteroidpush.legacy.designer.data;
 
-import org.codecranachan.asteroidpush.legacy.GameStateFactory;
-import org.codecranachan.asteroidpush.legacy.ResourceLoader;
-import org.newdawn.slick.AppGameContainer;
-import org.newdawn.slick.SlickException;
+import org.codecranachan.asteroidpush.legacy.entities.spaceship.Effector;
+import org.jbox2d.common.Transform;
+import org.jbox2d.dynamics.Body;
 
-public class AsteroidPushMain {
-
-   public static void main(String[] args) throws SlickException {
-
-      GameStateFactory stateFactory = new GameStateFactory();
-      ResourceLoader resourceLoader = new ResourceLoader();
-      AsteroidPush game = new AsteroidPush(stateFactory, resourceLoader);
-      AppGameContainer app = new AppGameContainer(game);
-      app.start();
-   }
+public interface EffectorData {
+   Effector createEffector(float size, Transform placement, Body body);
 }

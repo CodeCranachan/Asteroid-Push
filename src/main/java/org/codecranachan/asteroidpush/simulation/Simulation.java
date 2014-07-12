@@ -5,8 +5,10 @@ import java.util.HashSet;
 import java.util.Stack;
 
 import org.codecranachan.asteroidpush.simulation.command.Command;
+import org.codecranachan.asteroidpush.visuals.Representable;
+import org.codecranachan.asteroidpush.visuals.Representation;
 
-public class Simulation {
+public class Simulation implements Representable {
    private PhysicsEngine engine;
    private int currentFrameNumber;
    private Collection<Actor> actors;
@@ -18,22 +20,22 @@ public class Simulation {
       this.commands = new Stack<Command>();
    }
 
+   public RigidBodyFactory getBodyFactory() {
+      return engine.getBodyFactory();
+   }
+
+   public void addActor(Actor actor) {
+      actors.add(actor);
+   }
+
+   public void removeActor(Actor actor) {
+      actors.remove(actor);
+   }
+
    public void stepToFrame(int targetFrameNumber) {
       while (currentFrameNumber < targetFrameNumber) {
          computeNextFrame();
       }
-   }
-   
-   public RigidBodyFactory getBodyFactory() {
-      return engine.getBodyFactory();
-   }
-   
-   public void addActor(Actor actor) {
-      actors.add(actor);
-   }
-   
-   public void removeActor(Actor actor) {
-      actors.remove(actor);
    }
 
    private void computeNextFrame() {
@@ -53,5 +55,10 @@ public class Simulation {
       while (!commands.empty()) {
          commands.pop().execute(this);
       }
+   }
+
+   public Representation getRepresentation() {
+      // TODO implement a representation
+      return null;
    }
 }

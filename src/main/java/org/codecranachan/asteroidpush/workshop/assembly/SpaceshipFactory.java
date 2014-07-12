@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import org.codecranachan.asteroidpush.entities.Entity;
+import org.codecranachan.asteroidpush.legacy.entities.Entity;
 import org.codecranachan.asteroidpush.simulation.Actor;
 import org.codecranachan.asteroidpush.simulation.ActorFactory;
 import org.codecranachan.asteroidpush.simulation.RigidBody;

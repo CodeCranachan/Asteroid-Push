@@ -14,21 +14,31 @@
 //    You should have received a copy of the GNU General Public License
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-package org.codecranachan.asteroidpush;
+package org.codecranachan.asteroidpush.legacy;
 
-import org.codecranachan.asteroidpush.legacy.GameStateFactory;
-import org.codecranachan.asteroidpush.legacy.ResourceLoader;
-import org.newdawn.slick.AppGameContainer;
-import org.newdawn.slick.SlickException;
+import org.codecranachan.asteroidpush.legacy.entities.Entity;
+import org.codecranachan.asteroidpush.legacy.entities.EntityFactory;
+import org.jbox2d.common.Vec2;
 
-public class AsteroidPushMain {
+public class SpawnEntityCommand implements SimulatorCommand {
 
-   public static void main(String[] args) throws SlickException {
+   private EntityFactory factory;
+   private Vec2 location;
+   private Player owner;
 
-      GameStateFactory stateFactory = new GameStateFactory();
-      ResourceLoader resourceLoader = new ResourceLoader();
-      AsteroidPush game = new AsteroidPush(stateFactory, resourceLoader);
-      AppGameContainer app = new AppGameContainer(game);
-      app.start();
+   public SpawnEntityCommand(EntityFactory factory, Vec2 location, Player owner) {
+      this.factory = factory;
+      this.location = location;
+      this.owner = owner;
    }
+
+   public void execute(Simulator simulator) {
+      Entity entity = factory.createEntity(location);
+      entity.setOwner(owner);
+      if (owner != null) {
+         owner.setShip(entity);
+      }
+      simulator.addEntity(entity);
+   }
+
 }

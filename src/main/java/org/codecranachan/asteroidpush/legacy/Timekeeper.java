@@ -14,21 +14,22 @@
 //    You should have received a copy of the GNU General Public License
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-package org.codecranachan.asteroidpush;
+package org.codecranachan.asteroidpush.legacy;
 
-import org.codecranachan.asteroidpush.legacy.GameStateFactory;
-import org.codecranachan.asteroidpush.legacy.ResourceLoader;
-import org.newdawn.slick.AppGameContainer;
-import org.newdawn.slick.SlickException;
-
-public class AsteroidPushMain {
-
-   public static void main(String[] args) throws SlickException {
-
-      GameStateFactory stateFactory = new GameStateFactory();
-      ResourceLoader resourceLoader = new ResourceLoader();
-      AsteroidPush game = new AsteroidPush(stateFactory, resourceLoader);
-      AppGameContainer app = new AppGameContainer(game);
-      app.start();
+public class Timekeeper {
+   public Timekeeper(float frameTime) {
+      timeAccumulator = 0;
+      this.frameTime = frameTime;
    }
+
+   public void addRealTime(int milliseconds) {
+      timeAccumulator += (float) milliseconds / 1000.0f;
+   }
+
+   public int getGameTime() {
+      return (int) Math.floor(timeAccumulator / frameTime);
+   }
+
+   float timeAccumulator;
+   float frameTime;
 }

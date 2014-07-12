@@ -14,21 +14,19 @@
 //    You should have received a copy of the GNU General Public License
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-package org.codecranachan.asteroidpush;
+package org.codecranachan.asteroidpush.legacy.designer.data;
 
-import org.codecranachan.asteroidpush.legacy.GameStateFactory;
-import org.codecranachan.asteroidpush.legacy.ResourceLoader;
-import org.newdawn.slick.AppGameContainer;
-import org.newdawn.slick.SlickException;
+public enum Material {
+   METAL(2500.0f, 0.8f, 0.1f),
+   RUBBER(500.0f, 0.9f, 0.9f);
 
-public class AsteroidPushMain {
+   final public float density;
+   final public float friction;
+   final public float restitution;
 
-   public static void main(String[] args) throws SlickException {
-
-      GameStateFactory stateFactory = new GameStateFactory();
-      ResourceLoader resourceLoader = new ResourceLoader();
-      AsteroidPush game = new AsteroidPush(stateFactory, resourceLoader);
-      AppGameContainer app = new AppGameContainer(game);
-      app.start();
+   Material(float density, float friction, float restitution) {
+      this.density = density;
+      this.friction = friction;
+      this.restitution = restitution;
    }
 }

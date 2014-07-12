@@ -14,21 +14,25 @@
 //    You should have received a copy of the GNU General Public License
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-package org.codecranachan.asteroidpush;
+package org.codecranachan.asteroidpush.legacy.entities;
 
-import org.codecranachan.asteroidpush.legacy.GameStateFactory;
-import org.codecranachan.asteroidpush.legacy.ResourceLoader;
-import org.newdawn.slick.AppGameContainer;
-import org.newdawn.slick.SlickException;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
-public class AsteroidPushMain {
+import org.codecranachan.asteroidpush.legacy.entities.AsteroidFactory;
+import org.codecranachan.asteroidpush.legacy.entities.Entity;
+import org.codecranachan.asteroidpush.legacy.entities.PassiveObject;
+import org.jbox2d.common.Vec2;
+import org.jbox2d.dynamics.World;
+import org.junit.Test;
 
-   public static void main(String[] args) throws SlickException {
-
-      GameStateFactory stateFactory = new GameStateFactory();
-      ResourceLoader resourceLoader = new ResourceLoader();
-      AsteroidPush game = new AsteroidPush(stateFactory, resourceLoader);
-      AppGameContainer app = new AppGameContainer(game);
-      app.start();
+public class AsteroidFactoryTest {
+   @Test
+   public void testCreateEntity() {
+      World world = new World(new Vec2());
+      AsteroidFactory testFactory = new AsteroidFactory(world);
+      Entity entity = testFactory.createEntity(new Vec2());
+      assertNotNull(entity);
+      assertEquals(PassiveObject.class, entity.getClass());
    }
 }

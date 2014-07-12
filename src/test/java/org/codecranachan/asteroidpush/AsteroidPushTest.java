@@ -19,10 +19,10 @@ package org.codecranachan.asteroidpush;
 import static org.junit.Assert.*;
 
 import org.codecranachan.asteroidpush.AsteroidPush;
-import org.codecranachan.asteroidpush.GameStateFactory;
-import org.codecranachan.asteroidpush.ResourceLoader;
-import org.codecranachan.asteroidpush.Scenario;
-import org.codecranachan.asteroidpush.StateInfo;
+import org.codecranachan.asteroidpush.legacy.GameStateFactory;
+import org.codecranachan.asteroidpush.legacy.ResourceLoader;
+import org.codecranachan.asteroidpush.legacy.Scenario;
+import org.codecranachan.asteroidpush.legacy.StateInfo;
 import org.codecranachan.asteroidpush.testutils.ClassMockery;
 import org.jmock.Expectations;
 import org.junit.*;

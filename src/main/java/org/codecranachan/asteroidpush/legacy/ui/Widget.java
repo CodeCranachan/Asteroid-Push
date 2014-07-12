@@ -14,21 +14,15 @@
 //    You should have received a copy of the GNU General Public License
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-package org.codecranachan.asteroidpush;
+package org.codecranachan.asteroidpush.legacy.ui;
 
-import org.codecranachan.asteroidpush.legacy.GameStateFactory;
-import org.codecranachan.asteroidpush.legacy.ResourceLoader;
-import org.newdawn.slick.AppGameContainer;
-import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.geom.Rectangle;
 
-public class AsteroidPushMain {
-
-   public static void main(String[] args) throws SlickException {
-
-      GameStateFactory stateFactory = new GameStateFactory();
-      ResourceLoader resourceLoader = new ResourceLoader();
-      AsteroidPush game = new AsteroidPush(stateFactory, resourceLoader);
-      AppGameContainer app = new AppGameContainer(game);
-      app.start();
-   }
+public interface Widget {
+   void resize(Rectangle frame);
+   void render(Graphics g);
+   void setHover(float x, float y);
+   void resetHover();
+   void mousePressed(int button, int x, int y);
 }
