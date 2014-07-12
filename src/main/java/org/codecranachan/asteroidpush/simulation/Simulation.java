@@ -20,6 +20,19 @@ public class Simulation implements Representable {
       this.commands = new Stack<Command>();
    }
 
+   public int getCurrentFrameNumber() {
+      return currentFrameNumber;
+   }
+
+   public void clear() {
+      currentFrameNumber = 0;
+      commands.clear();
+      for (Actor nextActor : actors) {
+         nextActor.destroy();
+      }
+      actors.clear();
+   }
+
    public RigidBodyFactory getBodyFactory() {
       return engine.getBodyFactory();
    }
@@ -29,6 +42,7 @@ public class Simulation implements Representable {
    }
 
    public void removeActor(Actor actor) {
+      actor.destroy();
       actors.remove(actor);
    }
 

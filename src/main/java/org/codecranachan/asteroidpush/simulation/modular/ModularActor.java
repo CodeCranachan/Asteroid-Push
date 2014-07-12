@@ -9,7 +9,6 @@ import java.util.Map.Entry;
 import org.codecranachan.asteroidpush.simulation.Actor;
 import org.codecranachan.asteroidpush.simulation.RigidBody;
 import org.codecranachan.asteroidpush.simulation.command.Command;
-import org.codecranachan.asteroidpush.utils.Arrow;
 
 public class ModularActor implements Actor {
 
@@ -66,9 +65,9 @@ public class ModularActor implements Actor {
       }
       return null;
    }
-
-   public Arrow getFocus() {
-      // TODO
-      return new Arrow();
+   
+   public void destroy() {
+      // TODO Detach all behaviors from their bodies and destroy bodies
    }
+
 }
