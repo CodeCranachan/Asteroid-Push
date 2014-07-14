@@ -16,40 +16,22 @@
 
 package org.codecranachan.asteroidpush;
 
-import org.codecranachan.asteroidpush.legacy.designer.DesignerTestSuite;
-import org.codecranachan.asteroidpush.legacy.entities.EntitiesTestSuite;
-import org.codecranachan.asteroidpush.legacy.ResourceLoaderTest;
-import org.codecranachan.asteroidpush.legacy.MatchGameStateTest;
-import org.codecranachan.asteroidpush.legacy.GameStateFactoryTest;
-import org.codecranachan.asteroidpush.legacy.DesignerGameStateTest;
-import org.codecranachan.asteroidpush.legacy.ScenarioTest;
-import org.codecranachan.asteroidpush.legacy.StateInfoTest;
-import org.codecranachan.asteroidpush.legacy.SimulatorTest;
-import org.codecranachan.asteroidpush.legacy.ui.UiTestSuite;
-import org.codecranachan.asteroidpush.simulation.TimekeeperTest;
+import org.codecranachan.asteroidpush.legacy.LegacyTestSuite;
+import org.codecranachan.asteroidpush.simulation.SimulationTestSuite;
 import org.codecranachan.asteroidpush.utils.UtilsTestSuite;
-import org.codecranachan.asteroidpush.workshop.tokenboard.TokenBoardTestSuite;
+import org.codecranachan.asteroidpush.workshop.WorkshopTestSuite;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({
-      TokenBoardTestSuite.class,
-      DesignerTestSuite.class,
-      EntitiesTestSuite.class,
-      UiTestSuite.class,
+      LegacyTestSuite.class,
+      SimulationTestSuite.class,
       UtilsTestSuite.class,
+      WorkshopTestSuite.class,
 
       AsteroidPushTest.class,
-      DesignerGameStateTest.class,
-      GameStateFactoryTest.class,
-      MatchGameStateTest.class,
-      ResourceLoaderTest.class,
-      ScenarioTest.class,
-      SimulatorTest.class,
-      StateInfoTest.class,
-      TimekeeperTest.class
 })
 public class AllTests {
 
