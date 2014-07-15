@@ -14,11 +14,10 @@
 //    You should have received a copy of the GNU General Public License
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-package org.codecranachan.asteroidpush.legacy;
+package org.codecranachan.asteroidpush.state;
 
 import java.util.Vector;
 
-import org.codecranachan.asteroidpush.legacy.DesignerGameState;
 import org.codecranachan.asteroidpush.legacy.Player;
 import org.codecranachan.asteroidpush.legacy.ResourceLoader;
 import org.codecranachan.asteroidpush.legacy.Scenario;
@@ -29,6 +28,7 @@ import org.codecranachan.asteroidpush.legacy.designer.data.ModuleData;
 import org.codecranachan.asteroidpush.legacy.designer.grid.Placement;
 import org.codecranachan.asteroidpush.legacy.ui.DesignerUiFactory;
 import org.codecranachan.asteroidpush.legacy.ui.Widget;
+import org.codecranachan.asteroidpush.state.DesignerGameState;
 import org.codecranachan.asteroidpush.testutils.ClassMockery;
 import org.jmock.Expectations;
 import org.junit.Before;
@@ -132,7 +132,7 @@ public class DesignerGameStateTest {
          }
       });
       testState = new DesignerGameState(uiFactoryMock);
-      assertThat(testState.getID(), is(equalTo(2)));
+      assertThat(testState.getID(), is(equalTo(StateId.WORKSHOP)));
    }
 
    @Test
@@ -147,6 +147,7 @@ public class DesignerGameStateTest {
             will(returnValue(playerMock));
             allowing(playerMock).getShipDesign();
             will(returnValue(designMock));
+            oneOf(gameMock).enterState(StateId.SIMULATION);
          }
       });
       testState = new DesignerGameState(uiFactoryMock);

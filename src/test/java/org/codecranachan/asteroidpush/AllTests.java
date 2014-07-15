@@ -18,6 +18,7 @@ package org.codecranachan.asteroidpush;
 
 import org.codecranachan.asteroidpush.legacy.LegacyTestSuite;
 import org.codecranachan.asteroidpush.simulation.SimulationTestSuite;
+import org.codecranachan.asteroidpush.state.StateTestSuite;
 import org.codecranachan.asteroidpush.utils.UtilsTestSuite;
 import org.codecranachan.asteroidpush.workshop.WorkshopTestSuite;
 import org.junit.runner.RunWith;
@@ -28,6 +29,7 @@ import org.junit.runners.Suite.SuiteClasses;
 @SuiteClasses({
       LegacyTestSuite.class,
       SimulationTestSuite.class,
+      StateTestSuite.class,
       UtilsTestSuite.class,
       WorkshopTestSuite.class,
 

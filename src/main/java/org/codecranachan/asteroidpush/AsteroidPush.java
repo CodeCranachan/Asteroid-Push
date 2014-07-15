@@ -16,11 +16,11 @@
 
 package org.codecranachan.asteroidpush;
 
-import org.codecranachan.asteroidpush.legacy.GameStateFactory;
 import org.codecranachan.asteroidpush.legacy.Player;
 import org.codecranachan.asteroidpush.legacy.ResourceLoader;
 import org.codecranachan.asteroidpush.legacy.Scenario;
-import org.codecranachan.asteroidpush.legacy.StateInfo;
+import org.codecranachan.asteroidpush.state.GameStateFactory;
+import org.codecranachan.asteroidpush.state.StateId;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
@@ -38,10 +38,10 @@ public class AsteroidPush extends StateBasedGame {
    @Override
    public void initStatesList(GameContainer container) throws SlickException {
       resourceLoader.setGameContainer(container);
-      addState(stateFactory.createGameState(StateInfo.MATCH,
+      addState(stateFactory.createGameState(StateId.SIMULATION,
                                             resourceLoader,
                                             gameScenario));
-      addState(stateFactory.createGameState(StateInfo.DESIGNER,
+      addState(stateFactory.createGameState(StateId.WORKSHOP,
                                             resourceLoader,
                                             gameScenario));
    }

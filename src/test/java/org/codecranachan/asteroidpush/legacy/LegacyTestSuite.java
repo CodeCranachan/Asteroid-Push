@@ -13,13 +13,9 @@ import org.junit.runners.Suite.SuiteClasses;
       EntitiesTestSuite.class,
       UiTestSuite.class,
 
-      DesignerGameStateTest.class,
-      GameStateFactoryTest.class,
-      MatchGameStateTest.class,
       ResourceLoaderTest.class,
       ScenarioTest.class,
       SimulatorTest.class,
-      StateInfoTest.class,
 })
 public class LegacyTestSuite {
 

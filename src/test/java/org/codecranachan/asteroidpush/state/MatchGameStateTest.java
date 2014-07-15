@@ -14,14 +14,14 @@
 //    You should have received a copy of the GNU General Public License
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-package org.codecranachan.asteroidpush.legacy;
+package org.codecranachan.asteroidpush.state;
 
-import org.codecranachan.asteroidpush.legacy.MatchGameState;
 import org.codecranachan.asteroidpush.legacy.Player;
 import org.codecranachan.asteroidpush.legacy.Scenario;
 import org.codecranachan.asteroidpush.legacy.Simulator;
 import org.codecranachan.asteroidpush.legacy.ui.MatchUiFactory;
 import org.codecranachan.asteroidpush.legacy.ui.Widget;
+import org.codecranachan.asteroidpush.state.MatchGameState;
 import org.codecranachan.asteroidpush.testutils.ClassMockery;
 import org.jmock.Expectations;
 import org.jmock.Sequence;
@@ -145,7 +145,7 @@ public class MatchGameStateTest {
          }
       });
       testState = new MatchGameState(simulatorMock, uiFactoryMock);
-      assertThat(testState.getID(), is(equalTo(1)));
+      assertThat(testState.getID(), is(equalTo(StateId.SIMULATION)));
 
       context.assertIsSatisfied();
    }

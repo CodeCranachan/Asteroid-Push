@@ -16,8 +16,8 @@
 
 package org.codecranachan.asteroidpush;
 
-import org.codecranachan.asteroidpush.legacy.GameStateFactory;
 import org.codecranachan.asteroidpush.legacy.ResourceLoader;
+import org.codecranachan.asteroidpush.state.GameStateFactory;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.SlickException;
 

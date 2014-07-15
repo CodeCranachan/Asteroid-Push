@@ -14,8 +14,11 @@
 //    You should have received a copy of the GNU General Public License
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-package org.codecranachan.asteroidpush.legacy;
+package org.codecranachan.asteroidpush.state;
 
+import org.codecranachan.asteroidpush.legacy.ResourceLoader;
+import org.codecranachan.asteroidpush.legacy.Scenario;
+import org.codecranachan.asteroidpush.legacy.Simulator;
 import org.codecranachan.asteroidpush.legacy.ui.DesignerUiFactory;
 import org.codecranachan.asteroidpush.legacy.ui.MatchUiFactory;
 import org.newdawn.slick.state.GameState;
@@ -35,23 +38,18 @@ public class GameStateFactory {
     *           id of the game state
     * @return a freshly assembled game state to be used for that state id.
     */
-   public GameState createGameState(StateInfo stateId,
+   public GameState createGameState(int stateId,
                                     ResourceLoader resourceLoader,
                                     Scenario scenario) {
       GameState state;
 
-      if (null == stateId) {
-         stateId = StateInfo.INVALID;
-      }
-
       switch (stateId) {
-      case MATCH:
+      case StateId.SIMULATION:
          state = createMatchGameState(resourceLoader, scenario);
          break;
-      case DESIGNER:
+      case StateId.WORKSHOP:
          state = createDesignerGameState(resourceLoader, scenario);
          break;
-      case INVALID:
       default:
          state = null;
          break;

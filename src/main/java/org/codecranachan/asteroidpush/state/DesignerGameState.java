@@ -14,8 +14,10 @@
 //    You should have received a copy of the GNU General Public License
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-package org.codecranachan.asteroidpush.legacy;
+package org.codecranachan.asteroidpush.state;
 
+import org.codecranachan.asteroidpush.legacy.Player;
+import org.codecranachan.asteroidpush.legacy.Scenario;
 import org.codecranachan.asteroidpush.legacy.designer.BlueprintManipulator;
 import org.codecranachan.asteroidpush.legacy.ui.DesignerUiFactory;
 import org.codecranachan.asteroidpush.legacy.ui.Widget;
@@ -41,7 +43,7 @@ public class DesignerGameState extends BasicGameState {
 
    @Override
    public int getID() {
-      return StateInfo.DESIGNER.getID();
+      return StateId.WORKSHOP;
    }
    
    public void init(GameContainer container, StateBasedGame game)
@@ -63,7 +65,7 @@ public class DesignerGameState extends BasicGameState {
          manipulator.rotateSelectionRight();
          break;
       case Input.KEY_SPACE:
-         game.enterState(StateInfo.MATCH.getID());
+         game.enterState(StateId.SIMULATION);
          break;
       case Input.KEY_PERIOD:
          scenario.getLocalPlayer().cycleShipDesign();

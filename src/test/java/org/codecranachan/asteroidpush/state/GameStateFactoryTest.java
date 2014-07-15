@@ -14,15 +14,13 @@
 //    You should have received a copy of the GNU General Public License
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-package org.codecranachan.asteroidpush.legacy;
+package org.codecranachan.asteroidpush.state;
 
 import static org.junit.Assert.*;
 
-import org.codecranachan.asteroidpush.legacy.GameStateFactory;
-import org.codecranachan.asteroidpush.legacy.MatchGameState;
 import org.codecranachan.asteroidpush.legacy.ResourceLoader;
 import org.codecranachan.asteroidpush.legacy.Scenario;
-import org.codecranachan.asteroidpush.legacy.StateInfo;
+import org.codecranachan.asteroidpush.state.GameStateFactory;
 import org.codecranachan.asteroidpush.testutils.ClassMockery;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
@@ -48,17 +46,6 @@ public class GameStateFactoryTest {
    }
 
    @Test
-   public void testInvalidStateCreation() throws Exception {
-      GameState testState;
-      testState = testFactory.createGameState(null, loaderMock, scenarioMock);
-      assertNull(testState);
-      testState = testFactory.createGameState(StateInfo.INVALID,
-                                              loaderMock,
-                                              scenarioMock);
-      assertNull(testState);
-   }
-
-   @Test
    public void testMatchStateCreation() throws Exception {
       context.checking(new Expectations() {
          {
@@ -68,7 +55,7 @@ public class GameStateFactoryTest {
          }
       });
 
-      GameState testState = testFactory.createGameState(StateInfo.MATCH,
+      GameState testState = testFactory.createGameState(StateId.SIMULATION,
                                                         loaderMock,
                                                         scenarioMock);
       assertEquals(testState.getClass(), MatchGameState.class);

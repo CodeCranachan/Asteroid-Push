@@ -19,10 +19,10 @@ package org.codecranachan.asteroidpush;
 import static org.junit.Assert.*;
 
 import org.codecranachan.asteroidpush.AsteroidPush;
-import org.codecranachan.asteroidpush.legacy.GameStateFactory;
 import org.codecranachan.asteroidpush.legacy.ResourceLoader;
 import org.codecranachan.asteroidpush.legacy.Scenario;
-import org.codecranachan.asteroidpush.legacy.StateInfo;
+import org.codecranachan.asteroidpush.state.GameStateFactory;
+import org.codecranachan.asteroidpush.state.StateId;
 import org.codecranachan.asteroidpush.testutils.ClassMockery;
 import org.jmock.Expectations;
 import org.junit.*;
@@ -56,11 +56,11 @@ public class AsteroidPushTest {
       context.checking(new Expectations() {
          {
             oneOf(loaderMock).setGameContainer(null);
-            oneOf(factoryMock).createGameState(with(StateInfo.MATCH),
+            oneOf(factoryMock).createGameState(with(StateId.SIMULATION),
                                                with(loaderMock),
                                                with(aNonNull(Scenario.class)));
             will(returnValue(matchStateMock));
-            oneOf(factoryMock).createGameState(with(StateInfo.DESIGNER),
+            oneOf(factoryMock).createGameState(with(StateId.WORKSHOP),
                                                with(loaderMock),
                                                with(aNonNull(Scenario.class)));
             will(returnValue(designerStateMock));

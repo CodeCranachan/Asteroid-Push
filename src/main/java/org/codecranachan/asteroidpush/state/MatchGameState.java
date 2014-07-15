@@ -14,8 +14,10 @@
 //    You should have received a copy of the GNU General Public License
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-package org.codecranachan.asteroidpush.legacy;
+package org.codecranachan.asteroidpush.state;
 
+import org.codecranachan.asteroidpush.legacy.Scenario;
+import org.codecranachan.asteroidpush.legacy.Simulator;
 import org.codecranachan.asteroidpush.legacy.ui.MatchUiFactory;
 import org.codecranachan.asteroidpush.legacy.ui.Widget;
 import org.codecranachan.asteroidpush.simulation.Timekeeper;
@@ -72,13 +74,13 @@ public class MatchGameState extends BasicGameState {
 
    @Override
    public int getID() {
-      return StateInfo.MATCH.getID();
+      return StateId.SIMULATION;
    }
 
    @Override
    public void keyPressed(int key, char c) {
       if (Input.KEY_ESCAPE == key) {
-         game.enterState(StateInfo.DESIGNER.getID());
+         game.enterState(StateId.WORKSHOP);
       } else {
          scenario.getLocalPlayer().handleKeyDown(key);
       }

@@ -14,18 +14,9 @@
 //    You should have received a copy of the GNU General Public License
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-package org.codecranachan.asteroidpush.legacy;
+package org.codecranachan.asteroidpush.state;
 
-public enum StateInfo {
-   INVALID(0), MATCH(1), DESIGNER(2);
-
-   private int stateID;
-
-   StateInfo(int number) {
-      stateID = number;
-   }
-
-   public int getID() {
-      return stateID;
-   }
+public class StateId {
+   public static final int WORKSHOP = 1;
+   public static final int SIMULATION = 2;
 }
