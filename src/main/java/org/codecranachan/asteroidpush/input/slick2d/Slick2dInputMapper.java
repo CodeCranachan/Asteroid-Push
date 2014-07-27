@@ -18,7 +18,7 @@ class ControllerMapping {
    }
 
    public String mapButton(int button) {
-      return buttonMapping.getOrDefault(button, Slick2dInputMapper.NOT_BOUND);
+      return Slick2dInputMapper.getBinding(button, buttonMapping);
    }
 
    public void bindButton(int button, String event) {
@@ -26,8 +26,7 @@ class ControllerMapping {
    }
 
    public String mapDirection(int direction) {
-      return directionMapping.getOrDefault(direction,
-                                           Slick2dInputMapper.NOT_BOUND);
+      return Slick2dInputMapper.getBinding(direction, directionMapping);
    }
 
    public void bindDirection(int direction, String event) {
@@ -46,6 +45,16 @@ public class Slick2dInputMapper {
 
    public static String NOT_BOUND = "";
 
+   static public String getBinding(Integer key, Map<Integer, String> map) {
+      // This function is used instead of Map.getOrDefault(), which is not
+      // available in JAVA 1.7
+      if (map.containsKey(key)) {
+         return map.get(key);
+      } else {
+         return NOT_BOUND;
+      }
+   }
+
    public Slick2dInputMapper() {
       keyMapping = new HashMap<Integer, String>();
       mouseButtonMapping = new HashMap<Integer, String>();
@@ -54,7 +63,7 @@ public class Slick2dInputMapper {
    }
 
    public String mapMouseButton(int button) {
-      return mouseButtonMapping.getOrDefault(button, NOT_BOUND);
+      return getBinding(button, mouseButtonMapping);
    }
 
    public void bindMouseButton(int button, String event) {
@@ -62,7 +71,7 @@ public class Slick2dInputMapper {
    }
 
    public String mapMouseWheel(int direction) {
-      return mouseWheelMapping.getOrDefault(direction, NOT_BOUND);
+      return getBinding(direction, mouseWheelMapping);
    }
 
    public void bindMouseWheel(int direction, String event) {
@@ -70,7 +79,7 @@ public class Slick2dInputMapper {
    }
 
    public String mapKey(int key) {
-      return keyMapping.getOrDefault(key, NOT_BOUND);
+      return getBinding(key, keyMapping);
    }
 
    public void bindKey(int key, String event) {
@@ -103,10 +112,12 @@ public class Slick2dInputMapper {
          return mapping.mapDirection(direction);
       } else {
          return NOT_BOUND;
-      } 
+      }
    }
 
-   public void bindControllerDirection(int controller, int direction, String event) {
+   public void bindControllerDirection(int controller,
+                                       int direction,
+                                       String event) {
       ControllerMapping mapping;
       if (controllerMapping.containsKey(controller)) {
          mapping = controllerMapping.get(controller);
