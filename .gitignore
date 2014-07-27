@@ -2,3 +2,4 @@ build
 deploy
 target
 bin
+jacoco.exec

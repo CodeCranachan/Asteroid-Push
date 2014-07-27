@@ -14,31 +14,16 @@
 //    You should have received a copy of the GNU General Public License
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-package org.codecranachan.asteroidpush;
+package org.codecranachan.asteroidpush.visuals.widget;
 
-import org.codecranachan.asteroidpush.legacy.LegacyTestSuite;
-import org.codecranachan.asteroidpush.simulation.SimulationTestSuite;
-import org.codecranachan.asteroidpush.state.StateTestSuite;
-import org.codecranachan.asteroidpush.utils.UtilsTestSuite;
-import org.codecranachan.asteroidpush.visuals.widget.WidgetTestSuite;
-import org.codecranachan.asteroidpush.workshop.WorkshopTestSuite;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({
-      LegacyTestSuite.class,
-      SimulationTestSuite.class,
-      StateTestSuite.class,
-      UtilsTestSuite.class,
-      WorkshopTestSuite.class,
-      
-      WidgetTestSuite.class,
-
-      AsteroidPushTest.class,
-      ResourceLoaderTest.class
+      LabelTest.class,
 })
-public class AllTests {
+public class WidgetTestSuite {
 
 }

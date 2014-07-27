@@ -29,13 +29,19 @@ public class Token<Data> {
    public Token() {
       shape = new Shape("X");
       data = null;
-      placement = null;
+      placement = new Placement(0, new OrthogonalCoordinate());
    }
 
    public Token(Shape shape, Data data) {
       this.shape = shape;
       this.data = data;
-      this.placement = null;
+      this.placement = new Placement(0, new OrthogonalCoordinate());
+   }
+
+   public Token<Data> clone() {
+      Token<Data> token = new Token<Data>(this.shape, this.data);
+      token.setPlacement(placement.clone());
+      return token;
    }
 
    public Shape getShape() {
@@ -46,7 +52,18 @@ public class Token<Data> {
       return data;
    }
 
+   public void rotateClockwise() {
+      placement.rotateClockwise();
+   }
+
+   public void rotateAnticlockwise() {
+      placement.rotateAnticlockwise();
+   }
+
    public void setPlacement(Placement placement) {
+      if (placement == null)
+         throw new IllegalArgumentException(
+               "must not pass null as placement for a Token");
       this.placement = placement;
    }
 
@@ -55,9 +72,6 @@ public class Token<Data> {
    }
 
    public Set<OrthogonalCoordinate> getOccupiedCoordinates() {
-      if (placement == null)
-         return new HashSet<OrthogonalCoordinate>();
-
       Set<OrthogonalCoordinate> coordinates = shape.getOccupiedCoordinates();
       coordinates = rotateShape(coordinates, placement.getOrientation());
       coordinates = translateShape(coordinates, placement.getPivotCoordinate());

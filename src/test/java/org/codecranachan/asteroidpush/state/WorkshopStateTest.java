@@ -16,31 +16,35 @@
 
 package org.codecranachan.asteroidpush.state;
 
-import java.util.Collection;
-import java.util.Vector;
-
 import org.codecranachan.asteroidpush.ResourceLoader;
-import org.newdawn.slick.state.GameState;
+import org.codecranachan.asteroidpush.state.WorkshopState;
+import org.codecranachan.asteroidpush.testutils.ClassMockery;
+import org.jmock.Expectations;
+import org.junit.Before;
+import org.junit.Test;
 
-/**
- * Abstracts game state creation for the game container.
- * 
- * @author Konfuzzyus
- * 
- */
-public class GameStateFactory {
-   private ResourceLoader resourceLoader;
+import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.*;
 
-   public GameStateFactory(ResourceLoader resourceLoader) {
-      this.resourceLoader = resourceLoader;
+public class WorkshopStateTest {
+   ClassMockery context;
+   ResourceLoader loaderMock;
+   WorkshopState testState;
+
+   @Before
+   public void setUp() throws Exception {
+      context = new ClassMockery();
+      loaderMock = context.mock(ResourceLoader.class);
    }
 
-   public Collection<GameState> createGameStates() {
-      Vector<GameState> states = new Vector<GameState>();
-      // Note: First added state is the initial state of the game
-      states.add(new WorkshopState(resourceLoader));
-      states.add(new SimulationState(resourceLoader));
-      return states;
+   @Test
+   public void testGetId() {
+      context.checking(new Expectations() {
+         {
+            ignoring(loaderMock);
+         }
+      });
+      testState = new WorkshopState(loaderMock);
+      assertThat(testState.getID(), is(equalTo(StateId.WORKSHOP)));
    }
-
 }

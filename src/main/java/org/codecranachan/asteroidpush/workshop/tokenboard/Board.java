@@ -18,6 +18,7 @@ package org.codecranachan.asteroidpush.workshop.tokenboard;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 import org.codecranachan.asteroidpush.workshop.OrthogonalCoordinate;
@@ -33,22 +34,16 @@ public class Board<TokenData> {
       return content.isEmpty();
    }
 
-   public void place(Token<TokenData> token,
-                     OrthogonalCoordinate location,
-                     int orientation) {
+   public void place(Token<TokenData> token) {
       if (token == null)
          throw new IllegalArgumentException("null was passed as token");
-      if (location == null)
-         throw new IllegalArgumentException("null was passed as location");
+      if (token.getPlacement() == null)
+         throw new IllegalArgumentException(
+               "token does not contain a valid placement");
 
-      // Assign the placement to the token
-      Placement placement = new Placement(orientation, location);
-      token.setPlacement(placement);
-
-      // Check whether the token overlaps with an other tokens
+      // Check whether the token overlaps with any other tokens
       for (OrthogonalCoordinate occupied : token.getOccupiedCoordinates()) {
          if (content.containsKey(occupied)) {
-            token.setPlacement(null);
             throw new IllegalArgumentException("location already occupied");
          }
       }
@@ -65,7 +60,6 @@ public class Board<TokenData> {
          for (OrthogonalCoordinate place : token.getOccupiedCoordinates()) {
             content.remove(place);
          }
-         token.setPlacement(null);
       }
       return token;
    }
@@ -75,6 +69,40 @@ public class Board<TokenData> {
    }
 
    public Collection<Token<TokenData>> getTokens() {
-      return content.values();
+      return new HashSet<Token<TokenData>>(content.values());
+   }
+
+   public OrthogonalCoordinate getBottomLeftCorner() {
+      if (content.isEmpty()) {
+         return new OrthogonalCoordinate(0, 0);
+      }
+
+      OrthogonalCoordinate min = null;
+      for (OrthogonalCoordinate location : content.keySet()) {
+         if (min == null) {
+            min = new OrthogonalCoordinate(location);
+         } else {
+            min.setX(Math.min(min.getX(), location.getX()));
+            min.setY(Math.min(min.getY(), location.getY()));
+         }
+      }
+      return min;
+   }
+
+   public OrthogonalCoordinate getTopRightCorner() {
+      if (content.isEmpty()) {
+         return new OrthogonalCoordinate(0, 0);
+      }
+
+      OrthogonalCoordinate max = null;
+      for (OrthogonalCoordinate location : content.keySet()) {
+         if (max == null) {
+            max = new OrthogonalCoordinate(location);
+         } else {
+            max.setX(Math.max(max.getX(), location.getX()));
+            max.setY(Math.max(max.getY(), location.getY()));
+         }
+      }
+      return max;
    }
 }

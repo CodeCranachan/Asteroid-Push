@@ -11,11 +11,24 @@ public class Placement {
       this.pivotCoordinate = pivotCoordinate;
    }
 
+   public Placement clone() {
+      return new Placement(orientation, new OrthogonalCoordinate(
+            pivotCoordinate));
+   }
+
    public int getOrientation() {
       return orientation;
    }
 
    public OrthogonalCoordinate getPivotCoordinate() {
       return pivotCoordinate;
+   }
+   
+   public void rotateClockwise() {
+      orientation -= 1;
+   }
+   
+   public void rotateAnticlockwise() {
+      orientation += 1;
    }
 }

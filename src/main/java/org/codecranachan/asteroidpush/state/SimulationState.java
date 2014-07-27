@@ -16,11 +16,8 @@
 
 package org.codecranachan.asteroidpush.state;
 
-import org.codecranachan.asteroidpush.legacy.Scenario;
-import org.codecranachan.asteroidpush.legacy.Simulator;
-import org.codecranachan.asteroidpush.legacy.ui.MatchUiFactory;
-import org.codecranachan.asteroidpush.legacy.ui.Widget;
-import org.codecranachan.asteroidpush.simulation.Timekeeper;
+import org.codecranachan.asteroidpush.ResourceLoader;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -29,30 +26,18 @@ import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-public class MatchGameState extends BasicGameState {
+public class SimulationState extends BasicGameState {
 
-   public MatchGameState(Simulator simulator, MatchUiFactory uiFactory) {
-      this.simulator = simulator;
-      this.uiFactory = uiFactory;
-      this.timekeeper = new Timekeeper(simulator.getTimeStep());
-   }
-
-   public void setScenario(Scenario scenario) {
-      this.scenario = scenario;
+   public SimulationState(ResourceLoader resourceLoader) {
+      // TODO: Create user interface
    }
 
    public void init(GameContainer container, StateBasedGame game)
          throws SlickException {
-      uiFactory.init(simulator, scenario.getLocalPlayer());
-      ui = uiFactory.createUi();
-      this.game = game;
    }
 
    @Override
    public void enter(GameContainer container, StateBasedGame game) {
-      simulator.clear();
-      simulator.initialize(scenario);
-      timekeeper = new Timekeeper(simulator.getTimeStep());
    }
 
    public void render(GameContainer container,
@@ -60,16 +45,12 @@ public class MatchGameState extends BasicGameState {
                       Graphics graphics) throws SlickException {
       Rectangle canvas = new Rectangle(0.0f, 0.0f, container.getWidth(),
             container.getHeight());
-      if (ui != null) {
-         ui.resize(canvas);
-         ui.render(graphics);
-      }
+      graphics.setColor(Color.white);
+      graphics.drawString("Simulation", 10, 30);
    }
 
-   public void update(GameContainer container, StateBasedGame game, int delta)
+   public void update(GameContainer container, StateBasedGame game, int milliseconds)
          throws SlickException {
-      timekeeper.addRealTime(delta);
-      simulator.stepToFrame(timekeeper.getGameTime());
    }
 
    @Override
@@ -80,21 +61,12 @@ public class MatchGameState extends BasicGameState {
    @Override
    public void keyPressed(int key, char c) {
       if (Input.KEY_ESCAPE == key) {
-         game.enterState(StateId.WORKSHOP);
       } else {
-         scenario.getLocalPlayer().handleKeyDown(key);
       }
    }
 
    @Override
    public void keyReleased(int key, char c) {
-      scenario.getLocalPlayer().handleKeyUp(key);
    }
 
-   private Simulator simulator;
-   private Timekeeper timekeeper;
-   private Scenario scenario;
-   private StateBasedGame game;
-   private MatchUiFactory uiFactory;
-   private Widget ui;
 }

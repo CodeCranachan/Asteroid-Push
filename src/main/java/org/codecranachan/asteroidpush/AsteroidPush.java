@@ -16,37 +16,38 @@
 
 package org.codecranachan.asteroidpush;
 
-import org.codecranachan.asteroidpush.legacy.Player;
-import org.codecranachan.asteroidpush.legacy.ResourceLoader;
-import org.codecranachan.asteroidpush.legacy.Scenario;
 import org.codecranachan.asteroidpush.state.GameStateFactory;
-import org.codecranachan.asteroidpush.state.StateId;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.state.GameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class AsteroidPush extends StateBasedGame {
+   private ResourceLoader resourceLoader;
+   private GameInstance mainGame;
+   private Settings settings;
 
-   public AsteroidPush(GameStateFactory stateFactory,
-         ResourceLoader resourceLoader) {
+   public AsteroidPush(ResourceLoader resourceLoader) {
       super("Asteroid Push");
-      this.stateFactory = stateFactory;
       this.resourceLoader = resourceLoader;
-      this.gameScenario = new Scenario(new Player());
+      // TODO Load settings from file
+      this.settings = new Settings();
    }
 
    @Override
    public void initStatesList(GameContainer container) throws SlickException {
       resourceLoader.setGameContainer(container);
-      addState(stateFactory.createGameState(StateId.SIMULATION,
-                                            resourceLoader,
-                                            gameScenario));
-      addState(stateFactory.createGameState(StateId.WORKSHOP,
-                                            resourceLoader,
-                                            gameScenario));
+      GameStateFactory factory = new GameStateFactory(resourceLoader);
+      for (GameState state : factory.createGameStates()) {
+         addState(state);
+      }
    }
 
-   private GameStateFactory stateFactory;
-   private ResourceLoader resourceLoader;
-   private Scenario gameScenario;
+   public GameInstance getGame() {
+      return mainGame;
+   }
+
+   public Settings getSettings() {
+      return settings;
+   }
 }

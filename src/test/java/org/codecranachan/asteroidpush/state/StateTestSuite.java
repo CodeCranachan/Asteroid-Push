@@ -6,9 +6,8 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({
-      DesignerGameStateTest.class,
-      GameStateFactoryTest.class,
-      MatchGameStateTest.class
+      WorkshopStateTest.class,
+      SimulationStateTest.class
 })
 public class StateTestSuite {
 

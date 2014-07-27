@@ -14,7 +14,7 @@
 //    You should have received a copy of the GNU General Public License
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-package org.codecranachan.asteroidpush.legacy.ui;
+package org.codecranachan.asteroidpush.visuals.widget;
 
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;

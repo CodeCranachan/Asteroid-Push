@@ -13,7 +13,6 @@ import org.junit.runners.Suite.SuiteClasses;
       EntitiesTestSuite.class,
       UiTestSuite.class,
 
-      ResourceLoaderTest.class,
       ScenarioTest.class,
       SimulatorTest.class,
 })

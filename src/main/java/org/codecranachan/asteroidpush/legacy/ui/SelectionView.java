@@ -19,6 +19,7 @@ package org.codecranachan.asteroidpush.legacy.ui;
 import org.codecranachan.asteroidpush.legacy.designer.BlueprintManipulator;
 import org.codecranachan.asteroidpush.legacy.designer.ModuleToken;
 import org.codecranachan.asteroidpush.legacy.designer.grid.Placement;
+import org.codecranachan.asteroidpush.visuals.widget.BasicWidget;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
 

@@ -39,8 +39,16 @@ public class OrthogonalCoordinate {
       return x;
    }
 
+   public void setX(int x) {
+      this.x = x;
+   }
+
    public int getY() {
       return y;
+   }
+
+   public void setY(int y) {
+      this.y = y;
    }
 
    public boolean equals(Object obj) {
@@ -88,6 +96,10 @@ public class OrthogonalCoordinate {
       case 0:
          break;
       }
+   }
+
+   public OrthogonalCoordinate subtract(OrthogonalCoordinate other) {
+      return new OrthogonalCoordinate(this.x - other.x, this.y - other.y);
    }
 
 }

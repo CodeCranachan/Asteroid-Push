@@ -14,7 +14,7 @@
 //    You should have received a copy of the GNU General Public License
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-package org.codecranachan.asteroidpush.legacy.ui;
+package org.codecranachan.asteroidpush.visuals.widget;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Font;
@@ -22,10 +22,18 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
 
 public class Label extends BasicWidget {
+   private StringBuffer text;
+   private Font font;
+   private Color color;
 
    public Label(StringBuffer text, Font font) {
       this.text = text;
       this.font = font;
+      this.color = Color.green;
+   }
+
+   public void setColor(Color color) {
+      this.color = color;
    }
 
    @Override
@@ -33,12 +41,12 @@ public class Label extends BasicWidget {
       Rectangle frame = getFrame();
       Font currentFont = g.getFont();
       g.setFont(font);
-      g.setColor(Color.green);
+      g.setColor(color);
       g.drawRoundRect(frame.getX(),
                       frame.getY(),
-                      frame.getWidth(),
-                      frame.getHeight(),
-                      5);
+                      frame.getWidth() - 2,
+                      frame.getHeight() - 2,
+                      15);
       g.drawString(text.toString(),
                    frame.getCenterX() - (float) font.getWidth(text.toString())
                          / 2.0f,
@@ -47,6 +55,4 @@ public class Label extends BasicWidget {
       g.setFont(currentFont);
    }
 
-   private StringBuffer text;
-   private Font font;
 }

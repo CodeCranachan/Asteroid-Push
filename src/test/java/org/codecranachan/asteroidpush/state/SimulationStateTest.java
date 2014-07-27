@@ -14,45 +14,39 @@
 //    You should have received a copy of the GNU General Public License
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-package org.codecranachan.asteroidpush.legacy;
+package org.codecranachan.asteroidpush.state;
 
-import static org.junit.Assert.*;
-
-import org.codecranachan.asteroidpush.legacy.ResourceLoader;
+import org.codecranachan.asteroidpush.legacy.Simulator;
+import org.codecranachan.asteroidpush.state.SimulationState;
 import org.codecranachan.asteroidpush.testutils.ClassMockery;
 import org.jmock.Expectations;
-import org.jmock.Mockery;
 import org.junit.Before;
 import org.junit.Test;
-import org.newdawn.slick.Font;
-import org.newdawn.slick.GameContainer;
 
-public class ResourceLoaderTest {
-   Mockery context;
-   GameContainer containerMock;
-   ResourceLoader testLoader;
-   Font fontMock;
+import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.*;
+
+public class SimulationStateTest {
+   ClassMockery context;
+   Simulator simulatorMock;
+   SimulationState testState;
 
    @Before
    public void setUp() throws Exception {
       context = new ClassMockery();
-      containerMock = context.mock(GameContainer.class);
-      fontMock = context.mock(Font.class);
-      testLoader = new ResourceLoader();
+      simulatorMock = context.mock(Simulator.class);
    }
 
    @Test
-   public void testLoadFont() {
+   public void testGetId() {
       context.checking(new Expectations() {
          {
-            oneOf(containerMock).getDefaultFont();
-            will(returnValue(fontMock));
+            allowing(simulatorMock).getTimeStep();
+            will(returnValue(0.016f));
          }
       });
-      
-      testLoader.setGameContainer(containerMock);
-      assertSame(fontMock, testLoader.loadFont("SomeUnavailableFont.ttf", 14));
-      
+      testState = new SimulationState(null);
+      assertThat(testState.getID(), is(equalTo(StateId.SIMULATION)));
       context.assertIsSatisfied();
    }
 }

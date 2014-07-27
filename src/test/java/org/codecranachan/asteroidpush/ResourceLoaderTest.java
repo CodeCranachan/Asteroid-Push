@@ -14,53 +14,45 @@
 //    You should have received a copy of the GNU General Public License
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-package org.codecranachan.asteroidpush.state;
+package org.codecranachan.asteroidpush;
 
 import static org.junit.Assert.*;
 
-import org.codecranachan.asteroidpush.legacy.ResourceLoader;
-import org.codecranachan.asteroidpush.legacy.Scenario;
-import org.codecranachan.asteroidpush.state.GameStateFactory;
+import org.codecranachan.asteroidpush.ResourceLoader;
 import org.codecranachan.asteroidpush.testutils.ClassMockery;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.junit.Before;
 import org.junit.Test;
 import org.newdawn.slick.Font;
-import org.newdawn.slick.state.GameState;
+import org.newdawn.slick.GameContainer;
 
-public class GameStateFactoryTest {
+public class ResourceLoaderTest {
    Mockery context;
-   ResourceLoader loaderMock;
+   GameContainer containerMock;
+   ResourceLoader testLoader;
    Font fontMock;
-   Scenario scenarioMock;
-   GameStateFactory testFactory;
 
    @Before
    public void setUp() throws Exception {
       context = new ClassMockery();
-      loaderMock = context.mock(ResourceLoader.class);
+      containerMock = context.mock(GameContainer.class);
       fontMock = context.mock(Font.class);
-      scenarioMock = context.mock(Scenario.class);
-      testFactory = new GameStateFactory();
+      testLoader = new ResourceLoader();
    }
 
    @Test
-   public void testMatchStateCreation() throws Exception {
+   public void testLoadFont() {
       context.checking(new Expectations() {
          {
-            allowing(loaderMock).loadFont(with(any(String.class)),
-                                          with(any(int.class)));
+            oneOf(containerMock).getDefaultFont();
             will(returnValue(fontMock));
          }
       });
-
-      GameState testState = testFactory.createGameState(StateId.SIMULATION,
-                                                        loaderMock,
-                                                        scenarioMock);
-      assertEquals(testState.getClass(), MatchGameState.class);
-
+      
+      testLoader.setGameContainer(containerMock);
+      assertSame(fontMock, testLoader.loadFont("SomeUnavailableFont.ttf", 14));
+      
       context.assertIsSatisfied();
    }
-
 }

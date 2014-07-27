@@ -37,17 +37,12 @@ public class BoardTest {
 
    @Test(expected = IllegalArgumentException.class)
    public void PutNullOnBoard_ThrowIllegalArgumentException() {
-      board.place(null, null, 0);
-   }
-
-   @Test(expected = IllegalArgumentException.class)
-   public void PutSomethingOnNull_ThrowIllegalArgumentException() {
-      board.place(new Token<Integer>(), null, 0);
+      board.place(null);
    }
 
    @Test
    public void PutTokenOnCenter_BoardNotEmpty() {
-      board.place(new Token<Integer>(), OC(0, 0), 0);
+      board.place(T0(OC(0, 0), 0));
       assertFalse(board.isEmpty());
    }
 
@@ -58,8 +53,8 @@ public class BoardTest {
 
    @Test
    public void PickTokenWhichWasPreviouslyPut_GetThatTokenAndRemoveFromBoard() {
-      Token<Integer> testToken = new Token<Integer>();
-      board.place(testToken, OC(0, 0), 0);
+      Token<Integer> testToken = T0(OC(0, 0), 0);
+      board.place(testToken);
       assertSame(testToken, board.pick(OC(0, 0)));
       assertTrue(board.isEmpty());
    }
@@ -71,27 +66,27 @@ public class BoardTest {
 
    @Test
    public void InspectTokenWhichWasPreviouslyPut_GetThatToken() {
-      Token<Integer> testToken = new Token<Integer>();
-      board.place(testToken, OC(0, 0), 0);
+      Token<Integer> testToken = T0(OC(0, 0), 0);
+      board.place(testToken);
       assertSame(testToken, board.inspect(OC(0, 0)));
       assertFalse(board.isEmpty());
    }
 
    @Test
    public void PutTokenOffCenter_GetNullFromCenter() {
-      board.place(new Token<Integer>(), new OrthogonalCoordinate(1, 1), 0);
+      Token<Integer> testToken = T0(OC(1, 1), 0);
+      board.place(testToken);
       assertNull(board.inspect(OC(0, 0)));
    }
 
    @Test
    public void PutTwoTokensOnBoard_CanInspectBoth() {
-      Token<Integer> firstToken = new Token<Integer>();
-      Token<Integer> secondToken = new Token<Integer>();
-      OrthogonalCoordinate firstCoordinate = new OrthogonalCoordinate(1, 1);
-      OrthogonalCoordinate secondCoordinate = new OrthogonalCoordinate(-1, -1);
-
-      board.place(firstToken, firstCoordinate, 0);
-      board.place(secondToken, secondCoordinate, 0);
+      OrthogonalCoordinate firstCoordinate = OC(1, 1);
+      OrthogonalCoordinate secondCoordinate = OC(-1, -1);
+      Token<Integer> firstToken = T0(firstCoordinate, 0);
+      Token<Integer> secondToken = T0(secondCoordinate, 0);
+      board.place(firstToken);
+      board.place(secondToken);
 
       assertSame(firstToken, board.inspect(firstCoordinate));
       assertSame(secondToken, board.inspect(secondCoordinate));
@@ -99,46 +94,43 @@ public class BoardTest {
 
    @Test(expected = IllegalArgumentException.class)
    public void PutTokenOnOccupiedCoordinate_ThrowIllegalArgumentException() {
-      OrthogonalCoordinate location = OC(0, 0);
-      board.place(new Token<Integer>(), location, 0);
-      board.place(new Token<Integer>(), location, 0);
+      board.place(T0(OC(1, 1), 0));
+      board.place(T0(OC(1, 1), 0));
    }
 
    @Test
-   public void PlaceTokenWithUndefinedShape_FormIsSingleSquare() {
-      Token<Integer> token = new Token<Integer>();
-      board.place(token, OC(0, 0), 0);
-      assertNull(board.inspect(new OrthogonalCoordinate(1, 0)));
-      assertNull(board.inspect(new OrthogonalCoordinate(-1, 0)));
-      assertNull(board.inspect(new OrthogonalCoordinate(0, 1)));
-      assertNull(board.inspect(new OrthogonalCoordinate(0, -1)));
+   public void PlaceTokenWithBasicShape_CanOnlyBeFoundOnPivotCoordinate() {
+      Token<Integer> token = T0(OC(0, 0), 0);
+      board.place(token);
+      assertNull(board.inspect(OC(1, 0)));
+      assertNull(board.inspect(OC(-1, 0)));
+      assertNull(board.inspect(OC(0, 1)));
+      assertNull(board.inspect(OC(0, -1)));
    }
 
    @Test
    public void PlaceTokenWithSpecialShape_CanBeFoundOnAllCoordinates() {
-      Token<Integer> token = new Token<Integer>(new Shape("XX"), 0);
-      board.place(token, OC(0, 0), 0);
-      assertSame(board.inspect(new OrthogonalCoordinate(0, 0)), token);
-      assertSame(board.inspect(new OrthogonalCoordinate(1, 0)), token);
+      Token<Integer> token = T(new Shape("XX"), 0, OC(0, 0), 0);
+      board.place(token);
+      assertSame(board.inspect(OC(0, 0)), token);
+      assertSame(board.inspect(OC(1, 0)), token);
    }
 
    @Test(expected = IllegalArgumentException.class)
    public void PlaceOverlappingTokens_ThrowIllegalArgumentException() {
-      Token<Integer> firstToken = new Token<Integer>(new Shape("XX"), 0);
-      Token<Integer> secondToken = new Token<Integer>(new Shape("X", "X"),
-            0);
-      board.place(firstToken, new OrthogonalCoordinate(0, 0), 0);
-      board.place(secondToken, new OrthogonalCoordinate(1, -1), 0);
+      Token<Integer> firstToken = T(new Shape("XX"), 0, OC(0, 0), 0);
+      Token<Integer> secondToken = T(new Shape("X", "X"), 0, OC(1, -1), 0);
+      board.place(firstToken);
+      board.place(secondToken);
    }
 
    @Test
    public void PlaceOverlappingTokens_TokenDoesNotGetPlaced() {
-      Token<Integer> firstToken = new Token<Integer>(new Shape("XX"), 0);
-      Token<Integer> secondToken = new Token<Integer>(new Shape("X", "X"),
-            0);
-      board.place(firstToken, new OrthogonalCoordinate(0, 0), 0);
+      Token<Integer> firstToken = T(new Shape("XX"), 0, OC(0, 0), 0);
+      Token<Integer> secondToken = T(new Shape("X", "X"), 0, OC(1, -1), 0);
+      board.place(firstToken);
       try {
-         board.place(secondToken, new OrthogonalCoordinate(1, -1), 0);
+         board.place(secondToken);
       } catch (IllegalArgumentException e) {
          assertNull(board.inspect(OC(1, -1)));
          assertSame(board.inspect(OC(1, 0)), firstToken);
@@ -147,8 +139,8 @@ public class BoardTest {
 
    @Test
    public void RemoveTokenWithSpecialShape_AllCoordinatesAreFreed() {
-      Token<Integer> token = new Token<Integer>(new Shape("XX"), 0);
-      board.place(token, OC(0, 0), 0);
+      Token<Integer> token = T(new Shape("XX"), 0, OC(0, 0), 0);
+      board.place(token);
       assertSame(board.pick(OC(0, 0)), token);
       assertNull(board.inspect(OC(0, 0)));
       assertNull(board.inspect(OC(1, 0)));
@@ -156,8 +148,8 @@ public class BoardTest {
 
    @Test
    public void PlaceRotatedToken_TokenOccupiesCorrectCoordinates() {
-      Token<Integer> token = new Token<Integer>(new Shape("XX"), 0);
-      board.place(token, OC(1, 1), 1);
+      Token<Integer> token = T(new Shape("XX"), 0, OC(1, 1), 1);
+      board.place(token);
       assertSame(board.inspect(OC(1, 1)), token);
       assertSame(board.inspect(OC(1, 2)), token);
       assertNull(board.inspect(OC(2, 1)));
@@ -165,5 +157,20 @@ public class BoardTest {
 
    private OrthogonalCoordinate OC(int x, int y) {
       return new OrthogonalCoordinate(x, y);
+   }
+
+   private Token<Integer> T0(OrthogonalCoordinate coord, int rotation) {
+      Token<Integer> testToken = new Token<Integer>();
+      testToken.setPlacement(new Placement(rotation, coord));
+      return testToken;
+   }
+
+   private Token<Integer> T(Shape shape,
+                            Integer data,
+                            OrthogonalCoordinate coord,
+                            int rotation) {
+      Token<Integer> testToken = new Token<Integer>(shape, data);
+      testToken.setPlacement(new Placement(rotation, coord));
+      return testToken;
    }
 }

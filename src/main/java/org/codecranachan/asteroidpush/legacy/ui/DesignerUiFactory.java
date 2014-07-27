@@ -16,10 +16,13 @@
 
 package org.codecranachan.asteroidpush.legacy.ui;
 
+import org.codecranachan.asteroidpush.ResourceLoader;
 import org.codecranachan.asteroidpush.legacy.Player;
-import org.codecranachan.asteroidpush.legacy.ResourceLoader;
 import org.codecranachan.asteroidpush.legacy.designer.BlueprintManipulator;
 import org.codecranachan.asteroidpush.legacy.designer.catalogue.ModuleCatalogue;
+import org.codecranachan.asteroidpush.state.ui.ManipulatorWidget;
+import org.codecranachan.asteroidpush.state.ui.WorkshopUiLayout;
+import org.codecranachan.asteroidpush.visuals.widget.Widget;
 import org.newdawn.slick.Font;
 
 public class DesignerUiFactory {
@@ -35,9 +38,9 @@ public class DesignerUiFactory {
    public Widget createUi() {
       Font font = loader.loadFont("Alfphabet-IV.ttf", 14);
 
-      DesignerLayout ui = new DesignerLayout();
-      ui.setBlueprintWidget(new BlueprintDisplayView(localPlayer
-            .getShipDesign(), manipulator));
+      WorkshopUiLayout ui = new WorkshopUiLayout();
+      //ui.setBlueprintWidget(new ManipulatorWidget(localPlayer
+      //      .getShipDesign(), manipulator));
       ui.setCatalogueWidget(new ShipModuleList(this.manipulator, new ModuleCatalogue(), font));
       ui.setSelectionWidget(new SelectionView(manipulator));
       return ui;

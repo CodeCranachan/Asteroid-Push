@@ -14,7 +14,7 @@
 //    You should have received a copy of the GNU General Public License
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-package org.codecranachan.asteroidpush.legacy.ui;
+package org.codecranachan.asteroidpush.visuals.widget;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
@@ -26,16 +26,21 @@ public class BasicWidget implements Widget {
    private Vector2f currentHover;
    private Rectangle frame;
 
+   private static float LINE_WIDTH = 3.0f;
+
    public void resize(Rectangle frame) {
       this.frame = frame;
    }
 
    public void render(Graphics g) {
-      if(getFrame() == null) {
+      if (getFrame() == null) {
          return;
       }
-      
-      g.setLineWidth(3.0f);
+
+      g.setAntiAlias(true);
+      g.setLineWidth(LINE_WIDTH);
+      g.setColor(Color.darkGray);
+      g.fill(getFrame());
       g.setColor(Color.orange);
       g.draw(getFrame());
    }

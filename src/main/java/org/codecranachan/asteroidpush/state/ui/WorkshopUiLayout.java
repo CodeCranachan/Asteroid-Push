@@ -14,12 +14,14 @@
 //    You should have received a copy of the GNU General Public License
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-package org.codecranachan.asteroidpush.legacy.ui;
+package org.codecranachan.asteroidpush.state.ui;
 
+import org.codecranachan.asteroidpush.visuals.widget.BasicWidget;
+import org.codecranachan.asteroidpush.visuals.widget.Widget;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
 
-public class DesignerLayout extends BasicWidget {
+public class WorkshopUiLayout extends BasicWidget {
 
    Widget catalogue;
    Widget blueprint;
@@ -27,7 +29,7 @@ public class DesignerLayout extends BasicWidget {
    final float blueprintRatio = 0.75f;
    final float catalogueRatio = 0.75f;
 
-   public DesignerLayout() {
+   public WorkshopUiLayout() {
       this.catalogue = null;
       this.blueprint = null;
       this.selection = null;
@@ -92,15 +94,19 @@ public class DesignerLayout extends BasicWidget {
 
    @Override
    public void render(Graphics g) {
-      if (blueprint != null) {
-         blueprint.render(g);
-      }
       if (catalogue != null) {
+         g.setClip(getCatalogueFrame(getFrame()));
          catalogue.render(g);
       }
       if (selection != null) {
+         g.setClip(getSelectionFrame(getFrame()));
          selection.render(g);
       }
+      if (blueprint != null) {
+         g.setClip(getBlueprintFrame(getFrame()));
+         blueprint.render(g);
+      }
+      g.clearClip();
    }
 
    private Rectangle getBlueprintFrame(Rectangle frame) {

@@ -22,7 +22,7 @@ import java.util.Vector;
 
 import org.codecranachan.asteroidpush.workshop.OrthogonalCoordinate;
 
-class Shape {
+public class Shape {
    private Set<OrthogonalCoordinate> coordinates;
 
    public Shape(String... shape) {

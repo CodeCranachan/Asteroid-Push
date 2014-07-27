@@ -19,31 +19,20 @@ package org.codecranachan.asteroidpush;
 import static org.junit.Assert.*;
 
 import org.codecranachan.asteroidpush.AsteroidPush;
-import org.codecranachan.asteroidpush.legacy.ResourceLoader;
-import org.codecranachan.asteroidpush.legacy.Scenario;
-import org.codecranachan.asteroidpush.state.GameStateFactory;
-import org.codecranachan.asteroidpush.state.StateId;
 import org.codecranachan.asteroidpush.testutils.ClassMockery;
 import org.jmock.Expectations;
 import org.junit.*;
-import org.newdawn.slick.state.GameState;
 
 public class AsteroidPushTest {
    ClassMockery context;
-   GameStateFactory factoryMock;
    ResourceLoader loaderMock;
-   GameState matchStateMock;
-   GameState designerStateMock;
    AsteroidPush testApp;
 
    @Before
    public void setUp() throws Exception {
       context = new ClassMockery();
-      matchStateMock = context.mock(GameState.class, "MatchGameState");
-      designerStateMock = context.mock(GameState.class, "DesignerGameState");
-      factoryMock = context.mock(GameStateFactory.class);
       loaderMock = context.mock(ResourceLoader.class);
-      testApp = new AsteroidPush(factoryMock, loaderMock);
+      testApp = new AsteroidPush(loaderMock);
    }
 
    @Test
@@ -55,23 +44,9 @@ public class AsteroidPushTest {
    public void testStates() throws Exception {
       context.checking(new Expectations() {
          {
-            oneOf(loaderMock).setGameContainer(null);
-            oneOf(factoryMock).createGameState(with(StateId.SIMULATION),
-                                               with(loaderMock),
-                                               with(aNonNull(Scenario.class)));
-            will(returnValue(matchStateMock));
-            oneOf(factoryMock).createGameState(with(StateId.WORKSHOP),
-                                               with(loaderMock),
-                                               with(aNonNull(Scenario.class)));
-            will(returnValue(designerStateMock));
-
-            allowing(matchStateMock).getID();
-            will(returnValue(1));
-            allowing(designerStateMock).getID();
-            will(returnValue(2));
+            ignoring(loaderMock);
          }
       });
-
       testApp.initStatesList(null);
       int expectedNumberOfStates = 2;
       assertEquals(expectedNumberOfStates, testApp.getStateCount());

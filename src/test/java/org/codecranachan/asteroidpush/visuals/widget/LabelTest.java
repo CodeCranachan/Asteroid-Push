@@ -14,10 +14,10 @@
 //    You should have received a copy of the GNU General Public License
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-package org.codecranachan.asteroidpush.legacy.ui;
+package org.codecranachan.asteroidpush.visuals.widget;
 
-import org.codecranachan.asteroidpush.legacy.ui.Label;
 import org.codecranachan.asteroidpush.testutils.ClassMockery;
+import org.codecranachan.asteroidpush.visuals.widget.Label;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.Sequence;
@@ -67,9 +67,9 @@ public class LabelTest {
             inSequence(callOrder);
             oneOf(graphicsMock).drawRoundRect(frame.getX(),
                                               frame.getY(),
-                                              frame.getWidth(),
-                                              frame.getHeight(),
-                                              5);
+                                              frame.getWidth() - 2,
+                                              frame.getHeight() - 2,
+                                              15);
             inSequence(callOrder);
             oneOf(graphicsMock).drawString(testLabelText,
                                            frame.getCenterX() - textWidth
