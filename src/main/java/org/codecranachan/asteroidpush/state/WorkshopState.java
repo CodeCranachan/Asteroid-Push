@@ -30,12 +30,12 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class WorkshopState extends BasicGameState {
-   private BlueprintCollection blueprints;
+   private ResourceLoader loader;
    private WorkshopUi ui;
 
    public WorkshopState(ResourceLoader resourceLoader) {
-      blueprints = new BlueprintCollection();
-      ui = new WorkshopUi(resourceLoader);
+      loader = resourceLoader;
+      ui = null;
    }
 
    @Override
@@ -46,8 +46,7 @@ public class WorkshopState extends BasicGameState {
    public void init(GameContainer container, StateBasedGame game)
          throws SlickException {
       Settings settings = pullSettings(game);
-      blueprints = settings.getBlueprints();
-      ui.setCollection(blueprints);
+      ui = new WorkshopUi(settings.getBlueprints(), loader);
    }
 
    private Settings pullSettings(StateBasedGame game) {
@@ -93,5 +92,5 @@ public class WorkshopState extends BasicGameState {
    public void mousePressed(int button, int x, int y) {
       ui.mousePressed(button, x, y);
    }
-   
+
 }

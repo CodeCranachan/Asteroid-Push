@@ -26,9 +26,8 @@ import org.codecranachan.asteroidpush.utils.RectangleMath;
 import org.codecranachan.asteroidpush.visuals.Representation;
 import org.codecranachan.asteroidpush.visuals.RepresentationRenderer;
 import org.codecranachan.asteroidpush.visuals.widget.BasicWidget;
-import org.codecranachan.asteroidpush.visuals.widget.Label;
+import org.codecranachan.asteroidpush.workshop.Blueprint;
 import org.codecranachan.asteroidpush.workshop.ManipulatedArea;
-import org.codecranachan.asteroidpush.workshop.Manipulator;
 import org.codecranachan.asteroidpush.workshop.OrthogonalCoordinate;
 import org.codecranachan.asteroidpush.workshop.assembly.Part;
 import org.codecranachan.asteroidpush.workshop.tokenboard.Token;
@@ -40,11 +39,12 @@ import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Vector2f;
 
 public class ManipulatorWidget extends BasicWidget {
-   private Manipulator manipulator;
+   private WorkshopCoordinator coordinator;
    private RepresentationRenderer renderer;
 
-   public ManipulatorWidget(Manipulator manipulator, ResourceLoader loader) {
-      this.manipulator = manipulator;
+   public ManipulatorWidget(WorkshopCoordinator coordinator,
+         ResourceLoader loader) {
+      this.coordinator = coordinator;
       this.renderer = new RepresentationRenderer();
    }
 
@@ -54,7 +54,7 @@ public class ManipulatorWidget extends BasicWidget {
          return;
       }
 
-      if (manipulator.getBlueprint() == null) {
+      if (coordinator.getManipulatedBlueprint() == null) {
          renderNoBlueprint(g);
          return;
       }
@@ -100,7 +100,8 @@ public class ManipulatorWidget extends BasicWidget {
       }
 
       // Draw tokens and hover
-      Collection<Token<Part>> tokens = manipulator.getTokens();
+      Blueprint blueprint = coordinator.getManipulatedBlueprint();
+      Collection<Token<Part>> tokens = blueprint.getTokens();
       List<Representation> representations = new LinkedList<Representation>();
       for (Token<Part> token : tokens) {
          representations.addAll(token.getData().getRepresentations());
@@ -119,7 +120,7 @@ public class ManipulatorWidget extends BasicWidget {
 
    private void updateRendererFocus() {
       float magnitude = (float) getTilesPerSide() / 2.0f;
-      ManipulatedArea area = manipulator.getManipulatedArea();
+      ManipulatedArea area = coordinator.getManipulatedArea();
       OrthogonalCoordinate offset = area.getBottomLeftCorner();
       float deltaX = (float) area.getWidth() / 2.0f;
       float deltaY = (float) area.getHeight() / 2.0f;
@@ -139,7 +140,7 @@ public class ManipulatorWidget extends BasicWidget {
    }
 
    private int getTilesPerSide() {
-      ManipulatedArea area = manipulator.getManipulatedArea();
+      ManipulatedArea area = coordinator.getManipulatedArea();
       return area.getLargestSide() + 2;
    }
 
@@ -150,7 +151,7 @@ public class ManipulatorWidget extends BasicWidget {
 
    @Override
    public void mousePressed(int button, int x, int y) {
-      if (manipulator.getBlueprint() == null) {
+      if (coordinator.getManipulatedBlueprint() == null) {
          return;
       }
 
@@ -159,14 +160,10 @@ public class ManipulatorWidget extends BasicWidget {
 
       switch (button) {
       case Input.MOUSE_LEFT_BUTTON:
-         if (manipulator.getSelection() == null) {
-            manipulator.pick(coordinate);
-         } else {
-            manipulator.place(coordinate);
-         }
+         coordinator.pickSquare(coordinate);
          break;
       case Input.MOUSE_RIGHT_BUTTON:
-         manipulator.erase(coordinate);
+         coordinator.clearSquare(coordinate);
          break;
       }
    }

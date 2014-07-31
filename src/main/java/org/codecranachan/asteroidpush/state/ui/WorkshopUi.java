@@ -2,45 +2,35 @@ package org.codecranachan.asteroidpush.state.ui;
 
 import org.codecranachan.asteroidpush.ResourceLoader;
 import org.codecranachan.asteroidpush.visuals.widget.BasicWidget;
-import org.codecranachan.asteroidpush.visuals.widget.Label;
 import org.codecranachan.asteroidpush.visuals.widget.Widget;
 import org.codecranachan.asteroidpush.workshop.BlueprintCollection;
 import org.codecranachan.asteroidpush.workshop.Manipulator;
+import org.codecranachan.asteroidpush.workshop.PartSelector;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
 
 public class WorkshopUi extends BasicWidget {
    private WorkshopUiLayout layout;
-   private Manipulator manipulator;
-   private BlueprintCollection collection;
+   private WorkshopCoordinator coordinator;
    private CreateBlueprintButton createBlueprintButton;
    private Widget manipulatorWidget;
 
-   public WorkshopUi(ResourceLoader loader) {
+   public WorkshopUi(BlueprintCollection collection, ResourceLoader loader) {
       layout = new WorkshopUiLayout();
-      manipulator = new Manipulator();
-      collection = null;
+      coordinator = new WorkshopCoordinator(new Manipulator(),
+            new PartSelector(), collection);
 
-      manipulatorWidget = new ManipulatorWidget(manipulator, loader);
-      createBlueprintButton = new CreateBlueprintButton(
+      manipulatorWidget = new ManipulatorWidget(coordinator, loader);
+      createBlueprintButton = new CreateBlueprintButton(coordinator,
             loader.loadFont("resources/Alphabet-IV.tty", 15));
       updateBlueprintWidget();
 
-      layout.setCatalogueWidget(new BasicWidget());
+      layout.setCatalogueWidget(new SelectorWidget(coordinator, loader));
       layout.setSelectionWidget(new BasicWidget());
+
       // TODO Create collection view
       // TODO Create selection view
       // TODO Create catalogue view
-   }
-
-   public void setManipulator(Manipulator manipulator) {
-      this.manipulator = manipulator;
-   }
-
-   public void setCollection(BlueprintCollection collection) {
-      this.collection = collection;
-      manipulator.setBlueprint(collection.getActive());
-      createBlueprintButton.setCollection(collection);
    }
 
    public void resize(Rectangle frame) {
@@ -65,11 +55,7 @@ public class WorkshopUi extends BasicWidget {
    }
 
    private void updateBlueprintWidget() {
-      if (collection != null) {
-         manipulator.setBlueprint(collection.getActive());
-      }
-      
-      if (manipulator.getBlueprint() == null) {
+      if (coordinator.getManipulatedBlueprint() == null) {
          layout.setBlueprintWidget(createBlueprintButton);
       } else {
          layout.setBlueprintWidget(manipulatorWidget);

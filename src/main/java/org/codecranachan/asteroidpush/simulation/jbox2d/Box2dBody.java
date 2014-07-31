@@ -6,12 +6,10 @@ import java.util.Map;
 import org.codecranachan.asteroidpush.simulation.InteractionHandler;
 import org.codecranachan.asteroidpush.simulation.Hull;
 import org.codecranachan.asteroidpush.simulation.Material;
-import org.codecranachan.asteroidpush.simulation.Primitive;
 import org.codecranachan.asteroidpush.simulation.RigidBody;
 import org.codecranachan.asteroidpush.utils.Arrow;
-import org.jbox2d.collision.shapes.PolygonShape;
+import org.codecranachan.asteroidpush.utils.GeometryConverter;
 import org.jbox2d.collision.shapes.Shape;
-import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
@@ -42,14 +40,14 @@ public class Box2dBody implements RigidBody {
       body = this.world.createBody(def);
    }
 
-   public void addHull(Hull primitive, InteractionHandler handler) {
+   public void addHull(Hull hull, InteractionHandler handler) {
       FixtureDef def = new FixtureDef();
-      def.shape = ConvertToShape(primitive);
+      def.shape = ConvertToShape(hull);
       def.userData = handler;
-      setMaterial(def, primitive.getMaterial());
+      setMaterial(def, hull.getMaterial());
 
       Fixture fix = body.createFixture(def);
-      fixtureMap.put(primitive, fix);
+      fixtureMap.put(hull, fix);
    }
 
    public void removeHull(Hull primitive) {
@@ -67,13 +65,9 @@ public class Box2dBody implements RigidBody {
    }
 
    private Shape ConvertToShape(Hull hull) {
-      Primitive genericShape = hull.getShape();
-      int verticeCount = genericShape.getVertices().size();
-      Vec2 vertices[] = new Vec2[verticeCount];
-      genericShape.getVertices().copyInto(vertices);
-      PolygonShape jbox2dShape = new PolygonShape();
-      jbox2dShape.set(vertices, verticeCount);
-      return jbox2dShape;
+      Shape shape = GeometryConverter.convertToBox2dShape(hull.getShape(),
+                                                          hull.getOffset());
+      return shape;
    }
 
    private void setMaterial(FixtureDef def, Material material) {

@@ -18,6 +18,7 @@ package org.codecranachan.asteroidpush.utils;
 
 import java.util.ArrayList;
 
+import org.codecranachan.asteroidpush.simulation.Primitive;
 import org.jbox2d.collision.shapes.CircleShape;
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Vec2;
@@ -29,6 +30,30 @@ import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Transform;
 
 public class GeometryConverter {
+
+   static public Shape convertToSlickShape(Primitive primitive, Arrow offset) {
+      Polygon polygon = new Polygon();
+      for (Vec2 vertex : primitive.getVertices()) {
+         Vec2 transformed = org.jbox2d.common.Transform.mul(offset
+               .getTransform(), vertex);
+         polygon.addPoint(transformed.x, transformed.y);
+      }
+      return polygon;
+   }
+
+   static public org.jbox2d.collision.shapes.Shape convertToBox2dShape(Primitive primitive,
+                                                                       Arrow offset) {
+      Vec2 vertices[] = new Vec2[primitive.getVertices().size()];
+      int i = 0;
+      for (Vec2 vertex : primitive.getVertices()) {
+         vertices[i].set(org.jbox2d.common.Transform.mul(offset.getTransform(),
+                                                         vertex));
+         i += 1;
+      }
+      PolygonShape polygon = new PolygonShape();
+      polygon.set(vertices, primitive.getVertices().size());
+      return polygon;
+   }
 
    static public ArrayList<Shape> extractOutline(Body body) {
       ArrayList<Shape> outline = new ArrayList<Shape>();
@@ -44,8 +69,10 @@ public class GeometryConverter {
    }
 
    static private org.newdawn.slick.geom.Transform convertToSlickTransform(org.jbox2d.common.Transform transform) {
-      Transform rotation = Transform.createRotateTransform(transform.q.getAngle(), 0, 0);
-      Transform translation = Transform.createTranslateTransform(transform.p.x, transform.p.y);
+      Transform rotation = Transform.createRotateTransform(transform.q
+            .getAngle(), 0, 0);
+      Transform translation = Transform.createTranslateTransform(transform.p.x,
+                                                                 transform.p.y);
       translation.concatenate(rotation);
       return translation;
    }

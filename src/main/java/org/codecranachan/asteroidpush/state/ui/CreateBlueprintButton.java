@@ -11,23 +11,19 @@ import org.newdawn.slick.geom.Rectangle;
 
 public class CreateBlueprintButton extends BasicWidget {
    private Font font;
-   private BlueprintCollection collection;
+   private WorkshopCoordinator coordinator;
    static private String CREATE_TEXT = "< Click to create new blueprint >";
-   static private String ERROR_TEXT = "CreateBlueprintButton: No collection set";
+   static private String ERROR_TEXT = "CreateBlueprintButton: No coordinator set";
 
-   public CreateBlueprintButton(Font font) {
+   public CreateBlueprintButton(WorkshopCoordinator coordinator, Font font) {
       this.font = font;
-      this.collection = null;
-   }
-
-   public void setCollection(BlueprintCollection collection) {
-      this.collection = collection;
+      this.coordinator = coordinator;
    }
 
    @Override
    public void render(Graphics g) {
       String text;
-      if (collection == null) {
+      if (coordinator == null) {
          text = ERROR_TEXT;
          g.setColor(Color.red);
       } else {
@@ -50,11 +46,11 @@ public class CreateBlueprintButton extends BasicWidget {
 
    @Override
    public void mousePressed(int button, int x, int y) {
-      if (collection == null) {
+      if (coordinator == null) {
          return;
       }
       if (button == Input.MOUSE_LEFT_BUTTON) {
-         collection.addBlueprint(new Blueprint());
+         coordinator.createNewBlueprint();
       }
    }
 }

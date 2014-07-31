@@ -1,7 +1,5 @@
 package org.codecranachan.asteroidpush.workshop;
 
-import java.util.Collection;
-
 import org.codecranachan.asteroidpush.workshop.assembly.Part;
 import org.codecranachan.asteroidpush.workshop.tokenboard.Placement;
 import org.codecranachan.asteroidpush.workshop.tokenboard.Token;
@@ -70,8 +68,5 @@ public class Manipulator {
    public ManipulatedArea getManipulatedArea() {
       return new ManipulatedArea(blueprint);
    }
-   
-   public Collection<Token<Part>> getTokens() {
-      return blueprint.getTokens();
-   }
+
 }
