@@ -22,36 +22,77 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
 
 public class Label extends BasicWidget {
-   private StringBuffer text;
+   private String text;
    private Font font;
-   private Color color;
+   private Color foregroundColor;
+   private Color backgroundColor;
+   private Color borderColor;
 
-   public Label(StringBuffer text, Font font) {
+   private static final float FRAME_MARGIN = 2.0f;
+   private static final float BORDER_WIDTH = 2.0f;
+
+   public void setText(String text) {
       this.text = text;
-      this.font = font;
-      this.color = Color.green;
    }
 
-   public void setColor(Color color) {
-      this.color = color;
+   public void setFont(Font font) {
+      this.font = font;
+   }
+
+   public Font getFont() {
+      return font;
+   }
+
+   public void setForegroundColor(Color foregroundColor) {
+      this.foregroundColor = foregroundColor;
+   }
+
+   public void setBackgroundColor(Color backgroundColor) {
+      this.backgroundColor = backgroundColor;
+   }
+
+   public void setBorderColor(Color borderColor) {
+      this.borderColor = borderColor;
+   }
+
+   public Label() {
+      this.text = "empty";
+      this.font = null;
+      this.foregroundColor = Color.white;
+      this.backgroundColor = Color.black;
+      this.borderColor = Color.white;
    }
 
    @Override
    public void render(Graphics g) {
       Rectangle frame = getFrame();
       Font currentFont = g.getFont();
-      g.setFont(font);
-      g.setColor(color);
-      g.drawRoundRect(frame.getX(),
-                      frame.getY(),
-                      frame.getWidth() - 2,
-                      frame.getHeight() - 2,
-                      15);
-      g.drawString(text.toString(),
-                   frame.getCenterX() - (float) font.getWidth(text.toString())
-                         / 2.0f,
-                   frame.getCenterY() - (float) font.getHeight(text.toString())
-                         / 2.0f);
+      if (font != null) {
+         g.setFont(font);
+      }
+
+      g.setLineWidth(BORDER_WIDTH);
+      g.setColor(backgroundColor);
+      g.fillRoundRect(frame.getX() + FRAME_MARGIN,
+                      frame.getY() + FRAME_MARGIN,
+                      frame.getWidth() - (BORDER_WIDTH + FRAME_MARGIN),
+                      frame.getHeight() - (BORDER_WIDTH + FRAME_MARGIN),
+                      5);
+
+      g.setColor(borderColor);
+      g.drawRoundRect(frame.getX() + FRAME_MARGIN,
+                      frame.getY() + FRAME_MARGIN,
+                      frame.getWidth() - (BORDER_WIDTH + FRAME_MARGIN),
+                      frame.getHeight() - (BORDER_WIDTH + FRAME_MARGIN),
+                      5);
+
+      g.setColor(foregroundColor);
+      int textWidth = font.getWidth(text);
+      int textHeight = font.getLineHeight();
+      g.drawString(text,
+                   frame.getCenterX() - (float) textWidth / 2.0f,
+                   frame.getCenterY() - (float) textHeight / 2.0f);
+
       g.setFont(currentFont);
    }
 

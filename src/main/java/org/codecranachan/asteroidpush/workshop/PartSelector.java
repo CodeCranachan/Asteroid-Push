@@ -68,7 +68,7 @@ public class PartSelector {
       Collections.sort(this.factories, new FactoryComparator());
    }
 
-   public Collection<TokenFactory> getPartFactories() {
+   public Vector<TokenFactory> getPartFactories() {
       return factories;
    }
 }

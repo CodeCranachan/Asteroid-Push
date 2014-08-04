@@ -1,8 +1,6 @@
 package org.codecranachan.asteroidpush.state.ui;
 
 import org.codecranachan.asteroidpush.visuals.widget.BasicWidget;
-import org.codecranachan.asteroidpush.workshop.Blueprint;
-import org.codecranachan.asteroidpush.workshop.BlueprintCollection;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Font;
 import org.newdawn.slick.Graphics;

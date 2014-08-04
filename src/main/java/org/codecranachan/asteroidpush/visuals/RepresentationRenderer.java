@@ -63,53 +63,64 @@ public class RepresentationRenderer {
    }
 
    private void applyViewportTransform(Graphics g) {
-      // First part: Transform to camera position
-      // - translate the world so the focus is at the center
-      // - rotate the world so the focus is pointing upwards
-      Vector2f focusOffset = getFocusOffset();
-      g.translate(focusOffset.getX(), focusOffset.getY());
-      g.rotate(0, 0, getFocusRotation());
-
-      // Second part: Map to screen coordinates
-      // - map to screen coordinates and scale
+      // First part: Map to screen coordinates
       // - translate to center in view port
-      float scale = getViewportScale();
-      g.scale(scale, -scale);
+      // - map to screen coordinates and scale
       Vector2f viewOffset = getViewOffset();
       g.translate(viewOffset.getX(), viewOffset.getY());
+      float scale = getViewportScale();
+      g.scale(scale, -scale);
+
+      // Second part: Transform to camera position
+      // - rotate the world so the focus is pointing upwards
+      // - translate the world so the focus is at the center
+      g.rotate(0, 0, getFocusRotationAsAngle());
+      Vector2f focusOffset = getFocusOffset();
+      g.translate(focusOffset.getX(), focusOffset.getY());
    }
 
    private Vector2f getFocusOffset() {
-      return new Vector2f(-focus.getTail().x, -focus.getTail().y);
+      return new Vector2f(focus.getTail().x, focus.getTail().y);
    }
 
-   private float getFocusRotation() {
-      return Trigonometry.radToAngle(MathUtils.HALF_PI - focus.getAngle());
+   private float getFocusRotationAsAngle() {
+      return Trigonometry.radToAngle(getFocusRotationAsRadian());
+   }
+
+   private float getFocusRotationAsRadian() {
+      return MathUtils.HALF_PI - focus.getAngle();
    }
 
    private Vector2f getViewOffset() {
       return new Vector2f(frame.getWidth() / 2.0f + frame.getX(),
-            frame.getHeight() / 2.0f + frame.getY());
+            frame.getMaxX() - frame.getHeight() / 2.0f);
    }
 
    private float getViewportScale() {
       float frameSize = Math.min(frame.getWidth(), frame.getHeight());
-      float scale = frameSize / focus.getMagnitude();
+      float scale = frameSize / (focus.getMagnitude() * 2.0f);
       return scale;
    }
 
    private Transform getViewportTransform() {
-      Vector2f focusOffset = getFocusOffset();
-      Transform transform = Transform.createTranslateTransform(focusOffset
-            .getX(), focusOffset.getY());
-      transform
-            .concatenate(Transform.createRotateTransform(getFocusRotation()));
-
-      float scale = getViewportScale();
-      transform.concatenate(Transform.createScaleTransform(scale, -scale));
       Vector2f viewOffset = getViewOffset();
-      transform.concatenate(Transform.createTranslateTransform(viewOffset
-            .getX(), viewOffset.getY()));
+      Transform viewOffsetTransform = Transform
+            .createTranslateTransform(viewOffset.getX(), viewOffset.getY());
+      float scale = getViewportScale();
+      Transform viewScaleTransform = Transform.createScaleTransform(scale,
+                                                                    -scale);
+
+      Transform focusRotateTransform = Transform
+            .createRotateTransform(getFocusRotationAsRadian());
+      Vector2f focusOffset = getFocusOffset();
+      Transform focusOffsetTransform = Transform
+            .createTranslateTransform(focusOffset.getX(), focusOffset.getY());
+
+      Transform transform = new Transform();
+      transform.concatenate(viewOffsetTransform);
+      transform.concatenate(viewScaleTransform);
+      transform.concatenate(focusRotateTransform);
+      transform.concatenate(focusOffsetTransform);
       return transform;
    }
 
@@ -120,18 +131,23 @@ public class RepresentationRenderer {
       // transform
       // backwards.
       Vector2f viewOffset = getViewOffset();
-      Transform transform = Transform.createTranslateTransform(-viewOffset
-            .getX(), -viewOffset.getY());
+      Transform viewOffsetTransform = Transform
+            .createTranslateTransform(-viewOffset.getX(), -viewOffset.getY());
       float scale = getViewportScale();
-      transform.concatenate(Transform.createScaleTransform(1 / scale, -1
-            / scale));
-
-      transform.concatenate(Transform
-            .createRotateTransform(-getFocusRotation()));
+      Transform viewScaleTransform = Transform.createScaleTransform(1 / scale,
+                                                                    -1 / scale);
+      Transform focusRotateTransform = Transform
+            .createRotateTransform(-getFocusRotationAsRadian());
 
       Vector2f focusOffset = getFocusOffset();
-      transform.concatenate(Transform.createTranslateTransform(-focusOffset
-            .getX(), -focusOffset.getY()));
+      Transform focusOffsetTransform = Transform
+            .createTranslateTransform(-focusOffset.getX(), -focusOffset.getY());
+
+      Transform transform = new Transform();
+      transform.concatenate(focusOffsetTransform);
+      transform.concatenate(focusRotateTransform);
+      transform.concatenate(viewScaleTransform);
+      transform.concatenate(viewOffsetTransform);
       return transform;
    }
 }

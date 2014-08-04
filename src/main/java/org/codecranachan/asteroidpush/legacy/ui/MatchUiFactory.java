@@ -37,9 +37,15 @@ public class MatchUiFactory {
    public Widget createUi() {
       SimpleLayout layoutWidget = new SimpleLayout();
       Font font = loader.loadFont("Alfphabet-IV.ttf", 14);
-      Widget playerLabel = new Label(new StringBuffer(localPlayer.getName()), font);
+      Label playerLabel = new Label();
+      playerLabel.setFont(font);
+      playerLabel.setText(localPlayer.getName());
+      
       layoutWidget.setWidget("info", playerLabel);
-      Widget controlLabel = new Label(localPlayer.getControls(), font);
+      Widget controlLabel = new Label();
+      playerLabel.setFont(font);
+      // TODO does not work any more
+      playerLabel.setText(localPlayer.getControls().toString());
       layoutWidget.setWidget("control", controlLabel);
 
       TrackingCamera camera = new TrackingCamera(simulator);

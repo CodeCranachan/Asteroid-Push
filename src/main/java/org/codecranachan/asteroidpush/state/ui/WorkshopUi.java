@@ -6,6 +6,8 @@ import org.codecranachan.asteroidpush.visuals.widget.Widget;
 import org.codecranachan.asteroidpush.workshop.BlueprintCollection;
 import org.codecranachan.asteroidpush.workshop.Manipulator;
 import org.codecranachan.asteroidpush.workshop.PartSelector;
+import org.codecranachan.asteroidpush.workshop.parts.DefaultCatalogue;
+import org.codecranachan.asteroidpush.workshop.parts.PartCatalogue;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
 
@@ -17,20 +19,25 @@ public class WorkshopUi extends BasicWidget {
 
    public WorkshopUi(BlueprintCollection collection, ResourceLoader loader) {
       layout = new WorkshopUiLayout();
-      coordinator = new WorkshopCoordinator(new Manipulator(),
-            new PartSelector(), collection);
+      coordinator = createCoordinator(collection);
 
       manipulatorWidget = new ManipulatorWidget(coordinator, loader);
       createBlueprintButton = new CreateBlueprintButton(coordinator,
-            loader.loadFont("resources/Alphabet-IV.tty", 15));
+            loader.loadFont("resources/Alfphabet-IV.ttf", 15));
       updateBlueprintWidget();
 
-      layout.setCatalogueWidget(new SelectorWidget(coordinator, loader));
+      layout.setCatalogueWidget(new SelectorWidget(coordinator, loader.loadFont("resources/Alfphabet-IV.ttf", 15)));
       layout.setSelectionWidget(new BasicWidget());
+   }
 
-      // TODO Create collection view
-      // TODO Create selection view
-      // TODO Create catalogue view
+   private WorkshopCoordinator createCoordinator(BlueprintCollection collection) {
+      Manipulator manipulator = new Manipulator();
+      PartSelector selector = new PartSelector();
+
+      PartCatalogue catalogue = new DefaultCatalogue();
+      selector.addPartFactories(catalogue.getPartFactories());
+
+      return new WorkshopCoordinator(manipulator, selector, collection);
    }
 
    public void resize(Rectangle frame) {

@@ -1,5 +1,7 @@
 package org.codecranachan.asteroidpush.state.ui;
 
+import java.util.Vector;
+
 import org.codecranachan.asteroidpush.workshop.Blueprint;
 import org.codecranachan.asteroidpush.workshop.BlueprintCollection;
 import org.codecranachan.asteroidpush.workshop.ManipulatedArea;
@@ -18,15 +20,9 @@ public class WorkshopCoordinator {
       this.manipulator = manipulator;
       this.selector = selector;
       this.collection = collection;
-      
+
       manipulator.setBlueprint(collection.getActive());
       selector.clearSelection();
-   }
-
-   public void selectPart(int index) {
-      selector.selectByIndex(index);
-      TokenFactory factory = selector.getSelected();
-      manipulator.setSelection(factory.createToken());
    }
 
    public void createNewBlueprint() {
@@ -42,20 +38,43 @@ public class WorkshopCoordinator {
          manipulator.place(coordinate);
       }
    }
-   
+
    public void clearSquare(OrthogonalCoordinate coordinate) {
       if (manipulator.getSelection() == null) {
          manipulator.erase(coordinate);
       } else {
-         manipulator.clearSelection();
+         clearSelection();
       }
    }
 
    public Blueprint getManipulatedBlueprint() {
       return manipulator.getBlueprint();
    }
-   
+
    public ManipulatedArea getManipulatedArea() {
       return manipulator.getManipulatedArea();
+   }
+
+   public Vector<TokenFactory> getAvailableParts() {
+      return selector.getPartFactories();
+   }
+
+   public void selectPart(int index) {
+      selector.selectByIndex(index);
+      TokenFactory factory = selector.getSelected();
+      if (factory == null) {
+         manipulator.clearSelection();
+      } else {
+         manipulator.setSelection(factory.createToken());
+      }
+   }
+
+   public void clearSelection() {
+      manipulator.clearSelection();
+      selector.clearSelection();
+   }
+
+   public TokenFactory getSelectedPart() {
+      return selector.getSelected();
    }
 }

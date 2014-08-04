@@ -20,7 +20,6 @@ import org.codecranachan.asteroidpush.AsteroidPush;
 import org.codecranachan.asteroidpush.ResourceLoader;
 import org.codecranachan.asteroidpush.Settings;
 import org.codecranachan.asteroidpush.state.ui.WorkshopUi;
-import org.codecranachan.asteroidpush.workshop.BlueprintCollection;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -38,7 +37,6 @@ public class WorkshopState extends BasicGameState {
       ui = null;
    }
 
-   @Override
    public int getID() {
       return StateId.WORKSHOP;
    }
@@ -55,7 +53,6 @@ public class WorkshopState extends BasicGameState {
       return settings;
    }
 
-   @Override
    public void keyPressed(int key, char c) {
       switch (key) {
       case Input.KEY_LEFT:
@@ -69,7 +66,6 @@ public class WorkshopState extends BasicGameState {
       }
    }
 
-   @Override
    public void mouseMoved(int oldx, int oldy, int newx, int newy) {
       ui.setHover(newx, newy);
    }
@@ -88,7 +84,6 @@ public class WorkshopState extends BasicGameState {
       // TODO Auto-generated method stub
    }
 
-   @Override
    public void mousePressed(int button, int x, int y) {
       ui.mousePressed(button, x, y);
    }

@@ -8,6 +8,10 @@ import org.jbox2d.common.Vec2;
 
 public class Primitive {
    private Vector<Vec2> vertices;
+   
+   public Primitive() {
+      vertices = new Vector<Vec2>();
+   }
 
    public void AddVertex(Vec2 vertex) {
       assert (vertex != null);

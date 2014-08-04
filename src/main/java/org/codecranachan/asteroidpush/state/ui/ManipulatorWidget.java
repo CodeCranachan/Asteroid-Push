@@ -25,6 +25,8 @@ import org.codecranachan.asteroidpush.utils.Arrow;
 import org.codecranachan.asteroidpush.utils.RectangleMath;
 import org.codecranachan.asteroidpush.visuals.Representation;
 import org.codecranachan.asteroidpush.visuals.RepresentationRenderer;
+import org.codecranachan.asteroidpush.visuals.actors.OriginRepresentation;
+import org.codecranachan.asteroidpush.visuals.actors.PointerRepresentation;
 import org.codecranachan.asteroidpush.visuals.widget.BasicWidget;
 import org.codecranachan.asteroidpush.workshop.Blueprint;
 import org.codecranachan.asteroidpush.workshop.ManipulatedArea;
@@ -99,13 +101,15 @@ public class ManipulatorWidget extends BasicWidget {
          g.drawLine(blueprintArea.getMinX(), y, blueprintArea.getMaxX(), y);
       }
 
-      // Draw tokens and hover
+      // Draw tokens and origin
       Blueprint blueprint = coordinator.getManipulatedBlueprint();
       Collection<Token<Part>> tokens = blueprint.getTokens();
       List<Representation> representations = new LinkedList<Representation>();
+      representations.add(new OriginRepresentation());
       for (Token<Part> token : tokens) {
          representations.addAll(token.getData().getRepresentations());
       }
+      renderer.setRepresentations(representations);
       renderer.render(g);
    }
 
@@ -120,10 +124,13 @@ public class ManipulatorWidget extends BasicWidget {
 
    private void updateRendererFocus() {
       float magnitude = (float) getTilesPerSide() / 2.0f;
+
       ManipulatedArea area = coordinator.getManipulatedArea();
       OrthogonalCoordinate offset = area.getBottomLeftCorner();
-      float deltaX = (float) area.getWidth() / 2.0f;
-      float deltaY = (float) area.getHeight() / 2.0f;
+
+      float deltaX = (float) (area.getWidth() - 1.0f) / 2.0f;
+      float deltaY = (float) (area.getHeight() - 1.0f) / 2.0f;
+
       Vec2 origin = new Vec2(offset.getX() + deltaX, offset.getY() + deltaY);
       Arrow focus = new Arrow(origin, 0, magnitude);
       renderer.setFocus(focus);
@@ -135,8 +142,13 @@ public class ManipulatorWidget extends BasicWidget {
    }
 
    private List<Representation> getHoverRepresentations() {
-      // TODO
-      return new LinkedList<Representation>();
+      LinkedList<Representation> list = new LinkedList<Representation>();
+      Vector2f hover = getHover();
+      if (hover != null) {
+         list.add(new PointerRepresentation(renderer
+               .mapToWorldCoordinates(hover)));
+      }
+      return list;
    }
 
    private int getTilesPerSide() {
