@@ -1,5 +1,6 @@
 package org.codecranachan.asteroidpush.workshop.behaviors;
 
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -12,28 +13,19 @@ import org.codecranachan.asteroidpush.simulation.modular.BodyVertex;
 import org.codecranachan.asteroidpush.utils.Arrow;
 import org.codecranachan.asteroidpush.visuals.Representation;
 import org.codecranachan.asteroidpush.visuals.behaviors.PrimitiveRepresentation;
-import org.codecranachan.asteroidpush.workshop.assembly.AssemblyVertex;
+import org.codecranachan.asteroidpush.workshop.assembly.Socket;
 
 public class CollisionBehaviorFactory implements BehaviorFactory {
 
    private Primitive shape;
    private Material material;
-   private AssemblyVertex parentNode;
+   private Socket socket;
 
-   public CollisionBehaviorFactory(Primitive shape, Material material) {
+   public CollisionBehaviorFactory(Primitive shape, Material material,
+         Socket socket) {
       this.shape = shape;
       this.material = material;
-      this.parentNode = null;
-   }
-
-   public void setParent(AssemblyVertex node) {
-      this.parentNode = node;
-   }
-
-   public List<AssemblyVertex> getNodes() {
-      List<AssemblyVertex> nodes = new LinkedList<AssemblyVertex>();
-      nodes.add(parentNode);
-      return nodes;
+      this.socket = socket;
    }
 
    public Behavior createBehavior(List<BodyVertex> nodes) {
@@ -42,9 +34,16 @@ public class CollisionBehaviorFactory implements BehaviorFactory {
       return new CollisionBehavior(nodes.get(0), hull);
    }
 
-   public Representation getRepresentation() {
-      return new PrimitiveRepresentation(shape, getNodes().get(0)
-            .getPlacement());
+   public Collection<Representation> getRepresentations() {
+      Collection<Representation> represenations = new LinkedList<Representation>();
+      represenations.add(new PrimitiveRepresentation(shape));
+      return represenations;
+   }
+
+   public List<Socket> getSockets() {
+      List<Socket> sockets = new LinkedList<Socket>();
+      sockets.add(socket);
+      return sockets;
    }
 
 }

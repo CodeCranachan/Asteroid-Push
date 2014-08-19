@@ -1,7 +1,6 @@
 package org.codecranachan.asteroidpush.visuals;
 
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -76,7 +75,7 @@ public class RepresentationRenderer {
       // - translate the world so the focus is at the center
       g.rotate(0, 0, getFocusRotationAsAngle());
       Vector2f focusOffset = getFocusOffset();
-      g.translate(focusOffset.getX(), focusOffset.getY());
+      g.translate(-focusOffset.getX(), -focusOffset.getY());
    }
 
    private Vector2f getFocusOffset() {
@@ -114,7 +113,7 @@ public class RepresentationRenderer {
             .createRotateTransform(getFocusRotationAsRadian());
       Vector2f focusOffset = getFocusOffset();
       Transform focusOffsetTransform = Transform
-            .createTranslateTransform(focusOffset.getX(), focusOffset.getY());
+            .createTranslateTransform(-focusOffset.getX(), -focusOffset.getY());
 
       Transform transform = new Transform();
       transform.concatenate(viewOffsetTransform);
@@ -141,7 +140,7 @@ public class RepresentationRenderer {
 
       Vector2f focusOffset = getFocusOffset();
       Transform focusOffsetTransform = Transform
-            .createTranslateTransform(-focusOffset.getX(), -focusOffset.getY());
+            .createTranslateTransform(focusOffset.getX(), focusOffset.getY());
 
       Transform transform = new Transform();
       transform.concatenate(focusOffsetTransform);
@@ -150,12 +149,4 @@ public class RepresentationRenderer {
       transform.concatenate(viewOffsetTransform);
       return transform;
    }
-}
-
-class RepresentationComparator implements Comparator<Representation> {
-
-   public int compare(Representation first, Representation second) {
-      return first.getPriority() - second.getPriority();
-   }
-
 }

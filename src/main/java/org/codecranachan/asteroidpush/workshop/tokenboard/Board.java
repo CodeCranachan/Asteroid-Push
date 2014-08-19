@@ -23,18 +23,18 @@ import java.util.Map;
 
 import org.codecranachan.asteroidpush.workshop.OrthogonalCoordinate;
 
-public class Board<TokenData> {
-   private Map<OrthogonalCoordinate, Token<TokenData>> content;
+public class Board {
+   private Map<OrthogonalCoordinate, Token> content;
 
    public Board() {
-      content = new HashMap<OrthogonalCoordinate, Token<TokenData>>();
+      content = new HashMap<OrthogonalCoordinate, Token>();
    }
 
    public boolean isEmpty() {
       return content.isEmpty();
    }
 
-   public void place(Token<TokenData> token) {
+   public void place(Token token) {
       if (token == null)
          throw new IllegalArgumentException("null was passed as token");
       if (token.getPlacement() == null)
@@ -53,8 +53,8 @@ public class Board<TokenData> {
          content.put(occupied, token);
    }
 
-   public Token<TokenData> pick(OrthogonalCoordinate location) {
-      Token<TokenData> token = inspect(location);
+   public Token pick(OrthogonalCoordinate location) {
+      Token token = inspect(location);
       if (token != null) {
          content.remove(token);
          for (OrthogonalCoordinate place : token.getOccupiedCoordinates()) {
@@ -64,12 +64,12 @@ public class Board<TokenData> {
       return token;
    }
 
-   public Token<TokenData> inspect(OrthogonalCoordinate location) {
+   public Token inspect(OrthogonalCoordinate location) {
       return content.get(location);
    }
 
-   public Collection<Token<TokenData>> getTokens() {
-      return new HashSet<Token<TokenData>>(content.values());
+   public Collection<Token> getTokens() {
+      return new HashSet<Token>(content.values());
    }
 
    public OrthogonalCoordinate getBottomLeftCorner() {

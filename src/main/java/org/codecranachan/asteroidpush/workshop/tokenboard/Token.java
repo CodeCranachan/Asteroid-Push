@@ -16,40 +16,36 @@
 
 package org.codecranachan.asteroidpush.workshop.tokenboard;
 
+import java.util.Collection;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Set;
 
+import org.codecranachan.asteroidpush.utils.GeometryConverter;
+import org.codecranachan.asteroidpush.visuals.OffsetRepresentation;
+import org.codecranachan.asteroidpush.visuals.Representable;
+import org.codecranachan.asteroidpush.visuals.Representation;
 import org.codecranachan.asteroidpush.workshop.OrthogonalCoordinate;
 
-public class Token<Data> {
-   private Shape shape;
-   private Data data;
+public class Token implements Representable {
+   private Placeable placeable;
    private Placement placement;
+   
+   private static float TOKEN_SCALE = 0.9f;
 
-   public Token() {
-      shape = new Shape("X");
-      data = null;
+   public Token(Placeable placeable) {
+      assert placeable != null;
+
+      this.placeable = placeable;
       placement = new Placement(0, new OrthogonalCoordinate());
    }
 
-   public Token(Shape shape, Data data) {
-      this.shape = shape;
-      this.data = data;
-      this.placement = new Placement(0, new OrthogonalCoordinate());
-   }
-
-   public Token<Data> clone() {
-      Token<Data> token = new Token<Data>(this.shape, this.data);
-      token.setPlacement(placement.clone());
-      return token;
-   }
-
    public Shape getShape() {
-      return shape;
+      return placeable.getShape();
    }
 
-   public Data getData() {
-      return data;
+   public Placeable getData() {
+      return placeable;
    }
 
    public void rotateClockwise() {
@@ -72,7 +68,8 @@ public class Token<Data> {
    }
 
    public Set<OrthogonalCoordinate> getOccupiedCoordinates() {
-      Set<OrthogonalCoordinate> coordinates = shape.getOccupiedCoordinates();
+      Set<OrthogonalCoordinate> coordinates = getShape()
+            .getOccupiedCoordinates();
       coordinates = rotateShape(coordinates, placement.getOrientation());
       coordinates = translateShape(coordinates, placement.getPivotCoordinate());
       return coordinates;
@@ -98,5 +95,14 @@ public class Token<Data> {
          cooked.add(rotated);
       }
       return cooked;
+   }
+
+   public Collection<Representation> getRepresentations() {
+      Collection<Representation> representations = new LinkedList<Representation>();
+      for (Representation rep : placeable.getRepresentations()) {
+         representations.add(new OffsetRepresentation(rep, GeometryConverter
+               .convertToArrow(placement, TOKEN_SCALE)));
+      }
+      return representations;
    }
 }

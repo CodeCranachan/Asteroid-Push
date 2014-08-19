@@ -4,7 +4,7 @@ import java.util.Vector;
 
 import org.codecranachan.asteroidpush.visuals.widget.BasicWidget;
 import org.codecranachan.asteroidpush.visuals.widget.Label;
-import org.codecranachan.asteroidpush.workshop.parts.TokenFactory;
+import org.codecranachan.asteroidpush.workshop.parts.PartFactory;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Font;
 import org.newdawn.slick.Graphics;
@@ -28,12 +28,12 @@ public class SelectorWidget extends BasicWidget {
          return;
       }
 
-      Vector<TokenFactory> parts = coordinator.getAvailableParts();
-      for (int index = 0; index < parts.size(); index++) {
+      Vector<PartFactory> factories = coordinator.getAvailablePartFactories();
+      for (int index = 0; index < factories.size(); index++) {
          itemLabel.resize(getItemFrame(index));
 
-         itemLabel.setText(parts.get(index).getName());
-         if (coordinator.getSelectedPart() == parts.get(index)) {
+         itemLabel.setText(factories.get(index).getName());
+         if (coordinator.getSelectedPartFactory() == factories.get(index)) {
             itemLabel.setBackgroundColor(Color.blue);
             itemLabel.setForegroundColor(Color.black);
          } else {

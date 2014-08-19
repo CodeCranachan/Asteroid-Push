@@ -1,5 +1,7 @@
 package org.codecranachan.asteroidpush.visuals;
 
+import java.util.Collection;
+
 public interface Representable {
-   public Representation getRepresentation();
+   public Collection<Representation> getRepresentations();
 }

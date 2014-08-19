@@ -22,17 +22,20 @@ import java.util.List;
 
 import org.codecranachan.asteroidpush.ResourceLoader;
 import org.codecranachan.asteroidpush.utils.Arrow;
+import org.codecranachan.asteroidpush.utils.GeometryConverter;
 import org.codecranachan.asteroidpush.utils.RectangleMath;
+import org.codecranachan.asteroidpush.visuals.MultipartRepresentation;
+import org.codecranachan.asteroidpush.visuals.OffsetRepresentation;
 import org.codecranachan.asteroidpush.visuals.Representation;
 import org.codecranachan.asteroidpush.visuals.RepresentationRenderer;
 import org.codecranachan.asteroidpush.visuals.actors.OriginRepresentation;
-import org.codecranachan.asteroidpush.visuals.actors.PointerRepresentation;
 import org.codecranachan.asteroidpush.visuals.widget.BasicWidget;
 import org.codecranachan.asteroidpush.workshop.Blueprint;
 import org.codecranachan.asteroidpush.workshop.ManipulatedArea;
 import org.codecranachan.asteroidpush.workshop.OrthogonalCoordinate;
 import org.codecranachan.asteroidpush.workshop.assembly.Part;
 import org.codecranachan.asteroidpush.workshop.tokenboard.Token;
+import org.jbox2d.common.MathUtils;
 import org.jbox2d.common.Vec2;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
@@ -103,11 +106,11 @@ public class ManipulatorWidget extends BasicWidget {
 
       // Draw tokens and origin
       Blueprint blueprint = coordinator.getManipulatedBlueprint();
-      Collection<Token<Part>> tokens = blueprint.getTokens();
+      Collection<Token> tokens = blueprint.getTokens();
       List<Representation> representations = new LinkedList<Representation>();
       representations.add(new OriginRepresentation());
-      for (Token<Part> token : tokens) {
-         representations.addAll(token.getData().getRepresentations());
+      for (Token token : tokens) {
+         representations.addAll(token.getRepresentations());
       }
       renderer.setRepresentations(representations);
       renderer.render(g);
@@ -126,10 +129,16 @@ public class ManipulatorWidget extends BasicWidget {
       float magnitude = (float) getTilesPerSide() / 2.0f;
 
       ManipulatedArea area = coordinator.getManipulatedArea();
+
       OrthogonalCoordinate offset = area.getBottomLeftCorner();
 
-      float deltaX = (float) (area.getWidth() - 1.0f) / 2.0f;
-      float deltaY = (float) (area.getHeight() - 1.0f) / 2.0f;
+      float deltaX = MathUtils.floor((float) area.getWidth() / 2.0f);
+      float deltaY = MathUtils.floor((float) area.getHeight() / 2.0f);
+
+      if (getTilesPerSide() % 2 == 0) {
+         deltaX -= 0.5f;
+         deltaY -= 0.5f;
+      }
 
       Vec2 origin = new Vec2(offset.getX() + deltaX, offset.getY() + deltaY);
       Arrow focus = new Arrow(origin, 0, magnitude);
@@ -144,9 +153,14 @@ public class ManipulatorWidget extends BasicWidget {
    private List<Representation> getHoverRepresentations() {
       LinkedList<Representation> list = new LinkedList<Representation>();
       Vector2f hover = getHover();
-      if (hover != null) {
-         list.add(new PointerRepresentation(renderer
-               .mapToWorldCoordinates(hover)));
+      Part selected = coordinator.getSelectedPart();
+      if (hover != null && selected != null) {
+         MultipartRepresentation base = new MultipartRepresentation(3);
+         base.addAll(selected.getRepresentations());
+         // TODO scale & orientation
+         Arrow offset = GeometryConverter.convertToArrow(renderer
+               .mapToWorldCoordinates(hover), 0, 1.0f);
+         list.add(new OffsetRepresentation(base, offset));
       }
       return list;
    }
@@ -159,6 +173,16 @@ public class ManipulatorWidget extends BasicWidget {
    private float getTileSize() {
       Rectangle square = getBlueprintArea();
       return square.getHeight() / getTilesPerSide();
+   }
+
+   private OrthogonalCoordinate getCoordinateForPoint(Vec2 point) {
+      return new OrthogonalCoordinate(Math.round(point.x), Math.round(point.y));
+   }
+
+   @Override
+   public void resize(Rectangle frame) {
+      setFrame(frame);
+      renderer.setFrame(getBlueprintArea());
    }
 
    @Override
@@ -178,15 +202,5 @@ public class ManipulatorWidget extends BasicWidget {
          coordinator.clearSquare(coordinate);
          break;
       }
-   }
-
-   private OrthogonalCoordinate getCoordinateForPoint(Vec2 point) {
-      return new OrthogonalCoordinate(Math.round(point.x), Math.round(point.y));
-   }
-
-   @Override
-   public void resize(Rectangle frame) {
-      setFrame(frame);
-      renderer.setFrame(frame);
    }
 }

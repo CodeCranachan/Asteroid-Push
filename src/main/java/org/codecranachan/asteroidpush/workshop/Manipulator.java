@@ -6,25 +6,21 @@ import org.codecranachan.asteroidpush.workshop.tokenboard.Token;
 
 public class Manipulator {
    private Blueprint blueprint;
-   private Token<Part> selection;
+   private Part selection;
+   private Placement prospectivePlacement;
 
    public Manipulator() {
       this.blueprint = null;
       this.selection = null;
+      this.prospectivePlacement = new Placement(0, new OrthogonalCoordinate());
    }
 
-   public Token<Part> getSelection() {
+   public Part getSelection() {
       return selection;
    }
 
-   public void setSelection(Token<Part> token) {
-      Placement place;
-      if (selection == null)
-         place = new Placement(0, new OrthogonalCoordinate());
-      else
-         place = selection.getPlacement();
-      token.setPlacement(place);
-      this.selection = token;
+   public void setSelection(Part part) {
+      this.selection = part;
    }
 
    public void clearSelection() {
@@ -40,18 +36,19 @@ public class Manipulator {
    }
 
    public void rotateSelectionLeft() {
-      if (selection != null)
-         selection.getPlacement().rotateClockwise();
+      prospectivePlacement.rotateAnticlockwise();
    }
 
    public void rotateSelectionRight() {
-      if (selection != null)
-         selection.getPlacement().rotateClockwise();
+      prospectivePlacement.rotateClockwise();
    }
 
    public void place(OrthogonalCoordinate pivot) {
-      if (blueprint.canPlace(selection)) {
-         blueprint.place(selection);
+      Token token = new Token(selection);
+      token.setPlacement(new Placement(prospectivePlacement.getOrientation(),
+            pivot));
+      if (blueprint.canPlace(token)) {
+         blueprint.place(token);
       }
    }
 
@@ -62,7 +59,13 @@ public class Manipulator {
    }
 
    public void pick(OrthogonalCoordinate pivot) {
-      selection = blueprint.pick(pivot);
+      Token token = blueprint.pick(pivot);
+      if (token != null) {
+         selection = (Part) token.getData();
+         prospectivePlacement = token.getPlacement();
+      } else {
+         selection = null;
+      }
    }
 
    public ManipulatedArea getManipulatedArea() {

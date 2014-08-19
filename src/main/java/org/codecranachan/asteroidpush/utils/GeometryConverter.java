@@ -19,8 +19,11 @@ package org.codecranachan.asteroidpush.utils;
 import java.util.ArrayList;
 
 import org.codecranachan.asteroidpush.simulation.Primitive;
+import org.codecranachan.asteroidpush.workshop.OrthogonalCoordinate;
+import org.codecranachan.asteroidpush.workshop.tokenboard.Placement;
 import org.jbox2d.collision.shapes.CircleShape;
 import org.jbox2d.collision.shapes.PolygonShape;
+import org.jbox2d.common.MathUtils;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.Fixture;
@@ -30,6 +33,17 @@ import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Transform;
 
 public class GeometryConverter {
+
+   static public Arrow convertToArrow(Placement placement, Float scale) {
+      float angle = (float) placement.getOrientation() * MathUtils.TWOPI / 4.0f;
+      OrthogonalCoordinate pivot = placement.getPivotCoordinate();
+      return new Arrow(new Vec2(pivot.getX(), pivot.getY()), angle, scale);
+   }
+
+   static public Arrow convertToArrow(Vec2 offset, int orientation, Float scale) {
+      float angle = (float) orientation * MathUtils.TWOPI / 4.0f;
+      return new Arrow(offset, angle, scale);
+   }
 
    static public Shape convertToSlickShape(Primitive primitive, Arrow offset) {
       Polygon polygon = new Polygon();

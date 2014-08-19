@@ -4,8 +4,8 @@ import java.util.Vector;
 
 public class DefaultCatalogue implements PartCatalogue {
 
-   public Vector<TokenFactory> getPartFactories() {
-      Vector<TokenFactory> factories = new Vector<TokenFactory>();
+   public Vector<PartFactory> getPartFactories() {
+      Vector<PartFactory> factories = new Vector<PartFactory>();
 
       factories.add(new Block());
       factories.add(new Wedge());

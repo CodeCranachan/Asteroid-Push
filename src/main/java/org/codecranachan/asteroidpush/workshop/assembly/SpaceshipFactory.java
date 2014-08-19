@@ -27,12 +27,12 @@ import org.jgrapht.alg.ConnectivityInspector;
 import org.jgrapht.graph.Subgraph;
 
 public class SpaceshipFactory implements ActorFactory {
-   private Board<Part> blueprint;
+   private Board blueprint;
    private RigidBodyFactory bodyFactory;
    private float gridSize;
    private AssemblyGraph skeleton;
 
-   public SpaceshipFactory(Board<Part> blueprint, float gridSize) {
+   public SpaceshipFactory(Board blueprint, float gridSize) {
       assert (blueprint != null);
       assert (bodyFactory != null);
       this.blueprint = blueprint;
@@ -48,8 +48,8 @@ public class SpaceshipFactory implements ActorFactory {
 
    private AssemblyGraph assembleSkeleton() {
       AssemblyGraph skeleton = new AssemblyGraph();
-      for (Token<Part> token : blueprint.getTokens()) {
-         Part part = token.getData();
+      for (Token token : blueprint.getTokens()) {
+         Part part = (Part)token.getData();
          Placement placement = token.getPlacement();
          for (AssemblyVertex node : part.getHardpoints()) {
             node.setPlacement(computeNodePlacement(placement));
@@ -126,8 +126,8 @@ public class SpaceshipFactory implements ActorFactory {
       }
 
       // Create behaviors
-      for (Token<Part> token : blueprint.getTokens()) {
-         Part part = token.getData();
+      for (Token token : blueprint.getTokens()) {
+         Part part = (Part)token.getData();
          for (BehaviorFactory factory : part.getBehaviors()) {
             // Build list of body nodes
             AbstractList<BodyVertex> bodyVertices = new ArrayList<BodyVertex>();

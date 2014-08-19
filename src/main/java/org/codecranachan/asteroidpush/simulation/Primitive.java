@@ -31,7 +31,7 @@ public class Primitive {
 
    public void AddSquare(Arrow geometry) {
       float diagonal = MathUtils.sqrt(geometry.getMagnitude()
-            * geometry.getMagnitude());
+            * geometry.getMagnitude() * 2);
       Arrow circle_geometry = new Arrow(geometry.getTail(), geometry.getAngle()
             + MathUtils.QUARTER_PI, diagonal);
       AddCircle(circle_geometry, 4);

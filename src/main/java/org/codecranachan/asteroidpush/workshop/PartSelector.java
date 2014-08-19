@@ -5,14 +5,23 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Vector;
 
-import org.codecranachan.asteroidpush.workshop.parts.TokenFactory;
+import org.codecranachan.asteroidpush.workshop.assembly.Part;
+import org.codecranachan.asteroidpush.workshop.parts.PartFactory;
 
 public class PartSelector {
-   private Vector<TokenFactory> factories;
-   private TokenFactory selected;
+   private Vector<PartFactory> factories;
+   private PartFactory selected;
 
-   public TokenFactory getSelected() {
+   public PartFactory getSelected() {
       return selected;
+   }
+
+   public Part getNewPart() {
+      if (selected == null) {
+         return null;
+      } else {
+         return selected.createPart();
+      }
    }
 
    public void selectNext() {
@@ -59,23 +68,23 @@ public class PartSelector {
    }
 
    public PartSelector() {
-      factories = new Vector<TokenFactory>();
+      factories = new Vector<PartFactory>();
       selected = null;
    }
 
-   public void addPartFactories(Collection<TokenFactory> factories) {
+   public void addPartFactories(Collection<PartFactory> factories) {
       this.factories.addAll(factories);
       Collections.sort(this.factories, new FactoryComparator());
    }
 
-   public Vector<TokenFactory> getPartFactories() {
+   public Vector<PartFactory> getPartFactories() {
       return factories;
    }
 }
 
-class FactoryComparator implements Comparator<TokenFactory> {
+class FactoryComparator implements Comparator<PartFactory> {
 
-   public int compare(TokenFactory first, TokenFactory second) {
+   public int compare(PartFactory first, PartFactory second) {
       return String.CASE_INSENSITIVE_ORDER.compare(first.getName(),
                                                    second.getName());
    }

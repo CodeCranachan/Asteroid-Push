@@ -12,15 +12,18 @@ public class PrimitiveRepresentation implements Representation {
 
    private Shape shape;
 
-   public PrimitiveRepresentation(Primitive primitive, Arrow offset) {
-      this.shape = GeometryConverter.convertToSlickShape(primitive, offset);
+   public PrimitiveRepresentation(Primitive primitive) {
+      this.shape = GeometryConverter
+            .convertToSlickShape(primitive, new Arrow());
    }
 
    public void render(Graphics g) {
+      Color fillColor = new Color(0.5f, 0.5f, 0.5f, 0.5f);
+      g.setColor(fillColor);
+      g.fill(shape);
+      g.setLineWidth(2.5f);
       g.setColor(Color.lightGray);
       g.draw(shape);
-      g.setColor(Color.darkGray);
-      g.fill(shape);
    }
 
    public int getPriority() {

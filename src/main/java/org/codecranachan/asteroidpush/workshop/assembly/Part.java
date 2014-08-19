@@ -5,37 +5,34 @@ import java.util.LinkedList;
 
 import org.codecranachan.asteroidpush.simulation.modular.BehaviorFactory;
 import org.codecranachan.asteroidpush.visuals.Representation;
+import org.codecranachan.asteroidpush.workshop.tokenboard.Placeable;
+import org.codecranachan.asteroidpush.workshop.tokenboard.Shape;
 
-public class Part {
-   private Collection<AssemblyVertex> hardpoints;
-   private Collection<BehaviorFactory> behaviors;
+public class Part implements Placeable {
+   private Collection<BehaviorFactory> factories;
+   private Shape shape;
 
-   public Part() {
-      hardpoints = new LinkedList<AssemblyVertex>();
-      behaviors = new LinkedList<BehaviorFactory>();
+   // Should be a bunch of factories and the coordinates to attach them to
+
+   public Part(Shape shape) {
+      assert shape != null;
+      this.factories = new LinkedList<BehaviorFactory>();
+      this.shape = shape;
    }
 
-   public void AddHardpoint(AssemblyVertex hardpoint) {
-      hardpoints.add(hardpoint);
+   public void AddBehaviorFactory(BehaviorFactory factory) {
+      factories.add(factory);
    }
 
-   public void AddSoftlink(BehaviorFactory softlink) {
-      behaviors.add(softlink);
-   }
-
-   public Collection<AssemblyVertex> getHardpoints() {
-      return hardpoints;
-   }
-
-   public Collection<BehaviorFactory> getBehaviors() {
-      return behaviors;
+   public Shape getShape() {
+      return shape;
    }
 
    public Collection<Representation> getRepresentations() {
       Collection<Representation> representations = new LinkedList<Representation>();
-      for (BehaviorFactory factory : behaviors) {
-         if (factory.getRepresentation() != null) {
-            representations.add(factory.getRepresentation());
+      for (BehaviorFactory factory : factories) {
+         if (factory.getRepresentations() != null) {
+            representations.addAll(factory.getRepresentations());
          }
       }
       return representations;

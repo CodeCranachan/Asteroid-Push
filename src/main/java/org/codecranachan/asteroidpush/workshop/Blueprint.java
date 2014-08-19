@@ -3,17 +3,16 @@ package org.codecranachan.asteroidpush.workshop;
 import java.util.Collection;
 import java.util.LinkedList;
 
-import org.codecranachan.asteroidpush.workshop.assembly.Part;
 import org.codecranachan.asteroidpush.workshop.tokenboard.Board;
 import org.codecranachan.asteroidpush.workshop.tokenboard.Token;
 
 public class Blueprint {
    private String name;
-   private Board<Part> plan;
+   private Board plan;
 
    public Blueprint() {
       name = new String();
-      plan = new Board<Part>();
+      plan = new Board();
    }
 
    public String getName() {
@@ -24,19 +23,19 @@ public class Blueprint {
       this.name = name;
    }
 
-   public boolean canPlace(Token<Part> token) {
+   public boolean canPlace(Token token) {
       return getConflictingCoordinates(token).isEmpty();
    }
 
-   public void place(Token<Part> token) {
-      plan.place(token.clone());
+   public void place(Token token) {
+      plan.place(token);
    }
 
-   public Token<Part> pick(OrthogonalCoordinate location) {
+   public Token pick(OrthogonalCoordinate location) {
       return plan.pick(location);
    }
 
-   public Collection<OrthogonalCoordinate> getConflictingCoordinates(Token<Part> token) {
+   public Collection<OrthogonalCoordinate> getConflictingCoordinates(Token token) {
       Collection<OrthogonalCoordinate> conflicts = new LinkedList<OrthogonalCoordinate>();
       for (OrthogonalCoordinate coord : token.getOccupiedCoordinates()) {
          if (plan.inspect(coord) != null) {
@@ -46,7 +45,7 @@ public class Blueprint {
       return conflicts;
    }
    
-   public Collection<Token<Part>> getTokens() {
+   public Collection<Token> getTokens() {
       return plan.getTokens();
    }
 

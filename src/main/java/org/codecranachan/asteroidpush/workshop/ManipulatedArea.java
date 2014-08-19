@@ -16,7 +16,7 @@ public class ManipulatedArea {
    public int getHeight() {
       return topRight.getY() - bottomLeft.getY() + 1;
    }
-
+   
    public int getLargestSide() {
       return Math.max(getHeight(), getWidth());
    }
