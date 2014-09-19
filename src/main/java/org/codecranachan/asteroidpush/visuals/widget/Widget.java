@@ -16,12 +16,15 @@
 
 package org.codecranachan.asteroidpush.visuals.widget;
 
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.state.StateBasedGame;
 
 public interface Widget {
    void resize(Rectangle frame);
    void render(Graphics g);
+   void update(GameContainer container, StateBasedGame game, int delta);
    void setHover(float x, float y);
    void resetHover();
    void mousePressed(int button, int x, int y);

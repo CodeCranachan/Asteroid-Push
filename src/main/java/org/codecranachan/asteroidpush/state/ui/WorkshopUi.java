@@ -8,9 +8,11 @@ import org.codecranachan.asteroidpush.workshop.Manipulator;
 import org.codecranachan.asteroidpush.workshop.PartSelector;
 import org.codecranachan.asteroidpush.workshop.parts.DefaultCatalogue;
 import org.codecranachan.asteroidpush.workshop.parts.PartCatalogue;
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.state.StateBasedGame;
 
 public class WorkshopUi extends BasicWidget {
    private WorkshopUiLayout layout;
@@ -18,18 +20,21 @@ public class WorkshopUi extends BasicWidget {
    private CreateBlueprintButton createBlueprintButton;
    private Widget manipulatorWidget;
 
+   static String defaultFontName = "resources/Alfphabet-IV.ttf";
+
    public WorkshopUi(BlueprintCollection collection, ResourceLoader loader) {
       layout = new WorkshopUiLayout();
       coordinator = createCoordinator(collection);
 
       manipulatorWidget = new ManipulatorWidget(coordinator, loader);
       createBlueprintButton = new CreateBlueprintButton(coordinator,
-            loader.loadFont("resources/Alfphabet-IV.ttf", 15));
+            loader.loadFont(defaultFontName, 15));
       updateBlueprintWidget();
 
       layout.setCatalogueWidget(new SelectorWidget(coordinator, loader
-            .loadFont("resources/Alfphabet-IV.ttf", 15)));
-      layout.setSelectionWidget(new BasicWidget());
+            .loadFont(defaultFontName, 15)));
+      layout.setSelectionWidget(new StartTestRunButton(coordinator, loader
+            .loadFont(defaultFontName, 15)));
    }
 
    private WorkshopCoordinator createCoordinator(BlueprintCollection collection) {
@@ -49,6 +54,10 @@ public class WorkshopUi extends BasicWidget {
 
    public void render(Graphics g) {
       layout.render(g);
+   }
+
+   public void update(GameContainer container, StateBasedGame game, int delta) {
+      layout.update(container, game, delta);
    }
 
    public void setHover(float x, float y) {

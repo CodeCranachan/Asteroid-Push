@@ -71,7 +71,7 @@ public class Simulation implements Representable {
       }
    }
 
-   public Representation getRepresentation() {
+   public Collection<Representation> getRepresentations() {
       // TODO implement a representation
       return null;
    }

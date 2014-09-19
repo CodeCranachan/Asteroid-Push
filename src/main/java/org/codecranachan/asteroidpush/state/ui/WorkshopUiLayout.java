@@ -18,8 +18,10 @@ package org.codecranachan.asteroidpush.state.ui;
 
 import org.codecranachan.asteroidpush.visuals.widget.BasicWidget;
 import org.codecranachan.asteroidpush.visuals.widget.Widget;
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.state.StateBasedGame;
 
 public class WorkshopUiLayout extends BasicWidget {
 
@@ -105,6 +107,12 @@ public class WorkshopUiLayout extends BasicWidget {
       g.clearClip();
    }
 
+   public void update(GameContainer container, StateBasedGame game, int delta) {
+      catalogue.update(container, game, delta);
+      selection.update(container, game, delta);
+      blueprint.update(container, game, delta);
+   }
+
    private Rectangle getBlueprintFrame(Rectangle frame) {
       return new Rectangle(frame.getX(), frame.getY(), frame.getWidth()
             * blueprintRatio, frame.getHeight());
@@ -133,6 +141,9 @@ public class WorkshopUiLayout extends BasicWidget {
       }
       if (catalogue != null && getCatalogueFrame(getFrame()).contains(x, y)) {
          catalogue.mousePressed(button, x, y);
+      }
+      if (selection != null && getSelectionFrame(getFrame()).contains(x, y)) {
+         selection.mousePressed(button, x, y);
       }
    }
 

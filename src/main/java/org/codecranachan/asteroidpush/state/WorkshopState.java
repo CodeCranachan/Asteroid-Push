@@ -78,7 +78,7 @@ public class WorkshopState extends BasicGameState {
 
    public void update(GameContainer container, StateBasedGame game, int delta)
          throws SlickException {
-      // TODO Auto-generated method stub
+      ui.update(container, game, delta);
    }
 
    public void mousePressed(int button, int x, int y) {
