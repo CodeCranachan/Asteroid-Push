@@ -27,6 +27,10 @@ public class Part implements Placeable {
    public Shape getShape() {
       return shape;
    }
+   
+   public Collection<BehaviorFactory> getFactories() {
+      return factories;
+   }
 
    public Collection<Representation> getRepresentations() {
       Collection<Representation> representations = new LinkedList<Representation>();

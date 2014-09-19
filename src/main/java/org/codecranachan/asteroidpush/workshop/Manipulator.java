@@ -19,6 +19,10 @@ public class Manipulator {
       return selection;
    }
 
+   public Placement getProspectivePlacement() {
+      return prospectivePlacement;
+   }
+
    public void setSelection(Part part) {
       this.selection = part;
    }
@@ -43,14 +47,19 @@ public class Manipulator {
       prospectivePlacement.rotateClockwise();
    }
 
-   public void place(OrthogonalCoordinate pivot) {
+   public boolean place(OrthogonalCoordinate pivot) {
       Token token = new Token(selection);
       token.setPlacement(new Placement(prospectivePlacement.getOrientation(),
             pivot));
       if (blueprint.canPlace(token)) {
          blueprint.place(token);
+         return true;
+      } else {
+         return false;
       }
    }
+   
+   
 
    public void erase(OrthogonalCoordinate pivot) {
       // ignore the return value since we are not keeping the

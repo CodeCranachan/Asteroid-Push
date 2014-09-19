@@ -34,6 +34,7 @@ import org.codecranachan.asteroidpush.workshop.Blueprint;
 import org.codecranachan.asteroidpush.workshop.ManipulatedArea;
 import org.codecranachan.asteroidpush.workshop.OrthogonalCoordinate;
 import org.codecranachan.asteroidpush.workshop.assembly.Part;
+import org.codecranachan.asteroidpush.workshop.tokenboard.Placement;
 import org.codecranachan.asteroidpush.workshop.tokenboard.Token;
 import org.jbox2d.common.MathUtils;
 import org.jbox2d.common.Vec2;
@@ -157,10 +158,15 @@ public class ManipulatorWidget extends BasicWidget {
       if (hover != null && selected != null) {
          MultipartRepresentation base = new MultipartRepresentation(3);
          base.addAll(selected.getRepresentations());
-         // TODO scale & orientation
-         Arrow offset = GeometryConverter.convertToArrow(renderer
-               .mapToWorldCoordinates(hover), 0, 1.0f);
+         float scale = 1.0f;
+         Placement placement = coordinator.getPartSelectedPartPlacement();
+         Arrow offset = GeometryConverter
+               .convertToArrow(renderer.mapToWorldCoordinates(hover),
+                               placement.getOrientation(),
+                               scale);
          list.add(new OffsetRepresentation(base, offset));
+         
+         
       }
       return list;
    }
@@ -179,13 +185,11 @@ public class ManipulatorWidget extends BasicWidget {
       return new OrthogonalCoordinate(Math.round(point.x), Math.round(point.y));
    }
 
-   @Override
    public void resize(Rectangle frame) {
       setFrame(frame);
       renderer.setFrame(getBlueprintArea());
    }
 
-   @Override
    public void mousePressed(int button, int x, int y) {
       if (coordinator.getManipulatedBlueprint() == null) {
          return;

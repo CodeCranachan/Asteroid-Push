@@ -83,7 +83,7 @@ public class RepresentationRenderer {
    }
 
    private float getFocusRotationAsAngle() {
-      return Trigonometry.radToAngle(getFocusRotationAsRadian());
+      return Trigonometry.radToDeg(getFocusRotationAsRadian());
    }
 
    private float getFocusRotationAsRadian() {

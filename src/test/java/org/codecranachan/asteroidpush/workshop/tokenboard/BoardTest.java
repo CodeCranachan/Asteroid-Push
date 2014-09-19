@@ -18,6 +18,9 @@ package org.codecranachan.asteroidpush.workshop.tokenboard;
 
 import static org.junit.Assert.*;
 
+import java.util.Collection;
+
+import org.codecranachan.asteroidpush.visuals.Representation;
 import org.codecranachan.asteroidpush.workshop.OrthogonalCoordinate;
 import org.codecranachan.asteroidpush.workshop.tokenboard.Board;
 import org.junit.*;
@@ -32,6 +35,10 @@ class TestPlaceable implements Placeable {
 
    public Shape getShape() {
       return shape;
+   }
+
+   public Collection<Representation> getRepresentations() {
+      return null;
    }
 }
 

@@ -55,13 +55,10 @@ public class WorkshopState extends BasicGameState {
 
    public void keyPressed(int key, char c) {
       switch (key) {
-      case Input.KEY_LEFT:
+      case Input.KEY_ESCAPE:
          break;
-      case Input.KEY_RIGHT:
-         break;
-      case Input.KEY_SPACE:
-         break;
-      case Input.KEY_PERIOD:
+      default:
+         ui.keyPressed(key);
          break;
       }
    }

@@ -26,10 +26,20 @@ import org.codecranachan.asteroidpush.workshop.OrthogonalCoordinate;
 public class AssemblyVertex {
    private Collection<OrthogonalCoordinate> rigidConnections;
    private Arrow placement;
+   private Collection<AssemblyBinding> bindings;
 
    public AssemblyVertex() {
       rigidConnections = new LinkedList<OrthogonalCoordinate>();
+      bindings = new LinkedList<AssemblyBinding>();
       placement = null;
+   }
+
+   public void bindFactory(BehaviorFactory factory, int index) {
+      bindings.add(new AssemblyBinding(factory, index));
+   }
+
+   public Collection<AssemblyBinding> getBindings() {
+      return bindings;
    }
 
    public Arrow getPlacement() {
@@ -42,9 +52,6 @@ public class AssemblyVertex {
 
    public void AddHardLink(OrthogonalCoordinate coordinate) {
       rigidConnections.add(coordinate);
-   }
-
-   public void AddBehaviorFactory(BehaviorFactory factory) {
    }
 
    public Collection<OrthogonalCoordinate> getHardLinks() {

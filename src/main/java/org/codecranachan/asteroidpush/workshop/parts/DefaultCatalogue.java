@@ -9,6 +9,7 @@ public class DefaultCatalogue implements PartCatalogue {
 
       factories.add(new Block());
       factories.add(new Wedge());
+      factories.add(new Spike());
 
       return factories;
    }

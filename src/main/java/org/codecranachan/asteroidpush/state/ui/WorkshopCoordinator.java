@@ -10,6 +10,7 @@ import org.codecranachan.asteroidpush.workshop.OrthogonalCoordinate;
 import org.codecranachan.asteroidpush.workshop.PartSelector;
 import org.codecranachan.asteroidpush.workshop.assembly.Part;
 import org.codecranachan.asteroidpush.workshop.parts.PartFactory;
+import org.codecranachan.asteroidpush.workshop.tokenboard.Placement;
 
 public class WorkshopCoordinator {
    private Manipulator manipulator;
@@ -36,8 +37,10 @@ public class WorkshopCoordinator {
       if (manipulator.getSelection() == null) {
          manipulator.pick(coordinate);
       } else {
-         manipulator.place(coordinate);
-         manipulator.setSelection(selector.getNewPart());
+         boolean partPlaced = manipulator.place(coordinate);
+         if (partPlaced) {
+            manipulator.setSelection(selector.getNewPart());
+         }
       }
    }
 
@@ -82,5 +85,17 @@ public class WorkshopCoordinator {
 
    public PartFactory getSelectedPartFactory() {
       return selector.getSelected();
+   }
+
+   public void rotatePartRight() {
+      manipulator.rotateSelectionRight();
+   }
+
+   public void rotatePartLeft() {
+      manipulator.rotateSelectionLeft();
+   }
+
+   public Placement getPartSelectedPartPlacement() {
+      return manipulator.getProspectivePlacement();
    }
 }

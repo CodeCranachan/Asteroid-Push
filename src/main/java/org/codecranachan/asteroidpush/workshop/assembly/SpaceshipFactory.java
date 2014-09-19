@@ -1,10 +1,10 @@
 package org.codecranachan.asteroidpush.workshop.assembly;
 
-import java.util.AbstractList;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
+import java.util.Vector;
 
 import org.codecranachan.asteroidpush.legacy.entities.Entity;
 import org.codecranachan.asteroidpush.simulation.Actor;
@@ -46,17 +46,31 @@ public class SpaceshipFactory implements ActorFactory {
       this.bodyFactory = factory;
    }
 
+   /**
+    * Rebuild the assembly skeleton from a token board.
+    * 
+    * Will iterate through all tokens on the token board and create nodes for
+    * each socket in a behavior factory. The resulting set of nodes is then
+    * connected by adding edges from the nodes to the skeleton base grid
+    * according to the individual links specified in each socket.
+    */
    private AssemblyGraph assembleSkeleton() {
       AssemblyGraph skeleton = new AssemblyGraph();
       for (Token token : blueprint.getTokens()) {
-         Part part = (Part)token.getData();
+         Part part = (Part) token.getData();
          Placement placement = token.getPlacement();
-         for (AssemblyVertex node : part.getHardpoints()) {
-            node.setPlacement(computeNodePlacement(placement));
-            for (OrthogonalCoordinate relLink : node.getHardLinks()) {
-               skeleton.attachHardpoint(node,
-                                        computeConnectorCoordinate(placement,
-                                                                   relLink));
+         for (BehaviorFactory factory : part.getFactories()) {
+            int index = 0;
+            for (Socket socket : factory.getSockets()) {
+               AssemblyVertex node = new AssemblyVertex();
+               node.bindFactory(factory, index);
+               node.setPlacement(computeNodePlacement(placement));
+               for (OrthogonalCoordinate link : socket.getLinks()) {
+                  OrthogonalCoordinate plug = computeConnectorCoordinate(placement,
+                                                                         link);
+                  skeleton.attachHardpoint(node, plug);
+               }
+               index++;
             }
          }
       }
@@ -99,6 +113,7 @@ public class SpaceshipFactory implements ActorFactory {
 
       // Map to associate created nodes with assembly nodes
       Map<AssemblyVertex, BodyVertex> nodeToBodyMap = new HashMap<AssemblyVertex, BodyVertex>();
+      Map<BehaviorFactory, Vector<BodyVertex>> bodyBindings = new HashMap<BehaviorFactory, Vector<BodyVertex>>();
 
       // Create a rigid body for each connected set
       for (Set<AssemblyVertex> rigidSet : inspector.connectedSets()) {
@@ -112,6 +127,18 @@ public class SpaceshipFactory implements ActorFactory {
             BodyVertex bodyNode = new BodyVertex(assemblyNode.getPlacement());
             nodeToBodyMap.put(assemblyNode, bodyNode);
             bodyGraph.addVertex(bodyNode);
+
+            // Store assembled bindings in map
+            for (AssemblyBinding binding : assemblyNode.getBindings()) {
+               Vector<BodyVertex> boundVertices;
+               if (bodyBindings.containsKey(binding.getFactory())) {
+                  boundVertices = bodyBindings.get(binding.getFactory());
+               } else {
+                  boundVertices = new Vector<BodyVertex>();
+               }
+               boundVertices.set(binding.getIndex(), bodyNode);
+               bodyBindings.put(binding.getFactory(), boundVertices);
+            }
          }
 
          // Create edges on body graph
@@ -126,18 +153,9 @@ public class SpaceshipFactory implements ActorFactory {
       }
 
       // Create behaviors
-      for (Token token : blueprint.getTokens()) {
-         Part part = (Part)token.getData();
-         for (BehaviorFactory factory : part.getBehaviors()) {
-            // Build list of body nodes
-            AbstractList<BodyVertex> bodyVertices = new ArrayList<BodyVertex>();
-            for (AssemblyVertex vertex : factory.getNodes()) {
-               bodyVertices.add(nodeToBodyMap.get(vertex));
-            }
-
-            Behavior behavior = factory.createBehavior(bodyVertices);
-            ship.addBehavior(behavior);
-         }
+      for (Entry<BehaviorFactory, Vector<BodyVertex>> entry : bodyBindings.entrySet()) {
+         Behavior behavior = entry.getKey().createBehavior(entry.getValue());
+         ship.addBehavior(behavior);
       }
 
       return ship;

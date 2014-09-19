@@ -9,6 +9,7 @@ import org.codecranachan.asteroidpush.workshop.PartSelector;
 import org.codecranachan.asteroidpush.workshop.parts.DefaultCatalogue;
 import org.codecranachan.asteroidpush.workshop.parts.PartCatalogue;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Rectangle;
 
 public class WorkshopUi extends BasicWidget {
@@ -26,7 +27,8 @@ public class WorkshopUi extends BasicWidget {
             loader.loadFont("resources/Alfphabet-IV.ttf", 15));
       updateBlueprintWidget();
 
-      layout.setCatalogueWidget(new SelectorWidget(coordinator, loader.loadFont("resources/Alfphabet-IV.ttf", 15)));
+      layout.setCatalogueWidget(new SelectorWidget(coordinator, loader
+            .loadFont("resources/Alfphabet-IV.ttf", 15)));
       layout.setSelectionWidget(new BasicWidget());
    }
 
@@ -59,6 +61,31 @@ public class WorkshopUi extends BasicWidget {
 
    public void mousePressed(int button, int x, int y) {
       layout.mousePressed(button, x, y);
+   }
+
+   public void keyPressed(int key) {
+      switch (key) {
+      case Input.KEY_LEFT:
+      case Input.KEY_SPACE:
+         coordinator.rotatePartLeft();
+         break;
+      case Input.KEY_RIGHT:
+         coordinator.rotatePartRight();
+         break;
+      case Input.KEY_F1:
+      case Input.KEY_F2:
+      case Input.KEY_F3:
+      case Input.KEY_F4:
+      case Input.KEY_F5:
+      case Input.KEY_F6:
+      case Input.KEY_F7:
+      case Input.KEY_F8:
+      case Input.KEY_F9:
+      case Input.KEY_F10:
+      case Input.KEY_F11:
+      case Input.KEY_F12:
+         break;
+      }
    }
 
    private void updateBlueprintWidget() {
