@@ -47,7 +47,6 @@ public class WorkshopUiLayout extends BasicWidget {
       this.selection = widget;
    }
 
-   @Override
    public void resize(Rectangle frame) {
       super.resize(frame);
 
@@ -62,7 +61,6 @@ public class WorkshopUiLayout extends BasicWidget {
       }
    }
 
-   @Override
    public void setHover(float x, float y) {
       super.setHover(x, y);
       if (blueprint != null) {
@@ -81,7 +79,6 @@ public class WorkshopUiLayout extends BasicWidget {
       }
    }
 
-   @Override
    public void resetHover() {
       super.resetHover();
       if (blueprint != null) {
@@ -92,7 +89,6 @@ public class WorkshopUiLayout extends BasicWidget {
       }
    }
 
-   @Override
    public void render(Graphics g) {
       if (catalogue != null) {
          g.setClip(getCatalogueFrame(getFrame()));
@@ -131,7 +127,6 @@ public class WorkshopUiLayout extends BasicWidget {
       return new Rectangle(x, y, w, h);
    }
 
-   @Override
    public void mousePressed(int button, int x, int y) {
       if (blueprint != null && getBlueprintFrame(getFrame()).contains(x, y)) {
          blueprint.mousePressed(button, x, y);
