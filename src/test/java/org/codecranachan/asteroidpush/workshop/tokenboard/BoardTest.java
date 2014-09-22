@@ -180,7 +180,7 @@ public class BoardTest {
    }
 
    private Token T0(OrthogonalCoordinate coord, int rotation) {
-      Token testToken = new Token(null);
+      Token testToken = new Token(new TestPlaceable(new Shape()));
       testToken.setPlacement(new Placement(rotation, coord));
       return testToken;
    }
