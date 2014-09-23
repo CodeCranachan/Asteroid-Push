@@ -6,7 +6,6 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.Vector;
 
-import org.codecranachan.asteroidpush.legacy.entities.Entity;
 import org.codecranachan.asteroidpush.simulation.Actor;
 import org.codecranachan.asteroidpush.simulation.ActorFactory;
 import org.codecranachan.asteroidpush.simulation.RigidBody;
@@ -98,10 +97,6 @@ public class SpaceshipFactory implements ActorFactory {
       origin.mulLocal(gridSize);
 
       return new Arrow(origin, angle, gridSize);
-   }
-
-   public Entity createEntity(Vec2 placment) {
-      return null;
    }
 
    public Actor createActor(Arrow placement) {
