@@ -16,6 +16,7 @@
 
 package org.codecranachan.asteroidpush.state;
 
+import org.codecranachan.asteroidpush.AsteroidPush;
 import org.codecranachan.asteroidpush.ResourceLoader;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -27,9 +28,12 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class SimulationState extends BasicGameState {
+   
+   private boolean exitSimulation;
 
    public SimulationState(ResourceLoader resourceLoader) {
       // TODO: Create user interface
+      exitSimulation = false;
    }
 
    public void init(GameContainer container, StateBasedGame game)
@@ -38,6 +42,7 @@ public class SimulationState extends BasicGameState {
 
    @Override
    public void enter(GameContainer container, StateBasedGame game) {
+      exitSimulation = false;
    }
 
    public void render(GameContainer container,
@@ -51,6 +56,10 @@ public class SimulationState extends BasicGameState {
 
    public void update(GameContainer container, StateBasedGame game, int milliseconds)
          throws SlickException {
+      if (exitSimulation) {
+         AsteroidPush push = (AsteroidPush)game;
+         push.popContext();
+      }
    }
 
    @Override
@@ -61,7 +70,7 @@ public class SimulationState extends BasicGameState {
    @Override
    public void keyPressed(int key, char c) {
       if (Input.KEY_ESCAPE == key) {
-      } else {
+         exitSimulation = true;
       }
    }
 

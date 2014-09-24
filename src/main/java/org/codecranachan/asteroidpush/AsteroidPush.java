@@ -16,7 +16,10 @@
 
 package org.codecranachan.asteroidpush;
 
+import java.util.Stack;
+
 import org.codecranachan.asteroidpush.state.GameStateFactory;
+import org.codecranachan.asteroidpush.state.StateContext;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.GameState;
@@ -26,9 +29,11 @@ public class AsteroidPush extends StateBasedGame {
    private ResourceLoader resourceLoader;
    private GameInstance mainGame;
    private Settings settings;
+   private Stack<StateContext> contextStack;
 
    public AsteroidPush(ResourceLoader resourceLoader) {
       super("Asteroid Push");
+      contextStack = new Stack<StateContext>();
       this.resourceLoader = resourceLoader;
       // TODO Load settings from file
       this.settings = new Settings();
@@ -49,5 +54,16 @@ public class AsteroidPush extends StateBasedGame {
 
    public Settings getSettings() {
       return settings;
+   }
+
+   public void pushContext(StateContext context) {
+      contextStack.push(context);
+      context.enterContext(this);
+   }
+
+   public void popContext() {
+      if (!contextStack.empty()) {
+         contextStack.pop().exitContext(this);
+      }
    }
 }

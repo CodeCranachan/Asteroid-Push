@@ -23,6 +23,10 @@ public class Blueprint {
       this.name = name;
    }
 
+   public Board getPlan() {
+      return plan;
+   }
+   
    public boolean canPlace(Token token) {
       return getConflictingCoordinates(token).isEmpty();
    }

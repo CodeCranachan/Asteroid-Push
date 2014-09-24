@@ -1,7 +1,12 @@
 package org.codecranachan.asteroidpush.state.ui;
 
+import org.codecranachan.asteroidpush.AsteroidPush;
+import org.codecranachan.asteroidpush.simulation.TestRunScenario;
 import org.codecranachan.asteroidpush.state.StateId;
+import org.codecranachan.asteroidpush.state.TestRunContext;
 import org.codecranachan.asteroidpush.visuals.widget.BasicWidget;
+import org.codecranachan.asteroidpush.workshop.Blueprint;
+import org.codecranachan.asteroidpush.workshop.assembly.SpaceshipFactory;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Font;
 import org.newdawn.slick.GameContainer;
@@ -15,9 +20,9 @@ import org.newdawn.slick.state.transition.FadeOutTransition;
 public class StartTestRunButton extends BasicWidget {
    private Font font;
    private WorkshopCoordinator coordinator;
-   private boolean doRunTest;
+   private boolean doTestRun;
    
-   static private String RUN_TEST_TEXT = "Run Test";
+   static private String RUN_TEST_TEXT = "Test Run";
    static private String NO_SHIP_TEXT = "No Ship";
    static private String ERROR_TEXT = "StartTestRunButton: No coordinator set";
 
@@ -55,9 +60,11 @@ public class StartTestRunButton extends BasicWidget {
    }
 
    public void update(GameContainer container, StateBasedGame game, int delta) {
-      if (doRunTest) {
-         doRunTest = false;
-         game.enterState(StateId.SIMULATION, new FadeOutTransition(Color.black, 250), new FadeInTransition(Color.black, 250));
+      if (doTestRun) {
+         doTestRun = false;
+         Blueprint prototype = coordinator.getManipulatedBlueprint();
+         AsteroidPush push = (AsteroidPush) game;
+         push.pushContext(new TestRunContext(prototype));
       }
    }
 
@@ -66,7 +73,7 @@ public class StartTestRunButton extends BasicWidget {
          return;
       }
       if (button == Input.MOUSE_LEFT_BUTTON && coordinator.getManipulatedBlueprint() != null) {
-         doRunTest = true;
+         doTestRun = true;
       }
    }
 }
