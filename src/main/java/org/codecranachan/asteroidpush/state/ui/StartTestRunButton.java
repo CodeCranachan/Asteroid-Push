@@ -1,12 +1,9 @@
 package org.codecranachan.asteroidpush.state.ui;
 
 import org.codecranachan.asteroidpush.AsteroidPush;
-import org.codecranachan.asteroidpush.simulation.TestRunScenario;
-import org.codecranachan.asteroidpush.state.StateId;
 import org.codecranachan.asteroidpush.state.TestRunContext;
 import org.codecranachan.asteroidpush.visuals.widget.BasicWidget;
 import org.codecranachan.asteroidpush.workshop.Blueprint;
-import org.codecranachan.asteroidpush.workshop.assembly.SpaceshipFactory;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Font;
 import org.newdawn.slick.GameContainer;
@@ -14,8 +11,6 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.StateBasedGame;
-import org.newdawn.slick.state.transition.FadeInTransition;
-import org.newdawn.slick.state.transition.FadeOutTransition;
 
 public class StartTestRunButton extends BasicWidget {
    private Font font;
