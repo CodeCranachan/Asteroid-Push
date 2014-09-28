@@ -1,5 +1,6 @@
 package org.codecranachan.asteroidpush.workshop.assembly;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.codecranachan.asteroidpush.workshop.OrthogonalCoordinate;
@@ -7,7 +8,8 @@ import org.jgrapht.EdgeFactory;
 import org.jgrapht.UndirectedGraph;
 import org.jgrapht.graph.AbstractBaseGraph;
 
-class RigidConnectorFactory implements EdgeFactory<AssemblyVertex, RigidConnector> {
+class RigidConnectorFactory implements
+      EdgeFactory<AssemblyVertex, RigidConnector> {
 
    public RigidConnector createEdge(AssemblyVertex arg0, AssemblyVertex arg1) {
       return new RigidConnector();
@@ -15,14 +17,16 @@ class RigidConnectorFactory implements EdgeFactory<AssemblyVertex, RigidConnecto
 
 }
 
-public class AssemblyGraph extends AbstractBaseGraph<AssemblyVertex, RigidConnector>
-      implements UndirectedGraph<AssemblyVertex, RigidConnector> {
+public class AssemblyGraph extends
+      AbstractBaseGraph<AssemblyVertex, RigidConnector> implements
+      UndirectedGraph<AssemblyVertex, RigidConnector> {
    private static final long serialVersionUID = 7101689298369513833L;
 
    private Map<OrthogonalCoordinate, AssemblyVertex> mesh;
 
    public AssemblyGraph() {
       super(new RigidConnectorFactory(), false, false);
+      mesh = new HashMap<OrthogonalCoordinate, AssemblyVertex>();
    }
 
    public void attachHardpoint(AssemblyVertex hardpoint,

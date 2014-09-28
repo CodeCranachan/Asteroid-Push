@@ -131,6 +131,7 @@ public class SpaceshipFactory implements ActorFactory {
                } else {
                   boundVertices = new Vector<BodyVertex>();
                }
+               boundVertices.setSize(binding.getIndex() + 1);
                boundVertices.set(binding.getIndex(), bodyNode);
                bodyBindings.put(binding.getFactory(), boundVertices);
             }

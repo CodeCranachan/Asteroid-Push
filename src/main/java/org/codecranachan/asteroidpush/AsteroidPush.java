@@ -18,6 +18,8 @@ package org.codecranachan.asteroidpush;
 
 import java.util.Stack;
 
+import org.codecranachan.asteroidpush.simulation.PhysicsEngine;
+import org.codecranachan.asteroidpush.simulation.jbox2d.Box2dEngine;
 import org.codecranachan.asteroidpush.state.GameStateFactory;
 import org.codecranachan.asteroidpush.state.StateContext;
 import org.newdawn.slick.GameContainer;
@@ -27,7 +29,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class AsteroidPush extends StateBasedGame {
    private ResourceLoader resourceLoader;
-   private GameInstance mainGame;
+   private GameInstance activeGame;
    private Settings settings;
    private Stack<StateContext> contextStack;
 
@@ -37,6 +39,7 @@ public class AsteroidPush extends StateBasedGame {
       this.resourceLoader = resourceLoader;
       // TODO Load settings from file
       this.settings = new Settings();
+      this.activeGame = null;
    }
 
    @Override
@@ -48,8 +51,12 @@ public class AsteroidPush extends StateBasedGame {
       }
    }
 
-   public GameInstance getGame() {
-      return mainGame;
+   public GameInstance getActiveGame() {
+      return activeGame;
+   }
+
+   public void setActiveGame(GameInstance game) {
+      this.activeGame = game;
    }
 
    public Settings getSettings() {
@@ -65,5 +72,9 @@ public class AsteroidPush extends StateBasedGame {
       if (!contextStack.empty()) {
          contextStack.pop().exitContext(this);
       }
+   }
+
+   public PhysicsEngine createPhysicsEngine() {
+      return new Box2dEngine();
    }
 }

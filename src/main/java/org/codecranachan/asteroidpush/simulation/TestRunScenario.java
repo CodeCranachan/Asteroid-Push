@@ -4,7 +4,7 @@ import org.codecranachan.asteroidpush.utils.Arrow;
 import org.codecranachan.asteroidpush.workshop.Blueprint;
 import org.codecranachan.asteroidpush.workshop.assembly.SpaceshipFactory;
 
-public class TestRunScenario {
+public class TestRunScenario implements Scenario {
    private SpaceshipFactory testFactory;
 
    public TestRunScenario(Blueprint prototype) {
