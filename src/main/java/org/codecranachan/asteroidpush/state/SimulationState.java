@@ -17,6 +17,7 @@
 package org.codecranachan.asteroidpush.state;
 
 import org.codecranachan.asteroidpush.AsteroidPush;
+import org.codecranachan.asteroidpush.GameInstance;
 import org.codecranachan.asteroidpush.ResourceLoader;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -28,7 +29,7 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class SimulationState extends BasicGameState {
-   
+
    private boolean exitSimulation;
 
    public SimulationState(ResourceLoader resourceLoader) {
@@ -54,10 +55,17 @@ public class SimulationState extends BasicGameState {
       graphics.drawString("Simulation", 10, 30);
    }
 
-   public void update(GameContainer container, StateBasedGame game, int milliseconds)
-         throws SlickException {
+   public void update(GameContainer container,
+                      StateBasedGame game,
+                      int milliseconds) throws SlickException {
+      AsteroidPush push = (AsteroidPush) game;
+      GameInstance gameInstance = push.getActiveGame();
+
+      if (gameInstance != null) {
+         gameInstance.addRealTime(milliseconds);
+      }
+
       if (exitSimulation) {
-         AsteroidPush push = (AsteroidPush)game;
          push.popContext();
       }
    }

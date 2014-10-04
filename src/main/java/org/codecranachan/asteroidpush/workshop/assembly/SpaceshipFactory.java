@@ -33,7 +33,6 @@ public class SpaceshipFactory implements ActorFactory {
 
    public SpaceshipFactory(Board blueprint, float gridSize) {
       assert (blueprint != null);
-      assert (bodyFactory != null);
       this.blueprint = blueprint;
       this.bodyFactory = null;
       this.gridSize = gridSize;
