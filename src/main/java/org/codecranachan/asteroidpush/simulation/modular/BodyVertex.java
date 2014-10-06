@@ -1,16 +1,20 @@
 package org.codecranachan.asteroidpush.simulation.modular;
 
-import org.codecranachan.asteroidpush.utils.Arrow;
+import java.util.Collection;
+import java.util.LinkedList;
 
 public class BodyVertex {
-   private Arrow placement;
+   private Collection<Plug> plugs;
 
-   public BodyVertex(Arrow placement) {
-      assert (placement != null);
-      this.placement = placement;
+   public BodyVertex() {
+      this.plugs = new LinkedList<Plug>();
    }
 
-   public Arrow getPlacement() {
-      return placement;
+   public Collection<Plug> getPlugs() {
+      return plugs;
+   }
+
+   public void addPlug(Plug plug) {
+      plugs.add(plug);
    }
 }

@@ -12,10 +12,12 @@ import org.codecranachan.asteroidpush.simulation.command.Command;
 
 public class ModularActor implements Actor {
 
+   boolean isConstructed;
    private Map<BodyGraph, RigidBody> bodies;
    private Collection<Behavior> behaviors;
 
    public ModularActor() {
+      isConstructed = false;
       bodies = new HashMap<BodyGraph, RigidBody>();
       behaviors = new LinkedList<Behavior>();
    }
@@ -33,6 +35,12 @@ public class ModularActor implements Actor {
 
    public Collection<Command> update(int frameNumber) {
       Collection<Command> allActions = new LinkedList<Command>();
+      
+      if (!isConstructed) {
+         Collection<Command> actions = behavior
+               .attach(getNodeAssociation(behavior), frameNumber);
+         allActions.addAll(actions);
+      }
 
       for (Behavior behavior : behaviors) {
          Collection<Command> actions = behavior
@@ -51,7 +59,7 @@ public class ModularActor implements Actor {
       for (BodyVertex vertex : behavior.getNodes()) {
          nodeAssociation.put(vertex, getBodyOf(vertex));
       }
-      return null;
+      return nodeAssociation;
    }
 
    private RigidBody getBodyOf(BodyVertex vertex) {
@@ -65,7 +73,7 @@ public class ModularActor implements Actor {
       }
       return null;
    }
-   
+
    public void destroy() {
       // TODO Detach all behaviors from their bodies and destroy bodies
    }
