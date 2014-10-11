@@ -1,6 +1,9 @@
 package org.codecranachan.asteroidpush.workshop.assembly;
 
+import java.awt.List;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -16,6 +19,7 @@ import org.codecranachan.asteroidpush.simulation.modular.BehaviorFactory;
 import org.codecranachan.asteroidpush.simulation.modular.BodyGraph;
 import org.codecranachan.asteroidpush.simulation.modular.BodyVertex;
 import org.codecranachan.asteroidpush.simulation.modular.ModularActor;
+import org.codecranachan.asteroidpush.simulation.modular.Plug;
 import org.codecranachan.asteroidpush.utils.Arrow;
 import org.codecranachan.asteroidpush.workshop.OrthogonalCoordinate;
 import org.codecranachan.asteroidpush.workshop.tokenboard.Token;
@@ -44,6 +48,16 @@ public class SpaceshipFactory implements ActorFactory {
       this.bodyFactory = factory;
    }
 
+
+   public Actor createActor(Arrow placement) {
+      assert (bodyFactory != null);
+      ModularActor ship = new ModularActor();
+      
+      ActorSkeleton skeleton = assembleSkeleton();
+
+      return ship;
+   }
+
    /**
     * Builds a new ActorSkeleton from the given Blueprint.
     */
@@ -59,21 +73,28 @@ public class SpaceshipFactory implements ActorFactory {
       Part part = (Part) token.getData();
       Placement placement = token.getPlacement();
       for (BehaviorFactory factory : part.getFactories()) {
+         Behavior behavior = factory
+               .createBehavior(computeNodePlacement(placement));
 
          int index = 0;
          for (Socket socket : factory.getSockets()) {
             BodyVertex node = new BodyVertex();
-            node.addPlug(factory, index);
-            node.setPlacement(computeNodePlacement(placement));
-
-            for (OrthogonalCoordinate link : socket.getLinks()) {
-               OrthogonalCoordinate plug = computeConnectorCoordinate(placement,
-                                                                      link);
-               skeleton.attachHardpoint(node, plug);
-            }
+            node.addPlug(new Plug(behavior, index));
+            Collection<OrthogonalCoordinate> links = transformLinks(socket.getLinks(),
+                                                                    placement);
+            skeleton.insertVertex(node, links);
             index++;
          }
       }
+   }
+
+   private Collection<OrthogonalCoordinate> transformLinks(Collection<OrthogonalCoordinate> links,
+                                                           Placement placement) {
+      Collection<OrthogonalCoordinate> transformed = new LinkedList<OrthogonalCoordinate>();
+      for (OrthogonalCoordinate link : links) {
+         transformed.add(computeConnectorCoordinate(placement, link));
+      }
+      return transformed;
    }
 
    private OrthogonalCoordinate computeConnectorCoordinate(Placement placement,
@@ -97,64 +118,5 @@ public class SpaceshipFactory implements ActorFactory {
       origin.mulLocal(gridSize);
 
       return new Arrow(origin, angle, gridSize);
-   }
-
-   public Actor createActor(Arrow placement) {
-      assert (bodyFactory != null);
-      ModularActor ship = new ModularActor();
-
-      ConnectivityInspector<AssemblyVertex, RigidConnector> inspector = new ConnectivityInspector<AssemblyVertex, RigidConnector>(
-            skeleton);
-
-      // Map to associate created nodes with assembly nodes
-      Map<AssemblyVertex, BodyVertex> nodeToBodyMap = new HashMap<AssemblyVertex, BodyVertex>();
-      Map<BehaviorFactory, Vector<BodyVertex>> bodyBindings = new HashMap<BehaviorFactory, Vector<BodyVertex>>();
-
-      // Create a rigid body for each connected set
-      for (Set<AssemblyVertex> rigidSet : inspector.connectedSets()) {
-         Subgraph<AssemblyVertex, RigidConnector, AssemblyGraph> subSkeleton = new Subgraph<AssemblyVertex, RigidConnector, AssemblyGraph>(
-               skeleton, rigidSet);
-         RigidBody body = bodyFactory.createBody(placement);
-         BodyGraph bodyGraph = new BodyGraph();
-
-         // Create vertices on body graph
-         for (AssemblyVertex assemblyNode : subSkeleton.vertexSet()) {
-            BodyVertex bodyNode = new BodyVertex(assemblyNode.getPlacement());
-            nodeToBodyMap.put(assemblyNode, bodyNode);
-            bodyGraph.addVertex(bodyNode);
-
-            // Store assembled bindings in map
-            for (AssemblyBinding binding : assemblyNode.getBindings()) {
-               Vector<BodyVertex> boundVertices;
-               if (bodyBindings.containsKey(binding.getFactory())) {
-                  boundVertices = bodyBindings.get(binding.getFactory());
-               } else {
-                  boundVertices = new Vector<BodyVertex>();
-               }
-               boundVertices.setSize(binding.getIndex() + 1);
-               boundVertices.set(binding.getIndex(), bodyNode);
-               bodyBindings.put(binding.getFactory(), boundVertices);
-            }
-         }
-
-         // Create edges on body graph
-         for (RigidConnector connector : subSkeleton.edgeSet()) {
-            AssemblyVertex nodeA = subSkeleton.getEdgeSource(connector);
-            AssemblyVertex nodeB = subSkeleton.getEdgeTarget(connector);
-            bodyGraph.addEdge(nodeToBodyMap.get(nodeA),
-                              nodeToBodyMap.get(nodeB));
-         }
-
-         ship.addBody(body, bodyGraph);
-      }
-
-      // Create behaviors
-      for (Entry<BehaviorFactory, Vector<BodyVertex>> entry : bodyBindings
-            .entrySet()) {
-         Behavior behavior = entry.getKey().createBehavior(entry.getValue());
-         ship.addBehavior(behavior);
-      }
-
-      return ship;
    }
 }

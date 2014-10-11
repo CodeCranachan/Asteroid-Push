@@ -28,16 +28,46 @@ public class Box2dBody implements RigidBody {
       this.world = world;
       this.fixtureMap = new HashMap<Hull, Fixture>();
 
-      BodyDef def = new BodyDef();
+      BodyDef def = getBasicBodyDef();
       def.position.set(initial_placement.getTail());
       def.angle = initial_placement.getAngle();
+
+      body = this.world.createBody(def);
+   }
+
+   public Box2dBody(World world, BodyDef bodyDefinition) {
+      assert world != null;
+      assert bodyDefinition != null;
+      this.world = world;
+      this.fixtureMap = new HashMap<Hull, Fixture>();
+      body = this.world.createBody(bodyDefinition);
+   }
+
+   public void destroy() {
+      assert body != null;
+      fixtureMap.clear();
+      world.destroyBody(body);
+      body = null;
+   }
+
+   public RigidBody shallowClone() {
+      BodyDef def = getBasicBodyDef();
+      def.position.set(body.getPosition());
+      def.angle = body.getAngle();
+      def.angularVelocity = body.getAngularVelocity();
+      def.linearVelocity = body.getLinearVelocity();
+      return new Box2dBody(world, def);
+   }
+
+   private BodyDef getBasicBodyDef() {
+      BodyDef def = new BodyDef();
 
       def.type = BodyType.DYNAMIC;
       def.linearDamping = 0.05f;
       def.angularDamping = 0.25f;
       def.fixedRotation = false;
 
-      body = this.world.createBody(def);
+      return def;
    }
 
    public void addHull(Hull hull, InteractionHandler handler) {
@@ -48,6 +78,8 @@ public class Box2dBody implements RigidBody {
 
       Fixture fix = body.createFixture(def);
       fixtureMap.put(hull, fix);
+
+      // TODO attach interaction handler somewhere
    }
 
    public void removeHull(Hull primitive) {

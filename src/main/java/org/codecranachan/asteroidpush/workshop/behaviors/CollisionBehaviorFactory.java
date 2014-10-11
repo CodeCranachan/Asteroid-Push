@@ -9,7 +9,6 @@ import org.codecranachan.asteroidpush.simulation.Material;
 import org.codecranachan.asteroidpush.simulation.Primitive;
 import org.codecranachan.asteroidpush.simulation.modular.Behavior;
 import org.codecranachan.asteroidpush.simulation.modular.BehaviorFactory;
-import org.codecranachan.asteroidpush.simulation.modular.BodyVertex;
 import org.codecranachan.asteroidpush.utils.Arrow;
 import org.codecranachan.asteroidpush.visuals.Representation;
 import org.codecranachan.asteroidpush.visuals.behaviors.PrimitiveRepresentation;
@@ -28,10 +27,9 @@ public class CollisionBehaviorFactory implements BehaviorFactory {
       this.socket = socket;
    }
 
-   public Behavior createBehavior(List<BodyVertex> nodes) {
-      Arrow offset = nodes.get(0).getPlacement();
+   public Behavior createBehavior(Arrow offset) {
       Hull hull = new Hull(offset, shape, material);
-      return new CollisionBehavior(nodes.get(0), hull);
+      return new CollisionBehavior(hull);
    }
 
    public Collection<Representation> getRepresentations() {

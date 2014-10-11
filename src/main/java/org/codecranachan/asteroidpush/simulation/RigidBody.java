@@ -3,8 +3,32 @@ package org.codecranachan.asteroidpush.simulation;
 import org.codecranachan.asteroidpush.utils.Arrow;
 
 public interface RigidBody {
-   // When there are messages passed to the hull (collisions, damage, etc.)
-   // relay them to the given interaction handler
+   /**
+    * Removes the body from the simulation.
+    * 
+    * References to the body can be safely discarded once this has been called.
+    * If you discard body references without calling this there might be
+    * inaccessible zombie bodies left in the simulation which consume memory and
+    * performance.
+    */
+   void destroy();
+
+   /**
+    * Create a shallow clone of this body.
+    * 
+    * "Shallow" in this context means that it will not clone any objects that
+    * are attached to the Body (Hulls for instance). Shallow clones are used to
+    * split a RigidBody into two independent bodies that start with a copy of
+    * each other's state vector.
+    * 
+    * @return shallow clone of this RigidBody
+    */
+   RigidBody shallowClone();
+
+   /**
+    * TODO document usefully When there are messages passed to the hull
+    * (collisions, damage, etc.) relay them to the given interaction handler
+    */
    void addHull(Hull hull, InteractionHandler handler);
 
    void removeHull(Hull hull);

@@ -1,5 +1,7 @@
 package org.codecranachan.asteroidpush.simulation.modular;
 
+import org.codecranachan.asteroidpush.simulation.RigidBody;
+
 public class Plug {
    private Behavior behavior;
    private int index;
@@ -15,5 +17,13 @@ public class Plug {
 
    public int getIndex() {
       return index;
+   }
+  
+   public void notifyAttach(RigidBody body){
+      behavior.onAttach(body, index);
+   }
+
+   public void notifyDetach(RigidBody body){
+      behavior.onDetach(body, index);
    }
 }

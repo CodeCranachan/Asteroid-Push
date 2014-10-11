@@ -2,7 +2,6 @@ package org.codecranachan.asteroidpush.workshop.behaviors;
 
 import java.util.Collection;
 import java.util.LinkedList;
-import java.util.Vector;
 
 import org.codecranachan.asteroidpush.simulation.Hull;
 import org.codecranachan.asteroidpush.simulation.InteractionHandler;
@@ -17,19 +16,17 @@ public class CollisionBehavior implements Behavior, InteractionHandler {
       this.hull = hull;
    }
 
-   public Collection<Command> update(Vector<RigidBody> bodies, int frame) {
+   public Collection<Command> update(int frame) {
       return new LinkedList<Command>();
    }
 
-   public Collection<Command> onDetach(Vector<RigidBody> bodies, int frame) {
-      assert bodies.size() == 1;
-      bodies.firstElement().addHull(hull, this);
-      return new LinkedList<Command>();
+   public void onDetach(RigidBody body, int index) {
+      assert index == 0;
+      body.addHull(hull, this);
    }
 
-   public Collection<Command> onAttach(Vector<RigidBody> bodies, int frame) {
-      assert bodies.size() == 1;
-      bodies.firstElement().removeHull(hull);
-      return new LinkedList<Command>();
+   public void onAttach(RigidBody body, int index) {
+      assert index == 0;
+      body.removeHull(hull);
    }
 }

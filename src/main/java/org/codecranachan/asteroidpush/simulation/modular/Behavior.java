@@ -1,7 +1,6 @@
 package org.codecranachan.asteroidpush.simulation.modular;
 
 import java.util.Collection;
-import java.util.Vector;
 
 import org.codecranachan.asteroidpush.simulation.RigidBody;
 import org.codecranachan.asteroidpush.simulation.command.Command;
@@ -28,19 +27,10 @@ public interface Behavior {
     *           The current frame number of the simulation. You can use this to
     *           create timed effects.
     * 
-    * @param bodies
-    *           A vector of bodies this behavior is currently attached to. The
-    *           ordering of the vector is significant (if nothing changes, the
-    *           first body will always stay the first body). The caller
-    *           guarantees that there will be no null elements in this vector.
-    *           The contents of this vector may change between calls to update.
-    *           If it does, the onDetach and onAttach methods will be invoked
-    *           previously.
-    * 
     * @return An (unordered) collection of simulation commands, to be executed
     *         in the simulation. Must not be null.
     */
-   public Collection<Command> update(Vector<RigidBody> bodies, int frame);
+   public Collection<Command> update(int frame);
 
    /**
     * This is called whenever a behavior gets detached from a body for whatever
@@ -48,38 +38,25 @@ public interface Behavior {
     * function exits e.g. anything that belongs to the behavior and that is
     * referencing the given bodies must be cleaned up.
     * 
-    * @param frame
-    *           The current frame number of the simulation. You can use this to
-    *           create timed effects.
-    * 
-    * @param bodies
-    *           A vector of bodies that this behavior is being detached from.
-    *           The ordering of the vector is significant. A null element in
-    *           this vector means that there has been no change to the
-    *           attachment of that particular body.
-    * 
-    * @return An (unordered) collection of simulation commands, to be executed
-    *         in the simulation. Must not be null.
+    * @param body
+    *           The body this behavior is being detached from.
+    * @param index
+    *           A behavior can be attached to multiple bodies, this parameter
+    *           identifies which of the bodies is being detached.
     */
-   public Collection<Command> onDetach(Vector<RigidBody> bodies, int frame);
+   public void onDetach(RigidBody body, int index);
 
    /**
     * This is called whenever a behavior gets attached to a body for whatever
     * reason. Note that this is also called when the behavior is attached to a
     * body for the first time.
     * 
-    * @param frame
-    *           The current frame number of the simulation. You can use this to
-    *           create timed effects.
-    * 
     * @param bodies
-    *           A vector of bodies that this behavior is being attached to. The
-    *           ordering of the vector is significant. A null element in this
-    *           vector means that there has been no change to the attachment of
-    *           that particular body.
+    *           The body that this behavior is being attached to.
     * 
-    * @return An (unordered) collection of simulation commands, to be executed
-    *         in the simulation. Must not be null.
+    * @param index
+    *           A behavior can be attached to multiple bodies, this parameter
+    *           identifies which of the bodies is being attached.
     */
-   public Collection<Command> onAttach(Vector<RigidBody> bodies, int frame);
+   public void onAttach(RigidBody body, int index);
 }
