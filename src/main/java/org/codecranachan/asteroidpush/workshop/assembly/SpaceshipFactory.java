@@ -1,22 +1,14 @@
 package org.codecranachan.asteroidpush.workshop.assembly;
 
-import java.awt.List;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-import java.util.Vector;
 
 import org.codecranachan.asteroidpush.simulation.Actor;
 import org.codecranachan.asteroidpush.simulation.ActorFactory;
-import org.codecranachan.asteroidpush.simulation.RigidBody;
 import org.codecranachan.asteroidpush.simulation.RigidBodyFactory;
 import org.codecranachan.asteroidpush.simulation.modular.ActorSkeleton;
 import org.codecranachan.asteroidpush.simulation.modular.Behavior;
 import org.codecranachan.asteroidpush.simulation.modular.BehaviorFactory;
-import org.codecranachan.asteroidpush.simulation.modular.BodyGraph;
 import org.codecranachan.asteroidpush.simulation.modular.BodyVertex;
 import org.codecranachan.asteroidpush.simulation.modular.ModularActor;
 import org.codecranachan.asteroidpush.simulation.modular.Plug;
@@ -27,14 +19,11 @@ import org.codecranachan.asteroidpush.workshop.tokenboard.Board;
 import org.codecranachan.asteroidpush.workshop.tokenboard.Placement;
 import org.jbox2d.common.MathUtils;
 import org.jbox2d.common.Vec2;
-import org.jgrapht.alg.ConnectivityInspector;
-import org.jgrapht.graph.Subgraph;
 
 public class SpaceshipFactory implements ActorFactory {
    private Board blueprint;
    private RigidBodyFactory bodyFactory;
    private float gridSize;
-   private AssemblyGraph skeleton;
 
    public SpaceshipFactory(Board blueprint, float gridSize) {
       assert (blueprint != null);
@@ -48,13 +37,11 @@ public class SpaceshipFactory implements ActorFactory {
       this.bodyFactory = factory;
    }
 
-
    public Actor createActor(Arrow placement) {
       assert (bodyFactory != null);
-      ModularActor ship = new ModularActor();
-      
       ActorSkeleton skeleton = assembleSkeleton();
-
+      ModularActor ship = new ModularActor(skeleton);
+      skeleton.spawnBodies(placement, bodyFactory);
       return ship;
    }
 
