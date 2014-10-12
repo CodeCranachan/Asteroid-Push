@@ -93,7 +93,7 @@ public class RepresentationRenderer {
 
    private Vector2f getViewOffset() {
       return new Vector2f(frame.getWidth() / 2.0f + frame.getX(),
-            frame.getMaxX() - frame.getHeight() / 2.0f);
+            frame.getMaxY() - frame.getHeight() / 2.0f);
    }
 
    private float getViewportScale() {

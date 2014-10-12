@@ -1,4 +1,4 @@
-package org.codecranachan.asteroidpush.simulation.modular;
+package org.codecranachan.asteroidpush.simulation.actors.modular;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -34,7 +34,7 @@ public class BodyAssociationManager implements
       for (Set<BodyVertex> set : inspector.connectedSets()) {
          RigidBody assignedBody = findAssignedBody(set);
          if (assignedBody == null) {
-            RigidBody newBody = factory.createBody(offset);
+            RigidBody newBody = factory.createDynamicBody(offset);
             Set<RigidBody> replacedBodies = replaceBodiesInSet(newBody, set);
             assert replacedBodies.size() == 0;
          }

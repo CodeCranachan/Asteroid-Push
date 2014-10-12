@@ -12,7 +12,6 @@ import org.codecranachan.asteroidpush.utils.GeometryConverter;
 import org.jbox2d.collision.shapes.Shape;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyDef;
-import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
 import org.jbox2d.dynamics.World;
 import org.jbox2d.dynamics.Fixture;
@@ -21,19 +20,6 @@ public class Box2dBody implements RigidBody {
    private World world;
    private Body body;
    private Map<Hull, Fixture> fixtureMap;
-
-   public Box2dBody(World world, Arrow initial_placement) {
-      assert (world != null);
-      assert (initial_placement != null);
-      this.world = world;
-      this.fixtureMap = new HashMap<Hull, Fixture>();
-
-      BodyDef def = getBasicBodyDef();
-      def.position.set(initial_placement.getTail());
-      def.angle = initial_placement.getAngle();
-
-      body = this.world.createBody(def);
-   }
 
    public Box2dBody(World world, BodyDef bodyDefinition) {
       assert world != null;
@@ -51,23 +37,16 @@ public class Box2dBody implements RigidBody {
    }
 
    public RigidBody shallowClone() {
-      BodyDef def = getBasicBodyDef();
+      BodyDef def = new BodyDef();
+      def.active = body.isActive();
+      def.angularDamping = body.getAngularDamping();
+      def.linearDamping = body.getLinearDamping();
+      def.fixedRotation = body.isFixedRotation();
       def.position.set(body.getPosition());
       def.angle = body.getAngle();
       def.angularVelocity = body.getAngularVelocity();
       def.linearVelocity = body.getLinearVelocity();
       return new Box2dBody(world, def);
-   }
-
-   private BodyDef getBasicBodyDef() {
-      BodyDef def = new BodyDef();
-
-      def.type = BodyType.DYNAMIC;
-      def.linearDamping = 0.05f;
-      def.angularDamping = 0.25f;
-      def.fixedRotation = false;
-
-      return def;
    }
 
    public Arrow getPosition() {

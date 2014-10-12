@@ -10,7 +10,7 @@ public class OriginRepresentation implements Representation {
       Color color = new Color(Color.white);
       color.a = 0.5f;
       g.setColor(color);
-      g.setLineWidth(2.5f);
+      g.setLineWidth(1.25f);
       g.drawLine(-0.1f, 0.0f, 0.4f, 0.0f);
       g.drawLine(0.0f, -0.1f, 0.0f, 0.2f);
    }

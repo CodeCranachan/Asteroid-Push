@@ -53,7 +53,7 @@ public class SimulationUi extends BasicWidget {
    }
 
    private void updateRendererFocus() {
-      renderer.setFocus(new Arrow(new Vec2(0, 0), MathUtils.HALF_PI, 5));
+      renderer.setFocus(new Arrow(new Vec2(0, 0), MathUtils.HALF_PI, 100));
    }
 
    public void update(GameContainer container, StateBasedGame game, int delta) {

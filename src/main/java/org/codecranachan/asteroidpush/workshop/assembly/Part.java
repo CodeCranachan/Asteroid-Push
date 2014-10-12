@@ -3,7 +3,7 @@ package org.codecranachan.asteroidpush.workshop.assembly;
 import java.util.Collection;
 import java.util.LinkedList;
 
-import org.codecranachan.asteroidpush.simulation.modular.BehaviorFactory;
+import org.codecranachan.asteroidpush.simulation.actors.modular.BehaviorFactory;
 import org.codecranachan.asteroidpush.visuals.Representation;
 import org.codecranachan.asteroidpush.workshop.tokenboard.Placeable;
 import org.codecranachan.asteroidpush.workshop.tokenboard.Shape;

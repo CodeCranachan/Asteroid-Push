@@ -1,4 +1,4 @@
-package org.codecranachan.asteroidpush.simulation.modular;
+package org.codecranachan.asteroidpush.simulation.actors.modular;
 
 import java.util.Collection;
 import java.util.HashMap;
