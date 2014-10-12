@@ -2,6 +2,7 @@ package org.codecranachan.asteroidpush.simulation;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Stack;
 
 import org.codecranachan.asteroidpush.simulation.command.Command;
@@ -72,7 +73,10 @@ public class Simulation implements Representable {
    }
 
    public Collection<Representation> getRepresentations() {
-      // TODO implement a representation
-      return null;
+      Collection<Representation> simulationRepresentations = new LinkedList<Representation>();
+      for (Actor nextActor : actors) {
+         simulationRepresentations.addAll(nextActor.getRepresentations());
+      }
+      return simulationRepresentations;
    }
 }

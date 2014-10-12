@@ -26,8 +26,15 @@ public interface RigidBody {
    RigidBody shallowClone();
 
    /**
-    * TODO document usefully When there are messages passed to the hull
-    * (collisions, damage, etc.) relay them to the given interaction handler
+    * Fetch the current world coordinates of the simulated body.
+    */
+   Arrow getPosition();
+
+   /**
+    * TODO document this better
+    * 
+    * When there are messages passed to the hull (collisions, damage, etc.)
+    * relay them to the given interaction handler
     */
    void addHull(Hull hull, InteractionHandler handler);
 

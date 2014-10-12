@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import org.codecranachan.asteroidpush.simulation.Actor;
 import org.codecranachan.asteroidpush.simulation.command.Command;
+import org.codecranachan.asteroidpush.visuals.Representation;
 
 public class ModularActor implements Actor {
    private ActorSkeleton skeleton;
@@ -14,6 +15,10 @@ public class ModularActor implements Actor {
 
    public Collection<Command> update(int frameNumber) {
       return skeleton.update(frameNumber);
+   }
+
+   public Collection<Representation> getRepresentations() {
+      return skeleton.getRepresentations();
    }
 
    public void destroy() {

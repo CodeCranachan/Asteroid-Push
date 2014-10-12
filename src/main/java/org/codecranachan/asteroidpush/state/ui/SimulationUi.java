@@ -8,7 +8,9 @@ import org.codecranachan.asteroidpush.ResourceLoader;
 import org.codecranachan.asteroidpush.utils.Arrow;
 import org.codecranachan.asteroidpush.visuals.Representation;
 import org.codecranachan.asteroidpush.visuals.RepresentationRenderer;
+import org.codecranachan.asteroidpush.visuals.actors.OriginRepresentation;
 import org.codecranachan.asteroidpush.visuals.widget.BasicWidget;
+import org.jbox2d.common.MathUtils;
 import org.jbox2d.common.Vec2;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -41,6 +43,7 @@ public class SimulationUi extends BasicWidget {
 
       Collection<Representation> representations = new LinkedList<Representation>();
       representations.addAll(game.getRepresentations());
+      representations.add(new OriginRepresentation());
 
       updateRendererFocus();
 
@@ -50,7 +53,7 @@ public class SimulationUi extends BasicWidget {
    }
 
    private void updateRendererFocus() {
-      renderer.setFocus(new Arrow(new Vec2(0, 0), 0, 25));
+      renderer.setFocus(new Arrow(new Vec2(0, 0), MathUtils.HALF_PI, 5));
    }
 
    public void update(GameContainer container, StateBasedGame game, int delta) {

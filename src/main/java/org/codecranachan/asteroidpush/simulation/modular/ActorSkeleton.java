@@ -8,6 +8,7 @@ import java.util.Map;
 import org.codecranachan.asteroidpush.simulation.RigidBodyFactory;
 import org.codecranachan.asteroidpush.simulation.command.Command;
 import org.codecranachan.asteroidpush.utils.Arrow;
+import org.codecranachan.asteroidpush.visuals.Representation;
 import org.codecranachan.asteroidpush.workshop.OrthogonalCoordinate;
 
 public class ActorSkeleton {
@@ -42,6 +43,23 @@ public class ActorSkeleton {
          }
       }
       return commands;
+   }
+
+   /**
+    * Retrieves the representations of all behaviors attached to the skeleton.
+    * 
+    * @return A collection of representations
+    */
+   public Collection<Representation> getRepresentations() {
+      Collection<Representation> representations = new LinkedList<Representation>();
+      for (BodyVertex vertex : graph.vertexSet()) {
+         for (Plug plug : vertex.getPlugs()) {
+            if (plug.getIndex() == 0) {
+               representations.addAll(plug.getBehavior().getRepresentations());
+            }
+         }
+      }
+      return representations;
    }
 
    public void insertVertex(BodyVertex addedVertex,

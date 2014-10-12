@@ -20,6 +20,7 @@ import org.codecranachan.asteroidpush.AsteroidPush;
 import org.codecranachan.asteroidpush.ResourceLoader;
 import org.codecranachan.asteroidpush.Settings;
 import org.codecranachan.asteroidpush.state.ui.WorkshopUi;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -74,6 +75,9 @@ public class WorkshopState extends BasicGameState {
             container.getHeight());
       ui.resize(canvas);
       ui.render(graphics);
+      
+      graphics.setColor(Color.white);
+      graphics.drawString("Workshop", 10, 30);
    }
 
    public void update(GameContainer container, StateBasedGame game, int delta)

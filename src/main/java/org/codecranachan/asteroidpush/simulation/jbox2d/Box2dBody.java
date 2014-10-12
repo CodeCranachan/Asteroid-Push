@@ -70,6 +70,11 @@ public class Box2dBody implements RigidBody {
       return def;
    }
 
+   public Arrow getPosition() {
+      assert body != null;
+      return new Arrow(body.getPosition(), body.getAngle());
+   }
+
    public void addHull(Hull hull, InteractionHandler handler) {
       FixtureDef def = new FixtureDef();
       def.shape = ConvertToShape(hull);

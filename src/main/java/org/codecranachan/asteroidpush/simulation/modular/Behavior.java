@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import org.codecranachan.asteroidpush.simulation.RigidBody;
 import org.codecranachan.asteroidpush.simulation.command.Command;
+import org.codecranachan.asteroidpush.visuals.Representation;
 
 /**
  * In ModularActors, behaviors are the part of the logic that can be moved
@@ -59,4 +60,9 @@ public interface Behavior {
     *           identifies which of the bodies is being attached.
     */
    public void onAttach(RigidBody body, int index);
+
+   /**
+    * Returns the visual features of this behavior.
+    */
+   public Collection<Representation> getRepresentations();
 }
