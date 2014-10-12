@@ -1,9 +1,13 @@
 package org.codecranachan.asteroidpush;
 
+import java.util.Collection;
+import java.util.LinkedList;
+
 import org.codecranachan.asteroidpush.simulation.PhysicsEngine;
 import org.codecranachan.asteroidpush.simulation.Scenario;
 import org.codecranachan.asteroidpush.simulation.Simulation;
 import org.codecranachan.asteroidpush.simulation.Timekeeper;
+import org.codecranachan.asteroidpush.visuals.Representation;
 
 public class GameInstance {
    private Timekeeper time;
@@ -21,5 +25,9 @@ public class GameInstance {
 
    public void installScenario(Scenario scenario) {
       scenario.setUpSimulation(simulation);
+   }
+   
+   public Collection<Representation> getRepresentations() {
+      return new LinkedList<Representation>();
    }
 }

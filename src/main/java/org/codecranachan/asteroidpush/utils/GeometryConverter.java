@@ -60,8 +60,8 @@ public class GeometryConverter {
       Vec2 vertices[] = new Vec2[primitive.getVertices().size()];
       int i = 0;
       for (Vec2 vertex : primitive.getVertices()) {
-         vertices[i].set(org.jbox2d.common.Transform.mul(offset.getTransform(),
-                                                         vertex));
+         vertices[i] = org.jbox2d.common.Transform.mul(offset.getTransform(),
+                                                       vertex);
          i += 1;
       }
       PolygonShape polygon = new PolygonShape();

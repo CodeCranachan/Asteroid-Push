@@ -22,11 +22,11 @@ public class CollisionBehavior implements Behavior, InteractionHandler {
 
    public void onDetach(RigidBody body, int index) {
       assert index == 0;
-      body.addHull(hull, this);
+      body.removeHull(hull);
    }
 
    public void onAttach(RigidBody body, int index) {
       assert index == 0;
-      body.removeHull(hull);
+      body.addHull(hull, this);
    }
 }

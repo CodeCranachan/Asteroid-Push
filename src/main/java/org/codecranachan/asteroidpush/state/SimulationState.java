@@ -19,6 +19,7 @@ package org.codecranachan.asteroidpush.state;
 import org.codecranachan.asteroidpush.AsteroidPush;
 import org.codecranachan.asteroidpush.GameInstance;
 import org.codecranachan.asteroidpush.ResourceLoader;
+import org.codecranachan.asteroidpush.state.ui.SimulationUi;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -31,9 +32,10 @@ import org.newdawn.slick.state.StateBasedGame;
 public class SimulationState extends BasicGameState {
 
    private boolean exitSimulation;
+   private SimulationUi ui;
 
    public SimulationState(ResourceLoader resourceLoader) {
-      // TODO: Create user interface
+      ui = new SimulationUi(resourceLoader);
       exitSimulation = false;
    }
 
@@ -43,6 +45,8 @@ public class SimulationState extends BasicGameState {
 
    @Override
    public void enter(GameContainer container, StateBasedGame game) {
+      AsteroidPush push = (AsteroidPush) game;
+      ui.setGame(push.getActiveGame());
       exitSimulation = false;
    }
 
@@ -51,6 +55,9 @@ public class SimulationState extends BasicGameState {
                       Graphics graphics) throws SlickException {
       Rectangle canvas = new Rectangle(0.0f, 0.0f, container.getWidth(),
             container.getHeight());
+      ui.resize(canvas);
+      ui.render(graphics);
+      
       graphics.setColor(Color.white);
       graphics.drawString("Simulation", 10, 30);
    }
