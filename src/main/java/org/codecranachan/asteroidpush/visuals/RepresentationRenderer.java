@@ -39,6 +39,8 @@ public class RepresentationRenderer {
    }
 
    public void render(Graphics g) {
+      assert frame != null;
+      assert focus != null;
       g.pushTransform();
       try {
          applyViewportTransform(g);

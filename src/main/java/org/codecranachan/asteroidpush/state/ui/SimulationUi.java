@@ -38,7 +38,6 @@ public class SimulationUi extends BasicWidget {
    }
 
    public void render(Graphics g) {
-      assert getFrame() != null;
       assert game != null;
 
       Collection<Representation> representations = new LinkedList<Representation>();
