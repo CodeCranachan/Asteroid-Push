@@ -18,10 +18,10 @@ package org.codecranachan.asteroidpush.legacy.ui;
 
 import java.util.Vector;
 
+import org.codecranachan.asteroidpush.base.ui.widget.BasicWidget;
 import org.codecranachan.asteroidpush.legacy.designer.BlueprintManipulator;
 import org.codecranachan.asteroidpush.legacy.designer.catalogue.ModuleCatalogue;
 import org.codecranachan.asteroidpush.legacy.designer.data.ModuleData;
-import org.codecranachan.asteroidpush.visuals.widget.BasicWidget;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Font;
 import org.newdawn.slick.Graphics;

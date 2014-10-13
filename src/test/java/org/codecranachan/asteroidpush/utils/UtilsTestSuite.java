@@ -22,7 +22,9 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({
-      GeometryConverterTest.class, GeometryVerifierTest.class
+      GeometryConverterTest.class,
+      GeometryVerifierTest.class,
+      OrthogonalCoordinateTest.class
 })
 public class UtilsTestSuite {
 

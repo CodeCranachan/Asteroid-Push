@@ -18,10 +18,13 @@ package org.codecranachan.asteroidpush;
 
 import java.util.Stack;
 
-import org.codecranachan.asteroidpush.simulation.PhysicsEngine;
-import org.codecranachan.asteroidpush.simulation.jbox2d.Box2dEngine;
-import org.codecranachan.asteroidpush.state.GameStateFactory;
-import org.codecranachan.asteroidpush.state.StateContext;
+import org.codecranachan.asteroidpush.base.GameInstance;
+import org.codecranachan.asteroidpush.base.ResourceLoader;
+import org.codecranachan.asteroidpush.base.Settings;
+import org.codecranachan.asteroidpush.base.simulation.PhysicsEngine;
+import org.codecranachan.asteroidpush.base.simulation.jbox2d.Box2dEngine;
+import org.codecranachan.asteroidpush.base.ui.GameStateFactory;
+import org.codecranachan.asteroidpush.base.ui.StateContext;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.GameState;

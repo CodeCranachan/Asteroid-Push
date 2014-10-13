@@ -19,6 +19,7 @@ package org.codecranachan.asteroidpush;
 import static org.junit.Assert.*;
 
 import org.codecranachan.asteroidpush.AsteroidPush;
+import org.codecranachan.asteroidpush.base.ResourceLoader;
 import org.codecranachan.asteroidpush.testutils.ClassMockery;
 import org.jmock.Expectations;
 import org.junit.*;

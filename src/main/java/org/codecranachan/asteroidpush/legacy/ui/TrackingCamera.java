@@ -18,8 +18,8 @@ package org.codecranachan.asteroidpush.legacy.ui;
 
 import java.util.Collection;
 
+import org.codecranachan.asteroidpush.base.ui.widget.BasicWidget;
 import org.codecranachan.asteroidpush.legacy.Simulator;
-import org.codecranachan.asteroidpush.visuals.widget.BasicWidget;
 import org.jbox2d.common.Vec2;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;

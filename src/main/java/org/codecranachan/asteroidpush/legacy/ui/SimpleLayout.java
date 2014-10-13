@@ -19,8 +19,8 @@ package org.codecranachan.asteroidpush.legacy.ui;
 import java.util.Collection;
 import java.util.HashMap;
 
-import org.codecranachan.asteroidpush.visuals.widget.BasicWidget;
-import org.codecranachan.asteroidpush.visuals.widget.Widget;
+import org.codecranachan.asteroidpush.base.ui.widget.BasicWidget;
+import org.codecranachan.asteroidpush.base.ui.widget.Widget;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
 

@@ -16,6 +16,7 @@
 
 package org.codecranachan.asteroidpush;
 
+import org.codecranachan.asteroidpush.base.ResourceLoader;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.SlickException;
 

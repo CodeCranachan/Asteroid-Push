@@ -16,13 +16,12 @@
 
 package org.codecranachan.asteroidpush.legacy.ui;
 
-import org.codecranachan.asteroidpush.ResourceLoader;
+import org.codecranachan.asteroidpush.base.ResourceLoader;
+import org.codecranachan.asteroidpush.base.ui.widget.Widget;
+import org.codecranachan.asteroidpush.base.ui.workshop.WorkshopUiLayout;
 import org.codecranachan.asteroidpush.legacy.Player;
 import org.codecranachan.asteroidpush.legacy.designer.BlueprintManipulator;
 import org.codecranachan.asteroidpush.legacy.designer.catalogue.ModuleCatalogue;
-import org.codecranachan.asteroidpush.state.ui.ManipulatorWidget;
-import org.codecranachan.asteroidpush.state.ui.WorkshopUiLayout;
-import org.codecranachan.asteroidpush.visuals.widget.Widget;
 import org.newdawn.slick.Font;
 
 public class DesignerUiFactory {

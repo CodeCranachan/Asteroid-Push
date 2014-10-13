@@ -16,9 +16,9 @@
 
 package org.codecranachan.asteroidpush.legacy.ui;
 
+import org.codecranachan.asteroidpush.base.ui.widget.Widget;
 import org.codecranachan.asteroidpush.legacy.ui.SimpleLayout;
 import org.codecranachan.asteroidpush.testutils.ClassMockery;
-import org.codecranachan.asteroidpush.visuals.widget.Widget;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.junit.Before;

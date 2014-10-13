@@ -18,9 +18,8 @@ package org.codecranachan.asteroidpush.utils;
 
 import java.util.ArrayList;
 
-import org.codecranachan.asteroidpush.simulation.Primitive;
-import org.codecranachan.asteroidpush.workshop.OrthogonalCoordinate;
-import org.codecranachan.asteroidpush.workshop.tokenboard.Placement;
+import org.codecranachan.asteroidpush.base.simulation.Primitive;
+import org.codecranachan.asteroidpush.base.workshop.tokenboard.Placement;
 import org.jbox2d.collision.shapes.CircleShape;
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.MathUtils;

@@ -16,11 +16,11 @@
 
 package org.codecranachan.asteroidpush.legacy.ui;
 
-import org.codecranachan.asteroidpush.ResourceLoader;
+import org.codecranachan.asteroidpush.base.ResourceLoader;
+import org.codecranachan.asteroidpush.base.ui.widget.Label;
+import org.codecranachan.asteroidpush.base.ui.widget.Widget;
 import org.codecranachan.asteroidpush.legacy.Player;
 import org.codecranachan.asteroidpush.legacy.Simulator;
-import org.codecranachan.asteroidpush.visuals.widget.Label;
-import org.codecranachan.asteroidpush.visuals.widget.Widget;
 import org.newdawn.slick.Font;
 
 public class MatchUiFactory {
