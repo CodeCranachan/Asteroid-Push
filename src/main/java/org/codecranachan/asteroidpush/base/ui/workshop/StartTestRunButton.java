@@ -17,7 +17,7 @@ public class StartTestRunButton extends BasicWidget {
    private Font font;
    private WorkshopCoordinator coordinator;
    private boolean doTestRun;
-   
+
    static private String RUN_TEST_TEXT = "Test Run";
    static private String NO_SHIP_TEXT = "No Ship";
    static private String ERROR_TEXT = "StartTestRunButton: No coordinator set";
@@ -60,7 +60,7 @@ public class StartTestRunButton extends BasicWidget {
          doTestRun = false;
          Blueprint prototype = coordinator.getManipulatedBlueprint();
          AsteroidPush push = (AsteroidPush) game;
-         push.pushContext(new TestRunContext(prototype));
+         push.pushContext(new TestRunContext(push.getLocalPlayer(), prototype));
       }
    }
 
@@ -68,7 +68,8 @@ public class StartTestRunButton extends BasicWidget {
       if (coordinator == null) {
          return;
       }
-      if (button == Input.MOUSE_LEFT_BUTTON && coordinator.getManipulatedBlueprint() != null) {
+      if (button == Input.MOUSE_LEFT_BUTTON
+            && coordinator.getManipulatedBlueprint() != null) {
          doTestRun = true;
       }
    }

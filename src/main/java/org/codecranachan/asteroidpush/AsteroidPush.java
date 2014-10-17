@@ -21,6 +21,7 @@ import java.util.Stack;
 import org.codecranachan.asteroidpush.base.GameInstance;
 import org.codecranachan.asteroidpush.base.ResourceLoader;
 import org.codecranachan.asteroidpush.base.Settings;
+import org.codecranachan.asteroidpush.base.scenario.Player;
 import org.codecranachan.asteroidpush.base.simulation.PhysicsEngine;
 import org.codecranachan.asteroidpush.base.simulation.jbox2d.Box2dEngine;
 import org.codecranachan.asteroidpush.base.ui.GameStateFactory;
@@ -35,6 +36,11 @@ public class AsteroidPush extends StateBasedGame {
    private GameInstance activeGame;
    private Settings settings;
    private Stack<StateContext> contextStack;
+   private Player localPlayer;
+
+   public Player getLocalPlayer() {
+      return localPlayer;
+   }
 
    public AsteroidPush(ResourceLoader resourceLoader) {
       super("Asteroid Push");
@@ -42,6 +48,7 @@ public class AsteroidPush extends StateBasedGame {
       this.resourceLoader = resourceLoader;
       // TODO Load settings from file
       this.settings = new Settings();
+      this.localPlayer = new Player();
       this.activeGame = null;
    }
 

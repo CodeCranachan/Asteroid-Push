@@ -20,7 +20,7 @@ import org.codecranachan.asteroidpush.AsteroidPush;
 import org.codecranachan.asteroidpush.base.GameInstance;
 import org.codecranachan.asteroidpush.base.ResourceLoader;
 import org.codecranachan.asteroidpush.base.ui.StateId;
-import org.codecranachan.asteroidpush.base.ui.simulation.SimulationUi;
+import org.codecranachan.asteroidpush.base.ui.widget.Widget;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -33,10 +33,9 @@ import org.newdawn.slick.state.StateBasedGame;
 public class SimulationState extends BasicGameState {
 
    private boolean exitSimulation;
-   private SimulationUi ui;
+   private GameInstance gameInstance;
 
    public SimulationState(ResourceLoader resourceLoader) {
-      ui = new SimulationUi(resourceLoader);
       exitSimulation = false;
    }
 
@@ -47,18 +46,22 @@ public class SimulationState extends BasicGameState {
    @Override
    public void enter(GameContainer container, StateBasedGame game) {
       AsteroidPush push = (AsteroidPush) game;
-      ui.setGame(push.getActiveGame());
+      gameInstance = push.getActiveGame();
       exitSimulation = false;
    }
 
    public void render(GameContainer container,
                       StateBasedGame game,
                       Graphics graphics) throws SlickException {
+      assert gameInstance != null;
+      AsteroidPush push = (AsteroidPush) game;
+      Widget ui = gameInstance.getUi(push.getLocalPlayer());
+
       Rectangle canvas = new Rectangle(0.0f, 0.0f, container.getWidth(),
             container.getHeight());
       ui.resize(canvas);
       ui.render(graphics);
-      
+
       graphics.setColor(Color.white);
       graphics.drawString("Simulation", 10, 30);
    }
@@ -66,12 +69,15 @@ public class SimulationState extends BasicGameState {
    public void update(GameContainer container,
                       StateBasedGame game,
                       int milliseconds) throws SlickException {
-      AsteroidPush push = (AsteroidPush) game;
-      GameInstance gameInstance = push.getActiveGame();
+      assert gameInstance != null;
 
       if (gameInstance != null) {
          gameInstance.addRealTime(milliseconds);
       }
+
+      AsteroidPush push = (AsteroidPush) game;
+      Widget ui = gameInstance.getUi(push.getLocalPlayer());
+      ui.update(container, game, milliseconds);
 
       if (exitSimulation) {
          push.popContext();
@@ -94,4 +100,5 @@ public class SimulationState extends BasicGameState {
    public void keyReleased(int key, char c) {
    }
 
+   // TODO forward events to ui
 }

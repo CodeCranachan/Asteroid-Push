@@ -2,7 +2,8 @@ package org.codecranachan.asteroidpush.base.ui.context;
 
 import org.codecranachan.asteroidpush.AsteroidPush;
 import org.codecranachan.asteroidpush.base.GameInstance;
-import org.codecranachan.asteroidpush.base.simulation.TestRunScenario;
+import org.codecranachan.asteroidpush.base.scenario.Player;
+import org.codecranachan.asteroidpush.base.scenario.TestRunScenario;
 import org.codecranachan.asteroidpush.base.ui.StateContext;
 import org.codecranachan.asteroidpush.base.ui.StateId;
 import org.codecranachan.asteroidpush.base.workshop.Blueprint;
@@ -15,8 +16,8 @@ public class TestRunContext implements StateContext {
    private TestRunScenario scenario;
    private GameInstance previousGame;
 
-   public TestRunContext(Blueprint prototype) {
-      scenario = new TestRunScenario(prototype);
+   public TestRunContext(Player testPilot, Blueprint prototype) {
+      scenario = new TestRunScenario(testPilot, prototype);
    }
 
    public void enterContext(AsteroidPush game) {

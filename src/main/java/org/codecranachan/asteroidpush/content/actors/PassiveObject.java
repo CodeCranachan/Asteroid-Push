@@ -23,6 +23,7 @@ import org.codecranachan.asteroidpush.base.simulation.Actor;
 import org.codecranachan.asteroidpush.base.simulation.RigidBody;
 import org.codecranachan.asteroidpush.base.simulation.command.Command;
 import org.codecranachan.asteroidpush.base.visuals.Representation;
+import org.codecranachan.asteroidpush.utils.Arrow;
 
 public class PassiveObject implements Actor {
    private RigidBody body;
@@ -48,5 +49,8 @@ public class PassiveObject implements Actor {
       representations.add(representation);
       return representations;
    }
-
+   
+   public Arrow getFocus() {
+      return body.getPosition();
+   }
 }

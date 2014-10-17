@@ -2,9 +2,12 @@ package org.codecranachan.asteroidpush.base.workshop.actor;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.Set;
 
+import org.codecranachan.asteroidpush.base.simulation.RigidBody;
 import org.codecranachan.asteroidpush.base.simulation.RigidBodyFactory;
 import org.codecranachan.asteroidpush.base.simulation.command.Command;
 import org.codecranachan.asteroidpush.base.visuals.Representation;
@@ -82,6 +85,15 @@ public class ActorSkeleton {
 
    public void spawnBodies(Arrow offset, RigidBodyFactory factory) {
       bodyManager.spawnMissingBodies(offset, factory);
+   }
+   
+   
+   public Set<RigidBody> getBodies() {
+      Set<RigidBody> bodies = new HashSet<RigidBody>();
+      for (BodyVertex vertex : graph.vertexSet()) {
+         bodies.add(vertex.getBody());
+      } 
+      return bodies;
    }
 
 }
