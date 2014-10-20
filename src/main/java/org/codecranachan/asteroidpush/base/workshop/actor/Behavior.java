@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import org.codecranachan.asteroidpush.base.simulation.RigidBody;
 import org.codecranachan.asteroidpush.base.simulation.command.Command;
+import org.codecranachan.asteroidpush.base.visuals.Representable;
 import org.codecranachan.asteroidpush.base.visuals.Representation;
 
 /**
@@ -19,7 +20,7 @@ import org.codecranachan.asteroidpush.base.visuals.Representation;
  * more BodyVertices on the ModularActor's BodyGraph to track which RigidBodies
  * they are currently attached to.
  */
-public interface Behavior {
+public interface Behavior extends Representable {
    /**
     * This is (must be) called every update tick of this behavior's parent
     * actor.
