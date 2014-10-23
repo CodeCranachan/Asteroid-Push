@@ -4,7 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class Slick2dController {
+import org.codecranachan.asteroidpush.base.input.Controller;
+
+public class Slick2dController implements Controller {
    private Slick2dInputMapper bindings;
    private Map<String, TreeMap<Integer, Float>> streams;
    private int nextFrame;
@@ -19,8 +21,21 @@ public class Slick2dController {
       this.nextFrame = frame;
    }
 
-   public void inputKey(int key, float magnitude) {
+   /**
+    * Update the state for a key driven command stream.
+    * 
+    * @param key
+    *           integer code for the key that changed state
+    * @param magnitude
+    *           the new floating point value for the key
+    * @return true if the key is actually bound to a command, false if it is not
+    *         bound to a command
+    */
+   public boolean inputKey(int key, float magnitude) {
       String command = bindings.mapKey(key);
+      if (command == Slick2dInputMapper.NOT_BOUND) {
+         return false;
+      }
 
       TreeMap<Integer, Float> stream;
       if (streams.containsKey(command)) {
@@ -30,6 +45,7 @@ public class Slick2dController {
          streams.put(command, stream);
       }
       stream.put(nextFrame, magnitude);
+      return true;
    }
 
    public float getControl(String command, int frame) {

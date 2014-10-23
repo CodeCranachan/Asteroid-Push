@@ -21,6 +21,8 @@ import java.util.Stack;
 import org.codecranachan.asteroidpush.base.GameInstance;
 import org.codecranachan.asteroidpush.base.ResourceLoader;
 import org.codecranachan.asteroidpush.base.Settings;
+import org.codecranachan.asteroidpush.base.input.slick2d.Slick2dController;
+import org.codecranachan.asteroidpush.base.input.slick2d.Slick2dInputMapper;
 import org.codecranachan.asteroidpush.base.scenario.Player;
 import org.codecranachan.asteroidpush.base.simulation.PhysicsEngine;
 import org.codecranachan.asteroidpush.base.simulation.jbox2d.Box2dEngine;
@@ -48,7 +50,7 @@ public class AsteroidPush extends StateBasedGame {
       this.resourceLoader = resourceLoader;
       // TODO Load settings from file
       this.settings = new Settings();
-      this.localPlayer = new Player();
+      this.localPlayer = new Player(new Slick2dController(new Slick2dInputMapper()));
       this.activeGame = null;
    }
 

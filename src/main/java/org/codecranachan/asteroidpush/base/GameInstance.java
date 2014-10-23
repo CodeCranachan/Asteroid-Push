@@ -24,9 +24,9 @@ public class GameInstance {
    }
 
    public void addRealTime(int milliseconds) {
+      referee.update(simulation, time.getGameTime());
       time.addRealTime(milliseconds);
       simulation.stepToFrame(time.getGameTime());
-      referee.update(simulation, time.getGameTime());
    }
 
    public void installScenario(Scenario scenario) {

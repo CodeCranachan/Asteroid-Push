@@ -42,8 +42,13 @@ public class Referee {
    }
 
    public void update(Simulation simulation, int frame) {
+      for (Role role : participants.values()) {
+         role.getInterface().setNextControllerFrame(frame + 1);
+      }
       for (Rule item : rules) {
          item.update(simulation, frame);
       }
    }
+   
+   
 }

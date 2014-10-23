@@ -16,9 +16,13 @@
 
 package org.codecranachan.asteroidpush.base.ui.states;
 
+import java.util.Collection;
+import java.util.Vector;
+
 import org.codecranachan.asteroidpush.AsteroidPush;
 import org.codecranachan.asteroidpush.base.GameInstance;
 import org.codecranachan.asteroidpush.base.ResourceLoader;
+import org.codecranachan.asteroidpush.base.scenario.Player;
 import org.codecranachan.asteroidpush.base.ui.StateId;
 import org.codecranachan.asteroidpush.base.ui.widget.Widget;
 import org.newdawn.slick.Color;
@@ -33,10 +37,11 @@ import org.newdawn.slick.state.StateBasedGame;
 public class SimulationState extends BasicGameState {
 
    private boolean exitSimulation;
-   private GameInstance gameInstance;
+   private Collection<Widget> controlConsumers;
 
    public SimulationState(ResourceLoader resourceLoader) {
       exitSimulation = false;
+      controlConsumers = new Vector<Widget>();
    }
 
    public void init(GameContainer container, StateBasedGame game)
@@ -45,22 +50,24 @@ public class SimulationState extends BasicGameState {
 
    @Override
    public void enter(GameContainer container, StateBasedGame game) {
-      AsteroidPush push = (AsteroidPush) game;
-      gameInstance = push.getActiveGame();
       exitSimulation = false;
    }
 
    public void render(GameContainer container,
                       StateBasedGame game,
                       Graphics graphics) throws SlickException {
-      assert gameInstance != null;
       AsteroidPush push = (AsteroidPush) game;
-      Widget ui = gameInstance.getUi(push.getLocalPlayer());
+      GameInstance activeGame = push.getActiveGame();
+      if (activeGame == null) {
+         return;
+      }
+      Player localPlayer = push.getLocalPlayer();
+      Widget localUi = activeGame.getUi(localPlayer);
 
       Rectangle canvas = new Rectangle(0.0f, 0.0f, container.getWidth(),
             container.getHeight());
-      ui.resize(canvas);
-      ui.render(graphics);
+      localUi.resize(canvas);
+      localUi.render(graphics);
 
       graphics.setColor(Color.white);
       graphics.drawString("Simulation", 10, 30);
@@ -69,15 +76,20 @@ public class SimulationState extends BasicGameState {
    public void update(GameContainer container,
                       StateBasedGame game,
                       int milliseconds) throws SlickException {
-      assert gameInstance != null;
-
-      if (gameInstance != null) {
-         gameInstance.addRealTime(milliseconds);
-      }
-
       AsteroidPush push = (AsteroidPush) game;
-      Widget ui = gameInstance.getUi(push.getLocalPlayer());
-      ui.update(container, game, milliseconds);
+      GameInstance activeGame = push.getActiveGame();
+      Player localPlayer = push.getLocalPlayer();
+      Widget localUi = activeGame.getUi(localPlayer);
+
+      assert activeGame != null;
+      assert localPlayer != null;
+      assert localUi != null;
+
+      activeGame.addRealTime(milliseconds);
+      localUi.update(container, game, milliseconds);
+
+      controlConsumers.clear();
+      controlConsumers.add(localUi);
 
       if (exitSimulation) {
          push.popContext();
@@ -94,11 +106,17 @@ public class SimulationState extends BasicGameState {
       if (Input.KEY_ESCAPE == key) {
          exitSimulation = true;
       }
+
+      for (Widget consumer : controlConsumers) {
+         consumer.keyPressed(key, c);
+      }
    }
 
    @Override
    public void keyReleased(int key, char c) {
+      for (Widget consumer : controlConsumers) {
+         consumer.keyReleased(key, c);
+      }
    }
 
-   // TODO forward events to ui
 }

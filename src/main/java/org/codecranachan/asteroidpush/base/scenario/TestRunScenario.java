@@ -29,10 +29,12 @@ public class TestRunScenario implements Scenario {
       borderFactory.setBodyFactory(bodyFactory);
       Actor border = borderFactory.createActor(new Arrow());
       simulation.addActor(border);
-      
+
       // Add rules and roles
       ShipPrototypeRule rule = new ShipPrototypeRule(prototype);
       referee.addRule(rule);
-      referee.addParticipant(testPilot, new TestPilotRole(rule));
+      referee
+            .addParticipant(testPilot,
+                            new TestPilotRole(rule, testPilot.getController()));
    }
 }

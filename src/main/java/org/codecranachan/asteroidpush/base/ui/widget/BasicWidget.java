@@ -73,4 +73,9 @@ public class BasicWidget implements Widget {
    public void update(GameContainer container, StateBasedGame game, int delta) {
    }
 
+   public void keyPressed(int key, char c) {
+   }
+   
+   public void keyReleased(int key, char c) {
+   }
 }

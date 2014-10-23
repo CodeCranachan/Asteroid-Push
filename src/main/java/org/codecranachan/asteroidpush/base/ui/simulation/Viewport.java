@@ -7,4 +7,5 @@ import org.codecranachan.asteroidpush.base.visuals.Representation;
 
 public interface Viewport extends Widget {
    void setRepresentations(Collection<Representation> representations);
+   void setNextControllerFrame(int frame);
 }
