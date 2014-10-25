@@ -7,6 +7,8 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.Set;
 
+import org.codecranachan.asteroidpush.base.input.Controllable;
+import org.codecranachan.asteroidpush.base.input.Controller;
 import org.codecranachan.asteroidpush.base.simulation.RigidBody;
 import org.codecranachan.asteroidpush.base.simulation.RigidBodyFactory;
 import org.codecranachan.asteroidpush.base.simulation.command.Command;
@@ -14,7 +16,7 @@ import org.codecranachan.asteroidpush.base.visuals.Representation;
 import org.codecranachan.asteroidpush.utils.Arrow;
 import org.codecranachan.asteroidpush.utils.OrthogonalCoordinate;
 
-public class ActorSkeleton {
+public class ActorSkeleton implements Controllable {
    private BodyGraph graph;
    private Map<OrthogonalCoordinate, BodyVertex> mesh;
    private BodyAssociationManager bodyManager;
@@ -86,14 +88,20 @@ public class ActorSkeleton {
    public void spawnBodies(Arrow offset, RigidBodyFactory factory) {
       bodyManager.spawnMissingBodies(offset, factory);
    }
-   
-   
+
    public Set<RigidBody> getBodies() {
       Set<RigidBody> bodies = new HashSet<RigidBody>();
       for (BodyVertex vertex : graph.vertexSet()) {
          bodies.add(vertex.getBody());
-      } 
+      }
       return bodies;
    }
 
+   public void setController(Controller controller) {
+      for (BodyVertex vertex : graph.vertexSet()) {
+         for (Plug plug : vertex.getPlugs()) {
+            plug.getBehavior().setController(controller, plug.getIndex());
+         }
+      }
+   }
 }

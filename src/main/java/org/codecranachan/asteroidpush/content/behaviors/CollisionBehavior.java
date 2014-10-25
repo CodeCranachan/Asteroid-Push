@@ -3,6 +3,7 @@ package org.codecranachan.asteroidpush.content.behaviors;
 import java.util.Collection;
 import java.util.LinkedList;
 
+import org.codecranachan.asteroidpush.base.input.Controller;
 import org.codecranachan.asteroidpush.base.simulation.Hull;
 import org.codecranachan.asteroidpush.base.simulation.InteractionHandler;
 import org.codecranachan.asteroidpush.base.simulation.RigidBody;
@@ -51,4 +52,9 @@ public class CollisionBehavior implements Behavior, InteractionHandler {
       }
       return representations;
    }
+
+   public void setController(Controller controller, int index) {
+      // nothing to do
+   }
+   
 }

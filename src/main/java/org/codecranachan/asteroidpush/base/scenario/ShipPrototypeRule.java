@@ -1,5 +1,6 @@
 package org.codecranachan.asteroidpush.base.scenario;
 
+import org.codecranachan.asteroidpush.base.input.Controller;
 import org.codecranachan.asteroidpush.base.simulation.Actor;
 import org.codecranachan.asteroidpush.base.simulation.ActorFactory;
 import org.codecranachan.asteroidpush.base.simulation.Simulation;
@@ -12,10 +13,12 @@ import org.jbox2d.common.Vec2;
 public class ShipPrototypeRule implements Rule {
    private ActorFactory prototypeFactory;
    private Actor prototype;
+   private Controller controller;
 
-   public ShipPrototypeRule(Blueprint blueprint) {
+   public ShipPrototypeRule(Blueprint blueprint, Controller controller) {
       this.prototypeFactory = new SpaceshipFactory(blueprint.getPlan(), 1.0f);
       this.prototype = null;
+      this.controller = controller;
    }
 
    Arrow getFocus() {
@@ -30,6 +33,7 @@ public class ShipPrototypeRule implements Rule {
       if (prototype == null) {
          prototypeFactory.setBodyFactory(simulation.getBodyFactory());
          prototype = prototypeFactory.createActor(getSpawnLocation());
+         prototype.setController(controller);
          simulation.addActor(prototype);
       }
    }

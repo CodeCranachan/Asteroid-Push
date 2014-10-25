@@ -3,6 +3,7 @@ package org.codecranachan.asteroidpush.base.workshop.actor;
 import java.util.Collection;
 import java.util.Set;
 
+import org.codecranachan.asteroidpush.base.input.Controller;
 import org.codecranachan.asteroidpush.base.simulation.Actor;
 import org.codecranachan.asteroidpush.base.simulation.RigidBody;
 import org.codecranachan.asteroidpush.base.simulation.command.Command;
@@ -37,6 +38,10 @@ public class ModularActor implements Actor {
 
    public void destroy() {
       // TODO Detach all behaviors from their bodies and destroy bodies
+   }
+
+   public void setController(Controller controller) {
+      skeleton.setController(controller);
    }
 
 }

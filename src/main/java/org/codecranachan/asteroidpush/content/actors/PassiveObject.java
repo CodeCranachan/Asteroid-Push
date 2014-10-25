@@ -19,6 +19,7 @@ package org.codecranachan.asteroidpush.content.actors;
 import java.util.Collection;
 import java.util.LinkedList;
 
+import org.codecranachan.asteroidpush.base.input.Controller;
 import org.codecranachan.asteroidpush.base.simulation.Actor;
 import org.codecranachan.asteroidpush.base.simulation.RigidBody;
 import org.codecranachan.asteroidpush.base.simulation.command.Command;
@@ -52,5 +53,9 @@ public class PassiveObject implements Actor {
    
    public Arrow getFocus() {
       return body.getPosition();
+   }
+
+   public void setController(Controller controller) {
+      // nothing to do
    }
 }

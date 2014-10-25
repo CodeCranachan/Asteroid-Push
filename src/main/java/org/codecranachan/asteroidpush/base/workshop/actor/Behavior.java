@@ -2,6 +2,7 @@ package org.codecranachan.asteroidpush.base.workshop.actor;
 
 import java.util.Collection;
 
+import org.codecranachan.asteroidpush.base.input.Controller;
 import org.codecranachan.asteroidpush.base.simulation.RigidBody;
 import org.codecranachan.asteroidpush.base.simulation.command.Command;
 import org.codecranachan.asteroidpush.base.visuals.Representable;
@@ -66,4 +67,15 @@ public interface Behavior extends Representable {
     * Returns the visual features of this behavior.
     */
    public Collection<Representation> getRepresentations();
+
+   /**
+    * Sets the controller(s) for this behavior. Since a behavior can be attached
+    * to multiple bodies, the behavior gets one controller for each of them.
+    * 
+    * @param controller
+    *           the controller that is being attached
+    * @param index
+    *           the body index the controller is being attached to
+    */
+   public void setController(Controller controller, int index);
 }

@@ -4,16 +4,17 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.codecranachan.asteroidpush.base.input.ControlItem;
 import org.codecranachan.asteroidpush.base.input.Controller;
 
 public class Slick2dController implements Controller {
    private Slick2dInputMapper bindings;
-   private Map<String, TreeMap<Integer, Float>> streams;
+   private Map<ControlItem, TreeMap<Integer, Float>> streams;
    private int nextFrame;
 
    public Slick2dController(Slick2dInputMapper bindings) {
       this.bindings = bindings;
-      this.streams = new HashMap<String, TreeMap<Integer, Float>>();
+      this.streams = new HashMap<ControlItem, TreeMap<Integer, Float>>();
       this.nextFrame = 0;
    }
 
@@ -32,8 +33,8 @@ public class Slick2dController implements Controller {
     *         bound to a command
     */
    public boolean inputKey(int key, float magnitude) {
-      String command = bindings.mapKey(key);
-      if (command == Slick2dInputMapper.NOT_BOUND) {
+      ControlItem command = bindings.mapKey(key);
+      if (command == ControlItem.NOT_BOUND) {
          return false;
       }
 
@@ -48,7 +49,7 @@ public class Slick2dController implements Controller {
       return true;
    }
 
-   public float getControl(String command, int frame) {
+   public float getControl(ControlItem command, int frame) {
       if (streams.containsKey(command)) {
          TreeMap<Integer, Float> stream = streams.get(command);
          return stream.floorEntry(frame).getValue();
