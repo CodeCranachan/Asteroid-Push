@@ -63,4 +63,8 @@ public class Slick2dController implements Controller {
       stream.put(0, 0.0f);
       return stream;
    }
+
+   public void clearStreams() {
+      streams.clear();
+   }
 }

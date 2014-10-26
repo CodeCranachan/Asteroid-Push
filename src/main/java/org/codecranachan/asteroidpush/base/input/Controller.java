@@ -4,4 +4,6 @@ public interface Controller {
    void setNextFrame(int frame);
 
    float getControl(ControlItem command, int frame);
+
+   void clearStreams();
 }

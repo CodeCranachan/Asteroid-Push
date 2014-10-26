@@ -31,6 +31,7 @@ public class TestRunScenario implements Scenario {
       simulation.addActor(border);
 
       // Add rules and roles
+      testPilot.getController().clearStreams();
       ShipPrototypeRule rule = new ShipPrototypeRule(prototype,
             testPilot.getController());
       referee.addRule(rule);
