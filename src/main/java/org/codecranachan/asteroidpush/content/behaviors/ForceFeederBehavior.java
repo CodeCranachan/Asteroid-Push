@@ -10,6 +10,7 @@ import org.codecranachan.asteroidpush.base.simulation.RigidBody;
 import org.codecranachan.asteroidpush.base.simulation.command.Command;
 import org.codecranachan.asteroidpush.base.visuals.Representation;
 import org.codecranachan.asteroidpush.base.workshop.actor.Behavior;
+import org.codecranachan.asteroidpush.content.visuals.ExhaustRepresentation;
 import org.codecranachan.asteroidpush.utils.Arrow;
 
 public class ForceFeederBehavior implements Behavior, InteractionHandler {
@@ -17,25 +18,31 @@ public class ForceFeederBehavior implements Behavior, InteractionHandler {
    private RigidBody currentBody;
    private Controller controller;
 
+   private boolean isActive;
+
    public ForceFeederBehavior(Arrow force) {
       this.force = force;
       this.currentBody = null;
+      this.isActive = false;
    }
 
    public Collection<Command> update(int frame) {
       if (controller != null && currentBody != null) {
-         float factor = controller
-               .getControl(ControlItem.FORWARD_THRUST, frame);
+         float factor = controlMagnitude(frame);
          currentBody.applyForce(calculateForce().applyScale(factor));
+         isActive = (factor > 0.0f);
       }
 
       return new LinkedList<Command>();
    }
 
+   private float controlMagnitude(int frame) {
+      return controller.getControl(ControlItem.FORWARD_THRUST, frame);
+   }
+
    private Arrow calculateForce() {
-      Arrow body = currentBody.getPosition();
-      return new Arrow(force.getTail().add(body.getTail()), force.getAngle()
-            + body.getAngle(), force.getMagnitude());
+      Arrow bodyPosition = currentBody.getPosition();
+      return force.applyTransform(bodyPosition.getTransform());
    }
 
    public void onDetach(RigidBody body, int index) {
@@ -51,8 +58,11 @@ public class ForceFeederBehavior implements Behavior, InteractionHandler {
    }
 
    public Collection<Representation> getRepresentations() {
-      Collection<Representation> representations = new LinkedList<Representation>();
-      return representations;
+      Collection<Representation> reps = new LinkedList<Representation>();
+      if (currentBody != null && isActive) {
+         reps.add(new ExhaustRepresentation(calculateForce()));
+      }
+      return reps;
    }
 
    public void setController(Controller controller, int index) {

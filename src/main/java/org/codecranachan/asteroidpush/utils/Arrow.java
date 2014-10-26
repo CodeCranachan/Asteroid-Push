@@ -71,6 +71,10 @@ public class Arrow {
       return new Arrow(resultPosition, resultAngle, magnitude);
    }
 
+   public Arrow applyTransform(Arrow arrow) {
+      return applyTransform(arrow.getTransform());
+   }
+
    public Arrow applyScale(float scale) {
       return new Arrow(origin.mul(scale), angle, magnitude * scale);
    }

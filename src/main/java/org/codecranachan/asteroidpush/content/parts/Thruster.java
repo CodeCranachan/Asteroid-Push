@@ -9,7 +9,6 @@ import org.codecranachan.asteroidpush.base.workshop.tokenboard.Shape;
 import org.codecranachan.asteroidpush.content.behaviors.CollisionBehaviorFactory;
 import org.codecranachan.asteroidpush.content.behaviors.ForceFeederFactory;
 import org.codecranachan.asteroidpush.utils.Arrow;
-import org.jbox2d.common.MathUtils;
 import org.jbox2d.common.Vec2;
 
 public class Thruster implements PartFactory {

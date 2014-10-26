@@ -31,7 +31,7 @@ public class ModularActor implements Actor {
       Arrow focus = new Arrow();
       for (RigidBody body : bodies) {
          focus = new Arrow(body.getPosition().getTail(), MathUtils.HALF_PI,
-               25.0f);
+               15.0f);
       }
       return focus;
    }
