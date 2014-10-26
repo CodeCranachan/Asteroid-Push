@@ -6,6 +6,7 @@ import java.util.Set;
 import org.codecranachan.asteroidpush.base.simulation.RigidBody;
 import org.codecranachan.asteroidpush.base.simulation.RigidBodyFactory;
 import org.codecranachan.asteroidpush.utils.Arrow;
+import org.codecranachan.asteroidpush.utils.Velocity;
 import org.jgrapht.alg.ConnectivityInspector;
 import org.jgrapht.event.GraphEdgeChangeEvent;
 import org.jgrapht.event.GraphListener;
@@ -28,13 +29,15 @@ public class BodyAssociationManager implements
     * @param factory
     *           The RigidBodyFactory to use for spawning new bodies.
     */
-   public void spawnMissingBodies(Arrow offset, RigidBodyFactory factory) {
+   public void spawnMissingBodies(Arrow offset,
+                                  Velocity velocity,
+                                  RigidBodyFactory factory) {
       ConnectivityInspector<BodyVertex, BodyEdge> inspector = new ConnectivityInspector<BodyVertex, BodyEdge>(
             graph);
       for (Set<BodyVertex> set : inspector.connectedSets()) {
          RigidBody assignedBody = findAssignedBody(set);
          if (assignedBody == null) {
-            RigidBody newBody = factory.createDynamicBody(offset);
+            RigidBody newBody = factory.createDynamicBody(offset, velocity);
             Set<RigidBody> replacedBodies = replaceBodiesInSet(newBody, set);
             assert replacedBodies.size() == 0;
          }

@@ -32,8 +32,9 @@ public class ArrowRepresentation implements Representation {
                 Trigonometry.radToDeg(arc_start),
                 Trigonometry.radToDeg(arc_end));
 
-      float tip_x = MathUtils.sqrt(2 * radius * radius) * 1.5f;
-      float tip_y = 0;
+      float tip_x = arrow.getTail().x + MathUtils.sqrt(2 * radius * radius)
+            * 1.5f;
+      float tip_y = arrow.getTail().y;
 
       g.drawLine(arrow.getTail().x + MathUtils.cos(arc_start) * radius,
                  arrow.getTail().y + MathUtils.sin(arc_start) * radius,

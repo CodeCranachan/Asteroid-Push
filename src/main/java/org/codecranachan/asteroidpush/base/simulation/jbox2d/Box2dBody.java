@@ -9,6 +9,7 @@ import org.codecranachan.asteroidpush.base.simulation.Material;
 import org.codecranachan.asteroidpush.base.simulation.RigidBody;
 import org.codecranachan.asteroidpush.utils.Arrow;
 import org.codecranachan.asteroidpush.utils.GeometryConverter;
+import org.codecranachan.asteroidpush.utils.Velocity;
 import org.jbox2d.collision.shapes.Shape;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyDef;
@@ -52,6 +53,11 @@ public class Box2dBody implements RigidBody {
    public Arrow getPosition() {
       assert body != null;
       return new Arrow(body.getPosition(), body.getAngle());
+   }
+   
+   public Velocity getVelocity() {
+      assert body != null;
+      return new Velocity(body.getLinearVelocity(), body.getAngularVelocity());
    }
 
    public void addHull(Hull hull, InteractionHandler handler) {

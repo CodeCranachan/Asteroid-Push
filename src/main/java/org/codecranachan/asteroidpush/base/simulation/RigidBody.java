@@ -1,6 +1,7 @@
 package org.codecranachan.asteroidpush.base.simulation;
 
 import org.codecranachan.asteroidpush.utils.Arrow;
+import org.codecranachan.asteroidpush.utils.Velocity;
 
 public interface RigidBody {
    /**
@@ -30,6 +31,11 @@ public interface RigidBody {
     */
    Arrow getPosition();
 
+   /**
+    * Fetch the current velocity of the simulated body.
+    */
+   Velocity getVelocity();
+   
    /**
     * TODO document this better
     * 

@@ -8,6 +8,7 @@ import org.codecranachan.asteroidpush.base.simulation.Simulation;
 import org.codecranachan.asteroidpush.base.workshop.Blueprint;
 import org.codecranachan.asteroidpush.content.actors.SpaceshipFactory;
 import org.codecranachan.asteroidpush.utils.Arrow;
+import org.codecranachan.asteroidpush.utils.Velocity;
 import org.jbox2d.common.MathUtils;
 import org.jbox2d.common.Vec2;
 
@@ -33,7 +34,7 @@ public class ShipPrototypeRule implements Rule {
    public void update(Simulation simulation, int frame) {
       if (prototype == null) {
          prototypeFactory.setBodyFactory(simulation.getBodyFactory());
-         prototype = prototypeFactory.createActor(getSpawnLocation());
+         prototype = prototypeFactory.createActor(getSpawnLocation(), new Velocity());
          prototype.setController(controller);
          simulation.addActor(prototype);
       }

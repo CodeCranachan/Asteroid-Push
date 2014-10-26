@@ -19,6 +19,7 @@ import org.codecranachan.asteroidpush.base.workshop.tokenboard.Placement;
 import org.codecranachan.asteroidpush.base.workshop.tokenboard.Token;
 import org.codecranachan.asteroidpush.utils.Arrow;
 import org.codecranachan.asteroidpush.utils.OrthogonalCoordinate;
+import org.codecranachan.asteroidpush.utils.Velocity;
 import org.jbox2d.common.MathUtils;
 import org.jbox2d.common.Vec2;
 
@@ -39,11 +40,11 @@ public class SpaceshipFactory implements ActorFactory {
       this.bodyFactory = factory;
    }
 
-   public Actor createActor(Arrow placement) {
+   public Actor createActor(Arrow placement, Velocity velocity) {
       assert (bodyFactory != null);
       ActorSkeleton skeleton = assembleSkeleton();
       ModularActor ship = new ModularActor(skeleton);
-      skeleton.spawnBodies(placement, bodyFactory);
+      skeleton.spawnBodies(placement, velocity, bodyFactory);
       return ship;
    }
 

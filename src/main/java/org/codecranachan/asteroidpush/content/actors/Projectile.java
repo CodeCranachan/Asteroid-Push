@@ -23,15 +23,14 @@ import org.codecranachan.asteroidpush.base.input.Controller;
 import org.codecranachan.asteroidpush.base.simulation.Actor;
 import org.codecranachan.asteroidpush.base.simulation.RigidBody;
 import org.codecranachan.asteroidpush.base.simulation.command.Command;
-import org.codecranachan.asteroidpush.base.visuals.OffsetRepresentation;
 import org.codecranachan.asteroidpush.base.visuals.Representation;
 import org.codecranachan.asteroidpush.utils.Arrow;
 
-public class PassiveObject implements Actor {
+public class Projectile implements Actor {
    private RigidBody body;
    private Representation representation;
 
-   public PassiveObject(RigidBody body, Representation representation) {
+   public Projectile(RigidBody body, Representation representation) {
       assert body != null;
       assert representation != null;
       this.body = body;
@@ -48,7 +47,7 @@ public class PassiveObject implements Actor {
 
    public Collection<Representation> getRepresentations() {
       Collection<Representation> representations = new LinkedList<Representation>();
-      representations.add(new OffsetRepresentation(representation, body.getPosition()));
+      representations.add(representation);
       return representations;
    }
    
