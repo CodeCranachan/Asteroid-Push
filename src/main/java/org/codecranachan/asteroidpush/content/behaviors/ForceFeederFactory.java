@@ -8,8 +8,9 @@ import org.codecranachan.asteroidpush.base.visuals.Representation;
 import org.codecranachan.asteroidpush.base.workshop.actor.Behavior;
 import org.codecranachan.asteroidpush.base.workshop.assembly.BehaviorFactory;
 import org.codecranachan.asteroidpush.base.workshop.assembly.Socket;
-import org.codecranachan.asteroidpush.content.visuals.ForceFeederRepresentation;
+import org.codecranachan.asteroidpush.content.visuals.ArrowRepresentation;
 import org.codecranachan.asteroidpush.utils.Arrow;
+import org.newdawn.slick.Color;
 
 public class ForceFeederFactory implements BehaviorFactory {
 
@@ -39,7 +40,7 @@ public class ForceFeederFactory implements BehaviorFactory {
 
    public Collection<Representation> getRepresentations() {
       Collection<Representation> reps = new LinkedList<Representation>();
-      reps.add(new ForceFeederRepresentation(force));
+      reps.add(new ArrowRepresentation(force, Color.red));
       return reps;
    }
 
