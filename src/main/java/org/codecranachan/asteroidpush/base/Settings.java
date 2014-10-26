@@ -21,8 +21,8 @@ public class Settings {
 
       bindings.bindKey(Input.KEY_W, ControlItem.FORWARD_THRUST);
       bindings.bindKey(Input.KEY_A, ControlItem.ROTATE_COUNTERCLOCKWISE);
-      bindings.bindKey(Input.KEY_S, ControlItem.ROTATE_CLOCKWISE);
-      bindings.bindKey(Input.KEY_D, ControlItem.BACKWARD_THRUST);
+      bindings.bindKey(Input.KEY_D, ControlItem.ROTATE_CLOCKWISE);
+      bindings.bindKey(Input.KEY_S, ControlItem.BACKWARD_THRUST);
       bindings.bindKey(Input.KEY_Q, ControlItem.LEFT_THRUST);
       bindings.bindKey(Input.KEY_E, ControlItem.RIGHT_THRUST);
       bindings.bindKey(Input.KEY_SPACE, ControlItem.FIRE_PRIMARY);

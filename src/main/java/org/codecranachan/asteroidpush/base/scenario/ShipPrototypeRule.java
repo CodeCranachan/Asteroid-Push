@@ -1,5 +1,6 @@
 package org.codecranachan.asteroidpush.base.scenario;
 
+import org.codecranachan.asteroidpush.base.Balancing;
 import org.codecranachan.asteroidpush.base.input.Controller;
 import org.codecranachan.asteroidpush.base.simulation.Actor;
 import org.codecranachan.asteroidpush.base.simulation.ActorFactory;
@@ -16,7 +17,7 @@ public class ShipPrototypeRule implements Rule {
    private Controller controller;
 
    public ShipPrototypeRule(Blueprint blueprint, Controller controller) {
-      this.prototypeFactory = new SpaceshipFactory(blueprint.getPlan(), 1.0f);
+      this.prototypeFactory = new SpaceshipFactory(blueprint.getPlan(), Balancing.getShipSizeFactor());
       this.prototype = null;
       this.controller = controller;
    }

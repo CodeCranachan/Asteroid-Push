@@ -87,18 +87,9 @@ public class Box2dBody implements RigidBody {
    }
 
    private void setMaterial(FixtureDef def, Material material) {
-      switch (material) {
-      case METAL:
-         def.density = 2500.09f;
-         def.friction = 0.8f;
-         def.restitution = 0.1f;
-         break;
-      case RUBBER:
-         def.density = 2500.0f;
-         def.friction = 0.9f;
-         def.restitution = 0.9f;
-         break;
-      }
+      def.density = material.density;
+      def.friction = material.friction;
+      def.restitution = material.restitution;
    }
-   
+
 }

@@ -1,5 +1,6 @@
 package org.codecranachan.asteroidpush.base.simulation.jbox2d;
 
+import org.codecranachan.asteroidpush.base.Balancing;
 import org.codecranachan.asteroidpush.base.simulation.PhysicsEngine;
 import org.codecranachan.asteroidpush.base.simulation.RigidBodyFactory;
 import org.jbox2d.common.Vec2;
@@ -9,7 +10,7 @@ public class Box2dEngine implements PhysicsEngine {
    private World world;
 
    public Box2dEngine() {
-      Vec2 gravity = new Vec2(0, -10.0f);
+      Vec2 gravity = new Vec2(0, -Balancing.getDefaultGravity());
       this.world = new World(gravity);
    }
 

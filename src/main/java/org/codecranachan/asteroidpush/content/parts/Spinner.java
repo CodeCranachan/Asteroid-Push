@@ -1,5 +1,6 @@
 package org.codecranachan.asteroidpush.content.parts;
 
+import org.codecranachan.asteroidpush.base.Balancing;
 import org.codecranachan.asteroidpush.base.simulation.Material;
 import org.codecranachan.asteroidpush.base.simulation.Primitive;
 import org.codecranachan.asteroidpush.base.workshop.PartFactory;
@@ -33,8 +34,9 @@ public class Spinner implements PartFactory {
       CollisionBehaviorFactory collisionFactory = new CollisionBehaviorFactory(
             shape, Material.METAL, socket);
 
-      float torque = 5000;
-      TorqueFeederFactory feederFactory = new TorqueFeederFactory(torque, socket);
+      float magnitude = Balancing.getRequiredTorqueToSpinBlock(Material.METAL) * 10f;
+      TorqueFeederFactory feederFactory = new TorqueFeederFactory(magnitude,
+            socket);
 
       part.AddBehaviorFactory(collisionFactory);
       part.AddBehaviorFactory(feederFactory);

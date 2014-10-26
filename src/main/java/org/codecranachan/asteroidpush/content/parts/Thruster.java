@@ -1,5 +1,6 @@
 package org.codecranachan.asteroidpush.content.parts;
 
+import org.codecranachan.asteroidpush.base.Balancing;
 import org.codecranachan.asteroidpush.base.simulation.Material;
 import org.codecranachan.asteroidpush.base.simulation.Primitive;
 import org.codecranachan.asteroidpush.base.workshop.PartFactory;
@@ -31,7 +32,8 @@ public class Thruster implements PartFactory {
       CollisionBehaviorFactory collisionFactory = new CollisionBehaviorFactory(
             shape, Material.METAL, socket);
 
-      Arrow force = new Arrow(new Vec2(0, 0), 0, 500000);
+      float magnitude = Balancing.getRequiredForceToLiftBlock(Material.METAL) * 6f;
+      Arrow force = new Arrow(new Vec2(0, 0), 0, magnitude);
       ForceFeederFactory feederFactory = new ForceFeederFactory(force, socket);
 
       part.AddBehaviorFactory(collisionFactory);
