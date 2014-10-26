@@ -8,7 +8,7 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
 public class ArrowRepresentation implements Representation {
-   private final float radius = 0.075f;
+   private final float radius = 0.1f;
 
    public Arrow arrow;
    public Color color;
