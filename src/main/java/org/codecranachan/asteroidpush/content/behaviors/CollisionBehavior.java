@@ -46,9 +46,9 @@ public class CollisionBehavior implements Behavior, InteractionHandler {
          Representation hullRepresentation = new PrimitiveRepresentation(
                hull.getShape());
          Representation hullTransform = new OffsetRepresentation(
-               hullRepresentation, hull.getOffset());
+               hullRepresentation, hull.getOffset(), 1f);
          representations.add(new OffsetRepresentation(hullTransform,
-               currentBody.getPosition()));
+               currentBody.getState().getState(), 1f));
       }
       return representations;
    }
@@ -56,5 +56,5 @@ public class CollisionBehavior implements Behavior, InteractionHandler {
    public void setController(Controller controller, int index) {
       // nothing to do
    }
-   
+
 }

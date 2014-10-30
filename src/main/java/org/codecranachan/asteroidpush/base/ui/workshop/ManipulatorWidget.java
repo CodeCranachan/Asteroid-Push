@@ -33,7 +33,10 @@ import org.codecranachan.asteroidpush.base.workshop.assembly.Part;
 import org.codecranachan.asteroidpush.base.workshop.tokenboard.Placement;
 import org.codecranachan.asteroidpush.base.workshop.tokenboard.Token;
 import org.codecranachan.asteroidpush.content.visuals.OriginRepresentation;
+import org.codecranachan.asteroidpush.utils.Angle;
 import org.codecranachan.asteroidpush.utils.Arrow;
+import org.codecranachan.asteroidpush.utils.Circle;
+import org.codecranachan.asteroidpush.utils.FieldOfView;
 import org.codecranachan.asteroidpush.utils.GeometryConverter;
 import org.codecranachan.asteroidpush.utils.OrthogonalCoordinate;
 import org.codecranachan.asteroidpush.utils.RectangleMath;
@@ -143,8 +146,9 @@ public class ManipulatorWidget extends BasicWidget {
       }
 
       Vec2 origin = new Vec2(offset.getX() + deltaX, offset.getY() + deltaY);
-      Arrow focus = new Arrow(origin, 0, magnitude);
-      renderer.setFocus(focus);
+      FieldOfView fov = new FieldOfView(new Circle(origin, magnitude),
+            new Angle());
+      renderer.setFieldOfView(fov);
    }
 
    private void renderHover(Graphics g) {
@@ -161,13 +165,10 @@ public class ManipulatorWidget extends BasicWidget {
          base.addAll(selected.getRepresentations());
          float scale = 1.0f;
          Placement placement = coordinator.getPartSelectedPartPlacement();
-         Arrow offset = GeometryConverter
-               .convertToArrow(renderer.mapToWorldCoordinates(hover),
-                               placement.getOrientation(),
-                               scale);
-         list.add(new OffsetRepresentation(base, offset));
-         
-         
+         Arrow offset = GeometryConverter.convertToArrow(renderer
+               .mapToWorldCoordinates(hover), placement.getOrientation());
+         list.add(new OffsetRepresentation(base, offset, scale));
+
       }
       return list;
    }

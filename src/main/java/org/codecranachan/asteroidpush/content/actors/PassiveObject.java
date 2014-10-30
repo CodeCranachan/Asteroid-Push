@@ -25,7 +25,8 @@ import org.codecranachan.asteroidpush.base.simulation.RigidBody;
 import org.codecranachan.asteroidpush.base.simulation.command.Command;
 import org.codecranachan.asteroidpush.base.visuals.OffsetRepresentation;
 import org.codecranachan.asteroidpush.base.visuals.Representation;
-import org.codecranachan.asteroidpush.utils.Arrow;
+import org.codecranachan.asteroidpush.utils.Angle;
+import org.codecranachan.asteroidpush.utils.FieldOfView;
 
 public class PassiveObject implements Actor {
    private RigidBody body;
@@ -48,12 +49,14 @@ public class PassiveObject implements Actor {
 
    public Collection<Representation> getRepresentations() {
       Collection<Representation> representations = new LinkedList<Representation>();
-      representations.add(new OffsetRepresentation(representation, body.getPosition()));
+      representations.add(new OffsetRepresentation(representation, body
+            .getState().getState(), 1f));
       return representations;
    }
-   
-   public Arrow getFocus() {
-      return body.getPosition();
+
+   public FieldOfView getFieldOfView() {
+      return new FieldOfView(body.getEnclosingCircle().addRadius(10f),
+            Angle.HALF_PI);
    }
 
    public void setController(Controller controller) {

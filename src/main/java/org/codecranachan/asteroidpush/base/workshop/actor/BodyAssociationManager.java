@@ -5,8 +5,7 @@ import java.util.Set;
 
 import org.codecranachan.asteroidpush.base.simulation.RigidBody;
 import org.codecranachan.asteroidpush.base.simulation.RigidBodyFactory;
-import org.codecranachan.asteroidpush.utils.Arrow;
-import org.codecranachan.asteroidpush.utils.Velocity;
+import org.codecranachan.asteroidpush.utils.NewtonianState;
 import org.jgrapht.alg.ConnectivityInspector;
 import org.jgrapht.event.GraphEdgeChangeEvent;
 import org.jgrapht.event.GraphListener;
@@ -24,20 +23,19 @@ public class BodyAssociationManager implements
     * This will create bodies for connected sets of BodyVertices which do not
     * have any Bodies attached.
     * 
-    * @param offset
+    * @param initialState
     *           The world coordinates of where to spawn the bodies.
     * @param factory
     *           The RigidBodyFactory to use for spawning new bodies.
     */
-   public void spawnMissingBodies(Arrow offset,
-                                  Velocity velocity,
+   public void spawnMissingBodies(NewtonianState initialState,
                                   RigidBodyFactory factory) {
       ConnectivityInspector<BodyVertex, BodyEdge> inspector = new ConnectivityInspector<BodyVertex, BodyEdge>(
             graph);
       for (Set<BodyVertex> set : inspector.connectedSets()) {
          RigidBody assignedBody = findAssignedBody(set);
          if (assignedBody == null) {
-            RigidBody newBody = factory.createDynamicBody(offset, velocity);
+            RigidBody newBody = factory.createDynamicBody(initialState);
             Set<RigidBody> replacedBodies = replaceBodiesInSet(newBody, set);
             assert replacedBodies.size() == 0;
          }

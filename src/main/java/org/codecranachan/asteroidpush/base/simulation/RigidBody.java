@@ -1,7 +1,8 @@
 package org.codecranachan.asteroidpush.base.simulation;
 
-import org.codecranachan.asteroidpush.utils.Arrow;
-import org.codecranachan.asteroidpush.utils.Velocity;
+import org.codecranachan.asteroidpush.utils.Circle;
+import org.codecranachan.asteroidpush.utils.Force;
+import org.codecranachan.asteroidpush.utils.NewtonianState;
 
 public interface RigidBody {
    /**
@@ -29,13 +30,8 @@ public interface RigidBody {
    /**
     * Fetch the current world coordinates of the simulated body.
     */
-   Arrow getPosition();
+   NewtonianState getState();
 
-   /**
-    * Fetch the current velocity of the simulated body.
-    */
-   Velocity getVelocity();
-   
    /**
     * TODO document this better
     * 
@@ -46,9 +42,36 @@ public interface RigidBody {
 
    void removeHull(Hull hull);
 
-   void applyForce(Arrow force);
+   /**
+    * Apply a force to the rigid body. The force has to be supplied in the
+    * Body's coordinate system.
+    * 
+    * @param force
+    *           The force to be applied.
+    */
+   void applyForce(Force force);
+
+   /**
+    * Transforms a force given in body coordinates to world coordinates.
+    * 
+    * @param force
+    *           the force to be transformed.
+    * @return A new instance containing the transformed force.
+    */
+   Force transformToWorld(Force force);
+
+   /**
+    * Transforms a force given in body coordinates to world coordinates..
+    * 
+    * @param force
+    *           the force to be transformed.
+    * @return A new instance containing the transformed force.
+    */
+   NewtonianState transformToWorld(NewtonianState state);
 
    void applyTorque(float torque);
+
+   Circle getEnclosingCircle();
 
    // register collision handler...
 }

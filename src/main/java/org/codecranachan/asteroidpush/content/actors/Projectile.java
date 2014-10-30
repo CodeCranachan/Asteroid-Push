@@ -24,7 +24,8 @@ import org.codecranachan.asteroidpush.base.simulation.Actor;
 import org.codecranachan.asteroidpush.base.simulation.RigidBody;
 import org.codecranachan.asteroidpush.base.simulation.command.Command;
 import org.codecranachan.asteroidpush.base.visuals.Representation;
-import org.codecranachan.asteroidpush.utils.Arrow;
+import org.codecranachan.asteroidpush.utils.Angle;
+import org.codecranachan.asteroidpush.utils.FieldOfView;
 
 public class Projectile implements Actor {
    private RigidBody body;
@@ -51,8 +52,8 @@ public class Projectile implements Actor {
       return representations;
    }
    
-   public Arrow getFocus() {
-      return body.getPosition();
+   public FieldOfView getFieldOfView() {
+      return new FieldOfView(body.getEnclosingCircle().addRadius(10f), Angle.PI);
    }
 
    public void setController(Controller controller) {

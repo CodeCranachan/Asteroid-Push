@@ -1,25 +1,25 @@
 package org.codecranachan.asteroidpush.content.visuals;
 
 import org.codecranachan.asteroidpush.base.visuals.Representation;
-import org.codecranachan.asteroidpush.utils.Arrow;
+import org.codecranachan.asteroidpush.utils.Circle;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
 public class CircleRepresentation implements Representation {
-   public Arrow arrow;
+   public Circle circle;
    public Color color;
 
-   public CircleRepresentation(Arrow arrow, Color color) {
-      this.arrow = arrow;
+   public CircleRepresentation(Circle circle, Color color) {
+      this.circle = circle;
       this.color = color;
    }
 
    public void render(Graphics g) {
-      float radius = arrow.getMagnitude();
+      float radius = circle.getRadius();
       g.setColor(color);
       g.setLineWidth(2.0f);
-      g.drawOval(arrow.getTail().x - radius,
-                 arrow.getTail().y - radius,
+      g.drawOval(circle.getCenter().x - radius,
+                 circle.getCenter().y - radius,
                  radius * 2f,
                  radius * 2f);
    }

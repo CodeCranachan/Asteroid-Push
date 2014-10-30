@@ -9,7 +9,7 @@ import org.codecranachan.asteroidpush.base.workshop.assembly.Socket;
 import org.codecranachan.asteroidpush.base.workshop.tokenboard.Shape;
 import org.codecranachan.asteroidpush.content.behaviors.CollisionBehaviorFactory;
 import org.codecranachan.asteroidpush.content.behaviors.ForceFeederFactory;
-import org.codecranachan.asteroidpush.utils.Arrow;
+import org.codecranachan.asteroidpush.utils.Force;
 import org.jbox2d.common.Vec2;
 
 public class Thruster implements PartFactory {
@@ -33,7 +33,7 @@ public class Thruster implements PartFactory {
             shape, Material.METAL, socket);
 
       float magnitude = Balancing.getRequiredForceToLiftBlock(Material.METAL) * 6f;
-      Arrow force = new Arrow(new Vec2(0, 0), 0, magnitude);
+      Force force = new Force(new Vec2(), new Vec2(magnitude, 0f));
       ForceFeederFactory feederFactory = new ForceFeederFactory(force, socket);
 
       part.AddBehaviorFactory(collisionFactory);

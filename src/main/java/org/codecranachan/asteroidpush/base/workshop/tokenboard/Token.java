@@ -30,7 +30,7 @@ import org.codecranachan.asteroidpush.utils.OrthogonalCoordinate;
 public class Token implements Representable {
    private Placeable placeable;
    private Placement placement;
-   
+
    private static float TOKEN_SCALE = 0.9f;
 
    public Token(Placeable placeable) {
@@ -101,7 +101,7 @@ public class Token implements Representable {
       Collection<Representation> representations = new LinkedList<Representation>();
       for (Representation rep : placeable.getRepresentations()) {
          representations.add(new OffsetRepresentation(rep, GeometryConverter
-               .convertToArrow(placement, TOKEN_SCALE)));
+               .convertToArrow(placement), TOKEN_SCALE));
       }
       return representations;
    }

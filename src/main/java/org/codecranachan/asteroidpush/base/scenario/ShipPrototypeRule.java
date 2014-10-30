@@ -7,9 +7,10 @@ import org.codecranachan.asteroidpush.base.simulation.ActorFactory;
 import org.codecranachan.asteroidpush.base.simulation.Simulation;
 import org.codecranachan.asteroidpush.base.workshop.Blueprint;
 import org.codecranachan.asteroidpush.content.actors.SpaceshipFactory;
-import org.codecranachan.asteroidpush.utils.Arrow;
-import org.codecranachan.asteroidpush.utils.Velocity;
-import org.jbox2d.common.MathUtils;
+import org.codecranachan.asteroidpush.utils.Angle;
+import org.codecranachan.asteroidpush.utils.Circle;
+import org.codecranachan.asteroidpush.utils.FieldOfView;
+import org.codecranachan.asteroidpush.utils.NewtonianState;
 import org.jbox2d.common.Vec2;
 
 public class ShipPrototypeRule implements Rule {
@@ -18,29 +19,33 @@ public class ShipPrototypeRule implements Rule {
    private Controller controller;
 
    public ShipPrototypeRule(Blueprint blueprint, Controller controller) {
-      this.prototypeFactory = new SpaceshipFactory(blueprint.getPlan(), Balancing.getShipSizeFactor());
+      this.prototypeFactory = new SpaceshipFactory(blueprint.getPlan(),
+            Balancing.getShipSizeFactor());
       this.prototype = null;
       this.controller = controller;
    }
 
-   Arrow getFocus() {
+   public FieldOfView getFieldOfView() {
       if (prototype == null) {
-         return getSpawnLocation();
+         return new FieldOfView(new Circle(new Vec2(0f, 0f), 5f), Angle.HALF_PI);
       } else {
-         return prototype.getFocus();
+         return prototype.getFieldOfView();
       }
    }
 
    public void update(Simulation simulation, int frame) {
       if (prototype == null) {
          prototypeFactory.setBodyFactory(simulation.getBodyFactory());
-         prototype = prototypeFactory.createActor(getSpawnLocation(), new Velocity());
+         prototype = prototypeFactory.createActor(getSpawnState());
          prototype.setController(controller);
          simulation.addActor(prototype);
       }
    }
 
-   private Arrow getSpawnLocation() {
-      return new Arrow(new Vec2(0, 0), MathUtils.HALF_PI, 1.0f);
+   private NewtonianState getSpawnState() {
+      NewtonianState initial = new NewtonianState();
+      initial.setState(new Vec2(0, 0), Angle.HALF_PI);
+      initial.setVelocity(new Vec2(0, 0), new Angle());
+      return initial;
    }
 }

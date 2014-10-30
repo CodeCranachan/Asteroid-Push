@@ -9,8 +9,8 @@ import org.codecranachan.asteroidpush.base.workshop.tokenboard.Shape;
 import org.codecranachan.asteroidpush.content.actors.CannonballFactory;
 import org.codecranachan.asteroidpush.content.behaviors.ActorSpawnFactory;
 import org.codecranachan.asteroidpush.content.behaviors.CollisionBehaviorFactory;
-import org.codecranachan.asteroidpush.utils.Arrow;
-import org.codecranachan.asteroidpush.utils.Velocity;
+import org.codecranachan.asteroidpush.utils.Angle;
+import org.codecranachan.asteroidpush.utils.NewtonianState;
 import org.jbox2d.common.Vec2;
 
 public class Cannon implements PartFactory {
@@ -34,10 +34,11 @@ public class Cannon implements PartFactory {
             shape, Material.METAL, socket);
       part.AddBehaviorFactory(collisionFactory);
 
-      Arrow spawnOrigin = new Arrow(new Vec2(0.75f, 0.0f), 0f, 1.0f);
-      Velocity spawnVelocity = new Velocity(new Vec2(10f, 0.0f), 0f);
-      ActorSpawnFactory spawnFactory = new ActorSpawnFactory(spawnOrigin,
-            spawnVelocity, new CannonballFactory(), socket);
+      NewtonianState initial_state = new NewtonianState();
+      initial_state.setState(new Vec2(0.75f, 0f), new Angle());
+      initial_state.setVelocity(new Vec2(25f, 0f), new Angle());
+      ActorSpawnFactory spawnFactory = new ActorSpawnFactory(initial_state,
+            new CannonballFactory(), socket);
       part.AddBehaviorFactory(spawnFactory);
 
       return part;

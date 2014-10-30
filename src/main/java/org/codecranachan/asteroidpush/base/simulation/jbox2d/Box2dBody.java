@@ -7,10 +7,13 @@ import org.codecranachan.asteroidpush.base.simulation.Hull;
 import org.codecranachan.asteroidpush.base.simulation.InteractionHandler;
 import org.codecranachan.asteroidpush.base.simulation.Material;
 import org.codecranachan.asteroidpush.base.simulation.RigidBody;
-import org.codecranachan.asteroidpush.utils.Arrow;
+import org.codecranachan.asteroidpush.utils.Angle;
+import org.codecranachan.asteroidpush.utils.Circle;
+import org.codecranachan.asteroidpush.utils.Force;
 import org.codecranachan.asteroidpush.utils.GeometryConverter;
-import org.codecranachan.asteroidpush.utils.Velocity;
+import org.codecranachan.asteroidpush.utils.NewtonianState;
 import org.jbox2d.collision.shapes.Shape;
+import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.FixtureDef;
@@ -50,14 +53,13 @@ public class Box2dBody implements RigidBody {
       return new Box2dBody(world, def);
    }
 
-   public Arrow getPosition() {
+   public NewtonianState getState() {
       assert body != null;
-      return new Arrow(body.getPosition(), body.getAngle());
-   }
-   
-   public Velocity getVelocity() {
-      assert body != null;
-      return new Velocity(body.getLinearVelocity(), body.getAngularVelocity());
+      NewtonianState state = new NewtonianState();
+      state.setState(body.getPosition(), Angle.fromRad(body.getAngle()));
+      state.setVelocity(body.getLinearVelocity(),
+                        Angle.fromRad(body.getAngularVelocity()));
+      return state;
    }
 
    public void addHull(Hull hull, InteractionHandler handler) {
@@ -78,10 +80,6 @@ public class Box2dBody implements RigidBody {
       fixtureMap.remove(primitive);
    }
 
-   public void applyForce(Arrow force) {
-      body.applyForce(force.getDirection(), force.getTail());
-   }
-
    public void applyTorque(float torque) {
       body.applyTorque(torque);
    }
@@ -98,4 +96,31 @@ public class Box2dBody implements RigidBody {
       def.restitution = material.restitution;
    }
 
+   public void applyForce(Force force) {
+      Force transformed = transformToWorld(force);
+      body.applyForce(transformed.getForce(), transformed.getOffset());
+   }
+
+   public Force transformToWorld(Force force) {
+      Vec2 point = body.getWorldPoint(force.getOffset());
+      Vec2 vector = body.getWorldVector(force.getForce());
+      return new Force(point, vector);
+   }
+
+   public Circle getEnclosingCircle() {
+      // TODO: calculate correct radius of circle
+      return new Circle(body.getWorldCenter(), 10f);
+   }
+
+   public NewtonianState transformToWorld(NewtonianState state) {
+      NewtonianState transformed = new NewtonianState();
+      transformed.setState(body.getWorldPoint(state.getPosition()), Angle
+            .fromRad(body.getAngle()).add(state.getRotation()));
+      Vec2 linVel = body.getWorldVector(state.getLinearVelocity())
+            .add(body.getLinearVelocity());
+      Angle angVel = Angle.fromRad(body.getAngularVelocity())
+            .add(state.getAngularVelocity());
+      transformed.setVelocity(linVel, angVel);
+      return transformed;
+   }
 }

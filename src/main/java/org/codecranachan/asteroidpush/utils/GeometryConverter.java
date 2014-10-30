@@ -33,15 +33,15 @@ import org.newdawn.slick.geom.Transform;
 
 public class GeometryConverter {
 
-   static public Arrow convertToArrow(Placement placement, Float scale) {
+   static public Arrow convertToArrow(Placement placement) {
       float angle = (float) placement.getOrientation() * MathUtils.TWOPI / 4.0f;
       OrthogonalCoordinate pivot = placement.getPivotCoordinate();
-      return new Arrow(new Vec2(pivot.getX(), pivot.getY()), angle, scale);
+      return new Arrow(new Vec2(pivot.getX(), pivot.getY()), Angle.fromRad(angle));
    }
 
-   static public Arrow convertToArrow(Vec2 offset, int orientation, Float scale) {
+   static public Arrow convertToArrow(Vec2 offset, int orientation) {
       float angle = (float) orientation * MathUtils.TWOPI / 4.0f;
-      return new Arrow(offset, angle, scale);
+      return new Arrow(offset, Angle.fromRad(angle));
    }
 
    static public Shape convertToSlickShape(Primitive primitive, Arrow offset) {

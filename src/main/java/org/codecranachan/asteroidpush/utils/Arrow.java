@@ -6,35 +6,27 @@ import org.jbox2d.common.Vec2;
 
 public class Arrow {
    private Vec2 origin;
-   private float angle;
-   private float magnitude;
+   private Angle angle;
 
    public Arrow() {
       this.origin = new Vec2(0, 0);
-      this.angle = 0;
-      this.magnitude = 1;
+      this.angle = new Angle();
    }
 
-   public Arrow(Vec2 origin, float angle) {
+   public Arrow(Vec2 origin, Angle angle) {
       this.origin = new Vec2(origin);
-      this.angle = angle;
-      this.magnitude = 1f;
-   }
-
-   public Arrow(Vec2 origin, float angle, float magnitude) {
-      this.origin = new Vec2(origin);
-      this.angle = angle;
-      this.magnitude = magnitude;
+      this.angle = new Angle(angle);
    }
 
    public Arrow(Vec2 tail, Vec2 tip) {
       Vec2 diff = tip.sub(tail);
       this.origin = new Vec2(tail);
-      this.magnitude = diff.length();
+      float magnitude = diff.length();
       if (magnitude == 0) {
-         this.angle = 0;
+         this.angle = new Angle();
       } else {
-         this.angle = (float) Math.asin(diff.y / magnitude);
+         float ang = (float) Math.atan2(diff.y, diff.x);
+         this.angle = Angle.fromRad(ang);
       }
    }
 
@@ -46,36 +38,32 @@ public class Arrow {
       return origin;
    }
 
-   public float getAngle() {
+   public Angle getAngle() {
       return angle;
    }
 
-   public float getMagnitude() {
-      return magnitude;
-   }
-
    public Vec2 getDirection() {
-      return new Vec2(MathUtils.cos(angle), MathUtils.sin(angle))
-            .mulLocal(magnitude);
+      return new Vec2(MathUtils.cos(angle.rad()), MathUtils.sin(angle.rad()));
    }
 
    public Transform getTransform() {
       Transform result = new Transform();
-      result.set(origin, angle);
+      result.set(origin, angle.rad());
       return result;
    }
 
    public Arrow applyTransform(Transform transform) {
-      float resultAngle = this.angle + transform.q.getAngle();
+      Angle resultAngle = Angle.fromRad(transform.q.getAngle()).add(angle);
       Vec2 resultPosition = Transform.mul(transform, origin);
-      return new Arrow(resultPosition, resultAngle, magnitude);
+      return new Arrow(resultPosition, resultAngle);
    }
 
    public Arrow applyTransform(Arrow arrow) {
       return applyTransform(arrow.getTransform());
    }
 
-   public Arrow applyScale(float scale) {
-      return new Arrow(origin.mul(scale), angle, magnitude * scale);
+   public Arrow add(Arrow other) {
+      return new Arrow(getTail().add(other.getTail()), getAngle()
+            .add(other.getAngle()));
    }
 }

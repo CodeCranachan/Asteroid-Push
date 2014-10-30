@@ -2,8 +2,7 @@ package org.codecranachan.asteroidpush.base.simulation.jbox2d;
 
 import org.codecranachan.asteroidpush.base.simulation.RigidBody;
 import org.codecranachan.asteroidpush.base.simulation.RigidBodyFactory;
-import org.codecranachan.asteroidpush.utils.Arrow;
-import org.codecranachan.asteroidpush.utils.Velocity;
+import org.codecranachan.asteroidpush.utils.NewtonianState;
 import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.World;
@@ -16,23 +15,25 @@ public class Box2dFactory implements RigidBodyFactory {
       this.world = world;
    }
 
-   public RigidBody createDynamicBody(Arrow offset, Velocity velocity) {
+   public RigidBody createDynamicBody(NewtonianState initial_state) {
       BodyDef def = getBasicBodyDef();
 
-      def.position.set(offset.getTail());
-      def.angle = offset.getAngle();
-      def.angularVelocity = velocity.getAngular();
-      def.linearVelocity = velocity.getLinear();
+      def.position.set(initial_state.getPosition());
+      def.angle = initial_state.getRotation().rad();
+      def.linearVelocity = initial_state.getLinearVelocity();
+      def.angularVelocity = initial_state.getAngularVelocity().rad();
       def.type = BodyType.DYNAMIC;
 
       return new Box2dBody(world, def);
    }
 
-   public RigidBody createStaticBody(Arrow offset) {
+   public RigidBody createStaticBody(NewtonianState initial_state) {
       BodyDef def = getBasicBodyDef();
 
-      def.position.set(offset.getTail());
-      def.angle = offset.getAngle();
+      def.position.set(initial_state.getPosition());
+      def.angle = initial_state.getRotation().rad();
+      def.linearVelocity.set(initial_state.getLinearVelocity());
+      def.angle = initial_state.getAngularVelocity().rad();
       def.type = BodyType.STATIC;
 
       return new Box2dBody(world, def);

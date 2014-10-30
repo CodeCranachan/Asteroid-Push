@@ -22,8 +22,8 @@ public class ArrowRepresentation implements Representation {
       g.setColor(color);
       g.setLineWidth(2.0f);
 
-      float arc_start = this.arrow.getAngle() + MathUtils.PI / 3;
-      float arc_end = this.arrow.getAngle() - MathUtils.PI / 3;
+      float arc_start = this.arrow.getAngle().rad() + MathUtils.PI / 3;
+      float arc_end = this.arrow.getAngle().rad() - MathUtils.PI / 3;
 
       g.drawArc(arrow.getTail().x - radius,
                 arrow.getTail().y - radius,

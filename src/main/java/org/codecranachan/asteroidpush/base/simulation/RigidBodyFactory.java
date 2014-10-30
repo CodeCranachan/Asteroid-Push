@@ -1,10 +1,9 @@
 package org.codecranachan.asteroidpush.base.simulation;
 
-import org.codecranachan.asteroidpush.utils.Arrow;
-import org.codecranachan.asteroidpush.utils.Velocity;
+import org.codecranachan.asteroidpush.utils.NewtonianState;
 
 public interface RigidBodyFactory {
-   public RigidBody createDynamicBody(Arrow offset, Velocity velocity);
+   public RigidBody createDynamicBody(NewtonianState initial_state);
 
-   public RigidBody createStaticBody(Arrow offset);
+   public RigidBody createStaticBody(NewtonianState initial_state);
 }

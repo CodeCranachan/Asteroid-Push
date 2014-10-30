@@ -2,13 +2,13 @@ package org.codecranachan.asteroidpush.base.simulation;
 
 import java.util.Vector;
 
-import org.codecranachan.asteroidpush.utils.Arrow;
+import org.codecranachan.asteroidpush.utils.Circle;
 import org.jbox2d.common.MathUtils;
 import org.jbox2d.common.Vec2;
 
 public class Primitive {
    private Vector<Vec2> vertices;
-   
+
    public Primitive() {
       vertices = new Vector<Vec2>();
    }
@@ -18,23 +18,22 @@ public class Primitive {
       vertices.add(vertex);
    }
 
-   public void AddCircle(Arrow geometry, int points) {
+   public void AddCircle(Circle geometry, int points) {
       for (int i = 0; i < points; ++i) {
-         float angle = MathUtils.TWOPI * i / points + geometry.getAngle();
-         Vec2 vertice = new Vec2(
-               MathUtils.cos(angle) * geometry.getMagnitude(),
-               MathUtils.sin(angle) * geometry.getMagnitude());
-         vertice.addLocal(geometry.getTail());
+         float angle = MathUtils.TWOPI * i / points;
+         Vec2 vertice = new Vec2(MathUtils.cos(angle) * geometry.getRadius(),
+               MathUtils.sin(angle) * geometry.getRadius());
+         vertice.addLocal(geometry.getCenter());
          vertices.add(vertice);
       }
    }
 
-   public void AddSquare(Arrow geometry) {
-      float diagonal = MathUtils.sqrt(geometry.getMagnitude()
-            * geometry.getMagnitude() * 2);
-      Arrow circle_geometry = new Arrow(geometry.getTail(), geometry.getAngle()
-            + MathUtils.QUARTER_PI, diagonal);
-      AddCircle(circle_geometry, 4);
+   public void AddSquare(Vec2 center, float a) {
+      float d = a / 2f;
+      vertices.add(new Vec2(center.x + d, center.y + d));
+      vertices.add(new Vec2(center.x - d, center.y + d));
+      vertices.add(new Vec2(center.x - d, center.y - d));
+      vertices.add(new Vec2(center.x + d, center.y - d));
    }
 
    public Vector<Vec2> getVertices() {

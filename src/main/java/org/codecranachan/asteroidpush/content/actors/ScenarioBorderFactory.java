@@ -30,7 +30,7 @@ import org.codecranachan.asteroidpush.base.visuals.BodyTrackingOffsetRepresentat
 import org.codecranachan.asteroidpush.base.visuals.Representation;
 import org.codecranachan.asteroidpush.content.visuals.BorderRepresentation;
 import org.codecranachan.asteroidpush.utils.Arrow;
-import org.codecranachan.asteroidpush.utils.Velocity;
+import org.codecranachan.asteroidpush.utils.NewtonianState;
 import org.jbox2d.common.Vec2;
 
 public class ScenarioBorderFactory implements ActorFactory {
@@ -51,8 +51,8 @@ public class ScenarioBorderFactory implements ActorFactory {
       bodyFactory = factory;
    }
 
-   public Actor createActor(Arrow location, Velocity velocity) {
-      RigidBody body = bodyFactory.createStaticBody(location);
+   public Actor createActor(NewtonianState initialState) {
+      RigidBody body = bodyFactory.createStaticBody(initialState);
 
       for (Primitive primitive : getPrimitives()) {
          Hull hull = new Hull(new Arrow(), primitive, Material.METAL);

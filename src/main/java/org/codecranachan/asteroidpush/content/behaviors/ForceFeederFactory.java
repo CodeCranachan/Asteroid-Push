@@ -10,12 +10,13 @@ import org.codecranachan.asteroidpush.base.workshop.assembly.BehaviorFactory;
 import org.codecranachan.asteroidpush.base.workshop.assembly.Socket;
 import org.codecranachan.asteroidpush.content.visuals.ArrowRepresentation;
 import org.codecranachan.asteroidpush.utils.Arrow;
+import org.codecranachan.asteroidpush.utils.Force;
 import org.newdawn.slick.Color;
 
 public class ForceFeederFactory implements BehaviorFactory {
 
+   private Force force;
    private Socket socket;
-   private Arrow force;
 
    /**
     * Creates the ForceFeederFactory.
@@ -27,20 +28,19 @@ public class ForceFeederFactory implements BehaviorFactory {
     *           the socket coordinates where the created behavior will be
     *           attached to.
     */
-   public ForceFeederFactory(Arrow force, Socket socket) {
-      this.socket = socket;
+   public ForceFeederFactory(Force force, Socket socket) {
       this.force = force;
+      this.socket = socket;
    }
 
    public Behavior createBehavior(Arrow offset) {
-      Arrow final_force = new Arrow(force.getTail().add(offset.getTail()),
-            force.getAngle() + offset.getAngle(), force.getMagnitude());
-      return new ForceFeederBehavior(final_force);
+      Force transformed = force.transformBy(offset);
+      return new ForceFeederBehavior(transformed);
    }
 
    public Collection<Representation> getRepresentations() {
       Collection<Representation> reps = new LinkedList<Representation>();
-      reps.add(new ArrowRepresentation(force, Color.red));
+      reps.add(new ArrowRepresentation(force.asArrow(), Color.red));
       return reps;
    }
 

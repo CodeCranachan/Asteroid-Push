@@ -17,7 +17,7 @@ public class TestPilotRole implements Role {
    }
 
    public Viewport getInterface() {
-      ui.setFocus(rule.getFocus());
+      ui.setFieldOfView(rule.getFieldOfView());
       return ui;
    }
 

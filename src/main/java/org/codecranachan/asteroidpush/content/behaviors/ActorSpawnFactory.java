@@ -12,35 +12,31 @@ import org.codecranachan.asteroidpush.base.workshop.assembly.Socket;
 import org.codecranachan.asteroidpush.content.visuals.ArrowRepresentation;
 import org.codecranachan.asteroidpush.content.visuals.CircleRepresentation;
 import org.codecranachan.asteroidpush.utils.Arrow;
-import org.codecranachan.asteroidpush.utils.Velocity;
+import org.codecranachan.asteroidpush.utils.Circle;
+import org.codecranachan.asteroidpush.utils.NewtonianState;
 import org.newdawn.slick.Color;
 
 public class ActorSpawnFactory implements BehaviorFactory {
    private Socket socket;
-   private Arrow spawn_offset;
-   private Velocity spawn_velocity;
+   private NewtonianState initial_state;
    private ActorFactory factory;
 
-   public ActorSpawnFactory(Arrow offset, Velocity velocity,
+   public ActorSpawnFactory(NewtonianState initial_state,
          ActorFactory factory, Socket socket) {
       this.socket = socket;
-      this.spawn_offset = offset;
-      this.spawn_velocity = velocity;
+      this.initial_state = initial_state;
       this.factory = factory;
    }
 
    public Behavior createBehavior(Arrow offset) {
-      return new ActorSpawnBehavior(new Arrow(offset.getTail()
-            .add(spawn_offset.getTail()), offset.getAngle()
-            + spawn_offset.getAngle()), spawn_velocity.rotate(spawn_offset
-            .getAngle() + offset.getAngle()), factory);
+      NewtonianState converted = initial_state.transform(offset);
+      return new ActorSpawnBehavior(converted, factory);
    }
 
    public Collection<Representation> getRepresentations() {
       Collection<Representation> reps = new LinkedList<Representation>();
-      reps.add(new ArrowRepresentation(spawn_offset, Color.red));
-      reps.add(new CircleRepresentation(new Arrow(spawn_offset.getTail(),
-            spawn_offset.getAngle(), 0.05f), Color.red));
+      reps.add(new ArrowRepresentation(initial_state.getState(), Color.red));
+      reps.add(new CircleRepresentation(new Circle(initial_state.getPosition(), 0.05f), Color.red));
       return reps;
    }
 

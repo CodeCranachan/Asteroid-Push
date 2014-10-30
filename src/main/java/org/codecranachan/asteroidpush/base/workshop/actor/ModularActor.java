@@ -8,8 +8,9 @@ import org.codecranachan.asteroidpush.base.simulation.Actor;
 import org.codecranachan.asteroidpush.base.simulation.RigidBody;
 import org.codecranachan.asteroidpush.base.simulation.command.Command;
 import org.codecranachan.asteroidpush.base.visuals.Representation;
-import org.codecranachan.asteroidpush.utils.Arrow;
-import org.jbox2d.common.MathUtils;
+import org.codecranachan.asteroidpush.utils.Angle;
+import org.codecranachan.asteroidpush.utils.Circle;
+import org.codecranachan.asteroidpush.utils.FieldOfView;
 
 public class ModularActor implements Actor {
    private ActorSkeleton skeleton;
@@ -26,12 +27,13 @@ public class ModularActor implements Actor {
       return skeleton.getRepresentations();
    }
 
-   public Arrow getFocus() {
+   public FieldOfView getFieldOfView() {
       Set<RigidBody> bodies = skeleton.getBodies();
-      Arrow focus = new Arrow();
+      FieldOfView focus = new FieldOfView();
       for (RigidBody body : bodies) {
-         focus = new Arrow(body.getPosition().getTail(), MathUtils.HALF_PI,
-               15.0f);
+         Circle circle = body.getEnclosingCircle();
+         circle.addRadius(10.0f);
+         focus = new FieldOfView(circle, Angle.HALF_PI);
       }
       return focus;
    }

@@ -3,24 +3,21 @@ package org.codecranachan.asteroidpush.base.simulation.command;
 import org.codecranachan.asteroidpush.base.simulation.Actor;
 import org.codecranachan.asteroidpush.base.simulation.ActorFactory;
 import org.codecranachan.asteroidpush.base.simulation.Simulation;
-import org.codecranachan.asteroidpush.utils.Arrow;
-import org.codecranachan.asteroidpush.utils.Velocity;
+import org.codecranachan.asteroidpush.utils.NewtonianState;
 
 public class CreateActorCommand implements Command {
-   private Arrow placement;
-   private Velocity velocity;
+   private NewtonianState initialState;
    private ActorFactory factory;
 
-   public CreateActorCommand(Arrow placement, Velocity velocity,
+   public CreateActorCommand(NewtonianState initialState,
          ActorFactory factory) {
-      this.placement = placement;
+      this.initialState = initialState;
       this.factory = factory;
-      this.velocity = velocity;
    }
 
    public void execute(Simulation simulation) {
       factory.setBodyFactory(simulation.getBodyFactory());
-      Actor actor = factory.createActor(placement, velocity);
+      Actor actor = factory.createActor(initialState);
       simulation.addActor(actor);
    }
 }

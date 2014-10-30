@@ -12,13 +12,10 @@ import org.codecranachan.asteroidpush.base.simulation.command.Command;
 import org.codecranachan.asteroidpush.base.simulation.command.CreateActorCommand;
 import org.codecranachan.asteroidpush.base.visuals.Representation;
 import org.codecranachan.asteroidpush.base.workshop.actor.Behavior;
-import org.codecranachan.asteroidpush.utils.Arrow;
-import org.codecranachan.asteroidpush.utils.Velocity;
-import org.jbox2d.common.Transform;
+import org.codecranachan.asteroidpush.utils.NewtonianState;
 
 public class ActorSpawnBehavior implements Behavior, InteractionHandler {
-   private Arrow offset;
-   private Velocity velocity;
+   private NewtonianState spawnState;
    private ActorFactory factory;
    private RigidBody currentBody;
    private Controller controller;
@@ -26,10 +23,9 @@ public class ActorSpawnBehavior implements Behavior, InteractionHandler {
 
    static int SPAWN_INTERVAL = 60;
 
-   public ActorSpawnBehavior(Arrow spawn_offset, Velocity spawn_velocity,
+   public ActorSpawnBehavior(NewtonianState spawn_state,
          ActorFactory spawn_factory) {
-      this.offset = spawn_offset;
-      this.velocity = spawn_velocity;
+      this.spawnState = spawn_state;
       this.factory = spawn_factory;
       this.currentBody = null;
       this.controller = null;
@@ -42,14 +38,10 @@ public class ActorSpawnBehavior implements Behavior, InteractionHandler {
          if (controller.getControl(ControlItem.FIRE_PRIMARY, frame) > 0) {
             if (lastSpawnFrame + SPAWN_INTERVAL < frame) {
                lastSpawnFrame = frame;
-               Arrow bodyPosition = currentBody.getPosition();
-               Velocity bodyVelocity = currentBody.getVelocity();
-               Velocity transformed_velocity = new Velocity(
-                     Transform.mul(bodyPosition.getTransform(),
-                                   velocity.getLinear()), velocity.getAngular());
-               commands.add(new CreateActorCommand(offset
-                     .applyTransform(bodyPosition), transformed_velocity
-                     .add(bodyVelocity), factory));
+               currentBody.getState();
+               NewtonianState initialState = currentBody
+                     .transformToWorld(spawnState);
+               commands.add(new CreateActorCommand(initialState, factory));
             }
          }
       }

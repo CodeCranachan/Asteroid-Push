@@ -17,9 +17,10 @@ import org.codecranachan.asteroidpush.base.workshop.assembly.Socket;
 import org.codecranachan.asteroidpush.base.workshop.tokenboard.Board;
 import org.codecranachan.asteroidpush.base.workshop.tokenboard.Placement;
 import org.codecranachan.asteroidpush.base.workshop.tokenboard.Token;
+import org.codecranachan.asteroidpush.utils.Angle;
 import org.codecranachan.asteroidpush.utils.Arrow;
+import org.codecranachan.asteroidpush.utils.NewtonianState;
 import org.codecranachan.asteroidpush.utils.OrthogonalCoordinate;
-import org.codecranachan.asteroidpush.utils.Velocity;
 import org.jbox2d.common.MathUtils;
 import org.jbox2d.common.Vec2;
 
@@ -40,11 +41,11 @@ public class SpaceshipFactory implements ActorFactory {
       this.bodyFactory = factory;
    }
 
-   public Actor createActor(Arrow placement, Velocity velocity) {
+   public Actor createActor(NewtonianState initialState) {
       assert (bodyFactory != null);
       ActorSkeleton skeleton = assembleSkeleton();
       ModularActor ship = new ModularActor(skeleton);
-      skeleton.spawnBodies(placement, velocity, bodyFactory);
+      skeleton.spawnBodies(initialState, bodyFactory);
       return ship;
    }
 
@@ -107,6 +108,6 @@ public class SpaceshipFactory implements ActorFactory {
       Vec2 origin = new Vec2((float) loc.getX(), (float) loc.getY());
       origin.mulLocal(gridSize);
 
-      return new Arrow(origin, angle, gridSize);
+      return new Arrow(origin, Angle.fromRad(angle));
    }
 }

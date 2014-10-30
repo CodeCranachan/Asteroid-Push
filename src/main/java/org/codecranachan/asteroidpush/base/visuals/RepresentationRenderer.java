@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.codecranachan.asteroidpush.utils.Arrow;
+import org.codecranachan.asteroidpush.utils.FieldOfView;
 import org.codecranachan.asteroidpush.utils.Trigonometry;
 import org.jbox2d.common.MathUtils;
 import org.jbox2d.common.Vec2;
@@ -15,7 +15,7 @@ import org.newdawn.slick.geom.Transform;
 import org.newdawn.slick.geom.Vector2f;
 
 public class RepresentationRenderer {
-   private Arrow focus;
+   private FieldOfView fov;
    private Rectangle frame;
    private List<Representation> reps;
 
@@ -30,8 +30,8 @@ public class RepresentationRenderer {
       Collections.sort(reps, comparator);
    }
 
-   public void setFocus(Arrow focus) {
-      this.focus = focus;
+   public void setFieldOfView(FieldOfView fov) {
+      this.fov = fov;
    }
 
    public void setFrame(Rectangle frame) {
@@ -40,7 +40,7 @@ public class RepresentationRenderer {
 
    public void render(Graphics g) {
       assert frame != null;
-      assert focus != null;
+      assert fov != null;
       g.pushTransform();
       try {
          applyViewportTransform(g);
@@ -82,7 +82,7 @@ public class RepresentationRenderer {
    }
 
    private Vector2f getFocusOffset() {
-      return new Vector2f(focus.getTail().x, focus.getTail().y);
+      return new Vector2f(fov.getCenter().x, fov.getCenter().y);
    }
 
    private float getFocusRotationAsAngle() {
@@ -90,7 +90,7 @@ public class RepresentationRenderer {
    }
 
    private float getFocusRotationAsRadian() {
-      return MathUtils.HALF_PI - focus.getAngle();
+      return MathUtils.HALF_PI - fov.getUp().rad();
    }
 
    private Vector2f getViewOffset() {
@@ -100,7 +100,7 @@ public class RepresentationRenderer {
 
    private float getViewportScale() {
       float frameSize = Math.min(frame.getWidth(), frame.getHeight());
-      float scale = frameSize / (focus.getMagnitude() * 2.0f);
+      float scale = frameSize / (fov.getRadius() * 2.0f);
       return scale;
    }
 

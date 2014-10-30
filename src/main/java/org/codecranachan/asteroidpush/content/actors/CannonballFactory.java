@@ -26,7 +26,8 @@ import org.codecranachan.asteroidpush.base.simulation.RigidBodyFactory;
 import org.codecranachan.asteroidpush.base.visuals.Representation;
 import org.codecranachan.asteroidpush.content.visuals.PrimitiveRepresentation;
 import org.codecranachan.asteroidpush.utils.Arrow;
-import org.codecranachan.asteroidpush.utils.Velocity;
+import org.codecranachan.asteroidpush.utils.Circle;
+import org.codecranachan.asteroidpush.utils.NewtonianState;
 import org.jbox2d.common.Vec2;
 
 public class CannonballFactory implements ActorFactory {
@@ -43,8 +44,8 @@ public class CannonballFactory implements ActorFactory {
       bodyFactory = factory;
    }
 
-   public Actor createActor(Arrow location, Velocity velocity) {
-      RigidBody body = bodyFactory.createDynamicBody(location, velocity);
+   public Actor createActor(NewtonianState initialState) {
+      RigidBody body = bodyFactory.createDynamicBody(initialState);
 
       Primitive primitive = getPrimitive();
 
@@ -57,8 +58,8 @@ public class CannonballFactory implements ActorFactory {
 
    private Primitive getPrimitive() {
       Primitive primitive = new Primitive();
-      Arrow dimensions = new Arrow(new Vec2(), 0f, ballSize / 2f);
-      primitive.AddCircle(dimensions, 8);
+      Circle circle = new Circle(new Vec2(), ballSize / 2f);
+      primitive.AddCircle(circle, 8);
 
       return primitive;
    }

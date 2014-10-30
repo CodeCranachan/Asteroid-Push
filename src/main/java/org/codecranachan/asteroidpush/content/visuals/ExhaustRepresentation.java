@@ -1,9 +1,8 @@
 package org.codecranachan.asteroidpush.content.visuals;
 
 import org.codecranachan.asteroidpush.base.visuals.Representation;
+import org.codecranachan.asteroidpush.utils.Angle;
 import org.codecranachan.asteroidpush.utils.Arrow;
-import org.codecranachan.asteroidpush.utils.Trigonometry;
-import org.jbox2d.common.MathUtils;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
@@ -12,8 +11,8 @@ public class ExhaustRepresentation implements Representation {
 
    private final float radius = 0.75f;
 
-   public ExhaustRepresentation(Arrow offset) {
-      this.offset = offset;
+   public ExhaustRepresentation(Arrow arrow) {
+      this.offset = arrow;
    }
 
    public void render(Graphics g) {
@@ -31,15 +30,16 @@ public class ExhaustRepresentation implements Representation {
    }
 
    private void drawExhaust(Graphics g, float size) {
-      float arc_start = this.offset.getAngle() + MathUtils.PI * 3f / 4f;
-      float arc_end = this.offset.getAngle() - MathUtils.PI * 3f / 4f;
+      Angle rot = offset.getAngle();
+      Angle arc_start = rot.add(Angle.PI.mul(3f / 4f));
+      Angle arc_end = rot.sub(Angle.PI.mul(3f / 4f));
 
       g.drawArc(offset.getTail().x - radius * size,
                 offset.getTail().y - radius * size,
                 radius * 2f * size,
                 radius * 2f * size,
-                Trigonometry.radToDeg(arc_start),
-                Trigonometry.radToDeg(arc_end));
+                arc_start.deg(),
+                arc_end.deg());
    }
 
    public int getPriority() {

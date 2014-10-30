@@ -5,7 +5,7 @@ import java.util.Collection;
 import org.codecranachan.asteroidpush.base.input.slick2d.Slick2dController;
 import org.codecranachan.asteroidpush.base.visuals.Representation;
 import org.codecranachan.asteroidpush.base.visuals.RepresentationRenderer;
-import org.codecranachan.asteroidpush.utils.Arrow;
+import org.codecranachan.asteroidpush.utils.FieldOfView;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
@@ -28,8 +28,8 @@ public class PilotUi implements Viewport {
       controller.setNextFrame(frame);
    }
 
-   public void setFocus(Arrow focus) {
-      renderer.setFocus(focus);
+   public void setFieldOfView(FieldOfView fov) {
+      renderer.setFieldOfView(fov);
    }
 
    public void resize(Rectangle frame) {

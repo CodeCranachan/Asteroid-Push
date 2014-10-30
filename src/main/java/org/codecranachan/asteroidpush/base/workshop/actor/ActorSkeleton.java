@@ -13,9 +13,8 @@ import org.codecranachan.asteroidpush.base.simulation.RigidBody;
 import org.codecranachan.asteroidpush.base.simulation.RigidBodyFactory;
 import org.codecranachan.asteroidpush.base.simulation.command.Command;
 import org.codecranachan.asteroidpush.base.visuals.Representation;
-import org.codecranachan.asteroidpush.utils.Arrow;
+import org.codecranachan.asteroidpush.utils.NewtonianState;
 import org.codecranachan.asteroidpush.utils.OrthogonalCoordinate;
-import org.codecranachan.asteroidpush.utils.Velocity;
 
 public class ActorSkeleton implements Controllable {
    private BodyGraph graph;
@@ -86,10 +85,9 @@ public class ActorSkeleton implements Controllable {
       }
    }
 
-   public void spawnBodies(Arrow offset,
-                           Velocity velocity,
+   public void spawnBodies(NewtonianState initialState,
                            RigidBodyFactory factory) {
-      bodyManager.spawnMissingBodies(offset, velocity, factory);
+      bodyManager.spawnMissingBodies(initialState, factory);
    }
 
    public Set<RigidBody> getBodies() {

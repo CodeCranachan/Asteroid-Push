@@ -5,8 +5,7 @@ import org.codecranachan.asteroidpush.base.simulation.RigidBodyFactory;
 import org.codecranachan.asteroidpush.base.simulation.Simulation;
 import org.codecranachan.asteroidpush.base.workshop.Blueprint;
 import org.codecranachan.asteroidpush.content.actors.ScenarioBorderFactory;
-import org.codecranachan.asteroidpush.utils.Arrow;
-import org.codecranachan.asteroidpush.utils.Velocity;
+import org.codecranachan.asteroidpush.utils.NewtonianState;
 
 public class TestRunScenario implements Scenario {
    private Blueprint prototype;
@@ -28,7 +27,7 @@ public class TestRunScenario implements Scenario {
 
       // Create the map
       borderFactory.setBodyFactory(bodyFactory);
-      Actor border = borderFactory.createActor(new Arrow(), new Velocity());
+      Actor border = borderFactory.createActor(new NewtonianState());
       simulation.addActor(border);
 
       // Add rules and roles
