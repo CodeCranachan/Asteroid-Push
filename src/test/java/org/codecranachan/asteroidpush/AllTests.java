@@ -20,7 +20,6 @@ import org.codecranachan.asteroidpush.base.ResourceLoaderTest;
 import org.codecranachan.asteroidpush.base.simulation.SimulationTestSuite;
 import org.codecranachan.asteroidpush.base.ui.states.StateTestSuite;
 import org.codecranachan.asteroidpush.base.workshop.WorkshopTestSuite;
-import org.codecranachan.asteroidpush.legacy.LegacyTestSuite;
 import org.codecranachan.asteroidpush.utils.UtilsTestSuite;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -28,7 +27,6 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({
-      LegacyTestSuite.class,
       SimulationTestSuite.class,
       StateTestSuite.class,
       UtilsTestSuite.class,

@@ -6,7 +6,6 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({
-   SimulationStateTest.class,
    WorkshopStateTest.class
 })
 public class StateTestSuite {

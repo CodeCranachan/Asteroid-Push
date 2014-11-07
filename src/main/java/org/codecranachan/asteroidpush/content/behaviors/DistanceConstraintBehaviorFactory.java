@@ -6,7 +6,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.codecranachan.asteroidpush.base.simulation.DistanceJointData;
-import org.codecranachan.asteroidpush.base.simulation.PrismaticJointData;
 import org.codecranachan.asteroidpush.base.visuals.Representation;
 import org.codecranachan.asteroidpush.base.workshop.actor.Behavior;
 import org.codecranachan.asteroidpush.base.workshop.assembly.BehaviorFactory;
