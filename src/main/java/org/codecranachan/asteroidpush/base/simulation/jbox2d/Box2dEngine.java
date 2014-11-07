@@ -15,7 +15,7 @@ public class Box2dEngine implements PhysicsEngine {
    }
 
    public RigidBodyFactory getBodyFactory() {
-      return new Box2dFactory(world);
+      return new Box2dBodyFactory(world);
    }
 
    public void stepWorld() {

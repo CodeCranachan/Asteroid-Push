@@ -73,5 +73,5 @@ public interface RigidBody {
 
    Circle getEnclosingCircle();
 
-   // register collision handler...
+   DynamicJointFactory getJointFactory();
 }

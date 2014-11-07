@@ -30,6 +30,9 @@ public class SpaceshipFactory implements ActorFactory {
    private float gridSize;
 
    public SpaceshipFactory(Board blueprint, float gridSize) {
+      // Behaviors do not scale themselves at the moment, so
+      // any grid size other than 1.0f will screw everything up
+      assert gridSize == 1.0f;
       assert (blueprint != null);
       this.blueprint = blueprint;
       this.bodyFactory = null;

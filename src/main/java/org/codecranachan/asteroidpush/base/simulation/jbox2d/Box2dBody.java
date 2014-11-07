@@ -3,6 +3,7 @@ package org.codecranachan.asteroidpush.base.simulation.jbox2d;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.codecranachan.asteroidpush.base.simulation.DynamicJointFactory;
 import org.codecranachan.asteroidpush.base.simulation.Hull;
 import org.codecranachan.asteroidpush.base.simulation.InteractionHandler;
 import org.codecranachan.asteroidpush.base.simulation.Material;
@@ -38,6 +39,10 @@ public class Box2dBody implements RigidBody {
       fixtureMap.clear();
       world.destroyBody(body);
       body = null;
+   }
+
+   public Body getBox2dBody() {
+      return body;
    }
 
    public RigidBody shallowClone() {
@@ -122,5 +127,9 @@ public class Box2dBody implements RigidBody {
             .add(state.getAngularVelocity());
       transformed.setVelocity(linVel, angVel);
       return transformed;
+   }
+
+   public DynamicJointFactory getJointFactory() {
+      return new Box2dJointFactory(world);
    }
 }

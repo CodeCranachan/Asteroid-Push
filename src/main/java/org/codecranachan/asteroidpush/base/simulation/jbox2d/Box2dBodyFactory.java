@@ -7,10 +7,10 @@ import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.World;
 
-public class Box2dFactory implements RigidBodyFactory {
+public class Box2dBodyFactory implements RigidBodyFactory {
    private World world;
 
-   public Box2dFactory(World world) {
+   public Box2dBodyFactory(World world) {
       assert (world != null);
       this.world = world;
    }
