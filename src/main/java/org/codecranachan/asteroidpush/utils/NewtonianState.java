@@ -1,5 +1,6 @@
 package org.codecranachan.asteroidpush.utils;
 
+import org.jbox2d.common.Transform;
 import org.jbox2d.common.Vec2;
 
 public class NewtonianState {
@@ -35,7 +36,8 @@ public class NewtonianState {
 
    public NewtonianState transform(Arrow offset) {
       NewtonianState transformed = new NewtonianState();
-      transformed.setState(position.add(offset.getTail()),
+      Vec2 transformedPosition = Transform.mul(offset.getTransform(), position);
+      transformed.setState(transformedPosition,
                            rotation.add(offset.getAngle()));
       transformed.setVelocity(offset.getAngle().rotate(linearVelocity),
                               angularVelocity);
