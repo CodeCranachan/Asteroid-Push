@@ -1,5 +1,6 @@
 package org.codecranachan.asteroidpush.content.parts;
 
+import org.codecranachan.asteroidpush.base.simulation.DistanceJointData;
 import org.codecranachan.asteroidpush.base.simulation.Material;
 import org.codecranachan.asteroidpush.base.simulation.Primitive;
 import org.codecranachan.asteroidpush.base.simulation.PrismaticJointData;
@@ -8,6 +9,7 @@ import org.codecranachan.asteroidpush.base.workshop.assembly.Part;
 import org.codecranachan.asteroidpush.base.workshop.assembly.Socket;
 import org.codecranachan.asteroidpush.base.workshop.tokenboard.Shape;
 import org.codecranachan.asteroidpush.content.behaviors.CollisionBehaviorFactory;
+import org.codecranachan.asteroidpush.content.behaviors.DistanceConstraintBehaviorFactory;
 import org.codecranachan.asteroidpush.content.behaviors.PrismaticConstraintBehaviorFactory;
 import org.jbox2d.common.Vec2;
 
@@ -60,7 +62,17 @@ public class Bumper implements PartFactory {
       PrismaticConstraintBehaviorFactory prismatic = new PrismaticConstraintBehaviorFactory(
             baseSocket, bumperSocket, prismaticData);
 
+      DistanceJointData distanceData = new DistanceJointData();
+      distanceData.setAnchorA(new Vec2(1f, 0f));
+      distanceData.setAnchorB(new Vec2(0f, 0f));
+      distanceData.setDampingRatio(1.0f);
+      distanceData.setFrequency(2.0f);
+      distanceData.setLength(0.8f);
+      DistanceConstraintBehaviorFactory distance = new DistanceConstraintBehaviorFactory(
+            baseSocket, bumperSocket, distanceData);
+
       part.AddBehaviorFactory(prismatic);
+      part.AddBehaviorFactory(distance);
 
       return part;
    }
