@@ -10,9 +10,8 @@ import org.codecranachan.asteroidpush.base.visuals.Representation;
 import org.codecranachan.asteroidpush.base.workshop.actor.Behavior;
 import org.codecranachan.asteroidpush.base.workshop.assembly.BehaviorFactory;
 import org.codecranachan.asteroidpush.base.workshop.assembly.Socket;
-import org.codecranachan.asteroidpush.content.visuals.CircleRepresentation;
+import org.codecranachan.asteroidpush.content.visuals.JointRepresentation;
 import org.codecranachan.asteroidpush.utils.Arrow;
-import org.codecranachan.asteroidpush.utils.Circle;
 import org.newdawn.slick.Color;
 
 public class PrismaticConstraintBehaviorFactory implements BehaviorFactory {
@@ -29,9 +28,7 @@ public class PrismaticConstraintBehaviorFactory implements BehaviorFactory {
 
    public Collection<Representation> getRepresentations() {
       Collection<Representation> reps = new LinkedList<Representation>();
-      reps.add(new CircleRepresentation(new Circle(data.getAnchorA(), 0.1f),
-            Color.green));
-      reps.add(new CircleRepresentation(new Circle(data.getAnchorB(), 0.1f),
+      reps.add(new JointRepresentation(data.getAnchorA(), data.getAnchorB(),
             Color.green));
       return reps;
    }
