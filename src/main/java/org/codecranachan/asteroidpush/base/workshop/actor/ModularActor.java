@@ -12,6 +12,11 @@ import org.codecranachan.asteroidpush.base.visuals.Representation;
 import org.codecranachan.asteroidpush.utils.Angle;
 import org.codecranachan.asteroidpush.utils.Circle;
 import org.codecranachan.asteroidpush.utils.FieldOfView;
+import org.jbox2d.common.Vec2;
+
+import com.dreizak.miniball.highdim.Miniball;
+import com.dreizak.miniball.model.ArrayPointSet;
+import com.dreizak.miniball.model.PointSet;
 
 public class ModularActor implements Actor {
    private ActorSkeleton skeleton;
@@ -38,12 +43,19 @@ public class ModularActor implements Actor {
 
    public FieldOfView getFieldOfView() {
       Set<RigidBody> bodies = skeleton.getBodies();
-      FieldOfView focus = new FieldOfView();
+      ArrayPointSet pointSet = new ArrayPointSet(2, bodies.size());
+      int index = 0;
       for (RigidBody body : bodies) {
          Circle circle = body.getEnclosingCircle();
-         circle.addRadius(10.0f);
-         focus = new FieldOfView(circle, Angle.HALF_PI);
+         pointSet.set(index, 0, circle.getCenter().x);
+         pointSet.set(index, 1, circle.getCenter().y);
+         index ++;
       }
+      Miniball ball = new Miniball(pointSet);
+      Vec2 center = new Vec2((float) ball.center()[0], (float) ball.center()[1]);
+      float radius = (float) ball.radius() + 10f;
+      Circle view = new Circle(center, radius);
+      FieldOfView focus = new FieldOfView(view, Angle.HALF_PI);
       return focus;
    }
 
