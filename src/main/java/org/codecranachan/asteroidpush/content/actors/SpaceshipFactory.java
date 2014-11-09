@@ -1,6 +1,7 @@
 package org.codecranachan.asteroidpush.content.actors;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedList;
 
 import org.codecranachan.asteroidpush.base.simulation.Actor;
@@ -10,9 +11,10 @@ import org.codecranachan.asteroidpush.base.workshop.actor.ActorSkeleton;
 import org.codecranachan.asteroidpush.base.workshop.actor.Behavior;
 import org.codecranachan.asteroidpush.base.workshop.actor.BodyVertex;
 import org.codecranachan.asteroidpush.base.workshop.actor.ModularActor;
-import org.codecranachan.asteroidpush.base.workshop.actor.Plug;
 import org.codecranachan.asteroidpush.base.workshop.assembly.BehaviorFactory;
+import org.codecranachan.asteroidpush.base.workshop.assembly.Component;
 import org.codecranachan.asteroidpush.base.workshop.assembly.Part;
+import org.codecranachan.asteroidpush.base.workshop.assembly.Plug;
 import org.codecranachan.asteroidpush.base.workshop.assembly.Socket;
 import org.codecranachan.asteroidpush.base.workshop.tokenboard.Board;
 import org.codecranachan.asteroidpush.base.workshop.tokenboard.Placement;
@@ -66,18 +68,26 @@ public class SpaceshipFactory implements ActorFactory {
    private void attachToken(ActorSkeleton skeleton, Token token) {
       Part part = (Part) token.getData();
       Placement placement = token.getPlacement();
-      for (BehaviorFactory factory : part.getFactories()) {
-         Behavior behavior = factory
-               .createBehavior(computeNodePlacement(placement));
 
-         int index = 0;
-         for (Socket socket : factory.getSockets()) {
-            BodyVertex node = new BodyVertex();
-            node.addPlug(new Plug(behavior, index));
-            Collection<OrthogonalCoordinate> links = transformLinks(socket.getLinks(),
-                                                                    placement);
-            skeleton.insertVertex(node, links);
-            index++;
+      HashMap<BehaviorFactory, Behavior> created = new HashMap<BehaviorFactory, Behavior>();
+      for (Component component : part.getComponents()) {
+         BodyVertex node = new BodyVertex();
+         Socket socket = component.getSocket();
+         Collection<OrthogonalCoordinate> links = transformLinks(socket.getLinks(),
+                                                                 placement);
+         skeleton.insertVertex(node, links);
+
+         for (Plug plug : component.getPlugs()) {
+            BehaviorFactory factory = plug.getFactory();
+            Behavior behavior;
+            if (created.containsKey(factory)) {
+               behavior = created.get(factory);
+            } else {
+               behavior = factory
+                     .createBehavior(computeNodePlacement(placement));
+               created.put(factory, behavior);
+            }
+            node.addPlug(behavior, plug.getIndex());
          }
       }
    }

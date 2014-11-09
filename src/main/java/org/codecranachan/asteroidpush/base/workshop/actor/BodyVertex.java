@@ -26,7 +26,7 @@ public class BodyVertex {
       return plugs;
    }
 
-   public void addPlug(Plug plug) {
-      plugs.add(plug);
+   public void addPlug(Behavior behavior, int index) {
+      plugs.add(new Plug(behavior, index));
    }
 }

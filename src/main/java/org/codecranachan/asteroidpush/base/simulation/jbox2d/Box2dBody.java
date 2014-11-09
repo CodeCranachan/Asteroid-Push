@@ -47,6 +47,7 @@ public class Box2dBody implements RigidBody {
 
    public RigidBody shallowClone() {
       BodyDef def = new BodyDef();
+      def.type = body.getType();
       def.active = body.isActive();
       def.angularDamping = body.getAngularDamping();
       def.linearDamping = body.getLinearDamping();

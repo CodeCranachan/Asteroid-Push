@@ -85,8 +85,7 @@ public class ActorSkeleton implements Controllable {
       }
    }
 
-   public void spawnBodies(NewtonianState initialState,
-                           RigidBodyFactory factory) {
+   public void spawnBodies(NewtonianState initialState, RigidBodyFactory factory) {
       bodyManager.spawnMissingBodies(initialState, factory);
    }
 
@@ -103,6 +102,12 @@ public class ActorSkeleton implements Controllable {
          for (Plug plug : vertex.getPlugs()) {
             plug.getBehavior().setController(controller, plug.getIndex());
          }
+      }
+   }
+
+   public void explode() {
+      for (BodyVertex link : mesh.values()) {
+         graph.removeVertex(link);
       }
    }
 }

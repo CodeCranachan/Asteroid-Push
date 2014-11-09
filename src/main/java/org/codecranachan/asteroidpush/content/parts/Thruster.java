@@ -4,6 +4,7 @@ import org.codecranachan.asteroidpush.base.Balancing;
 import org.codecranachan.asteroidpush.base.simulation.Material;
 import org.codecranachan.asteroidpush.base.simulation.Primitive;
 import org.codecranachan.asteroidpush.base.workshop.PartFactory;
+import org.codecranachan.asteroidpush.base.workshop.assembly.Component;
 import org.codecranachan.asteroidpush.base.workshop.assembly.Part;
 import org.codecranachan.asteroidpush.base.workshop.assembly.Socket;
 import org.codecranachan.asteroidpush.base.workshop.tokenboard.Shape;
@@ -20,9 +21,14 @@ public class Thruster implements PartFactory {
 
    public Part createPart() {
       Part part = new Part(getPartShape());
+      part.addComponent(createMainComponent());
+      return part;
+   }
 
+   private Component createMainComponent() {
       Socket socket = new Socket();
       socket.addLink(1, 0);
+      Component main = new Component(socket);
 
       Primitive shape = new Primitive();
       shape.AddVertex(new Vec2(0.5f, -0.5f));
@@ -30,16 +36,15 @@ public class Thruster implements PartFactory {
       shape.AddVertex(new Vec2(0.0f, 0.25f));
       shape.AddVertex(new Vec2(0.0f, -0.25f));
       CollisionBehaviorFactory collisionFactory = new CollisionBehaviorFactory(
-            shape, Material.METAL, socket);
+            shape, Material.METAL);
 
       float magnitude = Balancing.getRequiredForceToLiftBlock(Material.METAL) * 6f;
       Force force = new Force(new Vec2(), new Vec2(magnitude, 0f));
-      ForceFeederFactory feederFactory = new ForceFeederFactory(force, socket);
+      ForceFeederFactory feederFactory = new ForceFeederFactory(force);
 
-      part.AddBehaviorFactory(collisionFactory);
-      part.AddBehaviorFactory(feederFactory);
-
-      return part;
+      main.add(collisionFactory, 0);
+      main.add(feederFactory, 0);
+      return main;
    }
 
    private Shape getPartShape() {

@@ -33,12 +33,15 @@ public class PrismaticConstraintBehavior implements Behavior {
    public void onDetach(RigidBody body, int index) {
       assert index == 0 || index == 1;
       bodies.set(index, null);
-      joint.destroy();
-      joint = null;
+      if (joint != null) {
+         joint.destroy();
+         joint = null;
+      }
    }
 
    public void onAttach(RigidBody body, int index) {
       assert index == 0 || index == 1;
+      assert body != null;
       bodies.set(index, body);
       if (bodies.get(0) != null && bodies.get(1) != null) {
          DynamicJointFactory factory = body.getJointFactory();

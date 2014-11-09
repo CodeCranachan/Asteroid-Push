@@ -33,8 +33,10 @@ public class DistanceConstraintBehavior implements Behavior {
    public void onDetach(RigidBody body, int index) {
       assert index == 0 || index == 1;
       bodies.set(index, null);
-      joint.destroy();
-      joint = null;
+      if (joint != null) {
+         joint.destroy();
+         joint = null;
+      }
    }
 
    public void onAttach(RigidBody body, int index) {
@@ -42,9 +44,8 @@ public class DistanceConstraintBehavior implements Behavior {
       bodies.set(index, body);
       if (bodies.get(0) != null && bodies.get(1) != null) {
          DynamicJointFactory factory = body.getJointFactory();
-         joint = factory.createDistanceJoint(bodies.get(0),
-                                              bodies.get(1),
-                                              data);
+         joint = factory
+               .createDistanceJoint(bodies.get(0), bodies.get(1), data);
       }
    }
 

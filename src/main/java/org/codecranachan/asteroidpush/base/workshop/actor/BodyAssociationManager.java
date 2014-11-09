@@ -153,7 +153,7 @@ public class BodyAssociationManager implements
          return;
       }
       BodyVertex first = event.getEdgeSource();
-      BodyVertex second = event.getEdgeSource();
+      BodyVertex second = event.getEdgeTarget();
 
       // Possible cases:
       // - both vertices are still in the same connecting set
@@ -163,6 +163,7 @@ public class BodyAssociationManager implements
 
       ConnectivityInspector<BodyVertex, BodyEdge> inspector = new ConnectivityInspector<BodyVertex, BodyEdge>(
             graph);
+
       if (inspector.connectedSetOf(first).contains(second)) {
          // both vertices are still in the same connected set,
          // nothing needs to be done

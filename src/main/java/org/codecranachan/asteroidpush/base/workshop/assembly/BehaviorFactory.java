@@ -1,19 +1,10 @@
 package org.codecranachan.asteroidpush.base.workshop.assembly;
 
-import java.util.List;
-
 import org.codecranachan.asteroidpush.base.visuals.Representable;
 import org.codecranachan.asteroidpush.base.workshop.actor.Behavior;
 import org.codecranachan.asteroidpush.utils.Arrow;
 
 public interface BehaviorFactory extends Representable {
-   /**
-    * @return returns a list of sockets. Sockets define where a behavior will be
-    *         attached to the underlying ActorSkeleton. This also determines to
-    *         which bodies the behavior will be attached to.
-    */
-   public List<Socket> getSockets();
-
    /**
     * Create a new behavior at the given location.
     * 
