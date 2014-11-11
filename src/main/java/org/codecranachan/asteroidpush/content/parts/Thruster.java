@@ -28,18 +28,19 @@ public class Thruster implements PartFactory {
    private Component createMainComponent() {
       Socket socket = new Socket();
       socket.addLink(1, 0);
+      socket.addLink(1, 2);
       Component main = new Component(socket);
 
       Primitive shape = new Primitive();
       shape.AddVertex(new Vec2(0.5f, -0.5f));
-      shape.AddVertex(new Vec2(0.5f, 0.5f));
-      shape.AddVertex(new Vec2(0.0f, 0.25f));
-      shape.AddVertex(new Vec2(0.0f, -0.25f));
+      shape.AddVertex(new Vec2(0.5f, 1.5f));
+      shape.AddVertex(new Vec2(0.0f, 1.0f));
+      shape.AddVertex(new Vec2(0.0f, -0.0f));
       CollisionBehaviorFactory collisionFactory = new CollisionBehaviorFactory(
             shape, Material.METAL);
 
-      float magnitude = Balancing.getRequiredForceToLiftBlock(Material.METAL) * 6f;
-      Force force = new Force(new Vec2(), new Vec2(magnitude, 0f));
+      float magnitude = Balancing.getRequiredForceToLiftBlock(Material.METAL) * 20f;
+      Force force = new Force(new Vec2(0.0f, 0.5f), new Vec2(magnitude, 0f));
       ForceFeederFactory feederFactory = new ForceFeederFactory(force);
 
       main.add(collisionFactory, 0);
@@ -48,7 +49,7 @@ public class Thruster implements PartFactory {
    }
 
    private Shape getPartShape() {
-      return new Shape("X");
+      return new Shape("X", "X");
    }
 
 }

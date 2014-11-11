@@ -22,8 +22,7 @@ public class Bumper implements PartFactory {
 
    public Part createPart() {
       Component base = createBaseComponent();
-      base.add(createBaseCollisionA(), 0);
-      base.add(createBaseCollisionB(), 0);
+      base.add(createBaseCollision(), 0);
 
       Component bumper = createBumperComponent();
       bumper.add(createBumperCollision(), 0);
@@ -43,11 +42,11 @@ public class Bumper implements PartFactory {
 
    private DistanceConstraintBehaviorFactory createDistanceJoint() {
       DistanceJointData distanceData = new DistanceJointData();
-      distanceData.setAnchorA(new Vec2(1f, 0f));
-      distanceData.setAnchorB(new Vec2(0f, 0f));
+      distanceData.setAnchorA(new Vec2(0f, 0f));
+      distanceData.setAnchorB(new Vec2(3f, 0f));
       distanceData.setDampingRatio(1.0f);
-      distanceData.setFrequency(2.0f);
-      distanceData.setLength(0.8f);
+      distanceData.setFrequency(12.5f);
+      distanceData.setLength(3.0f);
       DistanceConstraintBehaviorFactory distance = new DistanceConstraintBehaviorFactory(
             distanceData);
       return distance;
@@ -55,10 +54,10 @@ public class Bumper implements PartFactory {
 
    private PrismaticConstraintBehaviorFactory createPrismaticJoint() {
       PrismaticJointData prismaticData = new PrismaticJointData();
-      prismaticData.setAnchorA(new Vec2(1.25f, 0f));
-      prismaticData.setAnchorB(new Vec2(0f, 0f));
-      prismaticData.setMaxLength(4f);
-      prismaticData.setMinLength(0.25f);
+      prismaticData.setAnchorA(new Vec2(0f, 0f));
+      prismaticData.setAnchorB(new Vec2(3f, 0f));
+      prismaticData.setMaxLength(6.0f);
+      prismaticData.setMinLength(0.5f);
       PrismaticConstraintBehaviorFactory prismatic = new PrismaticConstraintBehaviorFactory(
             prismaticData);
       return prismatic;
@@ -66,41 +65,31 @@ public class Bumper implements PartFactory {
 
    private CollisionBehaviorFactory createBumperCollision() {
       Primitive bumperShape = new Primitive();
-      bumperShape.AddVertex(new Vec2(0f, 0f));
-      bumperShape.AddVertex(new Vec2(-0.5f, 0.5f));
-      bumperShape.AddVertex(new Vec2(-0.5f, -0.5f));
+      bumperShape.AddVertex(new Vec2(2.5f, -0.5f));
+      bumperShape.AddVertex(new Vec2(3.5f, -0.5f));
+      bumperShape.AddVertex(new Vec2(3.5f, 0.5f));
+      bumperShape.AddVertex(new Vec2(2.5f, 0.5f));
       CollisionBehaviorFactory bumperCol = new CollisionBehaviorFactory(
             bumperShape, Material.METAL);
       return bumperCol;
    }
 
-   private CollisionBehaviorFactory createBaseCollisionB() {
-      Primitive baseShapeB = new Primitive();
-      baseShapeB.AddVertex(new Vec2(0.5f, 0.5f));
-      baseShapeB.AddVertex(new Vec2(1f, 0f));
-      baseShapeB.AddVertex(new Vec2(1.5f, 0f));
-      baseShapeB.AddVertex(new Vec2(1.5f, 0.5f));
-      CollisionBehaviorFactory baseB = new CollisionBehaviorFactory(baseShapeB,
+   private CollisionBehaviorFactory createBaseCollision() {
+      Primitive baseShape = new Primitive();
+      baseShape.AddVertex(new Vec2(-0.5f, -0.5f));
+      baseShape.AddVertex(new Vec2(0.5f, -0.5f));
+      baseShape.AddVertex(new Vec2(0.5f, 0.5f));
+      baseShape.AddVertex(new Vec2(-0.5f, 0.5f));
+      CollisionBehaviorFactory base = new CollisionBehaviorFactory(baseShape,
             Material.METAL);
-      return baseB;
-   }
-
-   private CollisionBehaviorFactory createBaseCollisionA() {
-      Primitive baseShapeA = new Primitive();
-      baseShapeA.AddVertex(new Vec2(1.5f, -0.5f));
-      baseShapeA.AddVertex(new Vec2(0.5f, -0.5f));
-      baseShapeA.AddVertex(new Vec2(1f, 0f));
-      baseShapeA.AddVertex(new Vec2(1.5f, 0f));
-      CollisionBehaviorFactory baseA = new CollisionBehaviorFactory(baseShapeA,
-            Material.METAL);
-      return baseA;
+      return base;
    }
 
    private Component createBaseComponent() {
       Socket baseSocket = new Socket();
-      baseSocket.addLink(3, 0);
-      baseSocket.addLink(2, 1);
-      baseSocket.addLink(2, -1);
+      baseSocket.addLink(-1, 0);
+      baseSocket.addLink(0, 1);
+      baseSocket.addLink(0, -1);
       Component base = new Component(baseSocket);
       return base;
    }
@@ -108,12 +97,14 @@ public class Bumper implements PartFactory {
    private Component createBumperComponent() {
       Component bumper;
       Socket bumperSocket = new Socket();
-      bumperSocket.addLink(-1, 0);
+      bumperSocket.addLink(7, 0);
+      bumperSocket.addLink(6, 1);
+      bumperSocket.addLink(6, -1);
       bumper = new Component(bumperSocket);
       return bumper;
    }
 
    private Shape getPartShape() {
-      return new Shape("XX");
+      return new Shape("XXXX");
    }
 }

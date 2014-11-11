@@ -27,7 +27,7 @@ public class Balancing {
     * considered able to spin a block if its exerted torque causes an angular
     * acceleration of at least this magnitude. The constant is in rad/s^2.
     */
-   static final float SPIN_ACCELERATION = MathUtils.TWOPI * 2.0f;
+   static final float SPIN_ACCELERATION = MathUtils.TWOPI * 8.0f;
 
    public static float getRequiredForceToLiftBlock(Material material) {
       float block_mass = getBlockArea() * material.density;

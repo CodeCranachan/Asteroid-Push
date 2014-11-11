@@ -175,7 +175,13 @@ public class ManipulatorWidget extends BasicWidget {
 
    private int getTilesPerSide() {
       ManipulatedArea area = coordinator.getManipulatedArea();
-      return area.getLargestSide() + 2;
+      int margin = 1;
+      int sizeProposal = area.getLargestSide() + 2 * (margin + 1);
+      int minSize = 9;
+      if (sizeProposal < minSize) {
+         sizeProposal = minSize;
+      }
+      return sizeProposal;
    }
 
    private float getTileSize() {

@@ -27,8 +27,7 @@ public class DistanceConstraintBehaviorFactory implements BehaviorFactory {
 
    public Behavior createBehavior(Arrow offset, float scale) {
       DistanceJointData transformed = new DistanceJointData(data);
-      transformed.transformBy(offset);
-      transformed.scaleBy(scale);
+      transformed.transformBy(offset, scale);
       DistanceConstraintBehavior behavior = new DistanceConstraintBehavior(
             transformed);
       return behavior;

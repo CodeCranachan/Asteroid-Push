@@ -27,10 +27,9 @@ public class Force {
       return new Arrow(point, point.add(vector));
    }
 
-   public Force transformBy(Arrow offset) {
-      Vec2 point = offset.getTail().add(this.point);
+   public Force transformBy(Arrow offset, float scale) {
+      Vec2 point = offset.getTail().add(this.point.mul(scale));
       Vec2 vector = offset.getAngle().rotate(this.vector);
       return new Force(point, vector);
    }
-
 }

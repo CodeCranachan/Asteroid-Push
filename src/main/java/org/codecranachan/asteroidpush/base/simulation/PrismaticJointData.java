@@ -24,12 +24,9 @@ public class PrismaticJointData {
       this.maxLength = other.maxLength;
    }
 
-   public void transformBy(Arrow offset) {
-      anchorA = Transform.mul(offset.getTransform(), anchorA);
-      anchorB = Transform.mul(offset.getTransform(), anchorB);
-   }
-
-   public void scaleBy(float scale) {
+   public void transformBy(Arrow offset, float scale) {
+      anchorA = Transform.mul(offset.getTransform(), anchorA.mul(scale));
+      anchorB = Transform.mul(offset.getTransform(), anchorB.mul(scale));
       minLength *= scale;
       maxLength *= scale;
    }

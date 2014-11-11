@@ -43,7 +43,7 @@ public class PrismaticConstraintBehavior implements Behavior {
       assert index == 0 || index == 1;
       assert body != null;
       bodies.set(index, body);
-      if (bodies.get(0) != null && bodies.get(1) != null) {
+      if (bodies.get(0) != null && bodies.get(1) != null && bodies.get(0) != bodies.get(1)) {
          DynamicJointFactory factory = body.getJointFactory();
          joint = factory.createPrismaticJoint(bodies.get(0),
                                               bodies.get(1),

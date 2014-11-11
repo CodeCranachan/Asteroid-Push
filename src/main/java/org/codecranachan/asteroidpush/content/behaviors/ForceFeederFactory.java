@@ -30,7 +30,7 @@ public class ForceFeederFactory implements BehaviorFactory {
    }
 
    public Behavior createBehavior(Arrow offset, float scale) {
-      Force transformed = force.transformBy(offset);
+      Force transformed = force.transformBy(offset, scale);
       return new ForceFeederBehavior(transformed);
    }
 

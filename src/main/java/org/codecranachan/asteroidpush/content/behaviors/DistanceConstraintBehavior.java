@@ -42,7 +42,7 @@ public class DistanceConstraintBehavior implements Behavior {
    public void onAttach(RigidBody body, int index) {
       assert index == 0 || index == 1;
       bodies.set(index, body);
-      if (bodies.get(0) != null && bodies.get(1) != null) {
+      if (bodies.get(0) != null && bodies.get(1) != null && bodies.get(0) != bodies.get(1)) {
          DynamicJointFactory factory = body.getJointFactory();
          joint = factory
                .createDistanceJoint(bodies.get(0), bodies.get(1), data);
