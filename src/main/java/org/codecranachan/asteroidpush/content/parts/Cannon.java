@@ -50,7 +50,7 @@ public class Cannon implements PartFactory {
    }
 
    private Shape getPartShape() {
-      return new Shape("XX");
+      return new Shape("XX", "XX");
    }
 
 }

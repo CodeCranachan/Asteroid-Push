@@ -21,7 +21,7 @@ public class TorqueFeederFactory implements BehaviorFactory {
       this.torque = torque;
    }
 
-   public Behavior createBehavior(Arrow offset) {
+   public Behavior createBehavior(Arrow offset, float scale) {
       return new TorqueFeederBehavior(torque);
    }
 

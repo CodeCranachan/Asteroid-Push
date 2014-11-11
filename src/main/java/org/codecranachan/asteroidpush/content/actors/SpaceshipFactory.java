@@ -32,9 +32,6 @@ public class SpaceshipFactory implements ActorFactory {
    private float gridSize;
 
    public SpaceshipFactory(Board blueprint, float gridSize) {
-      // Behaviors do not scale themselves at the moment, so
-      // any grid size other than 1.0f will screw everything up
-      assert gridSize == 1.0f;
       assert (blueprint != null);
       this.blueprint = blueprint;
       this.bodyFactory = null;
@@ -84,7 +81,7 @@ public class SpaceshipFactory implements ActorFactory {
                behavior = created.get(factory);
             } else {
                behavior = factory
-                     .createBehavior(computeNodePlacement(placement));
+                     .createBehavior(computeNodePlacement(placement), gridSize);
                created.put(factory, behavior);
             }
             node.addPlug(behavior, plug.getIndex());

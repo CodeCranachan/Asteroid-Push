@@ -71,4 +71,8 @@ public class DistanceJointData {
       anchorA = Transform.mul(offset.getTransform(), anchorA);
       anchorB = Transform.mul(offset.getTransform(), anchorB);
    }
+   
+   public void scaleBy(float scale) {
+      length *= scale;
+   }
 }

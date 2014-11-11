@@ -22,8 +22,8 @@ public class CollisionBehaviorFactory implements BehaviorFactory {
       this.material = material;
    }
 
-   public Behavior createBehavior(Arrow offset) {
-      Hull hull = new Hull(offset, shape, material);
+   public Behavior createBehavior(Arrow offset, float scale) {
+      Hull hull = new Hull(offset, shape.scale(scale), material);
       return new CollisionBehavior(hull);
    }
 

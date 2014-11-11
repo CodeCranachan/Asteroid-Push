@@ -40,4 +40,12 @@ public class Primitive {
       return vertices;
    }
 
+   public Primitive scale(float factor) {
+      Primitive scaled = new Primitive();
+      for (Vec2 vertex : vertices) {
+         scaled.AddVertex(vertex.mul(factor));
+      }
+      return scaled;
+   }
+
 }

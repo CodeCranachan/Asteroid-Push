@@ -29,6 +29,11 @@ public class PrismaticJointData {
       anchorB = Transform.mul(offset.getTransform(), anchorB);
    }
 
+   public void scaleBy(float scale) {
+      minLength *= scale;
+      maxLength *= scale;
+   }
+
    public Vec2 getAnchorA() {
       return anchorA;
    }

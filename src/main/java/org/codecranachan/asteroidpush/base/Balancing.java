@@ -8,7 +8,7 @@ public class Balancing {
     * Size factor for space ships, this corresponds to the grid size used when
     * constructing the ModularActor from a Blueprint.
     */
-   static final float SHIP_SIZE_FACTOR = 1.0f;
+   static final float SHIP_SIZE_FACTOR = 0.5f;
 
    /**
     * Default gravity used by the game, in Newtons.

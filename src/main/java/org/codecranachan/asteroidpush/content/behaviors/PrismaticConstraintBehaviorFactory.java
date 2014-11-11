@@ -25,9 +25,10 @@ public class PrismaticConstraintBehaviorFactory implements BehaviorFactory {
       return reps;
    }
 
-   public Behavior createBehavior(Arrow offset) {
+   public Behavior createBehavior(Arrow offset, float scale) {
       PrismaticJointData transformed = new PrismaticJointData(data);
       transformed.transformBy(offset);
+      transformed.scaleBy(scale);
       PrismaticConstraintBehavior behavior = new PrismaticConstraintBehavior(
             transformed);
       return behavior;

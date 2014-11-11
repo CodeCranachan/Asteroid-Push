@@ -3,7 +3,6 @@ package org.codecranachan.asteroidpush.base.workshop.actor;
 import java.util.Collection;
 import java.util.Set;
 
-import org.codecranachan.asteroidpush.base.input.ControlItem;
 import org.codecranachan.asteroidpush.base.input.Controller;
 import org.codecranachan.asteroidpush.base.simulation.Actor;
 import org.codecranachan.asteroidpush.base.simulation.RigidBody;
@@ -16,24 +15,15 @@ import org.jbox2d.common.Vec2;
 
 import com.dreizak.miniball.highdim.Miniball;
 import com.dreizak.miniball.model.ArrayPointSet;
-import com.dreizak.miniball.model.PointSet;
 
 public class ModularActor implements Actor {
    private ActorSkeleton skeleton;
-   private Controller controller;
 
    public ModularActor(ActorSkeleton skeleton) {
       this.skeleton = skeleton;
-      this.controller = null;
    }
 
    public Collection<Command> update(int frameNumber) {
-      if (controller != null) {
-         if (controller.getControl(ControlItem.FIRE_PRIMARY, frameNumber) > 0f) {
-            skeleton.explode();
-         }
-      }
-
       return skeleton.update(frameNumber);
    }
 
@@ -65,7 +55,6 @@ public class ModularActor implements Actor {
 
    public void setController(Controller controller) {
       skeleton.setController(controller);
-      this.controller = controller;
    }
 
 }

@@ -15,7 +15,9 @@ public interface BehaviorFactory extends Representable {
     *           does not include the relative placement of the behavior within
     *           that part (this should be passed as a parameter to the factory
     *           and combined with the offset given in this method)
+    * @param scale
+    *           the scaling factor to be used when creating the behavior
     * @return a new behavior ready to be attached to a body
     */
-   public Behavior createBehavior(Arrow offset);
+   public Behavior createBehavior(Arrow offset, float scale);
 }

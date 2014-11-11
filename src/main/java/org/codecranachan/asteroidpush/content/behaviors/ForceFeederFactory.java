@@ -29,7 +29,7 @@ public class ForceFeederFactory implements BehaviorFactory {
       this.force = force;
    }
 
-   public Behavior createBehavior(Arrow offset) {
+   public Behavior createBehavior(Arrow offset, float scale) {
       Force transformed = force.transformBy(offset);
       return new ForceFeederBehavior(transformed);
    }

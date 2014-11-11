@@ -28,7 +28,7 @@ public class ActorSpawnFactory implements BehaviorFactory {
       this.factory = factory;
    }
 
-   public Behavior createBehavior(Arrow offset) {
+   public Behavior createBehavior(Arrow offset, float scale) {
       NewtonianState converted = initial_state.transform(offset);
       return new ActorSpawnBehavior(converted, factory);
    }
