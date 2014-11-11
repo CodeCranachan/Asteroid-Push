@@ -2,7 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>org.skullforge.asteroidpush</groupId>
+	<groupId>org.codecranachan.asteroidpush</groupId>
 	<artifactId>Asteroid-Push</artifactId>
 	<version>0.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
@@ -15,8 +15,10 @@
 		<natives.targetDir>target/natives</natives.targetDir>
 		<junit.version>4.11</junit.version>
 		<jmock.version>2.6.0</jmock.version>
-		<slick2d.version>1.0.0</slick2d.version>
+		<slick2d.version>1.0.1</slick2d.version>
+		<jgrapht.version>0.9.0</jgrapht.version>
 		<jbox2d.version>2.2.1.1</jbox2d.version>
+		<miniball.version>1.0</miniball.version>
 		<jacoco.version>0.6.3.201306030806</jacoco.version>
 	</properties>
 
@@ -50,6 +52,16 @@
 			<version>${jbox2d.version}</version>
 		</dependency>
 		<dependency>
+			<groupId>org.jgrapht</groupId>
+			<artifactId>jgrapht-core</artifactId>
+			<version>${jgrapht.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.dreizak</groupId>
+			<artifactId>miniball</artifactId>
+			<version>${miniball.version}</version>
+		</dependency>
+		<dependency>
 			<groupId>org.jacoco</groupId>
 			<artifactId>org.jacoco.agent</artifactId>
 			<classifier>runtime</classifier>
@@ -60,6 +72,11 @@
 
 	<build>
 		<plugins>
+			<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-enforcer-plugin</artifactId> 
+				<version>1.3.1</version> <executions> <execution> <id>enforce-java</id> <goals> 
+				<goal>enforce</goal> </goals> <configuration> <rules> <requireJavaVersion> 
+				<version>1.7</version> </requireJavaVersion> </rules> </configuration> </execution> 
+				</executions> </plugin> -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
@@ -67,7 +84,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>org.skullforge.asteroidpush.AsteroidPushMain</mainClass>
+							<mainClass>org.codecranachan.asteroidpush.AsteroidPushMain</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
@@ -201,4 +218,8 @@
 			<url>http://onejar-maven-plugin.googlecode.com/svn/mavenrepo</url>
 		</pluginRepository>
 	</pluginRepositories>
+	<organization>
+		<url>https://github.com/CodeCranachan</url>
+		<name>The Code Cranachan</name>
+	</organization>
 </project>
