@@ -1,5 +1,6 @@
 package org.codecranachan.asteroidpush.utils;
 
+import org.jbox2d.common.Transform;
 import org.jbox2d.common.Vec2;
 
 public class Force {
@@ -28,7 +29,8 @@ public class Force {
    }
 
    public Force transformBy(Arrow offset, float scale) {
-      Vec2 point = offset.getTail().add(this.point.mul(scale));
+      Transform transform = offset.getTransform();
+      Vec2 point = Transform.mul(transform, this.point.mul(scale));
       Vec2 vector = offset.getAngle().rotate(this.vector);
       return new Force(point, vector);
    }
